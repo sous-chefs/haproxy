@@ -1,3 +1,7 @@
+## v1.0.6:
+
+* [COOK-1310] - redispatch flag has changed
+
 ## v1.0.4:
 
 * [COOK-806] - load balancer should include an SSL option

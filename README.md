@@ -8,9 +8,8 @@ Requirements
 
 ## Platform
 
-Tested on Ubuntu 8.10 and higher.
-
-## Cookbooks:
+* Ubuntu (10.04+ due to config option change)
+* Debian (6.0+)
 
 Attributes
 ==========
