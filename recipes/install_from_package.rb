@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: haproxy
-# Recipe:: default
+# Recipe:: install_from_package
 #
-# Copyright 2009, Opscode, Inc.
+# Copyright 2011, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,21 +17,13 @@
 # limitations under the License.
 #
 
-if node['haproxy']['source']['enabled']
-  include_recipe "haproxy::install_from_source"
-else
-  include_recipe "haproxy::install_from_package"
+package "haproxy" do
+  action :install
 end
 
-service "haproxy" do
-  supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
-end
-
-template "/etc/haproxy/haproxy.cfg" do
-  source "haproxy.cfg.erb"
+template "/etc/default/haproxy" do
+  source "haproxy-default.erb"
   owner "root"
   group "root"
   mode 0644
-  notifies :restart, "service[haproxy]"
 end

@@ -25,6 +25,12 @@ Attributes
 * `node['haproxy']['ssl_member_port']` - the port that member systems will be listening on for ssl, default 8443
 * `node['haproxy']['ssl_incoming_port']` - sets the port on which haproxy listens for ssl, default 443
 
+* `node['haproxy']['source']['enabled']` - installs from source if true, from package if false. default: false
+* `node['haproxy']['source']['version']` - full version of haproxy to install from source
+* `node['haproxy']['source']['version_branch']` - version branch of haproxy to install from source (1.3, 1.4, 1.5, etc.)
+* `node['haproxy']['source']['user']` - user to install haproxy as
+* `node['haproxy']['source']['install_prefix_root']` - prefix root under which to install haproxy from source
+
 Usage
 =====
 
