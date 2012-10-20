@@ -21,11 +21,12 @@ package "haproxy" do
   action :install
 end
 
-template "/etc/default/haproxy" do
-  source "haproxy-default.erb"
+cookbook_file "/etc/default/haproxy" do
+  source "haproxy-default"
   owner "root"
   group "root"
   mode 00644
+  action :create
 end
 
 service "haproxy" do
