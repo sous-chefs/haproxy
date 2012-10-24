@@ -49,11 +49,7 @@ template "/etc/default/haproxy" do
   owner "root"
   group "root"
   mode 0644
-end
-
-service "haproxy" do
-  supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
+  notifies :restart, "service[haproxy]"
 end
 
 template "/etc/haproxy/haproxy.cfg" do
@@ -63,4 +59,9 @@ template "/etc/haproxy/haproxy.cfg" do
   mode 0644
   variables :pool_members => pool_members.uniq
   notifies :restart, "service[haproxy]"
+end
+
+service "haproxy" do
+  supports :restart => true, :status => true, :reload => true
+  action [:enable, :start]
 end
