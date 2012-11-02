@@ -30,6 +30,9 @@ listen application 0.0.0.0:<%= node["haproxy"]["incoming_port"] %>
   <% @pool_members.each do |member| -%>
   server <%= member[:hostname] %> <%= member[:ipaddress] %>:<%= node["haproxy"]["member_port"] %> weight 1 maxconn <%= node["haproxy"]["member_max_connections"] %> check
   <% end -%>
+  <% if node["haproxy"]["httpchk"] -%>
+  option httpchk <%= node["haproxy"]["httpchk"] %>
+  <% end -%>
 
 <% if node["haproxy"]["enable_ssl"] -%>
 listen ssl_application 0.0.0.0:<%= node["haproxy"]["ssl_incoming_port"] %>
@@ -37,6 +40,9 @@ listen ssl_application 0.0.0.0:<%= node["haproxy"]["ssl_incoming_port"] %>
   mode tcp
   <% @pool_members.each do |member| -%>
   server <%= member[:hostname] %> <%= member[:ipaddress] %>:<%= node["haproxy"]["ssl_member_port"] %> weight 1 maxconn <%= node["haproxy"]["member_max_connections"] %> check
+  <% end -%>
+  <% if node["haproxy"]["httpchk"] -%>
+  option httpchk <%= node["haproxy"]["ssl_httpchk"] %>
   <% end -%>
 <% end -%>
 

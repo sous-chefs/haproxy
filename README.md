@@ -18,6 +18,8 @@ Attributes
 * `node['haproxy']['member_port']` - the port that member systems will be listening on, default 80
 * `node['haproxy']['enable_admin']` - whether to enable the admin interface. default true. Listens on port 22002.
 * `node['haproxy']['app_server_role']` - used by the `app_lb` recipe to search for a specific role of member systems. Default `webserver`.
+* `node['haproxy']['httpchk']` - used by the `app_lb` recipe.  If set, will configure httpchk in haproxy.conf
+* `node['haproxy']['ssl_httpchk']` - used by the `app_lb` recipe.  If set and enable_ssl is true, will configure httpchk in haproxy.conf for the ssl_applicaiton section
 * `node['haproxy']['balance_algorithm']` - sets the load balancing algorithm; defaults to roundrobin.
 * `node['haproxy']['member_max_connections']` - the maxconn value to be set for each app server
 * `node['haproxy']['x_forwarded_for']` - if true, creates an X-Forwarded-For header containing the original client's IP address. This option disables KeepAlive.
