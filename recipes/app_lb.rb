@@ -22,7 +22,7 @@ pool_members = search("node", "role:#{node['haproxy']['app_server_role']} AND ch
 # load balancer may be in the pool
 pool_members << node if node.run_list.roles.include?(node['haproxy']['app_server_role'])
 
-# we prefer connecting via local_ipv4 if 
+# we prefer connecting via local_ipv4 if
 # pool members are in the same cloud
 # TODO refactor this logic into library...see COOK-494
 pool_members.map! do |member|
@@ -48,7 +48,7 @@ template "/etc/default/haproxy" do
   source "haproxy-default.erb"
   owner "root"
   group "root"
-  mode 0644
+  mode 00644
 end
 
 service "haproxy" do
@@ -60,7 +60,7 @@ template "/etc/haproxy/haproxy.cfg" do
   source "haproxy-app_lb.cfg.erb"
   owner "root"
   group "root"
-  mode 0644
+  mode 00644
   variables :pool_members => pool_members.uniq
   notifies :restart, "service[haproxy]"
 end
