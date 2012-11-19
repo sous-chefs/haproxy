@@ -49,7 +49,6 @@ cookbook_file "/etc/default/haproxy" do
   owner "root"
   group "root"
   mode 00644
-  mode 0644
   notifies :restart, "service[haproxy]"
 end
 
