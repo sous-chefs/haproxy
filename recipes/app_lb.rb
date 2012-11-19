@@ -44,16 +44,12 @@ package "haproxy" do
   action :install
 end
 
-template "/etc/default/haproxy" do
-  source "haproxy-default.erb"
+cookbook_file "/etc/default/haproxy" do
+  source "haproxy-default"
   owner "root"
   group "root"
   mode 00644
-end
-
-service "haproxy" do
-  supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
+  notifies :restart, "service[haproxy]"
 end
 
 template "/etc/haproxy/haproxy.cfg" do
@@ -63,4 +59,9 @@ template "/etc/haproxy/haproxy.cfg" do
   mode 00644
   variables :pool_members => pool_members.uniq
   notifies :restart, "service[haproxy]"
+end
+
+service "haproxy" do
+  supports :restart => true, :status => true, :reload => true
+  action [:enable, :start]
 end
