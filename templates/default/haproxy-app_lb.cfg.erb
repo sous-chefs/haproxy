@@ -2,40 +2,36 @@ global
   log 127.0.0.1   local0
   log 127.0.0.1   local1 notice
   #log loghost    local0 info
-  maxconn 4096
+  maxconn <%= node['haproxy']['global_max_connections'] %>
   #debug
   #quiet
-  user haproxy
-  group haproxy
+  user <%= node['haproxy']['user'] %>
+  group <%= node['haproxy']['group'] %>
 
 defaults
   log     global
   mode    http
-  option  httplog
-  option  dontlognull
   retries 3
-  option redispatch
-  timeout connect 5s
-  timeout client 50s
-  timeout server 50s
-  <% if node['haproxy']['x_forwarded_for'] -%>
-  option httpclose
-  option forwardfor
+  <% @defaults_timeouts.each do | value, time | -%>
+  timeout <%= value %> <%= time %>
+  <% end -%>
+  <% @defaults_options.each do | option | -%>
+  option <%= option %>
   <% end -%>
   balance  <%= node['haproxy']['balance_algorithm'] %>
 
 # Set up application listeners here.
 
 frontend http
-  maxconn 2000
-  bind 0.0.0.0:<%= node['haproxy']['incoming_port'] %>
+  maxconn <%= node['haproxy']['frontend_max_connections'] %>
+  bind <%= node['haproxy']['incoming_address'] %>:<%= node['haproxy']['incoming_port'] %>
   default_backend servers-http
 
 <% if node['haproxy']['enable_ssl'] -%>
 frontend https
-  maxconn 2000
+  maxconn <%= node['haproxy']['frontend_ssl_max_connections'] %>
   mode tcp
-  bind 0.0.0.0:<%= node['haproxy']['ssl_incoming_port'] %>
+  bind <%= node['haproxy']['ssl_incoming_address'] %>:<%= node['haproxy']['ssl_incoming_port'] %>
   default_backend servers-https
 <% end -%>
 
