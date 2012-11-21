@@ -57,7 +57,11 @@ template "/etc/haproxy/haproxy.cfg" do
   owner "root"
   group "root"
   mode 00644
-  variables :pool_members => pool_members.uniq
+  variables(
+    :pool_members => pool_members.uniq,
+    :defaults_options => defaults_options,
+    :defaults_timeouts => defaults_timeouts
+  )
   notifies :restart, "service[haproxy]"
 end
 
