@@ -32,7 +32,7 @@ backend servers-http
   server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
 
 <% if node['haproxy']['enable_admin'] -%>
-listen admin 0.0.0.0:22002
+listen admin <%= node['haproxy']['admin']['address_bind'] %>:<%= node['haproxy']['admin']['port'] %>
   mode http
   stats uri /
 <% end -%>
