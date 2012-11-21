@@ -39,3 +39,5 @@ default['haproxy']['group'] = "haproxy"
 
 default['haproxy']['global_max_connections'] = 4096
 default['haproxy']['member_max_connections'] = 100
+default['haproxy']['frontend_max_connections'] = 2000
+default['haproxy']['frontend_ssl_max_connections'] = 2000
