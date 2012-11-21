@@ -1,29 +1,29 @@
 global
-        log 127.0.0.1   local0
-        log 127.0.0.1   local1 notice
-        #log loghost    local0 info
-        maxconn 4096
-        #debug
-        #quiet
-        user haproxy
-        group haproxy
+  log 127.0.0.1   local0
+  log 127.0.0.1   local1 notice
+  #log loghost    local0 info
+  maxconn 4096
+  #debug
+  #quiet
+  user haproxy
+  group haproxy
 
 defaults
-        log     global
-        mode    http
-        option  httplog
-        option  dontlognull
-        retries 3
-        option redispatch
-        maxconn 2000
-        contimeout      5000
-        clitimeout      50000
-        srvtimeout      50000
-        balance  <%= node['haproxy']['balance_algorithm'] %>
+  log     global
+  mode    http
+  option  httplog
+  option  dontlognull
+  retries 3
+  option redispatch
+  timeout connect 5s
+  timeout client 50s
+  timeout server 50s
+  balance  <%= node['haproxy']['balance_algorithm'] %>
 
 # Set up application listeners here.
 
 frontend http
+  maxconn 4000
   bind 0.0.0.0:<%= node['haproxy']['incoming_port'] %>
   default_backend servers-http
 
