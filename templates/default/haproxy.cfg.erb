@@ -19,10 +19,15 @@ defaults
         contimeout      5000
         clitimeout      50000
         srvtimeout      50000
+        balance  <%= node['haproxy']['balance_algorithm'] %>
 
 # Set up application listeners here.
-listen application 0.0.0.0:<%= node['haproxy']['incoming_port'] %>
-  balance  <%= node['haproxy']['balance_algorithm'] %>
+
+frontend http
+  bind 0.0.0.0:<%= node['haproxy']['incoming_port'] %>
+  default_backend servers-http
+
+backend servers-http
   server localhost 127.0.0.1:4000 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
   server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
 
