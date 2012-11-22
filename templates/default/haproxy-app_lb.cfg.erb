@@ -12,10 +12,10 @@ defaults
   log     global
   mode    http
   retries 3
-  <% @defaults_timeouts.each do | value, time | -%>
+  <% @defaults_timeouts.sort.map do | value, time | -%>
   timeout <%= value %> <%= time %>
   <% end -%>
-  <% @defaults_options.each do | option | -%>
+  <% @defaults_options.sort.each do | option | -%>
   option <%= option %>
   <% end -%>
   balance  <%= node['haproxy']['balance_algorithm'] %>
