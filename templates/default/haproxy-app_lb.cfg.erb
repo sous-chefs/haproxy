@@ -1,40 +1,49 @@
 global
-        log 127.0.0.1   local0
-        log 127.0.0.1   local1 notice
-        #log loghost    local0 info
-        maxconn 4096
-        #debug
-        #quiet
-        user haproxy
-        group haproxy
+  log 127.0.0.1   local0
+  log 127.0.0.1   local1 notice
+  #log loghost    local0 info
+  maxconn <%= node['haproxy']['global_max_connections'] %>
+  #debug
+  #quiet
+  user <%= node['haproxy']['user'] %>
+  group <%= node['haproxy']['group'] %>
 
 defaults
-        log     global
-        mode    http
-        option  httplog
-        option  dontlognull
-        retries 3
-        option redispatch
-        maxconn 2000
-        contimeout      5000
-        clitimeout      50000
-        srvtimeout      50000
-        <% if node['haproxy']['x_forwarded_for'] -%>
-        option httpclose
-        option forwardfor
-        <% end -%>
+  log     global
+  mode    http
+  retries 3
+  <% @defaults_timeouts.sort.map do | value, time | -%>
+  timeout <%= value %> <%= time %>
+  <% end -%>
+  <% @defaults_options.sort.each do | option | -%>
+  option <%= option %>
+  <% end -%>
+  balance  <%= node['haproxy']['balance_algorithm'] %>
 
 # Set up application listeners here.
-listen application 0.0.0.0:<%= node['haproxy']['incoming_port'] %>
-  balance <%= node['haproxy']['balance_algorithm'] %>
+
+frontend http
+  maxconn <%= node['haproxy']['frontend_max_connections'] %>
+  bind <%= node['haproxy']['incoming_address'] %>:<%= node['haproxy']['incoming_port'] %>
+  default_backend servers-http
+
+<% if node['haproxy']['enable_ssl'] -%>
+frontend https
+  maxconn <%= node['haproxy']['frontend_ssl_max_connections'] %>
+  mode tcp
+  bind <%= node['haproxy']['ssl_incoming_address'] %>:<%= node['haproxy']['ssl_incoming_port'] %>
+  default_backend servers-https
+<% end -%>
+
+backend servers-http
   <% @pool_members.each do |member| -%>
   server <%= member[:hostname] %> <%= member[:ipaddress] %>:<%= node['haproxy']['member_port'] %> weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
   <% end -%>
 
 <% if node['haproxy']['enable_ssl'] -%>
-listen ssl_application 0.0.0.0:<%= node['haproxy']['ssl_incoming_port'] %>
-  balance <%= node['haproxy']['balance_algorithm'] %>
+backend servers-https
   mode tcp
+  option ssl-hello-chk
   <% @pool_members.each do |member| -%>
   server <%= member[:hostname] %> <%= member[:ipaddress] %>:<%= node['haproxy']['ssl_member_port'] %> weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
   <% end -%>
