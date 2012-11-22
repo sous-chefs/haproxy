@@ -31,3 +31,4 @@ default['haproxy']['ssl_httpchk'] = nil
 default['haproxy']['enable_admin'] = true
 default['haproxy']['admin']['address_bind'] = "127.0.0.1"
 default['haproxy']['admin']['port'] = 22002
+default['haproxy']['pid_file'] = "/var/run/haproxy.pid"
