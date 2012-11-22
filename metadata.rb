@@ -12,3 +12,5 @@ recipe "haproxy::app_lb", "Installs and configures haproxy by searching for node
 %w{ debian ubuntu }.each do |os|
   supports os
 end
+
+depends           "cpu"
