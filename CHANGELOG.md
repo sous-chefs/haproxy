@@ -1,3 +1,8 @@
+## v1.1.0:
+
+* [COOK-1275] - haproxy-default.erb should be a cookbook_file
+* [COOK-1594] - Template-Service ordering issue in app_lb recipe
+
 ## v1.0.6:
 
 * [COOK-1310] - redispatch flag has changed
