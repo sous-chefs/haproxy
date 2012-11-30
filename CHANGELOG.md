@@ -1,4 +1,4 @@
-## v1.1.2:
+## v1.1.4:
 
 * [COOK-1839] - add httpchk configuration to `app_lb` template
 
