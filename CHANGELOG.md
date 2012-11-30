@@ -1,3 +1,7 @@
+## v1.1.2:
+
+* [COOK-1839] - add httpchk configuration to `app_lb` template
+
 ## v1.1.0:
 
 * [COOK-1275] - haproxy-default.erb should be a cookbook_file
