@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: haproxy
-# Recipe:: default
+# Author:: Guilhem Lettron <guilhem.lettron@youscribe.com>
 #
-# Copyright 2009, Opscode, Inc.
+# Copyright 2012, Societe Publica.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,27 +17,10 @@
 # limitations under the License.
 #
 
-package "haproxy" do
-  action :install
-end
+include_recipe "cpu::affinity"
 
-cookbook_file "/etc/default/haproxy" do
-  source "haproxy-default"
-  owner "root"
-  group "root"
-  mode 00644
-  notifies :restart, "service[haproxy]"
-end
-
-template "/etc/haproxy/haproxy.cfg" do
-  source "haproxy.cfg.erb"
-  owner "root"
-  group "root"
-  mode 00644
-  notifies :reload, "service[haproxy]"
-end
-
-service "haproxy" do
-  supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
+cpu_affinity "set affinity for haproxy" do
+  pid node['haproxy']['pid_file']
+  cpu 0
+  subscribes :set, resources("service[haproxy]"), :immediately
 end
