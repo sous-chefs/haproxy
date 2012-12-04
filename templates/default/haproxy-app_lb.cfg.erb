@@ -23,10 +23,22 @@ defaults
         option httpclose
         option forwardfor
         <% end -%>
+        balance  <%= node['haproxy']['balance_algorithm'] %>
 
 # Set up application listeners here.
-listen application 0.0.0.0:<%= node['haproxy']['incoming_port'] %>
-  balance <%= node['haproxy']['balance_algorithm'] %>
+
+frontend http
+  bind 0.0.0.0:<%= node['haproxy']['incoming_port'] %>
+  default_backend servers-http
+
+<% if node['haproxy']['enable_ssl'] -%>
+frontend https
+  mode tcp
+  bind 0.0.0.0:<%= node['haproxy']['ssl_incoming_port'] %>
+  default_backend servers-https
+<% end -%>
+
+backend servers-http
   <% @pool_members.each do |member| -%>
   server <%= member[:hostname] %> <%= member[:ipaddress] %>:<%= node['haproxy']['member_port'] %> weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
   <% end -%>
@@ -35,9 +47,9 @@ listen application 0.0.0.0:<%= node['haproxy']['incoming_port'] %>
   <% end -%>
 
 <% if node['haproxy']['enable_ssl'] -%>
-listen ssl_application 0.0.0.0:<%= node['haproxy']['ssl_incoming_port'] %>
-  balance <%= node['haproxy']['balance_algorithm'] %>
+backend servers-https
   mode tcp
+  option ssl-hello-chk
   <% @pool_members.each do |member| -%>
   server <%= member[:hostname] %> <%= member[:ipaddress] %>:<%= node['haproxy']['ssl_member_port'] %> weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
   <% end -%>
