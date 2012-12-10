@@ -62,7 +62,7 @@ template "/etc/haproxy/haproxy.cfg" do
     :defaults_options => defaults_options,
     :defaults_timeouts => defaults_timeouts
   )
-  notifies :restart, "service[haproxy]"
+  notifies :reload, "service[haproxy]"
 end
 
 service "haproxy" do
