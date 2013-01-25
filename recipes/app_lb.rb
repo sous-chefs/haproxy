@@ -53,7 +53,10 @@ cookbook_file "/etc/default/haproxy" do
 end
 
 template "/etc/haproxy/haproxy.cfg" do
-  source "haproxy-app_lb.cfg.erb"
+  source node['haproxy']['app_lb_source']
+  if node['haproxy']['app_lb_cookbook']
+    cookbook node['haproxy']['app_lb_cookbook']
+  end
   owner "root"
   group "root"
   mode 00644

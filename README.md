@@ -70,6 +70,9 @@ Attributes
   config, set the the maxconn per frontend member
 * `node['haproxy']['frontend_ssl_max_connections']` - in the `app_lb`
   config, set the maxconn per frontend member using SSL
+* `node['haproxy']['app_lb_source']` - specify your own `app_lb` config file.
+* `node['haproxy']['app_lb_cookbook']` - specify the cookbook for your custom
+  `app_lb` conf file.
 
 Recipes
 =======
