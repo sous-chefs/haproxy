@@ -37,7 +37,7 @@ Attributes
   will configure httpchk in haproxy.conf
 * `node['haproxy']['ssl_httpchk']` - used by the `app_lb` recipe. If
   set and `enable_ssl` is true, will configure httpchk in haproxy.conf
-  for the `ssl_applicaiton` section
+  for the `ssl_application` section
 * `node['haproxy']['enable_admin']` - whether to enable the admin
   interface. default true. Listens on port 22002.
 * `node['haproxy']['admin']['address_bind']` - sets the address to
