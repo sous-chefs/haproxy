@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: haproxy
-# Recipe:: default
+# Recipe:: install_package
 #
 # Copyright 2009, Opscode, Inc.
 #
@@ -17,11 +17,20 @@
 # limitations under the License.
 #
 
-include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
+package "haproxy" do
+  action :install
+end
 
-template "#{node['haproxy']['conf_dir']}/haproxy.cfg" do
-  source "haproxy.cfg.erb"
+cookbook_file "/etc/default/haproxy" do
+  source "haproxy-default"
   owner "root"
   group "root"
   mode 00644
+end
+
+service "haproxy" do
+  supports :restart => true, :status => true, :reload => true
+  action [:enable, :start]
+  subscribes :reload, 'template[/etc/haproxy/haproxy.cfg]'
+  subscribes :reload, 'cookbook_file[/etc/default/haproxy]'
 end
