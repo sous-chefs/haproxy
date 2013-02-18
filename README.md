@@ -114,7 +114,7 @@ affinity for the haproxy process.
 
 ## install\_package
 
-Installs haproxy threw the package manager. Used by the `default`
+Installs haproxy through the package manager. Used by the `default`
 and `app_lb` recipes.
 
 ## install\_source
