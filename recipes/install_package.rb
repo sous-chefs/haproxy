@@ -21,16 +21,3 @@ package "haproxy" do
   action :install
 end
 
-cookbook_file "/etc/default/haproxy" do
-  source "haproxy-default"
-  owner "root"
-  group "root"
-  mode 00644
-end
-
-service "haproxy" do
-  supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
-  subscribes :reload, 'template[/etc/haproxy/haproxy.cfg]'
-  subscribes :reload, 'cookbook_file[/etc/default/haproxy]'
-end

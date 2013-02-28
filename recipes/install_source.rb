@@ -47,3 +47,17 @@ user "haproxy" do
   system true
   shell "/bin/false"
 end
+
+directory node['haproxy']['conf_dir']
+
+template "/etc/init.d/haproxy" do
+  source "haproxy-init.erb"
+  owner "root"
+  group "root"
+  mode 00755
+  variables(
+    :hostname => node['hostname'],
+    :conf_dir => node['haproxy']['conf_dir'],
+    :prefix => node['haproxy']['source']['prefix']
+  )
+end
