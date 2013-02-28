@@ -40,9 +40,7 @@ pool_members.map! do |member|
   {:ipaddress => server_ip, :hostname => member['hostname']}
 end
 
-package "haproxy" do
-  action :install
-end
+include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
 
 cookbook_file "/etc/default/haproxy" do
   source "haproxy-default"
@@ -52,7 +50,7 @@ cookbook_file "/etc/default/haproxy" do
   notifies :restart, "service[haproxy]"
 end
 
-template "/etc/haproxy/haproxy.cfg" do
+template "#{node['haproxy']['conf_dir']}/haproxy.cfg" do
   source "haproxy-app_lb.cfg.erb"
   owner "root"
   group "root"
