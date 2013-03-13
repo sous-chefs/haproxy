@@ -35,4 +35,7 @@ backend servers-http
 listen admin <%= node['haproxy']['admin']['address_bind'] %>:<%= node['haproxy']['admin']['port'] %>
   mode http
   stats uri /
+  <% if node['haproxy']['full_admin'] -%>
+    stats admin if <%= node['haproxy']['full_admin_condition'] %>
+  <%  end -%>
 <% end -%>
