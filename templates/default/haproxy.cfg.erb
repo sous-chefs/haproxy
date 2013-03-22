@@ -2,34 +2,53 @@ global
   log 127.0.0.1   local0
   log 127.0.0.1   local1 notice
   #log loghost    local0 info
-  maxconn 4096
+  maxconn <%= node['haproxy']['global_max_connections'] %>
   #debug
   #quiet
-  user haproxy
-  group haproxy
+  user <%= node['haproxy']['user'] %>
+  group <%= node['haproxy']['group'] %>
 
 defaults
   log     global
   mode    http
-  option  httplog
-  option  dontlognull
   retries 3
-  option redispatch
-  timeout connect 5s
-  timeout client 50s
-  timeout server 50s
+  <% @defaults_timeouts.sort.map do | value, time | -%>
+  timeout <%= value %> <%= time %>
+  <% end -%>
+  <% @defaults_options.sort.each do | option | -%>
+  option <%= option %>
+  <% end -%>
   balance  <%= node['haproxy']['balance_algorithm'] %>
 
 # Set up application listeners here.
 
 frontend http
-  maxconn 4000
-  bind 0.0.0.0:<%= node['haproxy']['incoming_port'] %>
+  maxconn <%= node['haproxy']['frontend_max_connections'] %>
+  bind <%= node['haproxy']['incoming_address'] %>:<%= node['haproxy']['incoming_port'] %>
   default_backend servers-http
+
+<% if node['haproxy']['enable_ssl'] -%>
+frontend https
+  maxconn <%= node['haproxy']['frontend_ssl_max_connections'] %>
+  mode tcp
+  bind <%= node['haproxy']['ssl_incoming_address'] %>:<%= node['haproxy']['ssl_incoming_port'] %>
+  default_backend servers-https
+<% end -%>
 
 backend servers-http
   server localhost 127.0.0.1:4000 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
   server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
+
+<% if node['haproxy']['enable_ssl'] -%>
+backend servers-https
+  mode tcp
+  option ssl-hello-chk
+  server localhost 127.0.0.1:4000 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
+  server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
+  <% if node["haproxy"]["ssl_httpchk"] -%>
+  option httpchk <%= node["haproxy"]["ssl_httpchk"] %>
+  <% end -%>
+<% end -%>
 
 <% if node['haproxy']['enable_admin'] -%>
 listen admin <%= node['haproxy']['admin']['address_bind'] %>:<%= node['haproxy']['admin']['port'] %>
