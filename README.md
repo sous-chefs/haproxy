@@ -91,6 +91,10 @@ Attributes
   to `make` haproxy
 * `node['haproxy']['source']['use_pcre']` - whether to build with
   libpcre support
+* `node['haproxy']['source']['use_zlib']` - whether to build with
+  zlib support
+* `node['haproxy']['source']['use_openssl']` - whether to build with
+  OpenSSL support
 
 Recipes
 =======
