@@ -1,3 +1,13 @@
+## v1.3.0:
+
+### Improvement
+
+- [COOK-2656]: Unify the haproxy.cfg with that from app_lb
+
+### New Feature
+
+- [COOK-1488]: Provide an option to build haproxy from source
+
 ## v1.2.0:
 
 * [COOK-1936] - use frontend / backend logic
