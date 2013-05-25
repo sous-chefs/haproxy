@@ -57,8 +57,8 @@ template "#{node['haproxy']['conf_dir']}/haproxy.cfg" do
   mode 00644
   variables(
     :pool_members => pool_members.uniq,
-    :defaults_options => defaults_options,
-    :defaults_timeouts => defaults_timeouts
+    :defaults_options => node['haproxy']['defaults_options'],
+    :defaults_timeouts => node['haproxy']['defaults_timeouts']
   )
   notifies :reload, "service[haproxy]"
 end
