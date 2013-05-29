@@ -1,3 +1,13 @@
+## v1.3.2:
+
+### Bug
+
+- [COOK-3046]: haproxy default recipe broken by COOK-2656
+
+### Task
+
+- [COOK-2009]: Add test-kitchen support to haproxy
+
 ## v1.3.0:
 
 ### Improvement
