@@ -38,6 +38,9 @@ if node['haproxy']['enable_admin']
 end
 
 conf = node['haproxy']
+member_max_conn = conf['member_max_connections']
+member_weight = conf['member_weight']
+
 if conf['enable_default_http']
   haproxy_lb 'http' do
     type 'frontend'
@@ -48,13 +51,16 @@ if conf['enable_default_http']
     })
   end
 
-  member_max_conn = conf['member_max_connections']
-  servers = (4000..4001).map do |port|
-    "localhost 127.0.0.1:#{port} weight 1 maxconn #{member_max_conn} check"
+  member_port = conf['member_port']
+  pool = []
+  pool << "option httpchk #{conf['httpchk']}" if conf['httpchk']
+  servers = node['haproxy']['members'].each do |member|
+    "#{member['hostname']} #{member['ipaddress']}:#{member['port'] || member_port} weight #{member['weight'] || member_weight} maxconn #{member['max_connections'] || member_max_conn} check"
   end
   haproxy_lb 'servers-http' do
     type 'backend'
     servers servers
+    params pool
   end
 end
 
@@ -70,10 +76,11 @@ if node['haproxy']['enable_ssl']
     })
   end
 
+  ssl_member_port = conf['ssl_member_port']
   pool = ['option ssl-hello-chk']
   pool << "option httpchk #{conf['ssl_httpchk']}" if conf['ssl_httpchk']
-  servers = (4000..4001).map do |port|
-    "localhost 127.0.0.1:#{port} weight 1 maxconn #{member_max_conn} check"
+  servers = node['haproxy']['members'].each do |member|
+    "#{member['hostname']} #{member['ipaddress']}:#{member['ssl_port'] || ssl_member_port} weight #{member['weight'] || member_weight} maxconn #{member['max_connections'] || member_max_conn} check"
   end
   haproxy_lb 'servers-https' do
     type 'backend'
