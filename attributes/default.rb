@@ -19,6 +19,15 @@
 
 default['haproxy']['incoming_address'] = "0.0.0.0"
 default['haproxy']['incoming_port'] = 80
+default['haproxy']['members'] = [{
+  "hostname" => "localhost",
+  "ipaddress" => "127.0.0.1",
+  "port" => "4000"
+}, {
+  "hostname" => "localhost",
+  "ipaddress" => "127.0.0.1",
+  "port" => "4001"
+}]
 default['haproxy']['member_port'] = 8080
 default['haproxy']['app_server_role'] = "webserver"
 default['haproxy']['balance_algorithm'] = "roundrobin"
