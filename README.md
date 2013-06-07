@@ -44,6 +44,12 @@ Attributes
   bind the administrative interface on, 127.0.0.1 by default
 * `node['haproxy']['admin']['port']` - sets the port for the
   administrative interface, 22002 by default
+* `node['haproxy']['admin']['stats_uri']` - sets the uri for the
+  administrative status interface, / by default
+* `node['haproxy']['admin']['stats_user']` - sets the user for the
+  administrative status interface, if unset, authentication will be disabled
+* `node['haproxy']['admin']['stats_pass']` - sets the password for the
+  administrative status interface, haproxy by default
 * `node['haproxy']['pid_file']` - the PID file of the haproxy process,
   used in the tuning recipe.
 * `node['haproxy']['defaults_options']` - an array of options to use
