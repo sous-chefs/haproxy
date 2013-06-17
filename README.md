@@ -18,8 +18,22 @@ Attributes
   haproxy process on, 0.0.0.0 (all addresses) by default
 * `node['haproxy']['incoming_port']` - sets the port on which haproxy
   listens
+* `node['haproxy']['members']` - used by the default recipe to specify the member systems to add. Default
+
+```
+[{
+  "hostname" => "localhost",
+  "ipaddress" => "127.0.0.1",
+  "port" => "4000"
+}, {
+  "hostname" => "localhost",
+  "ipaddress" => "127.0.0.1",
+  "port" => "4001"
+}]
+```
+
 * `node['haproxy']['member_port']` - the port that member systems will
-  be listening on, default 80
+  be listening on if not otherwise specified in the members attribute, default 8080
 * `node['haproxy']['app_server_role']` - used by the `app_lb` recipe
   to search for a specific role of member systems. Default
   `webserver`.
@@ -127,8 +141,25 @@ Usage
 
 Use either the default recipe or the `app_lb` recipe.
 
-When using the default recipe, modify the haproxy.cfg.erb file with
-listener(s) for your sites/servers.
+When using the default recipe, the members attribute specifies the application servers.
+
+    "haproxy" => {
+      "members" => [{
+        "hostname" => "appserver1",
+        "ipaddress" => "123.123.123.1",
+        "port" => "4000"
+      }, {
+        "hostname" => "appserver2",
+        "ipaddress" => "123.123.123.2",
+        "port" => "4000"
+      }, {
+        "hostname" => "appserver3",
+        "ipaddress" => "123.123.123.3",
+        "port" => "4000"
+      }]
+    }
+
+Note that the `port` attribute is optional and will default to the value of `node['haproxy']['member_port']`
 
 The `app_lb` recipe is designed to be used with the application
 cookbook, and provides search mechanism to find the appropriate
