@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+default['haproxy']['enable_default_http'] = true
 default['haproxy']['incoming_address'] = "0.0.0.0"
 default['haproxy']['incoming_port'] = 80
 default['haproxy']['member_port'] = 8080
@@ -62,4 +63,8 @@ default['haproxy']['source']['target_cpu'] = ''
 default['haproxy']['source']['target_arch'] = ''
 default['haproxy']['source']['use_pcre'] = false
 
-default['haproxy']['listeners'] = {}
+default['haproxy']['listeners'] = {
+  'listen' => {},
+  'frontend' => {},
+  'backend' => {}
+}
