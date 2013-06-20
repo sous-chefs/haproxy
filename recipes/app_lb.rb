@@ -40,30 +40,29 @@ pool_members.map! do |member|
   {:ipaddress => server_ip, :hostname => member['hostname']}
 end
 
+
+p = ["options httpchk #{node['haproxy']['httpchk']}"] if node['haproxy']['httpchk']
+servers = pool_members.uniq.map do |s|
+  "#{s[:hostrame]} #{s[:ipaddress]}:#{node['haproxy']['member_port']} weight 1 maxconn #{node['haproxy']['member_max_connections']} check"
+end
+haproxy_lb 'servers-http' do
+  type 'backend'
+  servers servers
+  params p
+end
+
+if node['haproxy']['enable_ssl']
+  p = ["option ssl-hello-chk"]
+  p << ["options httpchk #{node['haproxy']['ssl_httpchk']}"] if node['haproxy']['ssl_httpchk']
+  servers = pool_members.uniq.map do |s|
+    "#{s[:hostrame]} #{s[:ipaddress]}:#{node['haproxy']['ssl_member_port']} weight 1 maxconn #{node['haproxy']['member_max_connections']} check"
+  end
+  haproxy_lb 'servers-http' do
+    type 'backend'
+    mode 'tcp'
+    servers servers
+    params p
+  end
+end
+
 include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
-
-cookbook_file "/etc/default/haproxy" do
-  source "haproxy-default"
-  owner "root"
-  group "root"
-  mode 00644
-  notifies :restart, "service[haproxy]"
-end
-
-template "#{node['haproxy']['conf_dir']}/haproxy.cfg" do
-  source "haproxy-app_lb.cfg.erb"
-  owner "root"
-  group "root"
-  mode 00644
-  variables(
-    :pool_members => pool_members.uniq,
-    :defaults_options => haproxy_defaults_options,
-    :defaults_timeouts => haproxy_defaults_timeouts
-  )
-  notifies :reload, "service[haproxy]"
-end
-
-service "haproxy" do
-  supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
-end

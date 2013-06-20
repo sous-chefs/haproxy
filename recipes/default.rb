@@ -27,11 +27,59 @@ cookbook_file "/etc/default/haproxy" do
   notifies :restart, "service[haproxy]"
 end
 
+
 if node['haproxy']['enable_admin']
+  admin = node['haproxy']['admin']
   haproxy_lb "admin" do
-    bind "#{node['haproxy']['admin']['address_bind']}:#{node['haproxy']['admin']['port']}"
+    bind "#{admin['address_bind']}:#{admin['port']}"
     mode 'http'
     params({ 'stats' => 'uri /'})
+  end
+end
+
+conf = node['haproxy']
+if conf['enable_default_http']
+  haproxy_lb 'http' do
+    type 'frontend'
+    params({
+      'maxconn' => conf['frontend_max_connections'],
+      'bind' => "#{conf['incoming_address']}:#{conf['incoming_port']}",
+      'default_backend' => 'servers-http'
+    })
+  end
+
+  member_max_conn = conf['member_max_connections']
+  servers = (4000..4001).map do |port|
+    "localhost 127.0.0.1:#{port} weight 1 maxconn #{member_max_conn} check"
+  end
+  haproxy_lb 'servers-http' do
+    type 'backend'
+    servers servers
+  end
+end
+
+
+if node['haproxy']['enable_ssl']
+  haproxy_lb 'https' do
+    type 'frontend'
+    mode 'tcp'
+    params({
+      'maxconn' => node['haproxy']['frontend_ssl_max_connections'],
+      'bind' => "#{node['haproxy']['ssl_incoming_address']}:#{node['haproxy']['ssl_incoming_port']}",
+      'default_backend' => 'servers-https'
+    })
+  end
+
+  p = ['option ssl-hello-chk']
+  p << "option httpchk #{conf['ssl_httpchk']}" if conf['ssl_httpchk']
+  servers = (4000..4001).map do |port|
+    "localhost 127.0.0.1:#{port} weight 1 maxconn #{member_max_conn} check"
+  end
+  haproxy_lb 'servers-https' do
+    type 'backend'
+    mode 'tcp'
+    servers servers
+    params p
   end
 end
 
