@@ -125,6 +125,68 @@ and `app_lb` recipes.
 Installs haproxy from source. Used by the `default` and `app_lb`
 recipes.
 
+Providers
+=========
+
+## haproxy\_lb
+
+Configure a part of haproxy (`frontend|backend|listen`).
+It is used in `default` and `app\_lb` recipe to configure default frontends
+and backends.
+Several common options can be set as attributes of the LWRP.
+Others can always be set with the `params` attribute. For instance,
+
+    haproxy_lb 'rabbitmq' do
+      bind '0.0.0.0:5672'
+      mode 'tcp'
+      servers (1..4).map do |i|
+        "rmq#{i} 10.0.0.#{i}:5672 check inter 10s rise 2 fall 3"
+      end
+      params({
+        'maxconn' => 20000,
+        'balance' => 'roundrobin'
+      })
+    end
+
+which will be translated into:
+
+    listen rabbitmq'
+      bind 0.0.0.0:5672
+      mode tcp
+      rmq1 10.0.0.1:5672 check inter 10s rise 2 fall 3
+      rmq2 10.0.0.2:5672 check inter 10s rise 2 fall 3
+      rmq3 10.0.0.3:5672 check inter 10s rise 2 fall 3
+      rmq4 10.0.0.4:5672 check inter 10s rise 2 fall 3
+      maxconn 20000
+      balance roundrobin
+     
+
+
+All options can also be set in the params instead. In that case, you might want 
+to provide an array to params attributes to avoid conflicts for options 
+occuring several times.
+
+    haproxy_lb 'rabbitmq' do
+      params([
+        'bind 0.0.0.0:5672',
+        'mode tcp',
+        'rmq1 10.0.0.1:5672 check inter 10s rise 2 fall 3',
+        'rmq2 10.0.0.2:5672 check inter 10s rise 2 fall 3',
+        'rmq3 10.0.0.3:5672 check inter 10s rise 2 fall 3',
+        'rmq4 10.0.0.4:5672 check inter 10s rise 2 fall 3',
+        'maxconn' => 20000,
+        'balance' => 'roundrobin'
+      ])
+    end
+
+which will give the same result.
+
+Finally you can also configure frontends and backends by specify the type attribute of the resource.
+See example in the default recipe.
+
+Instead of using lwrp, you can use `node['haproxy']['listeners']` to configure all kind of listeners (`listen`, `frontend` and `backend`)
+
+
 Usage
 =====
 
