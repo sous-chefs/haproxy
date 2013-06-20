@@ -27,6 +27,15 @@ cookbook_file "/etc/default/haproxy" do
   notifies :restart, "service[haproxy]"
 end
 
+if node['haproxy']['enable_admin']
+  haproxy_lb "admin" do
+    bind "#{node['haproxy']['admin']['address_bind']}:#{node['haproxy']['admin']['port']}"
+    mode 'http'
+    params({ 'stats' => 'uri /'})
+  end
+end
+
+
 template "#{node['haproxy']['conf_dir']}/haproxy.cfg" do
   source "haproxy.cfg.erb"
   owner "root"
