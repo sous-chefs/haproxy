@@ -17,6 +17,12 @@
 # limitations under the License.
 #
 
+# ensure apt is installed and repository updated on debian platforms
+case node['platform_family']
+  when "debian"
+   include_recipe "apt"
+end
+
 package "haproxy" do
   action :install
 end
