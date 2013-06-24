@@ -15,3 +15,4 @@ end
 
 depends           "cpu", ">= 0.2.0"
 depends           "build-essential"
+depends           "apt"
