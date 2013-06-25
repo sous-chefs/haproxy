@@ -36,8 +36,11 @@ frontend https
 <% end -%>
 
 backend servers-http
-  server localhost 127.0.0.1:4000 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
-  server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
+  <% if node['haproxy']['cookie'] -%>
+  cookie <%= node['haproxy']['cookie'] %> insert indirect nocache
+  <% end -%>
+  server localhost 127.0.0.1:4000 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check <% if node['haproxy']['cookie'] %>cookie <%= member['hostname'] %><% end %>
+  server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check <% if node['haproxy']['cookie'] %>cookie <%= member['hostname'] %><% end %>
 
 <% if node['haproxy']['enable_ssl'] -%>
 backend servers-https
