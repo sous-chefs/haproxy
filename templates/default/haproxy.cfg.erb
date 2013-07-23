@@ -12,12 +12,12 @@ defaults
   log     global
   mode    http
   retries 3
-  <% @defaults_timeouts.sort.map do | value, time | -%>
+<% @defaults_timeouts.sort.map do | value, time | -%>
   timeout <%= value %> <%= time %>
-  <% end -%>
-  <% @defaults_options.sort.each do | option | -%>
+<% end -%>
+<% @defaults_options.sort.each do | option | -%>
   option <%= option %>
-  <% end -%>
+<% end -%>
   balance  <%= node['haproxy']['balance_algorithm'] %>
 
 # Set up application listeners here.
@@ -36,9 +36,9 @@ frontend https
 <% end -%>
 
 backend servers-http
-  <% if node['haproxy']['cookie'] -%>
+<% if node['haproxy']['cookie'] -%>
   cookie <%= node['haproxy']['cookie'] %> insert indirect nocache
-  <% end -%>
+<% end -%>
   server localhost 127.0.0.1:4000 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check <% if node['haproxy']['cookie'] %>cookie <%= member['hostname'] %><% end %>
   server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check <% if node['haproxy']['cookie'] %>cookie <%= member['hostname'] %><% end %>
 
@@ -48,9 +48,9 @@ backend servers-https
   option ssl-hello-chk
   server localhost 127.0.0.1:4000 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
   server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
-  <% if node["haproxy"]["ssl_httpchk"] -%>
+<%   if node["haproxy"]["ssl_httpchk"] -%>
   option httpchk <%= node["haproxy"]["ssl_httpchk"] %>
-  <% end -%>
+<%   end -%>
 <% end -%>
 
 <% if node['haproxy']['enable_admin'] -%>
