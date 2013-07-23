@@ -74,7 +74,6 @@ Attributes
 * `node['haproxy']['install_method']` - determines which method is
   used to install haproxy, must be 'source' or 'package'. defaults to
   'package'
-* `node['haproxy']['package_version']` - version installed when using package
 * `node['haproxy']['conf_dir']` - the location of the haproxy config
   file
 * `node['haproxy']['source']['version']` - the version of haproxy to
