@@ -32,6 +32,7 @@ make_cmd << " CPU=#{node['haproxy']['source']['target_cpu' ]}" unless node['hapr
 make_cmd << " ARCH=#{node['haproxy']['source']['target_arch']}" unless node['haproxy']['source']['target_arch'].empty?
 make_cmd << " USE_PCRE=1" if node['haproxy']['source']['use_pcre']
 make_cmd << " USE_OPENSSL=1" if node['haproxy']['source']['use_openssl']
+make_cmd << " USE_ZLIB=1" if node['haproxy']['source']['use_zlib']
 
 bash "compile_haproxy" do
   cwd Chef::Config[:file_cache_path]
