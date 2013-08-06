@@ -1,24 +1,22 @@
-global
-  log 127.0.0.1   local0
-  log 127.0.0.1   local1 notice
-  #log loghost    local0 info
-  maxconn <%= node['haproxy']['global_max_connections'] %>
-  #debug
-  #quiet
-  user <%= node['haproxy']['user'] %>
-  group <%= node['haproxy']['group'] %>
+# HAProxy configuration file
+# This file was automatically generated and dropped off by chef!
+# Please refer to the HAProxy documentation for details on
+# configuration settings.
 
-defaults
-  log     global
-  mode    http
-  retries 3
-  <% @defaults_timeouts.sort.map do | value, time | -%>
-  timeout <%= value %> <%= time %>
-  <% end -%>
-  <% @defaults_options.sort.each do | option | -%>
-  option <%= option %>
-  <% end -%>
-  balance  <%= node['haproxy']['balance_algorithm'] %>
+<% ['global', 'defaults', 'listen', 'frontend', 'backend' ].each do |section| %>
+<%= section %>
+  <% node['haproxy']['config'][section].sort.each do |key, value| %>
+  <% next if value.nil? -%>
+  <%= key %> <%=
+  case value
+  when String
+    "'#{value}'"
+  else
+    value
+  end
+%>
+<% end %>
+<% end %>
 
 # Set up application listeners here.
 
