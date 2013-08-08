@@ -1,55 +1,5 @@
-# HAProxy configuration file
-# This file was automatically generated and dropped off by chef!
-# Please refer to the HAProxy documentation for details on
-# configuration settings.
+# HAProxy configuration file This file was automatically generated and
+# dropped off by chef! Please refer to the HAProxy documentation for
+# details on configuration settings.
 
-<% ['global', 'defaults', 'listen', 'frontend', 'backend' ].each do |section| %>
-<%= section %>
-  <% node['haproxy']['config'][section].sort.each do |key, value| %>
-  <% next if value.nil? -%>
-  <%= key %> <%=
-  case value
-  when String
-    "'#{value}'"
-  else
-    value
-  end
-%>
-<% end %>
-<% end %>
-
-# Set up application listeners here.
-
-frontend http
-  maxconn <%= node['haproxy']['frontend_max_connections'] %>
-  bind <%= node['haproxy']['incoming_address'] %>:<%= node['haproxy']['incoming_port'] %>
-  default_backend servers-http
-
-<% if node['haproxy']['enable_ssl'] -%>
-frontend https
-  maxconn <%= node['haproxy']['frontend_ssl_max_connections'] %>
-  mode tcp
-  bind <%= node['haproxy']['ssl_incoming_address'] %>:<%= node['haproxy']['ssl_incoming_port'] %>
-  default_backend servers-https
-<% end -%>
-
-backend servers-http
-  server localhost 127.0.0.1:4000 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
-  server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
-
-<% if node['haproxy']['enable_ssl'] -%>
-backend servers-https
-  mode tcp
-  option ssl-hello-chk
-  server localhost 127.0.0.1:4000 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
-  server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
-  <% if node["haproxy"]["ssl_httpchk"] -%>
-  option httpchk <%= node["haproxy"]["ssl_httpchk"] %>
-  <% end -%>
-<% end -%>
-
-<% if node['haproxy']['enable_admin'] -%>
-listen admin <%= node['haproxy']['admin']['address_bind'] %>:<%= node['haproxy']['admin']['port'] %>
-  mode http
-  stats uri /
-<% end -%>
+<%= @haproxy_configuration %>
