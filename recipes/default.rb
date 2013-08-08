@@ -33,7 +33,6 @@ template "#{node['haproxy']['conf_dir']}/haproxy.cfg" do
   group "root"
   mode 00644
   notifies :reload, "service[haproxy]"
-  variables( haproxy_configuration: haproxy_configuration())
 end
 
 service "haproxy" do
