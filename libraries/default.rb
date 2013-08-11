@@ -21,7 +21,15 @@ def walk(data)
     when Array
       a << value.map { |v| "  #{key} #{v}" }.join("\n")
     when Hash
-      a << walk(value)
+      if ['frontend', 'backend', 'listen' ].include?(key)
+        value.each do |k,v|
+          a << "#{key} #{k}"
+          a << walk(v)
+        end
+      else
+        a << key
+        a << walk(value)
+      end
     else
       a << "  #{key} #{value}"
     end
@@ -30,10 +38,5 @@ def walk(data)
 end
 
 def haproxy_configuration
-  a = []
-  ['global', 'defaults', 'listen', 'frontend', 'backend' ].each do |section|
-    a << section
-    a << walk(node['haproxy']['config'][section])
-  end
-  return a.join("\n")
+  walk(node['haproxy']['config']).join("\n")
 end
