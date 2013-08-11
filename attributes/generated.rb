@@ -1,3 +1,39 @@
+def ssl_frontend
+  if node['haproxy']['enable_ssl']
+    return { https: {
+        maxconn: node['haproxy']['frontend_ssl_max_connections'],
+        mode: 'tcp',
+        bind: "#{node['haproxy']['ssl_incoming_address']}:#{node['haproxy']['ssl_incoming_port']}",
+        default_backend: 'servers_https'}}
+  else
+    return { http: {
+        maxconn: node['haproxy']['frontend_max_connections'],
+        option: 'httplog',
+        bind: "#{node['haproxy']['incoming_address']}:#{node['haproxy']['incoming_port']}",
+        default_backend: 'servers_http' }}
+  end
+end
+
+def ssl_backend
+  if node['haproxy']['enable_ssl']
+    return {
+      servers_https: {
+        mode: 'tcp',
+        option: ( if node['haproxy']['ssl_httpchk']
+                    ['ssl-hello-chk', "httpchk #{node['haproxy']['ssl_httpchk']}"]
+                  else
+                    ['ssl-hello-chk']
+                  end ),
+        server: [ "localhost 127.0.0.1:4000 weight 1 maxconn #{node['haproxy']['member_max_connections']} check",
+                  "localhost 127.0.0.1:4001 weight 1 maxconn #{node['haproxy']['member_max_connections']} check" ]}}
+  else
+    return {
+      servers_http: {
+        server: [ "localhost 127.0.0.1:4000 weight 1 maxconn #{node['haproxy']['member_max_connections']} check",
+                  "localhost 127.0.0.1:4001 weight 1 maxconn #{node['haproxy']['member_max_connections']} check" ]}}
+  end
+end
+
 default['haproxy']['config']['global'] = {
   log: [ '127.0.0.1 local0',
          '127.0.0.1 local1 notice' ],
@@ -6,7 +42,6 @@ default['haproxy']['config']['global'] = {
   quiet: false,
   user: node['haproxy']['user'],
   group: node['haproxy']['group']}
-
 
 default['haproxy']['config']['defaults'] = {
   log: 'global',
@@ -19,31 +54,8 @@ default['haproxy']['config']['defaults'] = {
             'redispatch' ],
   balance: node['haproxy']['balance_algorithm']}
 
-default['haproxy']['config']['frontend'] = {
-  http: {
-    maxconn: node['haproxy']['frontend_max_connections'],
-    option: 'httplog',
-    bind: "#{node['haproxy']['incoming_address']}:#{node['haproxy']['incoming_port']}",
-    default_backend: 'servers_http' },
-  https: {
-    maxconn: node['haproxy']['frontend_ssl_max_connections'],
-    mode: 'tcp',
-    bind: "#{node['haproxy']['ssl_incoming_address']}:#{node['haproxy']['ssl_incoming_port']}",
-    default_backend: 'servers_https'}}
-
-default['haproxy']['config']['backend'] = {
-  servers_http: {
-    server: [ "localhost 127.0.0.1:4000 weight 1 maxconn #{node['haproxy']['member_max_connections']} check",
-              "localhost 127.0.0.1:4001 weight 1 maxconn #{node['haproxy']['member_max_connections']} check" ]},
-  servers_https: {
-    mode: 'tcp',
-    option: ( if node['haproxy']['ssl_httpchk']
-                ['ssl-hello-chk', "httpchk #{node['haproxy']['ssl_httpchk']}"]
-              else
-                ['ssl-hello-chk']
-              end ),
-    server: [ "localhost 127.0.0.1:4000 weight 1 maxconn #{node['haproxy']['member_max_connections']} check",
-              "localhost 127.0.0.1:4001 weight 1 maxconn #{node['haproxy']['member_max_connections']} check" ]}}
+default['haproxy']['config']['frontend'] = ssl_frontend()
+default['haproxy']['config']['backend'] = ssl_backend()
 
 if node['haproxy']['enable_admin']
   default['haproxy']['config']['listen'] = {
