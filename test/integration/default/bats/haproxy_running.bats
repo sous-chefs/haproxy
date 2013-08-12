@@ -8,6 +8,6 @@
   run pgrep haproxy
 }
 
-@test "haproxy listening on HTTPS port" {
+@test "haproxy listening on HTTP port" {
   run nc -z localhost 80
 }
