@@ -9,5 +9,5 @@
 }
 
 @test "haproxy listening on HTTPS port" {
-  run nc -z localhost 80
+  run nc -z localhost 443
 }

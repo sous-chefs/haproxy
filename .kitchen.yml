@@ -22,4 +22,8 @@ suites:
 - name: default
   run_list:
   - recipe[haproxy]
+  attributes: {}
+- name: ssl
+  run_list:
+  - recipe[haproxy]
   attributes: { haproxy: { enable_ssl: true }}
