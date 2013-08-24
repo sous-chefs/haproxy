@@ -38,6 +38,7 @@ default['haproxy']['x_forwarded_for'] = false
 default['haproxy']['defaults_timeouts']['connect'] = "5s"
 default['haproxy']['defaults_timeouts']['client'] = "50s"
 default['haproxy']['defaults_timeouts']['server'] = "50s"
+default['haproxy']['cookie'] = nil
 
 default['haproxy']['user'] = "haproxy"
 default['haproxy']['group'] = "haproxy"
