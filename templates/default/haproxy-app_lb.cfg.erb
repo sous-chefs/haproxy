@@ -7,6 +7,9 @@ global
   #quiet
   user <%= node['haproxy']['user'] %>
   group <%= node['haproxy']['group'] %>
+<% if node['haproxy']['enable_stats_socket'] -%>
+  stats socket <%= node['haproxy']['stats_socket_path'] %>
+<% end -%>
 
 defaults
   log     global
