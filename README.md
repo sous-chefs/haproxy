@@ -9,6 +9,7 @@ Requirements
 ## Platform
 
 * Ubuntu (10.04+ due to config option change)
+* Redhat (6.0+)
 * Debian (6.0+)
 
 Attributes
