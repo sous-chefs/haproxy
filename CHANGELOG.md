@@ -3,6 +3,16 @@ haproxy Cookbook CHANGELOG
 This file is used to list changes made in each version of the haproxy cookbook.
 
 
+v1.4.0
+------
+### Improvement
+- **[COOK-3237](https://tickets.opscode.com/browse/COOK-3237)** - Enable cookie-based persistence in a backend
+- **[COOK-3216](https://tickets.opscode.com/browse/COOK-3216)** - Add metadata attributes
+
+### New Feature
+- **[COOK-3211](https://tickets.opscode.com/browse/COOK-3211)** - Support RHEL
+- **[COOK-3133](https://tickets.opscode.com/browse/COOK-3133)** - Allow configuration of a global stats socket
+
 v1.3.2
 ------
 ### Bug
