@@ -1,8 +1,9 @@
 def haproxy_defaults_options
-  options = node['haproxy']['defaults_options']
+  options = node['haproxy']['defaults_options'].to_hash
   if node['haproxy']['x_forwarded_for']
     options.push("forwardfor")
   end
+
   return options.uniq
 end
 
