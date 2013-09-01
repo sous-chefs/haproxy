@@ -4,6 +4,10 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
+- name: centos-6.3
+  driver_config:
+    box: opscode-centos-6.3
+    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
 - name: ubuntu-12.04
   driver_config:
     box: opscode-ubuntu-12.04
