@@ -25,39 +25,13 @@ defaults
 
 # Set up application listeners here.
 
-frontend http
-  maxconn <%= node['haproxy']['frontend_max_connections'] %>
-  bind <%= node['haproxy']['incoming_address'] %>:<%= node['haproxy']['incoming_port'] %>
-  default_backend servers-http
+<% node['haproxy']['listeners'].each do |type, listeners | %>
+<% listeners.each do |name, listen| %>
+<%= type %> <%= name %>
+<% listen.each do |option| %>
+  <%= option %>
+<% end %>
 
-<% if node['haproxy']['enable_ssl'] -%>
-frontend https
-  maxconn <%= node['haproxy']['frontend_ssl_max_connections'] %>
-  mode tcp
-  bind <%= node['haproxy']['ssl_incoming_address'] %>:<%= node['haproxy']['ssl_incoming_port'] %>
-  default_backend servers-https
-<% end -%>
+<% end %>
 
-backend servers-http
-<% if node['haproxy']['cookie'] -%>
-  cookie <%= node['haproxy']['cookie'] %> insert indirect nocache
-<% end -%>
-  server localhost 127.0.0.1:4000 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check <% if node['haproxy']['cookie'] %>cookie <%= member['hostname'] %><% end %>
-  server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check <% if node['haproxy']['cookie'] %>cookie <%= member['hostname'] %><% end %>
-
-<% if node['haproxy']['enable_ssl'] -%>
-backend servers-https
-  mode tcp
-  option ssl-hello-chk
-  server localhost 127.0.0.1:4000 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
-  server localhost 127.0.0.1:4001 weight 1 maxconn <%= node['haproxy']['member_max_connections'] %> check
-<%   if node["haproxy"]["ssl_httpchk"] -%>
-  option httpchk <%= node["haproxy"]["ssl_httpchk"] %>
-<%   end -%>
-<% end -%>
-
-<% if node['haproxy']['enable_admin'] -%>
-listen admin <%= node['haproxy']['admin']['address_bind'] %>:<%= node['haproxy']['admin']['port'] %>
-  mode http
-  stats uri /
-<% end -%>
+<% end %>
