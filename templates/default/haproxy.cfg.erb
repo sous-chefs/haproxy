@@ -53,8 +53,5 @@ backend servers-https
 <% if node['haproxy']['enable_admin'] -%>
 listen admin <%= node['haproxy']['admin']['address_bind'] %>:<%= node['haproxy']['admin']['port'] %>
   mode http
-  stats uri <%= node['haproxy']['admin']['stats_uri'] %>
-<% if node['haproxy']['admin']['stats_user'] -%>
-  stats auth <%= node['haproxy']['admin']['stats_user'] %>:<%= node['haproxy']['admin']['stats_pass'] %>
-<% end -%>
+  stats uri /
 <% end -%>
