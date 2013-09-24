@@ -17,7 +17,5 @@
 # limitations under the License.
 #
 
-package "haproxy" do
-  action :install
-end
+package "haproxy"
 

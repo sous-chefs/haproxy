@@ -9,6 +9,7 @@ Requirements
 ## Platform
 
 * Ubuntu (10.04+ due to config option change)
+* Redhat (6.0+)
 * Debian (6.0+)
 
 Attributes
@@ -60,6 +61,8 @@ Attributes
   This option disables KeepAlive.
 * `node['haproxy']['member_max_connections']` - the maxconn value to
   be set for each app server
+* `node['haproxy']['cookie']` - if set, use this to pin connection to
+  the same server with a cookie.
 * `node['haproxy']['user']` - user that haproxy runs as
 * `node['haproxy']['group']` - group that haproxy runs as
 * `node['haproxy']['global_max_connections']` - in the `app_lb`
