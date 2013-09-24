@@ -33,6 +33,8 @@ default['haproxy']['admin']['address_bind'] = "127.0.0.1"
 default['haproxy']['admin']['port'] = 22002
 default['haproxy']['enable_stats_socket'] = false
 default['haproxy']['stats_socket_path'] = "/var/run/haproxy.sock"
+default['haproxy']['stats_socket_user'] = node['haproxy']['user']
+default['haproxy']['stats_socket_group'] = node['haproxy']['group']
 default['haproxy']['pid_file'] = "/var/run/haproxy.pid"
 
 default['haproxy']['defaults_options'] = ["httplog", "dontlognull", "redispatch"]
