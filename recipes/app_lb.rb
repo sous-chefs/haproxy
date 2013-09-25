@@ -41,19 +41,19 @@ pool_members.map! do |member|
 end
 
 
-p = ["options httpchk #{node['haproxy']['httpchk']}"] if node['haproxy']['httpchk']
+pool = ["options httpchk #{node['haproxy']['httpchk']}"] if node['haproxy']['httpchk']
 servers = pool_members.uniq.map do |s|
   "#{s[:hostrame]} #{s[:ipaddress]}:#{node['haproxy']['member_port']} weight 1 maxconn #{node['haproxy']['member_max_connections']} check"
 end
 haproxy_lb 'servers-http' do
   type 'backend'
   servers servers
-  params p
+  params pool
 end
 
 if node['haproxy']['enable_ssl']
-  p = ["option ssl-hello-chk"]
-  p << ["options httpchk #{node['haproxy']['ssl_httpchk']}"] if node['haproxy']['ssl_httpchk']
+  pool = ["option ssl-hello-chk"]
+  pool << ["options httpchk #{node['haproxy']['ssl_httpchk']}"] if node['haproxy']['ssl_httpchk']
   servers = pool_members.uniq.map do |s|
     "#{s[:hostrame]} #{s[:ipaddress]}:#{node['haproxy']['ssl_member_port']} weight 1 maxconn #{node['haproxy']['member_max_connections']} check"
   end
@@ -61,7 +61,7 @@ if node['haproxy']['enable_ssl']
     type 'backend'
     mode 'tcp'
     servers servers
-    params p
+    params pool
   end
 end
 

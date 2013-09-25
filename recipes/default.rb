@@ -70,8 +70,8 @@ if node['haproxy']['enable_ssl']
     })
   end
 
-  p = ['option ssl-hello-chk']
-  p << "option httpchk #{conf['ssl_httpchk']}" if conf['ssl_httpchk']
+  pool = ['option ssl-hello-chk']
+  pool << "option httpchk #{conf['ssl_httpchk']}" if conf['ssl_httpchk']
   servers = (4000..4001).map do |port|
     "localhost 127.0.0.1:#{port} weight 1 maxconn #{member_max_conn} check"
   end
@@ -79,7 +79,7 @@ if node['haproxy']['enable_ssl']
     type 'backend'
     mode 'tcp'
     servers servers
-    params p
+    params pool
   end
 end
 
