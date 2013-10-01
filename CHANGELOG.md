@@ -3,6 +3,15 @@ haproxy Cookbook CHANGELOG
 This file is used to list changes made in each version of the haproxy cookbook.
 
 
+v1.5.0
+------
+### Improvement
+- **[COOK-3660](https://tickets.opscode.com/browse/COOK-3660)** - Make haproxy socket default user group configurable
+- **[COOK-3537](https://tickets.opscode.com/browse/COOK-3537)** - Add OpenSSL and zlib source configurations
+
+### New Feature
+- **[COOK-2384](https://tickets.opscode.com/browse/COOK-2384)** - Add LWRP for multiple haproxy sites/configs
+
 v1.4.0
 ------
 ### Improvement
