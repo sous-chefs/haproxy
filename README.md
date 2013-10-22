@@ -145,6 +145,46 @@ Finally you can also configure frontends and backends by specify the type attrib
 
 Instead of using lwrp, you can use `node['haproxy']['listeners']` to configure all kind of listeners (`listen`, `frontend` and `backend`)
 
+### haproxy
+
+The haproxy LWRP allows for a more freeform method of configuration. It will map a given data structure into the proper configuration
+format, making it easier for adjustment and expansion.
+
+```ruby
+haproxy 'myhaproxy' do
+  config Mash.new(
+    :global => {
+      :maxconn => node[:haproxy][:global_max_connections],
+      :user => node[:haproxy][:user],
+      :group => node[:haproxy][:group]
+    },
+    :defaults => {
+      :log => :global,
+      :mode => :tcp,
+      :retries => 3,
+      :timeout => 5
+    },
+    :frontend => {
+      :srvs => {
+        :maxconn => node[:haproxy][:frontend_max_connections],
+        :bind => "#{node[:haproxy][:incoming_address]}:#{node[:haproxy][:incoming_port]}",
+        :default_backend => :backend_servers
+      }
+    },
+    :backend => {
+      :backend_servers => {
+        :mode => :tcp,
+        :server => [
+          "an_node 192.168.99.9:9999" => {
+            :weight => 1,
+            :maxconn => node[:haproxy][:member_max_connections]
+          }
+        ]
+      }
+    }
+  )
+end
+```
 
 Usage
 -----

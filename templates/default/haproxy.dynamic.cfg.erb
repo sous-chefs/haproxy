@@ -1,0 +1,4 @@
+<% @config.each do |top_level_key, top_level_value| -%>
+<%= top_level_key %>
+<%= ChefHaproxy.config_generator(top_level_value, '    ') %>
+<% end %>
