@@ -15,7 +15,25 @@ Attributes
 ----------
 - `node['haproxy']['incoming_address']` - sets the address to bind the haproxy process on, 0.0.0.0 (all addresses) by default
 - `node['haproxy']['incoming_port']` - sets the port on which haproxy listens
-- `node['haproxy']['member_port']` - the port that member systems will be listening on, default 80
+- `node['haproxy']['members']` - used by the default recipe to specify the member systems to add. Default
+
+  ```ruby
+  [{
+    "hostname" => "localhost",
+    "ipaddress" => "127.0.0.1",
+    "port" => 4000,
+    "ssl_port" => 4000
+  }, {
+    "hostname" => "localhost",
+    "ipaddress" => "127.0.0.1",
+    "port" => 4001,
+    "ssl_port" => 4001
+  }]
+  ```
+
+- `node['haproxy']['member_port']` - the port that member systems will
+  be listening on if not otherwise specified in the members attribute, default 8080
+- `node['haproxy']['member_weight']` - the weight to apply to member systems if not otherwise specified in the members attribute, default 1
 - `node['haproxy']['app_server_role']` - used by the `app_lb` recipe to search for a specific role of member systems. Default `webserver`.
 - `node['haproxy']['balance_algorithm']` - sets the load balancing algorithm; defaults to roundrobin.
 - `node['haproxy']['enable_ssl']` - whether or not to create listeners for ssl, default false
@@ -38,7 +56,8 @@ Attributes
 - `node['haproxy']['user']` - user that haproxy runs as
 - `node['haproxy']['group']` - group that haproxy runs as
 - `node['haproxy']['global_max_connections']` - in the `app_lb` config, set the global maxconn
-- `node['haproxy']['member_max_connections']` - in both configs, set the maxconn per member
+- `node['haproxy']['member_max_connections']` - the maxconn value to
+  be set for each app server if not otherwise specified in the members attribute
 - `node['haproxy']['frontend_max_connections']` - in the `app_lb` config, set the the maxconn per frontend member
 - `node['haproxy']['frontend_ssl_max_connections']` - in the `app_lb` config, set the maxconn per frontend member using SSL
 - `node['haproxy']['install_method']` - determines which method is used to install haproxy, must be 'source' or 'package'. defaults to 'package'
@@ -51,7 +70,6 @@ Attributes
 - `node['haproxy']['source']['target_cpu']` - the target cpu used to `make` haproxy
 - `node['haproxy']['source']['target_arch']` - the target arch used to `make` haproxy
 - `node['haproxy']['source']['use_pcre']` - whether to build with libpcre support
-
 
 Recipes
 -------
@@ -132,7 +150,41 @@ Usage
 -----
 Use either the default recipe or the `app_lb` recipe.
 
-When using the default recipe, modify the haproxy.cfg.erb file with listener(s) for your sites/servers.
+When using the default recipe, the members attribute specifies the http application servers. If you wish to use the `node['haproxy']['listeners']` attribute or `haproxy_lb` lwrp instead then set `node['haproxy']['enable_default_http']` to `false`.
+
+```ruby
+"haproxy" => {
+  "members" => [{
+    "hostname" => "appserver1",
+    "ipaddress" => "123.123.123.1",
+    "port" => 8000,
+    "ssl_port" => 8443,
+    "weight" => 1,
+    "max_connections" => 100
+  }, {
+    "hostname" => "appserver2",
+    "ipaddress" => "123.123.123.2",
+    "port" => 8000,
+    "ssl_port" => 8443,
+    "weight" => 1,
+    "max_connections" => 100
+  }, {
+    "hostname" => "appserver3",
+    "ipaddress" => "123.123.123.3",
+    "port" => 8000,
+    "ssl_port" => 8443,
+    "weight" => 1,
+    "max_connections" => 100
+  }]
+}
+```
+
+Note that the following attributes are optional
+
+- `port` will default to the value of `node['haproxy']['member_port']`
+- `ssl_port` will default to the value of `node['haproxy']['ssl_member_port']`
+- `weight` will default to the value of `node['haproxy']['member_weight']`
+- `max_connections` will default to the value of `node['haproxy']['member_max_connections']`
 
 The `app_lb` recipe is designed to be used with the application cookbook, and provides search mechanism to find the appropriate application servers. Set this in a role that includes the haproxy::app_lb recipe. For example,
 
