@@ -3,6 +3,12 @@ haproxy Cookbook CHANGELOG
 This file is used to list changes made in each version of the haproxy cookbook.
 
 
+v1.6.0
+------
+### New Feature
+- Allow setting of members with default recipe without changing the template
+
+
 v1.5.0
 ------
 ### Improvement
