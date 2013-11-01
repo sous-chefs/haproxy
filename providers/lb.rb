@@ -1,4 +1,4 @@
-use_inline_resources
+use_inline_resources if defined?(use_inline_resources)
 
 action :create do
   #While there is no way to have an include directive for haproxy
