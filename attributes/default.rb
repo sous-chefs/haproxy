@@ -44,17 +44,26 @@ default['haproxy']['ssl_httpchk'] = nil
 default['haproxy']['enable_admin'] = true
 default['haproxy']['admin']['address_bind'] = "127.0.0.1"
 default['haproxy']['admin']['port'] = 22002
+default['haproxy']['local1_log_level'] = "notice"
 default['haproxy']['enable_stats_socket'] = false
+default['haproxy']['stats_socket_level'] = nil
 default['haproxy']['stats_socket_path'] = "/var/run/haproxy.sock"
 default['haproxy']['stats_socket_user'] = node['haproxy']['user']
 default['haproxy']['stats_socket_group'] = node['haproxy']['group']
 default['haproxy']['pid_file'] = "/var/run/haproxy.pid"
 
+default['haproxy']['global_log1']['address'] = "127.0.0.1"
+default['haproxy']['global_log1']['facility'] = "local0"
+default['haproxy']['global_log1']['max_level'] = nil
+default['haproxy']['global_log1']['min_level'] = nil
 default['haproxy']['defaults_options'] = ["httplog", "dontlognull", "redispatch"]
+default['haproxy']['defaults_no_options'] = []
 default['haproxy']['x_forwarded_for'] = false
 default['haproxy']['defaults_timeouts']['connect'] = "5s"
 default['haproxy']['defaults_timeouts']['client'] = "50s"
 default['haproxy']['defaults_timeouts']['server'] = "50s"
+default['haproxy']['defaults_maxconn'] = nil
+default['haproxy']['defaults_retries'] = nil
 default['haproxy']['cookie'] = nil
 
 default['haproxy']['user'] = "haproxy"
