@@ -24,6 +24,7 @@ package 'libpcre3-dev' do
 end
 
 package 'libssl-dev' do
+  package_name 'openssl-devel' if platform?('centos')
   only_if { node['haproxy']['source']['use_openssl'] }
 end
 
