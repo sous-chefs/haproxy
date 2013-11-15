@@ -99,6 +99,7 @@ template "#{node['haproxy']['conf_dir']}/haproxy.cfg" do
   notifies :reload, "service[haproxy]"
   variables(
     :defaults_options => haproxy_defaults_options,
+    :defaults_no_options => haproxy_defaults_no_options,
     :defaults_timeouts => haproxy_defaults_timeouts,
     :global_log1 => haproxy_global_log1,
     :global_log2 => haproxy_global_log2

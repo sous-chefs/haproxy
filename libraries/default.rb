@@ -6,6 +6,10 @@ def haproxy_defaults_options
   return options.uniq
 end
 
+def haproxy_defaults_no_options
+  node['haproxy']['defaults_no_options']
+end
+
 def haproxy_defaults_timeouts
   node['haproxy']['defaults_timeouts']
 end
