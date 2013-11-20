@@ -43,6 +43,7 @@ default['haproxy']['ssl_member_port'] = 8443
 default['haproxy']['enable_mysql'] = false
 default['haproxy']['mysql_incoming_port'] = 3306
 default['haproxy']['mysql_incoming_address'] = "0.0.0.0"
+default['haproxy']['mysql_check_user'] = 'root'
 
 default['haproxy']['httpchk'] = nil
 default['haproxy']['ssl_httpchk'] = nil

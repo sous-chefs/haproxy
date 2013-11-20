@@ -104,7 +104,7 @@ if node['haproxy']['enable_mysql']
     balance 'roundrobin'
     servers servers
     params([
-      "option mysql-check user root"
+      "option mysql-check user #{conf['mysql_check_user']}"
     ])
   end
 end
