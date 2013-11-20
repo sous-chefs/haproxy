@@ -102,10 +102,10 @@ if node['haproxy']['enable_mysql']
     bind "#{conf['mysql_incoming_address']}:#{conf['mysql_incoming_port']}"
     mode 'tcp'
     balance 'roundrobin'
+    servers servers
     params([
       "option mysql-check user root"
     ])
-    servers servers
   end
 end
 
