@@ -31,7 +31,7 @@ package 'zlib1g-dev' do
   only_if { node['haproxy']['source']['use_zlib'] }
 end
 
-node.set['haproxy']['conf_dir'] = "#{node['haproxy']['source']['prefix']}/etc"
+node.default['haproxy']['conf_dir'] = "#{node['haproxy']['source']['prefix']}/#{node['haproxy']['conf_dir']}"
 
 remote_file "#{Chef::Config[:file_cache_path]}/haproxy-#{node['haproxy']['source']['version']}.tar.gz" do
   source node['haproxy']['source']['url']
