@@ -3,6 +3,15 @@ haproxy Cookbook CHANGELOG
 This file is used to list changes made in each version of the haproxy cookbook.
 
 
+v1.6.2
+------
+### Bug
+- **[COOK-3424](https://tickets.opscode.com/browse/COOK-3424)** - Haproxy cookbook attempts to alter an immutable attribute
+
+### New Feature
+- **[COOK-3135](https://tickets.opscode.com/browse/COOK-3135)** - Allow setting of members with default recipe without changing the template
+
+
 v1.6.0
 ------
 ### New Feature
