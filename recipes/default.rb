@@ -91,6 +91,25 @@ if node['haproxy']['enable_ssl']
 end
 
 
+if node['haproxy']['enable_mysql']
+
+  servers = node['haproxy']['members'].map do |member|
+    "#{member['hostname']} #{member['ipaddress']}:#{member['port']} check"
+  end
+
+  haproxy_lb 'mysql-cluster' do
+    type 'listen'
+    bind "#{conf['mysql_incoming_address']}:#{conf['mysql_incoming_port']}"
+    mode 'tcp'
+    balance 'roundrobin'
+    servers servers
+    params([
+      "option mysql-check user #{conf['mysql_check_user']}"
+    ])
+  end
+end
+
+
 template "#{node['haproxy']['conf_dir']}/haproxy.cfg" do
   source "haproxy.cfg.erb"
   owner "root"
