@@ -1,27 +1,32 @@
 global
-  log 127.0.0.1   local0
-  log 127.0.0.1   local1 notice
-  #log loghost    local0 info
+  <%= @global_log1 %>
+  <%= @global_log2 unless @global_log2.nil? %>
   maxconn <%= node['haproxy']['global_max_connections'] %>
-  #debug
-  #quiet
   user <%= node['haproxy']['user'] %>
   group <%= node['haproxy']['group'] %>
-<% if node['haproxy']['enable_stats_socket'] -%>
+<% if node['haproxy']['enable_stats_socket'] %>
+<% if !node['haproxy']['stats_socket_level'].nil? %>
+  stats socket <%= node['haproxy']['stats_socket_path'] %> level <%= node['haproxy']['stats_socket_level'] %>
+<% else %>
   stats socket <%= node['haproxy']['stats_socket_path'] %> user <%= node['haproxy']['stats_socket_user'] %> group <%= node['haproxy']['stats_socket_group'] %>
-<% end -%>
+<% end %>
+<% end %>
 
 defaults
   log     global
   mode    http
-  retries 3
 <% @defaults_timeouts.sort.map do | value, time | -%>
   timeout <%= value %> <%= time %>
 <% end -%>
 <% @defaults_options.sort.each do | option | -%>
   option <%= option %>
 <% end -%>
-  balance  <%= node['haproxy']['balance_algorithm'] %>
+<% @defaults_no_options.sort.each do | option | -%>
+  no option <%= option %>
+<% end -%>
+  <%= "maxconn #{node['haproxy']['defaults_maxconn']}" unless node['haproxy']['defaults_maxconn'].nil? %>
+  <%= "retries #{node['haproxy']['defaults_retries']}" unless node['haproxy']['defaults_retries'].nil? %>
+  <%= "balance #{node['haproxy']['balance_algorithm']}" unless node['haproxy']['balance_algorithm'].nil? %>
 
 # Set up application listeners here.
 
