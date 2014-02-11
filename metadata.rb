@@ -169,6 +169,37 @@ attribute "haproxy/frontend_ssl_max_connections",
   :required => "optional",
   :default => "2000"
 
+attribute "haproxy/global_logs",
+  :display_name => "HAProxy global syslog servers",
+  :description => "Syslog server configurations in the global stanza.",
+  :required => "optional",
+  :default => [
+    {:address => '127.0.0.1', :facility => 'local0'},
+    {:address => '127.0.0.1', :facility => 'local1', :max => 'notice'}
+  ]
+
+attribute "haproxy/global_mode",
+  :display_name => "HAProxy global running mode / protocol",
+  :description => "Running mode / protocol in the global stanza.",
+  :required => "optional",
+  :default => "http"
+
+attribute "haproxy/global_retries",
+  :display_name => "HAProxy global connection attempts",
+  :description => "Maximum number of connection attempts in the global stanza.",
+  :required => "optional",
+  :default => "3"
+
+attribute "haproxy/global_listener",
+  :display_name => "HAProxy global configuration options",
+  :description => "Additional, open-ended configuration options for the global stanza.",
+  :required => "optional"
+
+attribute "haproxy/defaults_listener",
+  :display_name => "HAProxy defaults configuration options",
+  :description => "Additional, open-ended configuration options for the defaults stanza.",
+  :required => "optional"
+
 attribute "haproxy/install_method",
   :display_name => "HAProxy install method",
   :description => "Determines which method is used to install haproxy, must be 'source' or 'package'. defaults to 'package'.",

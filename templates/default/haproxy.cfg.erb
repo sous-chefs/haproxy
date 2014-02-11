@@ -1,20 +1,21 @@
 global
-  log 127.0.0.1   local0
-  log 127.0.0.1   local1 notice
-  #log loghost    local0 info
+<% node['haproxy']['global_logs'].each do |log| -%>
+  log <%= log['address'] %> <%= log['facility'] %> <%= log['max'] %> <%= log['min'] %>
+<% end -%>
   maxconn <%= node['haproxy']['global_max_connections'] %>
-  #debug
-  #quiet
   user <%= node['haproxy']['user'] %>
   group <%= node['haproxy']['group'] %>
 <% if node['haproxy']['enable_stats_socket'] -%>
   stats socket <%= node['haproxy']['stats_socket_path'] %> user <%= node['haproxy']['stats_socket_user'] %> group <%= node['haproxy']['stats_socket_group'] %>
 <% end -%>
+<% node['haproxy']['global_listener'].each do |option| -%>
+  <%= option %>
+<% end -%>
 
 defaults
   log     global
-  mode    http
-  retries 3
+  mode    <%= node['haproxy']['global_mode'] %>
+  retries <%= node['haproxy']['global_retries'] %>
 <% @defaults_timeouts.sort.map do | value, time | -%>
   timeout <%= value %> <%= time %>
 <% end -%>
@@ -22,6 +23,9 @@ defaults
   option <%= option %>
 <% end -%>
   balance  <%= node['haproxy']['balance_algorithm'] %>
+<% node['haproxy']['defaults_listener'].each do |option| -%>
+  <%= option %>
+<% end -%>
 
 # Set up application listeners here.
 

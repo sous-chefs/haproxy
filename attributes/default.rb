@@ -65,6 +65,16 @@ default['haproxy']['member_max_connections'] = 100
 default['haproxy']['frontend_max_connections'] = 2000
 default['haproxy']['frontend_ssl_max_connections'] = 2000
 
+default['haproxy']['global_logs'] = [
+  {:address => '127.0.0.1', :facility => 'local0'},
+  {:address => '127.0.0.1', :facility => 'local1', :max => 'notice'}
+]
+default['haproxy']['global_mode'] = "http"
+default['haproxy']['global_retries'] = 3
+
+default['haproxy']['global_listener'] = []
+default['haproxy']['defaults_listener'] = []
+
 default['haproxy']['install_method'] = 'package'
 default['haproxy']['conf_dir'] = '/etc/haproxy'
 
