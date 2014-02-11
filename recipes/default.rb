@@ -90,6 +90,9 @@ if node['haproxy']['enable_ssl']
   end
 end
 
+# Re-default user/group to account for role/recipe overrides
+node.default['haproxy']['stats_socket_user'] = node['haproxy']['user']
+node.default['haproxy']['stats_socket_group'] = node['haproxy']['group']
 
 template "#{node['haproxy']['conf_dir']}/haproxy.cfg" do
   source "haproxy.cfg.erb"
