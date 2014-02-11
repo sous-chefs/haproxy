@@ -45,6 +45,7 @@ Attributes
 - `node['haproxy']['enable_admin']` - whether to enable the admin interface. default true. Listens on port 22002.
 - `node['haproxy']['admin']['address_bind']` - sets the address to bind the administrative interface on, 127.0.0.1 by default
 - `node['haproxy']['admin']['port']` - sets the port for the administrative interface, 22002 by default
+- `node['haproxy']['admin']['options']` - sets extras config parameters on the administrative interface, 'stats uri /' by default
 - `node['haproxy']['pid_file']` - the PID file of the haproxy process, used in the tuning recipe.
 - `node['haproxy']['defaults_options']` - an array of options to use for the config file's `defaults` stanza, default is ["httplog", "dontlognull", "redispatch"]
 - `node['haproxy']['defaults_timeouts']['connect']` - connect timeout in defaults stanza

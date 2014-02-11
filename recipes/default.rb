@@ -33,7 +33,7 @@ if node['haproxy']['enable_admin']
   haproxy_lb "admin" do
     bind "#{admin['address_bind']}:#{admin['port']}"
     mode 'http'
-    params({ 'stats' => 'uri /'})
+    params(admin['options'])
   end
 end
 
