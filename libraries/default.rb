@@ -17,6 +17,10 @@ module ChefHaproxy
       result = []
       case thing
       when Hash
+        if thing.empty?
+          result << prefix
+        end
+
         thing.each do |key, value|
           case value
           when Hash, Array
@@ -33,7 +37,14 @@ module ChefHaproxy
         end
       when Array
         thing.each do |v|
-          result << [prefix, v.to_s].compact.join(' ')
+          case v
+          when Hash
+            v.each do |key, value|
+              result.push config_generator(value, [prefix, key.to_s].compact.join(' '))
+            end
+          else
+            result << [prefix, v.to_s].compact.join(' ')
+          end
         end
       else
         raise TypeError.new("Expecting Hash or Array type. Received: #{thing.class}")
