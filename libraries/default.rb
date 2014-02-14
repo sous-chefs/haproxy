@@ -40,7 +40,17 @@ module ChefHaproxy
           case v
           when Hash
             v.each do |key, value|
-              result << [prefix, key.to_s, value.flatten].compact.join(' ')
+              if value.is_a?(Hash)
+                value = value.map do |attrib, val|
+                  case val
+                  when TrueClass, FalseClass
+                    attrib if val
+                  else
+                    [attrib, val].join(' ')
+                  end
+                end
+              end
+              result << [prefix, key.to_s, value].compact.join(' ')
             end
           else
             result << [prefix, v.to_s].compact.join(' ')
