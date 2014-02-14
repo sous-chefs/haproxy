@@ -19,20 +19,20 @@ module ChefHaproxy
       when Hash
         if thing.empty?
           result << prefix
-        end
-
-        thing.each do |key, value|
-          case value
-          when Hash, Array
-            result.push config_generator(
-              value, [prefix, key.to_s].compact.join(' ')
-            )
-          when TrueClass, FalseClass
-            if(value)
-              result << [prefix, key.to_s].compact.join(' ')
+        else
+          thing.each do |key, value|
+            case value
+            when Hash, Array
+              result.push config_generator(
+                value, [prefix, key.to_s].compact.join(' ')
+              )
+            when TrueClass, FalseClass
+              if(value)
+                result << [prefix, key.to_s].compact.join(' ')
+              end
+            else
+              result << [prefix, key.to_s, value.to_s].compact.join(' ')
             end
-          else
-            result << [prefix, key.to_s, value.to_s].compact.join(' ')
           end
         end
       when Array
@@ -40,7 +40,7 @@ module ChefHaproxy
           case v
           when Hash
             v.each do |key, value|
-              result.push config_generator(value, [prefix, key.to_s].compact.join(' '))
+              result << [prefix, key.to_s, value.flatten].compact.join(' ')
             end
           else
             result << [prefix, v.to_s].compact.join(' ')
