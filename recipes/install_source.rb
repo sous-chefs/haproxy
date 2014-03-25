@@ -42,7 +42,7 @@ package zlib_pkg do
   only_if { node['haproxy']['source']['use_zlib'] }
 end
 
-node.default['haproxy']['conf_dir'] = "#{node['haproxy']['source']['prefix']}/#{node['haproxy']['conf_dir']}"
+node.default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['source']['prefix'], node['haproxy']['conf_dir'])
 
 remote_file "#{Chef::Config[:file_cache_path]}/haproxy-#{node['haproxy']['source']['version']}.tar.gz" do
   source node['haproxy']['source']['url']
