@@ -44,10 +44,20 @@ end
 
 node.default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['source']['prefix'], node['haproxy']['conf_dir'])
 
-remote_file "#{Chef::Config[:file_cache_path]}/haproxy-#{node['haproxy']['source']['version']}.tar.gz" do
+download_file_path = ::File.join(Chef::Config[:file_cache_path], "haproxy-#{node['haproxy']['source']['version']}.tar.gz")
+remote_file download_file_path do
   source node['haproxy']['source']['url']
   checksum node['haproxy']['source']['checksum']
   action :create_if_missing
+end
+
+ruby_block "Validating checksum for the downloaded tarball" do
+  block do
+    checksum = Digest::MD5.file(download_file_path).hexdigest
+    if checksum != node['haproxy']['source']['checksum']
+      raise "Checksum of the downloaded file #{checksum} does not match known checksum #{node['haproxy']['source']['checksum']}"
+    end
+  end
 end
 
 make_cmd = "make TARGET=#{node['haproxy']['source']['target_os']}"
