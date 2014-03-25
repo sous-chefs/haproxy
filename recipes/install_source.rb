@@ -53,7 +53,7 @@ end
 
 ruby_block "Validating checksum for the downloaded tarball" do
   block do
-    checksum = Digest::MD5.file(download_file_path).hexdigest
+    checksum = Digest::SHA2.file(download_file_path).hexdigest
     if checksum != node['haproxy']['source']['checksum']
       raise "Checksum of the downloaded file #{checksum} does not match known checksum #{node['haproxy']['source']['checksum']}"
     end
