@@ -19,15 +19,26 @@
 
 include_recipe 'build-essential'
 
-package 'libpcre3-dev' do
+case node["platform_family"]
+when 'debian'
+  pcre_pkg = 'libpcre3-dev'
+  ssl_pkg = 'libssl-dev'
+  zlib_pkg = 'zlib1g-dev'
+when 'rhel'
+  pcre_pkg = 'pcre-devel'
+  ssl_pkg = 'openssl-devel'
+  zlib_pkg = 'zlib-devel'
+end
+
+package pcre_pkg do
   only_if { node['haproxy']['source']['use_pcre'] }
 end
 
-package 'libssl-dev' do
+package ssl_pkg do
   only_if { node['haproxy']['source']['use_openssl'] }
 end
 
-package 'zlib1g-dev' do
+package zlib_pkg do
   only_if { node['haproxy']['source']['use_zlib'] }
 end
 
