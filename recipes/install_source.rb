@@ -45,7 +45,7 @@ end
 node.default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['source']['prefix'], node['haproxy']['conf_dir'])
 
 download_file_path = ::File.join(Chef::Config[:file_cache_path], "haproxy-#{node['haproxy']['source']['version']}.tar.gz")
-remote_file download_file_path do
+remote_file "#{Chef::Config[:file_cache_path]}/haproxy-#{node['haproxy']['source']['version']}.tar.gz" do
   source node['haproxy']['source']['url']
   checksum node['haproxy']['source']['checksum']
   action :create_if_missing
