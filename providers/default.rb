@@ -1,7 +1,14 @@
 use_inline_resources if respond_to?(:use_inline_resources)
 
 def load_current_resource
-  new_resource.config_directory node['haproxy']['conf_dir'] unless new_resource.config_directory
+  unless new_resource.config_directory
+    case node['haproxy']['install_method']
+    when 'package'
+      new_resource.config_directory node['haproxy']['conf_dir']
+    when 'source'
+      new_resource.config_directory ::File.join(node['haproxy']['source']['prefix'], node['haproxy']['conf_dir'])
+    end
+  end
 end
 
 def make_hash(attr)
