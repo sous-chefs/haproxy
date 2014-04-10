@@ -14,13 +14,22 @@ platforms:
     box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
   run_list:
   - recipe[apt]
-
+  provisioner:
+    attributes:
+      haproxy:
+        test:
+          netcat_package: netcat
 - name: ubuntu-10.04
   driver_config:
     box: opscode-ubuntu-10.04
     box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_provisionerless.box
   run_list:
   - recipe[apt]
+  provisioner:
+    attributes:
+      haproxy:
+        test:
+          netcat_package: netcat
 
 suites:
 - name: default
