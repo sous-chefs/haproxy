@@ -70,6 +70,7 @@ Attributes
 - `node['haproxy']['source']['target_cpu']` - the target cpu used to `make` haproxy
 - `node['haproxy']['source']['target_arch']` - the target arch used to `make` haproxy
 - `node['haproxy']['source']['use_pcre']` - whether to build with libpcre support
+- `node['haproxy']['package']['version'] - the version of haproxy to install, default latest
 
 Recipes
 -------

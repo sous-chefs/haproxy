@@ -17,7 +17,9 @@
 # limitations under the License.
 #
 
-package "haproxy"
+package "haproxy" do
+  version node['haproxy']['package']['version'] if node['haproxy']['package']['version']
+end
 
 directory node['haproxy']['conf_dir']
 
