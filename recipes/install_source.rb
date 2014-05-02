@@ -46,10 +46,9 @@ node.default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['source']['pre
 
 download_file_path = ::File.join(Chef::Config[:file_cache_path], "haproxy-#{node['haproxy']['source']['version']}.tar.gz")
 
-remote_file "#{Chef::Config[:file_cache_path]}/haproxy-#{node['haproxy']['source']['version']}.tar.gz" do
-  source node['haproxy']['source']['url']
-  checksum node['haproxy']['source']['checksum']
-  action :create_if_missing
+execute "downloading #{::File.basename(download_file_path)} from #{node['haproxy']['source']['url']}" do
+  command "wget #{node['haproxy']['source']['url']} --output-document #{download_file_path}"
+  not_if { ::File.exists?(download_file_path) }
 end
 
 ruby_block "validating checksum for the downloaded tarball" do
