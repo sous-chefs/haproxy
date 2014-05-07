@@ -13,7 +13,7 @@ global
 
 defaults
   log     global
-  mode    http
+  mode    <%= node['haproxy']['mode'] %>
   retries 3
 <% @defaults_timeouts.sort.map do | value, time | -%>
   timeout <%= value %> <%= time %>
