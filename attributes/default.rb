@@ -21,6 +21,7 @@ default['haproxy']['user'] = "haproxy"
 default['haproxy']['group'] = "haproxy"
 
 default['haproxy']['enable_default_http'] = true
+default['haproxy']['mode'] = "http"
 default['haproxy']['incoming_address'] = "0.0.0.0"
 default['haproxy']['incoming_port'] = 80
 default['haproxy']['members'] = [{
@@ -79,6 +80,8 @@ default['haproxy']['source']['target_arch'] = ''
 default['haproxy']['source']['use_pcre'] = false
 default['haproxy']['source']['use_openssl'] = false
 default['haproxy']['source']['use_zlib'] = false
+
+default['haproxy']['package']['version'] = nil
 
 default['haproxy']['listeners'] = {
   'listen' => {},

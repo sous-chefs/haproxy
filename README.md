@@ -46,6 +46,10 @@ Attributes
 - `node['haproxy']['admin']['address_bind']` - sets the address to bind the administrative interface on, 127.0.0.1 by default
 - `node['haproxy']['admin']['port']` - sets the port for the administrative interface, 22002 by default
 - `node['haproxy']['admin']['options']` - sets extras config parameters on the administrative interface, 'stats uri /' by default
+- `node['haproxy']['enable_stats_socket']` - controls haproxy socket creation, false by default
+- `node['haproxy']['stats_socket_path']` - location of haproxy socket, "/var/run/haproxy.sock" by default
+- `node['haproxy']['stats_socket_user']` - user for haproxy socket, default is node['haproxy']['user']
+- `node['haproxy']['stats_socket_group']` - group for haproxy socket, default is node['haproxy']['group']
 - `node['haproxy']['pid_file']` - the PID file of the haproxy process, used in the tuning recipe.
 - `node['haproxy']['defaults_options']` - an array of options to use for the config file's `defaults` stanza, default is ["httplog", "dontlognull", "redispatch"]
 - `node['haproxy']['defaults_timeouts']['connect']` - connect timeout in defaults stanza
@@ -71,6 +75,7 @@ Attributes
 - `node['haproxy']['source']['target_cpu']` - the target cpu used to `make` haproxy
 - `node['haproxy']['source']['target_arch']` - the target arch used to `make` haproxy
 - `node['haproxy']['source']['use_pcre']` - whether to build with libpcre support
+- `node['haproxy']['package']['version'] - the version of haproxy to install, default latest
 
 Recipes
 -------

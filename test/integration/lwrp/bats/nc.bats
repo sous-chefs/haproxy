@@ -4,7 +4,7 @@ setup() {
 
 
 teardown(){
-    pkill -9 nc
+    pkill -9 nc || true
 }
 
 

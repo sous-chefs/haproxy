@@ -228,3 +228,8 @@ attribute "haproxy/source/use_pcre",
   :display_name => "HAProxy source use PCRE",
   :description => "Whether to build with libpcre support.",
   :required => "optional"
+
+attribute "haproxy/package/version",
+  :display_name => "HAProxy package version",
+  :description => "The version of haproxy to install.",
+  :required => "optional"
