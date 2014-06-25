@@ -87,3 +87,5 @@ default['haproxy']['listeners'] = {
   'frontend' => {},
   'backend' => {}
 }
+
+default['haproxy']['create_default_config'] = true

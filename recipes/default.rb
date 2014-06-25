@@ -104,6 +104,7 @@ template "#{node['haproxy']['conf_dir']}/haproxy.cfg" do
     :defaults_options => haproxy_defaults_options,
     :defaults_timeouts => haproxy_defaults_timeouts
   )
+  only_if { node['haproxy']['create_default_config'] }
 end
 
 service "haproxy" do
