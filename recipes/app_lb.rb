@@ -40,6 +40,9 @@ pool_members.map! do |member|
   {:ipaddress => server_ip, :hostname => member['hostname']}
 end
 
+pool_members.sort! do |a,b|
+  a[:hostname].downcase <=> b[:hostname].downcase
+end
 
 pool = ["options httpchk #{node['haproxy']['httpchk']}"] if node['haproxy']['httpchk']
 servers = pool_members.uniq.map do |s|
