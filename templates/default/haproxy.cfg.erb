@@ -11,7 +11,7 @@ global
   stats socket <%= node['haproxy']['stats_socket_path'] %> user <%= node['haproxy']['stats_socket_user'] %> group <%= node['haproxy']['stats_socket_group'] %>
 <% end -%>
 <% node['haproxy']['global_options'].sort.each do |option, value| %>
-<%= option %> <%= value %>
+  <%= option %> <%= value %>
 <% end %>
 
 defaults
