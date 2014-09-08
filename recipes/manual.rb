@@ -99,6 +99,6 @@ unless node['haproxy']['global_options'].is_a?(Hash)
   Chef::Log.error("Global options needs to be a Hash of the format: { 'option' => 'value' }. Please set node['haproxy']['global_options'] accordingly.")
 end
 
-haproxy_config "writing config" do
-  notifies :restart, "service[haproxy]"
+haproxy_config "Create haproxy.cfg" do
+  notifies :restart, "service[haproxy]", :delayed
 end

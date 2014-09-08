@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
+
 pool_members = search("node", "role:#{node['haproxy']['app_server_role']} AND chef_environment:#{node.chef_environment}") || []
 
 # load balancer may be in the pool
@@ -68,4 +70,6 @@ if node['haproxy']['enable_ssl']
   end
 end
 
-include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
+haproxy_config "Create haproxy.cfg" do
+  notifies :restart, "service[haproxy]", :delayed
+end
