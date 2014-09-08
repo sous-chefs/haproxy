@@ -2,6 +2,18 @@ haproxy Cookbook CHANGELOG
 ==========================
 This file is used to list changes made in each version of the haproxy cookbook.
 
+v1.6.6
+------
+### Bug
+- CPU Tuning, corrects cpu_affinity resource triggers
+
+### Updates
+- parameterize options for admin listener
+- renamed templates/rhel to templates/redhat
+- sort pool members by hostname to avoid needless restarts
+- support amazon linux init script
+- support to configure global options
+
 v1.6.4
 ------
 
