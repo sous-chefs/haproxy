@@ -45,6 +45,7 @@ Attributes
 - `node['haproxy']['enable_admin']` - whether to enable the admin interface. default true. Listens on port 22002.
 - `node['haproxy']['admin']['address_bind']` - sets the address to bind the administrative interface on, 127.0.0.1 by default
 - `node['haproxy']['admin']['port']` - sets the port for the administrative interface, 22002 by default
+- `node['haproxy']['admin']['options']` - sets extras config parameters on the administrative interface, 'stats uri /' by default
 - `node['haproxy']['enable_stats_socket']` - controls haproxy socket creation, false by default
 - `node['haproxy']['stats_socket_path']` - location of haproxy socket, "/var/run/haproxy.sock" by default
 - `node['haproxy']['stats_socket_user']` - user for haproxy socket, default is node['haproxy']['user']
