@@ -57,7 +57,7 @@ if conf['enable_default_http']
   servers = node['haproxy']['members'].map do |member|
     "#{member['hostname']} #{member['ipaddress']}:#{member['port'] || member_port} weight #{member['weight'] || member_weight} maxconn #{member['max_connections'] || member_max_conn} check"
   end
-  haproxy_lb 'servers-http' do
+  haproxy_lb "servers-#{node['haproxy']['mode']}" do
     type 'backend'
     servers servers
     params pool
@@ -82,9 +82,9 @@ if node['haproxy']['enable_ssl']
   servers = node['haproxy']['members'].map do |member|
     "#{member['hostname']} #{member['ipaddress']}:#{member['ssl_port'] || ssl_member_port} weight #{member['weight'] || member_weight} maxconn #{member['max_connections'] || member_max_conn} check"
   end
-  haproxy_lb 'servers-https' do
+  haproxy_lb "servers-#{node['haproxy']['mode']}" do
     type 'backend'
-    mode 'tcp'
+    mode node['haproxy']['mode']
     servers servers
     params pool
   end
