@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+default['haproxy']['conf_cookbook'] = "haproxy"
+default['haproxy']['conf_template_source'] = "haproxy.cfg.erb"
 default['haproxy']['user'] = "haproxy"
 default['haproxy']['group'] = "haproxy"
 

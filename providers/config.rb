@@ -10,7 +10,8 @@ end
 
 def install_haproxy_config
   template "#{new_resource.conf_dir}/haproxy.cfg" do
-    source "haproxy.cfg.erb"
+    cookbook new_resource.conf_cookbook
+    source new_resource.conf_template_source
     owner "root"
     group "root"
     mode 00644
