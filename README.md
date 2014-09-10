@@ -278,7 +278,7 @@ License & Authors
 -----------------
 - Author:: Joshua Timberman (<joshua@opscode.com>)
 - Author:: Aaron Baer (<aaron@hw-ops.com>)
-- Author:: Justin Kolberg (<justin@opscode.com>)
+- Author:: Justin Kolberg (<justin@hw-ops.com>)
 
 ```text
 Copyright:: Heavy Water Operations, LLC.
