@@ -34,3 +34,8 @@ template "/etc/init.d/haproxy" do
     :prefix => "/usr"
   )
 end
+
+service "haproxy" do
+  supports :restart => true, :status => true, :reload => true
+  action [:enable, :start]
+end

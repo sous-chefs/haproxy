@@ -34,7 +34,7 @@ platforms:
 suites:
 - name: default
   run_list:
-  - recipe[haproxy]
+  - recipe[haproxy::manual]
   attributes: {}
 - name: lwrp
   run_list:
@@ -53,4 +53,7 @@ suites:
             - mode tcp
             - server netcat1 127.0.0.1:5001
             - server netcat2 127.0.0.1:5002
-
+- name: app_lb
+  run_list:
+  - recipe[haproxy::app_lb]
+  attributes:
