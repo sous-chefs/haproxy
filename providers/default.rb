@@ -1,5 +1,14 @@
 use_inline_resources if respond_to?(:use_inline_resources)
 
+def whyrun_supported?
+  true
+end
+
+def set_updated
+  r = yield
+  new_resource.updated_by_last_action(r.updated_by_last_action?)
+end
+
 def load_current_resource
   unless new_resource.config_directory
     case node['haproxy']['install_method']
@@ -23,6 +32,35 @@ def make_hash(attr)
   new_hash
 end
 
+def create_haproxy_etc_directory
+  directory new_resource.config_directory do
+    recursive true
+  end
+end
+
+def haproxy_default_file
+  cookbook_file '/etc/default/haproxy' do
+    source 'haproxy-default'
+    cookbook 'haproxy'
+    owner 'root'
+    group 'root'
+    mode 00644
+    notifies :restart, 'service[haproxy]', :delayed
+  end
+end
+
+def create_haproxy_cfg
+  template ::File.join(new_resource.config_directory, 'haproxy.cfg') do
+    source 'haproxy.dynamic.cfg.erb'
+    cookbook 'haproxy'
+    owner 'root'
+    group 'root'
+    mode 00644
+    notifies :reload, 'service[haproxy]', :delayed
+    variables(:config => new_resource.config)
+  end
+end
+
 action :create do
 
   run_context.include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
@@ -33,30 +71,13 @@ action :create do
     new_resource.config AttributeStruct.new(&new_resource.config)._dump
   end
 
-  directory new_resource.config_directory do
-    recursive true
-  end
+  set_updated { create_haproxy_etc_directory }
 
   new_resource.config Chef::Mixin::DeepMerge.merge(make_hash(node[:haproxy][:config]), new_resource.config)
 
-  cookbook_file '/etc/default/haproxy' do
-    source 'haproxy-default'
-    cookbook 'haproxy'
-    owner 'root'
-    group 'root'
-    mode 00644
-    notifies :restart, 'service[haproxy]'
-  end
+  set_updated { haproxy_default_file }
 
-  template ::File.join(new_resource.config_directory, 'haproxy.cfg') do
-    source 'haproxy.dynamic.cfg.erb'
-    cookbook 'haproxy'
-    owner 'root'
-    group 'root'
-    mode 00644
-    notifies :reload, 'service[haproxy]'
-    variables(:config => new_resource.config)
-  end
+  set_updated { create_haproxy_cfg }
 
   service "haproxy" do
     supports :restart => true, :status => true, :reload => true
