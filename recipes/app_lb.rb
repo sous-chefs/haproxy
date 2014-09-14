@@ -20,7 +20,7 @@
 include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
 include_recipe "haproxy::_discovery"
 
-pool = ["options httpchk #{node['haproxy']['httpchk']}"] if node['haproxy']['httpchk']
+pool = ["option httpchk #{node['haproxy']['httpchk']}"] if node['haproxy']['httpchk']
 
 servers = node['haproxy']['pool_members'].uniq.map do |s|
   "#{s[:hostname]} #{s[:ipaddress]}:#{node['haproxy']['member_port']} weight 1 maxconn #{node['haproxy']['member_max_connections']} check"
@@ -44,7 +44,7 @@ end
 
 if node['haproxy']['enable_ssl']
   pool = ["option ssl-hello-chk"]
-  pool << ["options httpchk #{node['haproxy']['ssl_httpchk']}"] if node['haproxy']['ssl_httpchk']
+  pool << ["option httpchk #{node['haproxy']['ssl_httpchk']}"] if node['haproxy']['ssl_httpchk']
 
   servers = node['haproxy']['pool_members'].uniq.map do |s|
     "#{s[:hostname]} #{s[:ipaddress]}:#{node['haproxy']['ssl_member_port']} weight 1 maxconn #{node['haproxy']['member_max_connections']} check"
