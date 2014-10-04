@@ -12,6 +12,15 @@ describe 'haproxy::manual' do
     )
   end
 
+  it 'creates the haproxy user' do
+    expect(chef_run).to create_user('haproxy')
+  end
+
+  it 'creates the haproxy group' do
+    expect(chef_run).to create_group('haproxy')
+    .with(members: %w(haproxy))
+  end
+
   it 'creates the admin lb entry' do
     expect(chef_run).to create_haproxy_lb('admin')
   end

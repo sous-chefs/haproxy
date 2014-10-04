@@ -85,6 +85,7 @@ default['haproxy']['source']['use_openssl'] = false
 default['haproxy']['source']['use_zlib'] = false
 
 default['haproxy']['package']['version'] = nil
+default['haproxy']['package']['name'] = 'haproxy'
 
 default['haproxy']['pool_members'] = {}
 default['haproxy']['listeners'] = {
