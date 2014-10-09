@@ -1,15 +1,17 @@
 .vagrant
-*.lock
+Cheffile.lock
 *~
 *#
 .#*
 \#*#
 .*.sw[a-z]
 *.un~
-.bundle
-.cache
-.kitchen
-.librarian
-bin
-tmp
+tmp/*
+
+# Bundler
+Gemfile.lock
+bin/*
+.bundle/*
+
+.kitchen/
 .kitchen.local.yml
