@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-pool_members = search("node" , node['haproxy']['app_search_query']) || []
+pool_members = search("node", node['haproxy']['app_search_query']) || []
 
 # load balancer may be in the pool
 pool_members << node if node.run_list.roles.include?(node['haproxy']['app_server_role'])
