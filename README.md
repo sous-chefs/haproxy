@@ -34,7 +34,8 @@ Attributes
 - `node['haproxy']['member_port']` - the port that member systems will
   be listening on if not otherwise specified in the members attribute, default 8080
 - `node['haproxy']['member_weight']` - the weight to apply to member systems if not otherwise specified in the members attribute, default 1
-- `node['haproxy']['app_server_role']` - used by the `app_lb` recipe to search for a specific role of member systems. Default `webserver`.
+- `node['haproxy']['app_server_role']` - used by the `_discovery` recipe to search for a specific role of member systems. Default `webserver`.
+- `node['haproxy']]'app_search_query']`: - used by the `_discovery` recipe to override search scope. Default allow use of 'app_server_role"
 - `node['haproxy']['balance_algorithm']` - sets the load balancing algorithm; defaults to roundrobin.
 - `node['haproxy']['enable_ssl']` - whether or not to create listeners for ssl, default false
 - `node['haproxy']['ssl_incoming_address']` - sets the address to bind the haproxy on for SSL, 0.0.0.0 (all addresses) by default
@@ -271,7 +272,21 @@ override_attributes(
 )
 ```
 
-The search uses the node's `chef_environment`. For example, create `environments/production.rb`, then upload it to the server with knife
+The search uses the node's `chef_environment`. For example, create `environments/production.rb`, then upload it to the server with knife.
+
+It is possible to override the search scope with 'app_search_query' attribute. This is mainly used in environment using cookbook based roles for version control. For example, 
+
+```ruby
+name 'load_balancer'
+description 'haproxy load balancer'
+run_list('recipe[haproxy::app_lb]')
+override_attributes(
+  'haproxy' => {
+     'app_search_query' => 'recipe:apache AND chef_environment:production'
+}
+)
+```
+
 
 
 License & Authors
