@@ -14,6 +14,17 @@ global
   <%= option %> <%= value %>
 <% end %>
 
+<% node['haproxy']['userlists'].each do |name, userlist| -%>
+userlist <%= name %>
+<% (userlist['groups'] || {}).keys.sort.each do |k| -%>
+  <%= userlist['groups'][k] %>
+<% end -%>
+<% (userlist['users'] || {}).keys.sort.each do |k| -%>
+  <%= userlist['users'][k] %>
+<% end -%>
+
+<% end -%>
+
 defaults
   log     global
   mode    <%= node['haproxy']['mode'] %>

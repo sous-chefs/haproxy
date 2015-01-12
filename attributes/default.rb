@@ -92,3 +92,4 @@ default['haproxy']['listeners'] = {
   'frontend' => {},
   'backend' => {}
 }
+default['haproxy']['userlists'] = {}

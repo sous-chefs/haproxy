@@ -162,6 +162,41 @@ Finally you can also configure frontends and backends by specify the type attrib
 
 Instead of using lwrp, you can use `node['haproxy']['listeners']` to configure all kind of listeners (`listen`, `frontend` and `backend`)
 
+### haproxy_userlist
+Define a user list, to which users (`haproxy_user`) and groups (`haproxy_group`) can be added to provide access control on frontend/backend/listen sections.
+
+```ruby
+haproxy_userlist 'admins' do
+  action :create
+end
+```
+
+### haproxy_user
+Define a user within an HAProxy userlist. The userlist must be previously defined using an `haproxy_userlist` resource.
+
+If a password is provided in plain text, it will automatically be cryptographically hashed with a securely generated salt. Pre-computed hashes can also be provided.
+
+```ruby
+haproxy_user 'brian' do
+  userlist 'admins'
+  password 'changeme'
+  insecure_password false
+  groups ['group1']
+  action :create
+end
+```
+
+### haproxy_group
+Define a group of users within an HAProxy userlist. The userlist must be previously defined using an `haproxy_userlist` resource.
+
+```ruby
+haproxy_group 'group2' do
+  userlist 'admins'
+  users ['brian', 'jane']
+  action :create
+end
+```
+
 ### haproxy_config
 
 This provider is used to write the actual haproxy.cfg file to the system. Location of
