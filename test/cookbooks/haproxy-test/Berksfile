@@ -1,3 +1,3 @@
-site :opscode
+site :chef
 
 metadata

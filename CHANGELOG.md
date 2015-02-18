@@ -20,19 +20,19 @@ v1.6.4
 v1.6.2
 ------
 ### Bug
-- **[COOK-3424](https://tickets.opscode.com/browse/COOK-3424)** - Haproxy cookbook attempts to alter an immutable attribute
+- **[COOK-3424](https://tickets.chef.io/browse/COOK-3424)** - Haproxy cookbook attempts to alter an immutable attribute
 
 ### New Feature
-- **[COOK-3135](https://tickets.opscode.com/browse/COOK-3135)** - Allow setting of members with default recipe without changing the template
+- **[COOK-3135](https://tickets.chef.io/browse/COOK-3135)** - Allow setting of members with default recipe without changing the template
 
 
 v1.6.2
 ------
 ### Bug
-- **[COOK-3424](https://tickets.opscode.com/browse/COOK-3424)** - Haproxy cookbook attempts to alter an immutable attribute
+- **[COOK-3424](https://tickets.chef.io/browse/COOK-3424)** - Haproxy cookbook attempts to alter an immutable attribute
 
 ### New Feature
-- **[COOK-3135](https://tickets.opscode.com/browse/COOK-3135)** - Allow setting of members with default recipe without changing the template
+- **[COOK-3135](https://tickets.chef.io/browse/COOK-3135)** - Allow setting of members with default recipe without changing the template
 
 
 v1.6.0
@@ -44,21 +44,21 @@ v1.6.0
 v1.5.0
 ------
 ### Improvement
-- **[COOK-3660](https://tickets.opscode.com/browse/COOK-3660)** - Make haproxy socket default user group configurable
-- **[COOK-3537](https://tickets.opscode.com/browse/COOK-3537)** - Add OpenSSL and zlib source configurations
+- **[COOK-3660](https://tickets.chef.io/browse/COOK-3660)** - Make haproxy socket default user group configurable
+- **[COOK-3537](https://tickets.chef.io/browse/COOK-3537)** - Add OpenSSL and zlib source configurations
 
 ### New Feature
-- **[COOK-2384](https://tickets.opscode.com/browse/COOK-2384)** - Add LWRP for multiple haproxy sites/configs
+- **[COOK-2384](https://tickets.chef.io/browse/COOK-2384)** - Add LWRP for multiple haproxy sites/configs
 
 v1.4.0
 ------
 ### Improvement
-- **[COOK-3237](https://tickets.opscode.com/browse/COOK-3237)** - Enable cookie-based persistence in a backend
-- **[COOK-3216](https://tickets.opscode.com/browse/COOK-3216)** - Add metadata attributes
+- **[COOK-3237](https://tickets.chef.io/browse/COOK-3237)** - Enable cookie-based persistence in a backend
+- **[COOK-3216](https://tickets.chef.io/browse/COOK-3216)** - Add metadata attributes
 
 ### New Feature
-- **[COOK-3211](https://tickets.opscode.com/browse/COOK-3211)** - Support RHEL
-- **[COOK-3133](https://tickets.opscode.com/browse/COOK-3133)** - Allow configuration of a global stats socket
+- **[COOK-3211](https://tickets.chef.io/browse/COOK-3211)** - Support RHEL
+- **[COOK-3133](https://tickets.chef.io/browse/COOK-3133)** - Allow configuration of a global stats socket
 
 v1.3.2
 ------

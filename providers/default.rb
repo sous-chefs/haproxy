@@ -28,7 +28,10 @@ action :create do
   run_context.include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
 
   if(new_resource.config.is_a?(Proc))
-    chef_gem 'attribute_struct'
+    chef_gem 'attribute_struct' do
+      compile_time true
+      action :install
+    end
     require 'attribute_struct'
     new_resource.config AttributeStruct.new(&new_resource.config)._dump
   end
