@@ -59,5 +59,5 @@ if node['haproxy']['enable_ssl']
 end
 
 haproxy_config "Create haproxy.cfg" do
-  notifies :restart, "service[haproxy]", :delayed
+  notifies :reload, "service[haproxy]", :delayed
 end
