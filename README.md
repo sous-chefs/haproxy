@@ -61,6 +61,8 @@ Attributes
 - `node['haproxy']['cookie']` - if set, use this to pin connection to the same server with a cookie.
 - `node['haproxy']['user']` - user that haproxy runs as
 - `node['haproxy']['group']` - group that haproxy runs as
+- `node['haproxy']['enable_quiet']` - avoid messages to stdout
+- `node['haproxy']['enable_debug']` - logs timestamped display of each connection, disconnection, and HTTP headers
 - `node['haproxy']['global_max_connections']` - in the `app_lb` config, set the global maxconn
 - `node['haproxy']['member_max_connections']` - the maxconn value to
   be set for each app server if not otherwise specified in the members attribute
@@ -80,6 +82,11 @@ Attributes
 - `node['haproxy']['pool_members']` - updated by discovery to store node information
 - `node['haproxy']['conf_cookbook']` - used to update which cookbook holds the haproxy.cfg template
 - `node['haproxy']['conf_template_source']` - name of the haproxy.cfg template
+- `node['haproxy']['log']` - contains log servers, facility, and loglevels. Defaults to:
+
+  ```ruby
+default['haproxy']['log']['127.0.0.1'] = { 'local0' => 'info', 'local1' => 'notice' }
+  ```
 
 Recipes
 -------
@@ -128,7 +135,7 @@ end
 which will be translated into:
 
 ```text
-listen rabbitmq'
+listen rabbitmq
   bind 0.0.0.0:5672
   mode tcp
   rmq1 10.0.0.1:5672 check inter 10s rise 2 fall 3
