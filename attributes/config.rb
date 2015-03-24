@@ -7,3 +7,4 @@ default[:haproxy][:config][:defaults][:timeout][:server] = '10s'
 default[:haproxy][:config][:defaults][:timeout][:connect] = '10s'
 default[:haproxy][:config][:defaults][:options] = []
 default[:haproxy][:config][:global][:log][:logwriter] = "local0"
+default[:haproxy][:config][:global][:log][:logwriter2] = "local1"
