@@ -1,7 +1,7 @@
 global
-  log 127.0.0.1   local0
-  log 127.0.0.1   local1 notice
-  #log loghost    local0 info
+  log 127.0.0.1   <% =node[:haproxy][:config][:global][:log][:logwriter] %>
+  log 127.0.0.1   <% =node[:haproxy][:config][:global][:log][:logwriter2] %> notice
+  #log loghost    <% =node[:haproxy][:config][:global][:log][:logwriter] %> info
   maxconn <%= node['haproxy']['global_max_connections'] %>
   #debug
   #quiet
