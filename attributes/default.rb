@@ -40,6 +40,7 @@ default['haproxy']['members'] = [{
 default['haproxy']['member_port'] = 8080
 default['haproxy']['member_weight'] = 1
 default['haproxy']['app_server_role'] = "webserver"
+default['haproxy']['defaults_retries'] = 3
 default['haproxy']['balance_algorithm'] = "roundrobin"
 default['haproxy']['enable_ssl'] = false
 default['haproxy']['ssl_incoming_address'] = "0.0.0.0"
