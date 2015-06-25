@@ -54,10 +54,11 @@ if conf['enable_default_http']
   member_port = conf['member_port']
   pool = []
   pool << "option httpchk #{conf['httpchk']}" if conf['httpchk']
+  pool << "cookie #{node['haproxy']['cookie']}" if node['haproxy']['cookie']
   servers = node['haproxy']['members'].map do |member|
     "#{member['hostname']} #{member['ipaddress']}:#{member['port'] || member_port} weight #{member['weight'] || member_weight} maxconn #{member['max_connections'] || member_max_conn} check"
   end
-  haproxy_lb "servers-#{node['haproxy']['mode']}" do
+  haproxy_lb "servers-http" do
     type 'backend'
     servers servers
     params pool
@@ -66,12 +67,18 @@ end
 
 
 if node['haproxy']['enable_ssl']
+  if node['haproxy']['ssl_crt_path']
+    bind = "#{node['haproxy']['ssl_incoming_address']}:#{node['haproxy']['ssl_incoming_port']} ssl crt #{node['haproxy']['ssl_crt_path']}"
+  else
+    bind = "#{node['haproxy']['ssl_incoming_address']}:#{node['haproxy']['ssl_incoming_port']}"
+  end
+  
   haproxy_lb 'https' do
     type 'frontend'
-    mode 'tcp'
+    mode node['haproxy']['ssl_mode']
     params({
       'maxconn' => node['haproxy']['frontend_ssl_max_connections'],
-      'bind' => "#{node['haproxy']['ssl_incoming_address']}:#{node['haproxy']['ssl_incoming_port']}",
+      'bind' => bind,
       'default_backend' => 'servers-https'
     })
   end
@@ -79,12 +86,13 @@ if node['haproxy']['enable_ssl']
   ssl_member_port = conf['ssl_member_port']
   pool = ['option ssl-hello-chk']
   pool << "option httpchk #{conf['ssl_httpchk']}" if conf['ssl_httpchk']
+  pool << "cookie #{node['haproxy']['cookie']}" if node['haproxy']['cookie']
   servers = node['haproxy']['members'].map do |member|
     "#{member['hostname']} #{member['ipaddress']}:#{member['ssl_port'] || ssl_member_port} weight #{member['weight'] || member_weight} maxconn #{member['max_connections'] || member_max_conn} check"
   end
-  haproxy_lb "servers-#{node['haproxy']['mode']}" do
+  haproxy_lb "servers-https" do
     type 'backend'
-    mode node['haproxy']['mode']
+    mode node['haproxy']['ssl_mode']
     servers servers
     params pool
   end

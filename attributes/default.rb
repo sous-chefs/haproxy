@@ -24,6 +24,7 @@ default['haproxy']['group'] = "haproxy"
 
 default['haproxy']['enable_default_http'] = true
 default['haproxy']['mode'] = "http"
+default['haproxy']['ssl_mode'] = "http"
 default['haproxy']['incoming_address'] = "0.0.0.0"
 default['haproxy']['incoming_port'] = 80
 default['haproxy']['members'] = [{
@@ -46,6 +47,7 @@ default['haproxy']['enable_ssl'] = false
 default['haproxy']['ssl_incoming_address'] = "0.0.0.0"
 default['haproxy']['ssl_incoming_port'] = 443
 default['haproxy']['ssl_member_port'] = 8443
+default['haproxy']['ssl_crt_path'] = nil
 default['haproxy']['httpchk'] = nil
 default['haproxy']['ssl_httpchk'] = nil
 default['haproxy']['enable_admin'] = true
