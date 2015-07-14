@@ -99,5 +99,5 @@ end
 
 service "haproxy" do
   supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
+  action [:enable]
 end
