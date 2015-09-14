@@ -90,6 +90,7 @@ default['haproxy']['source']['use_zlib'] = false
 default['haproxy']['package']['version'] = nil
 
 default['haproxy']['pool_members'] = {}
+default['haproxy']['pool_members_option'] = nil
 default['haproxy']['listeners'] = {
   'listen' => {},
   'frontend' => {},
