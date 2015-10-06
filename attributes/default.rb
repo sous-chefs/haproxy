@@ -21,6 +21,9 @@ default['haproxy']['conf_cookbook'] = "haproxy"
 default['haproxy']['conf_template_source'] = "haproxy.cfg.erb"
 default['haproxy']['user'] = "haproxy"
 default['haproxy']['group'] = "haproxy"
+default['haproxy']['log']['127.0.0.1'] = { 'local0' => 'info', 'local1' => 'notice' }
+default['haproxy']['enable_debug'] = false
+default['haproxy']['enable_quiet'] = false
 
 default['haproxy']['enable_default_http'] = true
 default['haproxy']['mode'] = "http"

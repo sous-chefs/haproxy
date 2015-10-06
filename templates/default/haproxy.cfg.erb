@@ -1,10 +1,18 @@
 global
-  log 127.0.0.1   local0
-  log 127.0.0.1   local1 notice
-  #log loghost    local0 info
+<% if node['haproxy']['log'] -%>
+ <% node['haproxy']['log'].each do |server, options| -%>
+  <% options.each do |facility, loglevel| -%>
+  log <%= server %> <%= facility %> <%= loglevel %>
+  <% end -%>
+ <% end -%>
+<% end -%>
   maxconn <%= node['haproxy']['global_max_connections'] %>
-  #debug
-  #quiet
+<% if node['haproxy']['enable_debug'] -%>
+  debug
+<% end -%>
+<% if node['haproxy']['enable_quiet'] -%>
+  quiet
+<% end -%>
   user <%= node['haproxy']['user'] %>
   group <%= node['haproxy']['group'] %>
 <% if node['haproxy']['enable_stats_socket'] -%>
