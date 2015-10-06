@@ -77,10 +77,14 @@ bash "compile_haproxy" do
   creates "#{node['haproxy']['source']['prefix']}/sbin/haproxy"
 end
 
-user "haproxy" do
+user node['haproxy']['user'] do
   comment "haproxy system account"
   system true
   shell "/bin/false"
+end
+
+group node['haproxy']['group'] do
+  members [ node['haproxy']['user'] ]
 end
 
 directory node['haproxy']['conf_dir']

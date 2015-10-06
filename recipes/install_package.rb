@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-package "haproxy" do
+package node['haproxy']['package']['name'] do
   version node['haproxy']['package']['version'] if node['haproxy']['package']['version']
 end
 
