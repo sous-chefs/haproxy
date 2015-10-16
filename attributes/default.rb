@@ -86,6 +86,8 @@ default['haproxy']['source']['target_arch'] = ''
 default['haproxy']['source']['use_pcre'] = false
 default['haproxy']['source']['use_openssl'] = false
 default['haproxy']['source']['use_zlib'] = false
+default['haproxy']['source']['use_tproxy'] = false
+default['haproxy']['source']['use_splice'] = false
 
 default['haproxy']['package']['version'] = nil
 

@@ -60,21 +60,29 @@ ruby_block "Validating checksum for the downloaded tarball" do
   end
 end
 
-make_cmd = "make TARGET=#{node['haproxy']['source']['target_os']}"
-make_cmd << " CPU=#{node['haproxy']['source']['target_cpu' ]}" unless node['haproxy']['source']['target_cpu'].empty?
-make_cmd << " ARCH=#{node['haproxy']['source']['target_arch']}" unless node['haproxy']['source']['target_arch'].empty?
-make_cmd << " USE_PCRE=1" if node['haproxy']['source']['use_pcre']
-make_cmd << " USE_OPENSSL=1" if node['haproxy']['source']['use_openssl']
-make_cmd << " USE_ZLIB=1" if node['haproxy']['source']['use_zlib']
+template "/root/haproxy_build.sh" do
+  source "source_compile.sh.erb"
+  variables(
+    :target => node['haproxy']['source']['target_os'],
+    :cpu => node['haproxy']['source']['target_cpu' ],
+    :arch => node['haproxy']['source']['target_arch'],
+    :use_pcre => node['haproxy']['source']['use_pcre'],
+    :use_openssl => node['haproxy']['source']['use_openssl'],
+    :use_zlib => node['haproxy']['source']['use_zlib'],
+    :use_tproxy => node['haproxy']['source']['use_tproxy'],
+    :use_splice => node['haproxy']['source']['use_splice'],
+    :work_dir => Chef::Config[:file_cache_path],
+    :version => node['haproxy']['source']['version'],
+    :prefix =>  node['haproxy']['source']['prefix']
+  )
+  notifies :run, "bash[install_haproxy]", :immediately
+end
 
-bash "compile_haproxy" do
+bash "install_haproxy" do
+  user 'root'
   cwd Chef::Config[:file_cache_path]
-  code <<-EOH
-    tar xzf haproxy-#{node['haproxy']['source']['version']}.tar.gz
-    cd haproxy-#{node['haproxy']['source']['version']}
-    #{make_cmd} && make install PREFIX=#{node['haproxy']['source']['prefix']}
-  EOH
-  creates "#{node['haproxy']['source']['prefix']}/sbin/haproxy"
+  action :nothing
+  code "sh /root/haproxy_build.sh"
 end
 
 user "haproxy" do
