@@ -2,6 +2,14 @@ haproxy Cookbook CHANGELOG
 ==========================
 This file is used to list changes made in each version of the haproxy cookbook.
 
+v1.6.7
+------
+### New Feature
+- Added ChefSpec matchers and test coverage
+
+### Updates
+- Replaced references to Opscode with Chef
+
 v1.6.6
 ------
 ### Bug
