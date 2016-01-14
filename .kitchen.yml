@@ -72,7 +72,6 @@ suites:
   attributes:
     haproxy: &default_attr
       enable_default_http: false
-      global_options: ['quiet']
       listeners:
         listen:
           lb_test:

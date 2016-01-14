@@ -58,6 +58,8 @@ default['haproxy']['pid_file'] = "/var/run/haproxy.pid"
 default['haproxy']['defaults_options'] = ["httplog", "dontlognull", "redispatch"]
 default['haproxy']['x_forwarded_for'] = false
 default['haproxy']['global_options'] = {}
+# debug_options could be either "debug" or "quiet". "quiet" by default.
+default['haproxy']['debug_options'] = 'quiet'
 default['haproxy']['defaults_timeouts']['connect'] = "5s"
 default['haproxy']['defaults_timeouts']['client'] = "50s"
 default['haproxy']['defaults_timeouts']['server'] = "50s"
