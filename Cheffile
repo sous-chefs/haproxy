@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
 #^syntax detection
 
-site 'http://community.chef.io/api/v1'
+site 'http://supermarket.chef.io/api/v1'
 
 cookbook "haproxy", :path => '.'
 
 cookbook "apt"
 cookbook "yum"
 cookbook "haproxy-test", :path => './test/cookbooks/haproxy-test'
+cookbook 'poise-service'

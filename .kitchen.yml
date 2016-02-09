@@ -4,10 +4,14 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
-- name: centos-6.3
+- name: centos-6.4
   driver_config:
-    box: opscode-centos-6.3
+    box: opscode-centos-6.4
     box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
+- name: centos-7.1
+  driver_config:
+    box: opscode-centos-7.1
+    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-7.1_provisionerless.box
 - name: ubuntu-12.04
   driver_config:
     box: opscode-ubuntu-12.04
@@ -30,20 +34,44 @@ platforms:
       haproxy:
         test:
           netcat_package: netcat
-
+- name: debian-7.9
+  driver_config:
+    box: opscode-debian-7.9
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.9_chef-provisionerless.box
+  run_list:
+  - recipe[apt]
+  provisioner:
+    attributes:
+      haproxy:
+        test:
+          netcat_package: netcat
+- name: debian-8.2
+  driver_config:
+    box: opscode-debian-8.2
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-8.2_chef-provisionerless.box
+  run_list:
+  - recipe[apt]
+  provisioner:
+    attributes:
+      haproxy:
+        test:
+          netcat_package: netcat
 suites:
 - name: default
   run_list:
   - recipe[haproxy]
   attributes: {}
-- name: lwrp
+
+- name: lwrp-package
+  # No haproxy package on debian7 with default apt repo
+  excludes:
+    - debian-7.9
   run_list:
   - recipe[haproxy]
   - recipe[haproxy-test]
   attributes:
-    haproxy:
+    haproxy: &default_attr
       enable_default_http: false
-      global_options: ['quiet']
       listeners:
         listen:
           lb_test:
@@ -54,3 +82,11 @@ suites:
             - server netcat1 127.0.0.1:5001
             - server netcat2 127.0.0.1:5002
 
+- name: lwrp-source
+  run_list:
+  - recipe[haproxy]
+  - recipe[haproxy-test]
+  attributes:
+    haproxy:
+      <<: *default_attr
+      install_method: 'source'

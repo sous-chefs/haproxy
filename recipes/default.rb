@@ -24,7 +24,7 @@ cookbook_file "/etc/default/haproxy" do
   owner "root"
   group "root"
   mode 00644
-  notifies :restart, "service[haproxy]"
+  notifies :restart, "poise_service[haproxy]"
 end
 
 
@@ -104,14 +104,19 @@ template "#{node['haproxy']['conf_dir']}/haproxy.cfg" do
   owner "root"
   group "root"
   mode 00644
-  notifies :reload, "service[haproxy]"
+  notifies :reload, "poise_service[haproxy]"
   variables(
     :defaults_options => haproxy_defaults_options,
     :defaults_timeouts => haproxy_defaults_timeouts
   )
 end
 
-service "haproxy" do
-  supports :restart => true, :status => true, :reload => true
-  action [:enable, :start]
+haproxy_command = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy')
+haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
+poise_service "haproxy" do
+  command "#{haproxy_command} -f #{haproxy_config_file}"
+  node['haproxy']['poise_service']['options'].each do |k, v|
+    options k, v
+  end
+  action :enable
 end

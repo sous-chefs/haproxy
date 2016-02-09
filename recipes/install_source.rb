@@ -42,8 +42,6 @@ package zlib_pkg do
   only_if { node['haproxy']['source']['use_zlib'] }
 end
 
-node.default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['source']['prefix'], node['haproxy']['conf_dir'])
-
 download_file_path = ::File.join(Chef::Config[:file_cache_path], "haproxy-#{node['haproxy']['source']['version']}.tar.gz")
 remote_file download_file_path do
   source node['haproxy']['source']['url']
@@ -85,14 +83,3 @@ end
 
 directory node['haproxy']['conf_dir']
 
-template "/etc/init.d/haproxy" do
-  source "haproxy-init.erb"
-  owner "root"
-  group "root"
-  mode 00755
-  variables(
-    :hostname => node['hostname'],
-    :conf_dir => node['haproxy']['conf_dir'],
-    :prefix => node['haproxy']['source']['prefix']
-  )
-end
