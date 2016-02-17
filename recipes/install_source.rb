@@ -42,6 +42,9 @@ package zlib_pkg do
   only_if { node['haproxy']['source']['use_zlib'] }
 end
 
+package 'wget'
+
+
 node.default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['source']['prefix'], node['haproxy']['conf_dir'])
 
 download_file_path = ::File.join(Chef::Config[:file_cache_path], "haproxy-#{node['haproxy']['source']['version']}.tar.gz")
