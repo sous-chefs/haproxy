@@ -17,7 +17,8 @@ def install_haproxy_config
     mode 00644
     variables(
       :defaults_options => defaults_options,
-      :defaults_timeouts => defaults_timeouts
+      :defaults_timeouts => defaults_timeouts,
+      :conf_template_variables => new_resource.conf_template_variables
     )
   end
 end

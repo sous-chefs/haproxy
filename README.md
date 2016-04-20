@@ -80,6 +80,7 @@ Attributes
 - `node['haproxy']['pool_members']` - updated by discovery to store node information
 - `node['haproxy']['conf_cookbook']` - used to update which cookbook holds the haproxy.cfg template
 - `node['haproxy']['conf_template_source']` - name of the haproxy.cfg template
+- `node['haproxy']['conf_template_variables']` - custom variables to pass to the haproxy.cfg template
 
 Recipes
 -------
@@ -174,6 +175,22 @@ haproxy_config "Write Config" do
   conf_template_source node['haproxy']['conf_template_source']
 end
 ```
+
+#### haproxy_config with custom variables
+
+The `conf_template_variables` resource can be used to pass a hash of custom variables to your haproxy.cfg template.
+
+```
+haproxy_config "Write Config" do
+  conf_dir node['haproxy']['conf_dir']
+  conf_cookbook node['haproxy']['conf_cookbook']
+  conf_template_source 'custom.haproxy.cfg.erb'
+  conf_template_variables enable_ssl: true,
+                          instance_ips: [192.168.0.1, 192.168.0.1]
+end
+```
+
+These variables can then be accessed in your template as `@conf_template_variables`
 
 ### haproxy
 
