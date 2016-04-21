@@ -97,3 +97,5 @@ default['haproxy']['listeners'] = {
   'frontend' => {},
   'backend' => {}
 }
+
+default['haproxy']['enable_default_logs'] = true
