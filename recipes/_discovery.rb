@@ -26,18 +26,7 @@ pool_members << node if node.run_list.roles.include?(node['haproxy']['app_server
 # pool members are in the same cloud
 # TODO refactor this logic into library...see COOK-494
 pool_members.map! do |member|
-  server_ip = begin
-    if member.attribute?('cloud')
-      if node.attribute?('cloud') && (member['cloud']['provider'] == node['cloud']['provider'])
-         member['cloud']['local_ipv4']
-      else
-        member['cloud']['public_ipv4']
-      end
-    else
-      member['ipaddress']
-    end
-  end
-  {:ipaddress => server_ip, :hostname => member['hostname']}
+  {:ipaddress => member['ipaddress'], :hostname => member['hostname']}
 end
 
 pool_members.sort! do |a,b|
