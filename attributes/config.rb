@@ -6,3 +6,4 @@ default[:haproxy][:config][:defaults][:timeout][:client] = '10s'
 default[:haproxy][:config][:defaults][:timeout][:server] = '10s'
 default[:haproxy][:config][:defaults][:timeout][:connect] = '10s'
 default[:haproxy][:config][:defaults][:options] = []
+default[:haproxy][:config][:defaults][:params] = []

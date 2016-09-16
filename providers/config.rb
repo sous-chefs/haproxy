@@ -17,6 +17,7 @@ def install_haproxy_config
     mode 00644
     variables(
       :defaults_options => defaults_options,
+      :defaults_params => defaults_params,
       :defaults_timeouts => defaults_timeouts
     )
   end
@@ -28,6 +29,10 @@ def defaults_options
     options.push("forwardfor")
   end
   return options.uniq
+end
+
+def defaults_params
+  node['haproxy']['defaults_params']
 end
 
 def defaults_timeouts
