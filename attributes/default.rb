@@ -89,3 +89,10 @@ default['haproxy']['listeners'] = {
   'frontend' => {},
   'backend' => {}
 }
+
+# As of at least 1.4 "up to two global servers can be defined"
+# (https://cbonte.github.io/haproxy-dconv/configuration-1.4.html#log)
+default['haproxy']['global_log'] = [
+  'log 127.0.0.1   local0',
+  'log 127.0.0.1   local1 notice'
+]
