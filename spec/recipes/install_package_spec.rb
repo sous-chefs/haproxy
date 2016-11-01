@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'haproxy::install_package' do
-  let(:chef_run) { ChefSpec::Runner.new().converge(described_recipe) }
+  let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
 
   it 'installs the haproxy package' do
     expect(chef_run).to install_package 'haproxy'
@@ -16,7 +16,7 @@ describe 'haproxy::install_package' do
       source: 'haproxy-init.erb',
       owner: 'root',
       group: 'root',
-      mode: 00755,
+      mode: 00755
     )
   end
 

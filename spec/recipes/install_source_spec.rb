@@ -9,27 +9,27 @@ describe 'haproxy::install_source' do
       'packages' => [
         'libpcre3-dev',
         'libssl-dev',
-        'zlib1g-dev',
-      ],
+        'zlib1g-dev'
+      ]
     },
     'rhel' => {
       'packages' => [
         'pcre-devel',
         'openssl-devel',
-        'zlib-devel',
-      ],
-    },
+        'zlib-devel'
+      ]
+    }
   }
 
   platforms = {
     'ubuntu' => {
       'platform_family' => 'debian',
-      'versions' => ['12.04'],
+      'versions' => ['12.04']
     },
     'centos' => {
       'platform_family' => 'rhel',
-      'versions' => ['6.4'],
-    },
+      'versions' => ['6.4']
+    }
   }
 
   platforms.each do |platform_name, platform|
@@ -39,7 +39,7 @@ describe 'haproxy::install_source' do
           runner = ChefSpec::Runner.new(
             platform: platform_name,
             version: platform_version
-            )
+          )
 
           runner.node.set['haproxy']['source']['version'] = given_version
           runner.converge(described_recipe)
@@ -52,7 +52,7 @@ describe 'haproxy::install_source' do
         end
 
         it 'includes the external build-essential recipe' do
-         expect(chef_run).to include_recipe('build-essential')
+          expect(chef_run).to include_recipe('build-essential')
         end
 
         it 'downloads the haproxy source' do
@@ -71,7 +71,7 @@ describe 'haproxy::install_source' do
           expect(chef_run).to create_user('haproxy').with(
             system: true,
             shell: '/bin/false',
-            comment: 'haproxy system account',
+            comment: 'haproxy system account'
           )
         end
 
@@ -84,7 +84,7 @@ describe 'haproxy::install_source' do
             source: 'haproxy-init.erb',
             owner: 'root',
             group: 'root',
-            mode: 00755,
+            mode: 00755
           )
         end
       end

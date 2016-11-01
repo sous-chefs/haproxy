@@ -3,7 +3,7 @@ require 'spec_helper'
 haproxy_config_file = '/etc/haproxy/haproxy.cfg'
 
 describe 'haproxy::install_package' do
-  let(:chef_run) { ChefSpec::Runner.new().converge(described_recipe) }
+  let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
 
   it 'Installs the haproxy package' do
     expect(chef_run).to install_package 'haproxy'

@@ -22,12 +22,12 @@ end
 
 def make_hash(attr)
   new_hash = {}
-  attr.each do |k,v|
-    if(v.is_a?(Hash))
-      new_hash[k] = make_hash(v)
-    else
-      new_hash[k] = v
-    end
+  attr.each do |k, v|
+    new_hash[k] = if v.is_a?(Hash)
+                    make_hash(v)
+                  else
+                    v
+                  end
   end
   new_hash
 end
@@ -57,15 +57,14 @@ def create_haproxy_cfg
     group 'root'
     mode 00644
     notifies :reload, 'service[haproxy]', :delayed
-    variables(:config => new_resource.config)
+    variables(config: new_resource.config)
   end
 end
 
 action :create do
-
   run_context.include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
 
-  if(new_resource.config.is_a?(Proc))
+  if new_resource.config.is_a?(Proc)
     chef_gem 'attribute_struct'
     require 'attribute_struct'
     new_resource.config AttributeStruct.new(&new_resource.config)._dump
@@ -79,11 +78,10 @@ action :create do
 
   set_updated { create_haproxy_cfg }
 
-  service "haproxy" do
-    supports :restart => true, :status => true, :reload => true
+  service 'haproxy' do
+    supports restart: true, status: true, reload: true
     action [:enable, :start]
   end
-
 end
 
 action :delete do

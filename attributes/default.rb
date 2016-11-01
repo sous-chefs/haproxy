@@ -17,57 +17,57 @@
 # limitations under the License.
 #
 
-default['haproxy']['conf_cookbook'] = "haproxy"
-default['haproxy']['conf_template_source'] = "haproxy.cfg.erb"
-default['haproxy']['user'] = "haproxy"
-default['haproxy']['group'] = "haproxy"
+default['haproxy']['conf_cookbook'] = 'haproxy'
+default['haproxy']['conf_template_source'] = 'haproxy.cfg.erb'
+default['haproxy']['user'] = 'haproxy'
+default['haproxy']['group'] = 'haproxy'
 
 default['haproxy']['enable_default_http'] = true
-default['haproxy']['mode'] = "http"
-default['haproxy']['ssl_mode'] = "http"
-default['haproxy']['incoming_address'] = "0.0.0.0"
+default['haproxy']['mode'] = 'http'
+default['haproxy']['ssl_mode'] = 'http'
+default['haproxy']['incoming_address'] = '0.0.0.0'
 default['haproxy']['incoming_port'] = 80
 default['haproxy']['members'] = [{
-  "hostname" => "localhost",
-  "ipaddress" => "127.0.0.1",
-  "port" => 4000,
-  "ssl_port" => 4000
+  'hostname' => 'localhost',
+  'ipaddress' => '127.0.0.1',
+  'port' => 4000,
+  'ssl_port' => 4000
 }, {
-  "hostname" => "localhost",
-  "ipaddress" => "127.0.0.1",
-  "port" => 4001,
-  "ssl_port" => 4001
+  'hostname' => 'localhost',
+  'ipaddress' => '127.0.0.1',
+  'port' => 4001,
+  'ssl_port' => 4001
 }]
 default['haproxy']['member_port'] = 8080
 default['haproxy']['member_weight'] = 1
-default['haproxy']['app_server_role'] = "webserver"
+default['haproxy']['app_server_role'] = 'webserver'
 default['haproxy']['defaults_retries'] = 3
-default['haproxy']['balance_algorithm'] = "roundrobin"
+default['haproxy']['balance_algorithm'] = 'roundrobin'
 default['haproxy']['enable_ssl'] = false
-default['haproxy']['ssl_incoming_address'] = "0.0.0.0"
+default['haproxy']['ssl_incoming_address'] = '0.0.0.0'
 default['haproxy']['ssl_incoming_port'] = 443
 default['haproxy']['ssl_member_port'] = 8443
 default['haproxy']['ssl_crt_path'] = nil
 default['haproxy']['httpchk'] = nil
 default['haproxy']['ssl_httpchk'] = nil
 default['haproxy']['enable_admin'] = true
-default['haproxy']['admin']['address_bind'] = "127.0.0.1"
-default['haproxy']['admin']['port'] = 22002
+default['haproxy']['admin']['address_bind'] = '127.0.0.1'
+default['haproxy']['admin']['port'] = 22_002
 default['haproxy']['admin']['options'] = { 'stats' => 'uri /' }
 default['haproxy']['enable_stats_socket'] = false
-default['haproxy']['stats_socket_path'] = "/var/run/haproxy.sock"
+default['haproxy']['stats_socket_path'] = '/var/run/haproxy.sock'
 default['haproxy']['stats_socket_user'] = node['haproxy']['user']
 default['haproxy']['stats_socket_group'] = node['haproxy']['group']
 default['haproxy']['stats_socket_level'] = 'user'
-default['haproxy']['pid_file'] = "/var/run/haproxy.pid"
+default['haproxy']['pid_file'] = '/var/run/haproxy.pid'
 default['haproxy']['syslog']['length'] = nil
 
-default['haproxy']['defaults_options'] = ["httplog", "dontlognull", "redispatch"]
+default['haproxy']['defaults_options'] = %w(httplog dontlognull redispatch)
 default['haproxy']['x_forwarded_for'] = false
 default['haproxy']['global_options'] = {}
-default['haproxy']['defaults_timeouts']['connect'] = "5s"
-default['haproxy']['defaults_timeouts']['client'] = "50s"
-default['haproxy']['defaults_timeouts']['server'] = "50s"
+default['haproxy']['defaults_timeouts']['connect'] = '5s'
+default['haproxy']['defaults_timeouts']['client'] = '50s'
+default['haproxy']['defaults_timeouts']['server'] = '50s'
 default['haproxy']['cookie'] = nil
 
 default['haproxy']['global_max_connections'] = 4096

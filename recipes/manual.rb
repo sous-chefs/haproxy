@@ -19,18 +19,17 @@
 
 include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
 
-cookbook_file "/etc/default/haproxy" do
-  source "haproxy-default"
-  owner "root"
-  group "root"
+cookbook_file '/etc/default/haproxy' do
+  source 'haproxy-default'
+  owner 'root'
+  group 'root'
   mode 00644
-  notifies :restart, "service[haproxy]", :delayed
+  notifies :restart, 'service[haproxy]', :delayed
 end
-
 
 if node['haproxy']['enable_admin']
   admin = node['haproxy']['admin']
-  haproxy_lb "admin" do
+  haproxy_lb 'admin' do
     bind "#{admin['address_bind']}:#{admin['port']}"
     mode 'http'
     params(admin['options'])
@@ -44,11 +43,9 @@ member_weight = conf['member_weight']
 if conf['enable_default_http']
   haproxy_lb 'http' do
     type 'frontend'
-    params({
-      'maxconn' => conf['frontend_max_connections'],
-      'bind' => "#{conf['incoming_address']}:#{conf['incoming_port']}",
-      'default_backend' => 'servers-http'
-    })
+    params('maxconn' => conf['frontend_max_connections'],
+           'bind' => "#{conf['incoming_address']}:#{conf['incoming_port']}",
+           'default_backend' => 'servers-http')
   end
 
   member_port = conf['member_port']
@@ -56,31 +53,28 @@ if conf['enable_default_http']
   pool << "option httpchk #{conf['httpchk']}" if conf['httpchk']
   pool << "cookie #{node['haproxy']['cookie']}" if node['haproxy']['cookie']
   servers = node['haproxy']['members'].map do |member|
-    "#{member['hostname']} #{member['ipaddress']}:#{member['port'] || member_port} weight #{member['weight'] || member_weight} maxconn #{member['max_connections'] || member_max_conn} check #{node['haproxy']['pool_members_option']}" 
+    "#{member['hostname']} #{member['ipaddress']}:#{member['port'] || member_port} weight #{member['weight'] || member_weight} maxconn #{member['max_connections'] || member_max_conn} check #{node['haproxy']['pool_members_option']}"
   end
-  haproxy_lb "servers-http" do
+  haproxy_lb 'servers-http' do
     type 'backend'
     servers servers
     params pool
   end
 end
 
-
 if node['haproxy']['enable_ssl']
-  if node['haproxy']['ssl_crt_path']
-    bind = "#{node['haproxy']['ssl_incoming_address']}:#{node['haproxy']['ssl_incoming_port']} ssl crt #{node['haproxy']['ssl_crt_path']}"
-  else
-    bind = "#{node['haproxy']['ssl_incoming_address']}:#{node['haproxy']['ssl_incoming_port']}"
-  end
-  
+  bind = if node['haproxy']['ssl_crt_path']
+           "#{node['haproxy']['ssl_incoming_address']}:#{node['haproxy']['ssl_incoming_port']} ssl crt #{node['haproxy']['ssl_crt_path']}"
+         else
+           "#{node['haproxy']['ssl_incoming_address']}:#{node['haproxy']['ssl_incoming_port']}"
+         end
+
   haproxy_lb 'https' do
     type 'frontend'
     mode node['haproxy']['ssl_mode']
-    params({
-      'maxconn' => node['haproxy']['frontend_ssl_max_connections'],
-      'bind' => bind,
-      'default_backend' => 'servers-https'
-    })
+    params('maxconn' => node['haproxy']['frontend_ssl_max_connections'],
+           'bind' => bind,
+           'default_backend' => 'servers-https')
   end
 
   ssl_member_port = conf['ssl_member_port']
@@ -90,7 +84,7 @@ if node['haproxy']['enable_ssl']
   servers = node['haproxy']['members'].map do |member|
     "#{member['hostname']} #{member['ipaddress']}:#{member['ssl_port'] || ssl_member_port} weight #{member['weight'] || member_weight} maxconn #{member['max_connections'] || member_max_conn} check #{node['haproxy']['pool_members_option']}"
   end
-  haproxy_lb "servers-https" do
+  haproxy_lb 'servers-https' do
     type 'backend'
     mode node['haproxy']['ssl_mode']
     servers servers
@@ -102,11 +96,10 @@ end
 node.default['haproxy']['stats_socket_user'] = node['haproxy']['user']
 node.default['haproxy']['stats_socket_group'] = node['haproxy']['group']
 
-
 unless node['haproxy']['global_options'].is_a?(Hash)
   Chef::Log.error("Global options needs to be a Hash of the format: { 'option' => 'value' }. Please set node['haproxy']['global_options'] accordingly.")
 end
 
-haproxy_config "Create haproxy.cfg" do
-  notifies :restart, "service[haproxy]", :delayed
+haproxy_config 'Create haproxy.cfg' do
+  notifies :restart, 'service[haproxy]', :delayed
 end
