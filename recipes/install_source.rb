@@ -48,12 +48,11 @@ download_file_path = ::File.join(Chef::Config[:file_cache_path], "haproxy-#{node
 remote_file download_file_path do
   source node['haproxy']['source']['url']
   checksum node['haproxy']['source']['checksum']
-  notifies :run, 'ruby_block[validate-checksum]'
+  notifies :run, 'ruby_block[validate-tarball-checksum]'
   action :create_if_missing
 end
 
-ruby_block 'Validating checksum for the downloaded tarball' do
-  block_name 'validate-checksum'
+ruby_block 'validate-tarball-checksum' do
   block do
     checksum = Digest::SHA2.file(download_file_path).hexdigest
     if checksum != node['haproxy']['source']['checksum']
