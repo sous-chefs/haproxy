@@ -1,6 +1,6 @@
 name              "haproxy"
-maintainer        "Opscode, Inc."
-maintainer_email  "cookbooks@opscode.com"
+maintainer        'Heavy Water Software Inc.'
+maintainer_email  'ops@hw-ops.com'
 license           "Apache 2.0"
 description       "Installs and configures haproxy"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
