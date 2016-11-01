@@ -72,7 +72,7 @@ action :create do
 
   set_updated { create_haproxy_etc_directory }
 
-  new_resource.config Chef::Mixin::DeepMerge.merge(make_hash(node[:haproxy][:config]), new_resource.config)
+  new_resource.config Chef::Mixin::DeepMerge.merge(make_hash(node['haproxy']['config']), new_resource.config)
 
   set_updated { haproxy_default_file }
 
