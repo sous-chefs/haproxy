@@ -1,4 +1,4 @@
-use_inline_resources if respond_to?(:use_inline_resources)
+use_inline_resources
 
 def whyrun_supported?
   true
