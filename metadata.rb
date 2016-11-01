@@ -15,3 +15,7 @@ end
 
 depends           "cpu", ">= 0.2.0"
 depends           "build-essential"
+
+source_url 'https://github.com/hw-cookbooks/haproxy' if respond_to?(:source_url)
+issues_url 'https://github.com/hw-cookbooks/haproxy/issues' if respond_to?(:issues_url)
+chef_version '>= 11.0' if respond_to?(:chef_version)
