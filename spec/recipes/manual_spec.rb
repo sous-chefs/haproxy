@@ -8,7 +8,7 @@ describe 'haproxy::manual' do
       source: 'haproxy-default',
       owner: 'root',
       group: 'root',
-      mode: 00644
+      mode: '0644'
     )
   end
 

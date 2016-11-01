@@ -92,7 +92,7 @@ template '/etc/init.d/haproxy' do
   source 'haproxy-init.erb'
   owner 'root'
   group 'root'
-  mode 00755
+  mode '0755'
   variables(
     hostname: node['hostname'],
     conf_dir: node['haproxy']['conf_dir'],

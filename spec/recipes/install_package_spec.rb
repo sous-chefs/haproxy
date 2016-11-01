@@ -16,7 +16,7 @@ describe 'haproxy::install_package' do
       source: 'haproxy-init.erb',
       owner: 'root',
       group: 'root',
-      mode: 00755
+      mode: '0755'
     )
   end
 
