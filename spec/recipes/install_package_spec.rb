@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'haproxy::install_package' do
-  let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
+  cached(:chef_run) { ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe) }
 
   it 'installs the haproxy package' do
     expect(chef_run).to install_package 'haproxy'
@@ -22,9 +22,9 @@ describe 'haproxy::install_package' do
 
   describe 'with version set' do
     let(:given_version) { '1.2.3.4' }
-    let(:chef_run) do
-      ChefSpec::Runner.new do |node|
-        node.set['haproxy']['package']['version'] = given_version
+    cached(:chef_run) do
+      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node|
+        node.normal['haproxy']['package']['version'] = given_version
       end.converge(described_recipe)
     end
 
