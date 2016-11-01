@@ -58,6 +58,7 @@ default['haproxy']['enable_stats_socket'] = false
 default['haproxy']['stats_socket_path'] = "/var/run/haproxy.sock"
 default['haproxy']['stats_socket_user'] = node['haproxy']['user']
 default['haproxy']['stats_socket_group'] = node['haproxy']['group']
+default['haproxy']['stats_socket_level'] = 'user'
 default['haproxy']['pid_file'] = "/var/run/haproxy.pid"
 default['haproxy']['syslog']['length'] = nil
 
