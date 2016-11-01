@@ -9,7 +9,7 @@ version           "1.6.6"
 recipe "haproxy", "Installs and configures haproxy"
 recipe "haproxy::app_lb", "Installs and configures haproxy by searching for nodes of a particular role"
 
-%w{ debian ubuntu centos redhat}.each do |os|
+%w{ debian ubuntu centos redhat scientific oracle }.each do |os|
   supports os
 end
 
