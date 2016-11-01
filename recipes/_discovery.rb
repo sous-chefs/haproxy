@@ -44,4 +44,4 @@ pool_members.sort! do |a, b|
   a[:hostname].downcase <=> b[:hostname].downcase
 end
 
-node.set['haproxy']['pool_members'] = pool_members || {}
+node.normal['haproxy']['pool_members'] = pool_members || {}
