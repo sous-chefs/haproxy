@@ -6,4 +6,4 @@ else
   package 'netcat'
 end
 
-include_recipe 'haproxy::default'
+include_recipe 'haproxy::manual'

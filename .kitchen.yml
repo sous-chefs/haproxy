@@ -16,25 +16,15 @@ platforms:
   - name: ubuntu-16.04
 
 suites:
-- name: default
+- name: package
   run_list:
-  - recipe[haproxy::manual]
-- name: lwrp
+  - recipe[haproxy-test]
+- name: source
   run_list:
   - recipe[haproxy-test]
   attributes:
     haproxy:
-      enable_default_http: false
-      global_options: ['quiet']
-      listeners:
-        listen:
-          lb_test:
-            - balance roundrobin
-            - bind 0.0.0.0:5000
-            - maxconn 10
-            - mode tcp
-            - server netcat1 127.0.0.1:5001
-            - server netcat2 127.0.0.1:5002
+      install_method: source
 - name: app_lb
   run_list:
   - recipe[haproxy::app_lb]
