@@ -8,9 +8,11 @@ def initialize(*args)
   conf_dir(node["haproxy"]["conf_dir"]) if conf_dir.nil?
   conf_cookbook(node["haproxy"]["conf_cookbook"]) if conf_cookbook.nil?
   conf_template_source(node["haproxy"]["conf_template_source"]) if conf_template_source.nil?
+  conf_template_variables(node["haproxy"]["conf_template_variables"]) if conf_template_variables.nil?
 end
 
 attribute :name, :kind_of => String, :name_attribute => true
 attribute :conf_dir, :kind_of => String, :default => nil
 attribute :conf_cookbook, :kind_of => String, :default => nil
 attribute :conf_template_source, :kind_of => String, :default => nil
+attribute :conf_template_variables, :kind_of => Hash, :default => nil
