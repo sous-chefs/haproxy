@@ -63,10 +63,6 @@ describe 'haproxy::install_source' do
           expect(chef_run).to create_remote_file_if_missing(source_path)
         end
 
-        # it 'validates the checksum of the haproxy source' do
-        #   expect(chef_run).to run_ruby_block('validate-tarball-checksum')
-        # end
-
         it 'compiles haproxy' do
           expect(chef_run).to run_bash('compile_haproxy')
         end
