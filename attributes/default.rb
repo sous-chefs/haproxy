@@ -78,9 +78,9 @@ default['haproxy']['frontend_ssl_max_connections'] = 2000
 default['haproxy']['install_method'] = 'package'
 default['haproxy']['conf_dir'] = '/etc/haproxy'
 
-default['haproxy']['source']['version'] = '1.4.22'
-default['haproxy']['source']['url'] = 'http://haproxy.1wt.eu/download/1.4/src/haproxy-1.4.22.tar.gz'
-default['haproxy']['source']['checksum'] = 'ba221b3eaa4d71233230b156c3000f5c2bd4dace94d9266235517fe42f917fc6'
+default['haproxy']['source']['version'] = '1.6.9'
+default['haproxy']['source']['url'] = 'http://www.haproxy.org/download/1.6/src/haproxy-1.6.9.tar.gz'
+default['haproxy']['source']['checksum'] = 'cf7d2fa891d2ae4aa6489fc43a9cadf68c42f9cb0de4801afad45d32e7dda133'
 default['haproxy']['source']['prefix'] = '/usr/local'
 default['haproxy']['source']['target_os'] = 'generic'
 default['haproxy']['source']['target_cpu'] = ''
