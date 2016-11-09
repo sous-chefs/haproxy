@@ -5,7 +5,7 @@ describe 'haproxy::install_source' do
   let(:source_path) { ::File.join(Chef::Config[:file_cache_path], "haproxy-#{given_version}.tar.gz") }
 
   before do
-    stub_command("grep 1.2.3.4 $(/usr/local/sbin/haproxy -v)").and_return(false)
+    stub_command('grep 1.2.3.4 $(/usr/local/sbin/haproxy -v)').and_return(false)
   end
 
   platform_packages = {
