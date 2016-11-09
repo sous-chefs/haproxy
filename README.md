@@ -10,7 +10,7 @@ Installs haproxy and prepares the configuration location.
 
 - Ubuntu 12.04+
 - RHEL 6+
-- Debian 7+
+- Debian 8+
 
 ## Attributes
 
