@@ -2,7 +2,7 @@
 # Cookbook Name:: haproxy
 # Recipe:: install_package
 #
-# Copyright 2009, Chef Software, Inc.
+# Copyright 2009-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,20 +17,25 @@
 # limitations under the License.
 #
 
-package "haproxy" do
+package 'haproxy' do
   version node['haproxy']['package']['version'] if node['haproxy']['package']['version']
 end
 
 directory node['haproxy']['conf_dir']
 
-template "/etc/init.d/haproxy" do
-  source "haproxy-init.erb"
-  owner "root"
-  group "root"
-  mode 00755
+template '/etc/init.d/haproxy' do
+  source 'haproxy-init.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
   variables(
-    :hostname => node['hostname'],
-    :conf_dir => node['haproxy']['conf_dir'],
-    :prefix => "/usr"
+    hostname: node['hostname'],
+    conf_dir: node['haproxy']['conf_dir'],
+    prefix: '/usr'
   )
+end
+
+service 'haproxy' do
+  supports restart: true, status: true, reload: true
+  action [:enable, :start]
 end

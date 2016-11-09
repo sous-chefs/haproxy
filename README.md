@@ -76,15 +76,23 @@ Attributes
 - `node['haproxy']['source']['target_cpu']` - the target cpu used to `make` haproxy
 - `node['haproxy']['source']['target_arch']` - the target arch used to `make` haproxy
 - `node['haproxy']['source']['use_pcre']` - whether to build with libpcre support
-- `node['haproxy']['package']['version'] - the version of haproxy to install, default latest
+- `node['haproxy']['package']['version']` - the version of haproxy to install, default latest
+- `node['haproxy']['pool_members']` - updated by discovery to store node information
+- `node['haproxy']['conf_cookbook']` - used to update which cookbook holds the haproxy.cfg template
+- `node['haproxy']['conf_template_source']` - name of the haproxy.cfg template
 
 Recipes
 -------
 ### default
-Sets up haproxy using statically defined configuration. To override the configuration, modify the templates/default/haproxy.cfg.erb file directly, or supply your own and override the cookbook and source by reopening the `template[/etc/haproxy/haproxy.cfg]` resource.
+
+### manual
+Sets up haproxy using statically defined configuration.
 
 ### app_lb
-Sets up haproxy using dynamically defined configuration through search. See __Usage__ below.
+Uses chef search to set up haproxy creating a dynamically defined configuration. See __Usage__ below.
+
+### _discovery
+Helper recipe that finds nodes with a attribute defined role name using search. Sets `node['haproxy']['pool_members']`
 
 ### tuning
 Uses the community `cpu` cookbook's `cpu_affinity` LWRP to set affinity for the haproxy process.
@@ -99,7 +107,9 @@ Installs haproxy from source. Used by the `default` and `app_lb` recipes.
 Providers
 ---------
 ### haproxy_lb
-Configure a part of haproxy (`frontend|backend|listen`). It is used in `default` and `app_lb` recipe to configure default frontends and backends. Several common options can be set as attributes of the LWRP. Others can always be set with the `params` attribute. For instance,
+Configure a part of haproxy (`frontend|backend|listen`). It is used in `manual` and `app_lb` recipes
+to configure default frontends and backends. Several common options can be set as attributes of the LWRP.
+Others can always be set with the `params` attribute. For instance,
 
 ```ruby
 haproxy_lb 'rabbitmq' do
@@ -148,9 +158,22 @@ end
 
 which will give the same result.
 
-Finally you can also configure frontends and backends by specify the type attribute of the resource. See example in the default recipe.
+Finally you can also configure frontends and backends by specify the type attribute of the resource. See example in the manual recipe.
 
 Instead of using lwrp, you can use `node['haproxy']['listeners']` to configure all kind of listeners (`listen`, `frontend` and `backend`)
+
+### haproxy_config
+
+This provider is used to write the actual haproxy.cfg file to the system. Location of
+haproxy.cfg.erb template file can be adjusted to support wrapper cookbook customizations.
+
+```
+haproxy_config "Write Config" do
+  conf_dir node['haproxy']['conf_dir']
+  conf_cookbook node['haproxy']['conf_cookbook']
+  conf_template_source node['haproxy']['conf_template_source']
+end
+```
 
 ### haproxy
 
@@ -195,9 +218,11 @@ end
 
 Usage
 -----
-Use either the default recipe or the `app_lb` recipe.
+Use either the `manual` recipe or the `app_lb` recipe.
 
-When using the default recipe, the members attribute specifies the http application servers. If you wish to use the `node['haproxy']['listeners']` attribute or `haproxy_lb` lwrp instead then set `node['haproxy']['enable_default_http']` to `false`.
+When using the `manual` recipe, the members attribute specifies the http application servers.
+If you wish to use the `node['haproxy']['listeners']` attribute or `haproxy_lb` lwrp instead
+then set `node['haproxy']['enable_default_http']` to `false`.
 
 ```ruby
 "haproxy" => {
@@ -251,10 +276,12 @@ The search uses the node's `chef_environment`. For example, create `environments
 
 License & Authors
 -----------------
-- Author:: Joshua Timberman (<joshua@chef.io>)
+- Author:: Joshua Timberman (<joshua@opscode.com>)
+- Author:: Aaron Baer (<aaron@hw-ops.com>)
+- Author:: Justin Kolberg (<justin@hw-ops.com>)
 
 ```text
-Copyright:: 2009-2013, Chef Software, Inc
+Copyright:: Heavy Water Operations, LLC.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

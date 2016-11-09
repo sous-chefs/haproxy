@@ -1,0 +1,12 @@
+# Cookstyle (rubocop) todo:
+
+Lint/ParenthesesAsGroupedExpression:
+  Exclude:
+    - 'recipes/app_lb.rb'
+
+Lint/UselessAssignment:
+  Exclude:
+    - 'spec/recipes/lb_spec.rb'
+
+Style/RaiseArgs:
+  Enabled: false
