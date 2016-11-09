@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # ^syntax detection
 
-require 'finstyle'
+require 'cookstyle'
 
 guard :rubocop, :keep_failed => false, :cli => '-r finstyle' do
   watch(%r{.+\.rb$}) { |m| m[0] }

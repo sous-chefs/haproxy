@@ -2,7 +2,7 @@
 # Cookbook Name:: haproxy
 # Recipe:: _discovery
 #
-# Copyright 2011, Heavy Water Operations, LLC.
+# Copyright 2011-2016, Heavy Water Operations, LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-pool_members = search("node", "role:#{node['haproxy']['app_server_role']} AND chef_environment:#{node.chef_environment}") || []
+pool_members = search('node', "role:#{node['haproxy']['app_server_role']} AND chef_environment:#{node.chef_environment}") || []
 
 # load balancer may be in the pool
 pool_members << node if node.run_list.roles.include?(node['haproxy']['app_server_role'])
@@ -29,7 +29,7 @@ pool_members.map! do |member|
   server_ip = begin
     if member.attribute?('cloud')
       if node.attribute?('cloud') && (member['cloud']['provider'] == node['cloud']['provider'])
-         member['cloud']['local_ipv4']
+        member['cloud']['local_ipv4']
       else
         member['cloud']['public_ipv4']
       end
@@ -37,11 +37,11 @@ pool_members.map! do |member|
       member['ipaddress']
     end
   end
-  {:ipaddress => server_ip, :hostname => member['hostname']}
+  { ipaddress: server_ip, hostname: member['hostname'] }
 end
 
-pool_members.sort! do |a,b|
+pool_members.sort! do |a, b|
   a[:hostname].downcase <=> b[:hostname].downcase
 end
 
-node.set['haproxy']['pool_members'] = pool_members || {}
+node.normal['haproxy']['pool_members'] = pool_members || {}

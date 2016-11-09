@@ -1,16 +1,12 @@
-AllCops:
+# Cookstyle (rubocop) todo:
+
+Lint/ParenthesesAsGroupedExpression:
   Exclude:
-    - 'tmp/**/*'
-Style/FileName:
+    - 'recipes/app_lb.rb'
+
+Lint/UselessAssignment:
   Exclude:
-    - 'Guardfile'
-Style/StringLiterals:
-  EnforcedStyle: single_quotes
-Style/PercentLiteralDelimiters:
-  PreferredDelimiters:
-    '%':  '()'
-    '%q': '()'
-    '%Q': '()'
-    '%w': '()'
-    '%W': '()'
-    '%x': '()'
+    - 'spec/recipes/lb_spec.rb'
+
+Style/RaiseArgs:
+  Enabled: false

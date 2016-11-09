@@ -1,59 +1,30 @@
----
-driver_plugin: vagrant
-driver_config:
-  require_chef_omnibus: true
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
 
 platforms:
-- name: centos-6.3
-  driver_config:
-    box: opscode-centos-6.3
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
-- name: ubuntu-12.04
-  driver_config:
-    box: opscode-ubuntu-12.04
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
-  run_list:
-  - recipe[apt]
-  provisioner:
-    attributes:
-      haproxy:
-        test:
-          netcat_package: netcat
-- name: ubuntu-10.04
-  driver_config:
-    box: opscode-ubuntu-10.04
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_provisionerless.box
-  run_list:
-  - recipe[apt]
-  provisioner:
-    attributes:
-      haproxy:
-        test:
-          netcat_package: netcat
+  - name: centos-6.8
+  - name: centos-7.2
+  - name: debian-7.11
+  - name: debian-8.5
+  - name: fedora-24
+    run_list: yum::dnf_yum_compat
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
 
 suites:
-- name: default
+- name: package
   run_list:
-  - recipe[haproxy::manual]
-  attributes: {}
-- name: lwrp
+  - recipe[haproxy-test]
+- name: source
   run_list:
-  - recipe[haproxy]
   - recipe[haproxy-test]
   attributes:
     haproxy:
-      enable_default_http: false
-      global_options: ['quiet']
-      listeners:
-        listen:
-          lb_test:
-            - balance roundrobin
-            - bind 0.0.0.0:5000
-            - maxconn 10
-            - mode tcp
-            - server netcat1 127.0.0.1:5001
-            - server netcat2 127.0.0.1:5002
+      install_method: source
 - name: app_lb
   run_list:
   - recipe[haproxy::app_lb]
-  attributes:
