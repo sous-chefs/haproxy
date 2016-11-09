@@ -1,18 +1,17 @@
-haproxy Cookbook
-================
+# haproxy Cookbook
+
 Installs haproxy and prepares the configuration location.
 
+## Requirements
 
-Requirements
-------------
 ### Platforms
-- Ubuntu (10.04+ due to config option change)
-- Redhat (6.0+)
-- Debian (6.0+)
 
+- Ubuntu 12.04+
+- RHEL 6+
+- Debian 7+
 
-Attributes
-----------
+## Attributes
+
 - `node['haproxy']['incoming_address']` - sets the address to bind the haproxy process on, 0.0.0.0 (all addresses) by default
 - `node['haproxy']['incoming_port']` - sets the port on which haproxy listens
 - `node['haproxy']['members']` - used by the default recipe to specify the member systems to add. Default
@@ -31,8 +30,7 @@ Attributes
   }]
   ```
 
-- `node['haproxy']['member_port']` - the port that member systems will
-  be listening on if not otherwise specified in the members attribute, default 8080
+- `node['haproxy']['member_port']` - the port that member systems will be listening on if not otherwise specified in the members attribute, default 8080
 - `node['haproxy']['member_weight']` - the weight to apply to member systems if not otherwise specified in the members attribute, default 1
 - `node['haproxy']['app_server_role']` - used by the `app_lb` recipe to search for a specific role of member systems. Default `webserver`.
 - `node['haproxy']['balance_algorithm']` - sets the load balancing algorithm; defaults to roundrobin.
@@ -62,8 +60,7 @@ Attributes
 - `node['haproxy']['user']` - user that haproxy runs as
 - `node['haproxy']['group']` - group that haproxy runs as
 - `node['haproxy']['global_max_connections']` - in the `app_lb` config, set the global maxconn
-- `node['haproxy']['member_max_connections']` - the maxconn value to
-  be set for each app server if not otherwise specified in the members attribute
+- `node['haproxy']['member_max_connections']` - the maxconn value to be set for each app server if not otherwise specified in the members attribute
 - `node['haproxy']['frontend_max_connections']` - in the `app_lb` config, set the the maxconn per frontend member
 - `node['haproxy']['frontend_ssl_max_connections']` - in the `app_lb` config, set the maxconn per frontend member using SSL
 - `node['haproxy']['install_method']` - determines which method is used to install haproxy, must be 'source' or 'package'. defaults to 'package'
@@ -81,35 +78,39 @@ Attributes
 - `node['haproxy']['conf_cookbook']` - used to update which cookbook holds the haproxy.cfg template
 - `node['haproxy']['conf_template_source']` - name of the haproxy.cfg template
 
-Recipes
--------
+## Recipes
+
 ### default
 
 ### manual
+
 Sets up haproxy using statically defined configuration.
 
 ### app_lb
-Uses chef search to set up haproxy creating a dynamically defined configuration. See __Usage__ below.
+
+Uses chef search to set up haproxy creating a dynamically defined configuration. See **Usage** below.
 
 ### _discovery
+
 Helper recipe that finds nodes with a attribute defined role name using search. Sets `node['haproxy']['pool_members']`
 
 ### tuning
+
 Uses the community `cpu` cookbook's `cpu_affinity` LWRP to set affinity for the haproxy process.
 
 ### install_package
+
 Installs haproxy through the package manager. Used by the `default` and `app_lb` recipes.
 
 ### install_source
+
 Installs haproxy from source. Used by the `default` and `app_lb` recipes.
 
+## Providers
 
-Providers
----------
 ### haproxy_lb
-Configure a part of haproxy (`frontend|backend|listen`). It is used in `manual` and `app_lb` recipes
-to configure default frontends and backends. Several common options can be set as attributes of the LWRP.
-Others can always be set with the `params` attribute. For instance,
+
+Configure a part of haproxy (`frontend|backend|listen`). It is used in `manual` and `app_lb` recipes to configure default frontends and backends. Several common options can be set as attributes of the LWRP. Others can always be set with the `params` attribute. For instance,
 
 ```ruby
 haproxy_lb 'rabbitmq' do
@@ -164,8 +165,7 @@ Instead of using lwrp, you can use `node['haproxy']['listeners']` to configure a
 
 ### haproxy_config
 
-This provider is used to write the actual haproxy.cfg file to the system. Location of
-haproxy.cfg.erb template file can be adjusted to support wrapper cookbook customizations.
+This provider is used to write the actual haproxy.cfg file to the system. Location of haproxy.cfg.erb template file can be adjusted to support wrapper cookbook customizations.
 
 ```
 haproxy_config "Write Config" do
@@ -177,8 +177,7 @@ end
 
 ### haproxy
 
-The haproxy LWRP allows for a more freeform method of configuration. It will map a given data structure into the proper configuration
-format, making it easier for adjustment and expansion.
+The haproxy LWRP allows for a more freeform method of configuration. It will map a given data structure into the proper configuration format, making it easier for adjustment and expansion.
 
 ```ruby
 haproxy 'myhaproxy' do
@@ -216,13 +215,11 @@ haproxy 'myhaproxy' do
 end
 ```
 
-Usage
------
+## Usage
+
 Use either the `manual` recipe or the `app_lb` recipe.
 
-When using the `manual` recipe, the members attribute specifies the http application servers.
-If you wish to use the `node['haproxy']['listeners']` attribute or `haproxy_lb` lwrp instead
-then set `node['haproxy']['enable_default_http']` to `false`.
+When using the `manual` recipe, the members attribute specifies the http application servers. If you wish to use the `node['haproxy']['listeners']` attribute or `haproxy_lb` lwrp instead then set `node['haproxy']['enable_default_http']` to `false`.
 
 ```ruby
 "haproxy" => {
@@ -273,12 +270,11 @@ override_attributes(
 
 The search uses the node's `chef_environment`. For example, create `environments/production.rb`, then upload it to the server with knife
 
+## License & Authors
 
-License & Authors
------------------
-- Author:: Joshua Timberman (<joshua@opscode.com>)
-- Author:: Aaron Baer (<aaron@hw-ops.com>)
-- Author:: Justin Kolberg (<justin@hw-ops.com>)
+- Author:: Joshua Timberman ([joshua@chef.io](mailto:joshua@chef.io))
+- Author:: Aaron Baer ([aaron@hw-ops.com](mailto:aaron@hw-ops.com))
+- Author:: Justin Kolberg ([justin@hw-ops.com](mailto:justin@hw-ops.com))
 
 ```text
 Copyright:: Heavy Water Operations, LLC.

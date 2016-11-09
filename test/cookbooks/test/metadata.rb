@@ -1,4 +1,4 @@
-name              'haproxy-test'
+name              'test'
 maintainer        'Heavy Water Software Inc.'
 maintainer_email  'ops@hw-ops.com'
 license           'Apache 2.0'

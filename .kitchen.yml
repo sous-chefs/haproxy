@@ -18,10 +18,10 @@ platforms:
 suites:
 - name: package
   run_list:
-  - recipe[haproxy-test]
+  - recipe[test]
 - name: source
   run_list:
-  - recipe[haproxy-test]
+  - recipe[test]
   attributes:
     haproxy:
       install_method: source
