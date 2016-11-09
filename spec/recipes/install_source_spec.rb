@@ -5,7 +5,7 @@ describe 'haproxy::install_source' do
   let(:source_path) { ::File.join(Chef::Config[:file_cache_path], "haproxy-#{given_version}.tar.gz") }
 
   before do
-    stub_command('grep 1.2.3.4 $(/usr/local/sbin/haproxy -v)').and_return(false)
+    stub_command('/usr/local/sbin/haproxy -v | grep 1.2.3.4').and_return(false)
   end
 
   platform_packages = {
@@ -60,7 +60,7 @@ describe 'haproxy::install_source' do
         end
 
         it 'downloads the haproxy source' do
-          expect(chef_run).to create_remote_file_if_missing(source_path)
+          expect(chef_run).to create_remote_file('haproxy source file')
         end
 
         it 'compiles haproxy' do
