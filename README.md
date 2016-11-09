@@ -1,5 +1,7 @@
 # haproxy Cookbook
 
+[![Build Status](https://travis-ci.org/chef-brigade/haproxy-cookbook.svg?branch=master)](https://travis-ci.org/chef-brigade/haproxy-cookbook) [![Cookbook Version](https://img.shields.io/cookbook/v/haproxy.svg)](https://supermarket.chef.io/cookbooks/haproxy)
+
 Installs haproxy and prepares the configuration location.
 
 ## Requirements
@@ -8,7 +10,7 @@ Installs haproxy and prepares the configuration location.
 
 - Ubuntu 12.04+
 - RHEL 6+
-- Debian 7+
+- Debian 8+
 
 ## Attributes
 
