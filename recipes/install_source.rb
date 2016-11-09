@@ -30,7 +30,7 @@ when 'rhel'
   zlib_pkg = 'zlib-devel'
 end
 
-package pcre_pkg do
+package pcre_pkg do # ~FC005
   only_if { node['haproxy']['source']['use_pcre'] }
 end
 
