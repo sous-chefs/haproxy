@@ -1,9 +1,8 @@
-site :opscode
+source 'https://supermarket.chef.io'
 
 metadata
 
 group :integration do
-  cookbook "apt"
-  cookbook "yum"
-  cookbook "haproxy-test", :path => './test/cookbooks/haproxy-test'
+  cookbook 'yum'
+  cookbook 'test', path: './test/cookbooks/test'
 end

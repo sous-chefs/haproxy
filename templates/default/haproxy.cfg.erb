@@ -1,6 +1,6 @@
 global
-  log 127.0.0.1   local0
-  log 127.0.0.1   local1 notice
+  log 127.0.0.1  <% unless node['haproxy']['syslog']['length'].nil? %>len <%= node['haproxy']['syslog']['length'] %><% end %> local0
+  log 127.0.0.1  <% unless node['haproxy']['syslog']['length'].nil? %>len <%= node['haproxy']['syslog']['length'] %><% end %> local1 notice
   #log loghost    local0 info
   maxconn <%= node['haproxy']['global_max_connections'] %>
   #debug
@@ -8,13 +8,16 @@ global
   user <%= node['haproxy']['user'] %>
   group <%= node['haproxy']['group'] %>
 <% if node['haproxy']['enable_stats_socket'] -%>
-  stats socket <%= node['haproxy']['stats_socket_path'] %> user <%= node['haproxy']['stats_socket_user'] %> group <%= node['haproxy']['stats_socket_group'] %>
+  stats socket <%= node['haproxy']['stats_socket_path'] %> user <%= node['haproxy']['stats_socket_user'] %> group <%= node['haproxy']['stats_socket_group'] %> level <%= node['haproxy']['stats_socket_level'] %>
 <% end -%>
+<% node['haproxy']['global_options'].sort.each do |option, value| %>
+  <%= option %> <%= value %>
+<% end %>
 
 defaults
   log     global
-  mode    http
-  retries 3
+  mode    <%= node['haproxy']['mode'] %>
+  retries <%= node['haproxy']['defaults_retries'] %>
 <% @defaults_timeouts.sort.map do | value, time | -%>
   timeout <%= value %> <%= time %>
 <% end -%>

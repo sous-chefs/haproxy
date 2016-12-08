@@ -39,7 +39,7 @@ start() {
         echo "Errors in configuration file, check with $prog check."
         return 1
     fi
- 
+
     echo -n $"Starting $prog: "
     # start it up here, usually something like "daemon $exec"
     daemon $exec -D -f $config -p /var/run/$prog.pid
@@ -52,7 +52,7 @@ start() {
 stop() {
     echo -n $"Stopping $prog: "
     # stop it here, often "killproc $prog"
-    killproc $prog 
+    killproc $prog
     retval=$?
     echo
     [ $retval -eq 0 ] && rm -f $lockfile
