@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## v2.0.1 (2016-12-08)
+
+- Fixed dynamic configuration to properly template out frontend and backend sections
+- Update Chef Brigade to Sous Chefs
+- Updated contributing docs to remove the reference to the develop branch
+
 ## v2.0.0 (2016-11-09)
 
 ### Breaking Changes
