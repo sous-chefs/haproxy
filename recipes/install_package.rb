@@ -33,7 +33,6 @@ template '/etc/init.d/haproxy' do
     conf_dir: node['haproxy']['conf_dir'],
     prefix: '/usr'
   )
-  not_if { ::File.exist?('/etc/init.d/haproxy') }
 end
 
 service 'haproxy' do
