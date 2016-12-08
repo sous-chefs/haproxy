@@ -1,4 +1,11 @@
 <% @config.each do |top_level_key, top_level_value| -%>
+  <% if top_level_key == 'global' || top_level_key == 'defaults' %>
 <%= top_level_key %>
 <%= ChefHaproxy.config_generator(top_level_value, '    ') %>
+  <% else %>
+    <% top_level_value.each do |id, value| %>
+<%= [top_level_key, id].join(' ') %>
+<%= ChefHaproxy.config_generator(value, '    ') %>
+    <% end %>
+  <% end %>
 <% end %>

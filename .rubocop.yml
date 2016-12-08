@@ -10,3 +10,7 @@ Lint/UselessAssignment:
 
 Style/RaiseArgs:
   Enabled: false
+
+Metrics/BlockNesting:
+  Exclude:
+    - 'libraries/default.rb'

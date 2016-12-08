@@ -4,7 +4,7 @@ maintainer_email  'help@chefbrigade.io'
 license           'Apache 2.0'
 description       'Installs and configures haproxy'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           '2.0.0'
+version           '2.0.1'
 
 recipe 'haproxy', 'Installs and configures haproxy'
 recipe 'haproxy::app_lb', 'Installs and configures haproxy by searching for nodes of a particular role'
