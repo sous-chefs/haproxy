@@ -15,9 +15,7 @@ module ChefHaproxy
                 value, [prefix, key.to_s].compact.join(' ')
               )
             when TrueClass, FalseClass
-              if(value)
-                result << [prefix, key.to_s].compact.join(' ')
-              end
+              result << [prefix, key.to_s].compact.join(' ') if value
             else
               result << [prefix, key.to_s, value.to_s].compact.join(' ')
             end
