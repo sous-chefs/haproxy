@@ -14,7 +14,7 @@ def install_haproxy_config
     source new_resource.conf_template_source
     owner 'root'
     group 'root'
-    mode 00644
+    mode '0644'
     variables(
       defaults_options: defaults_options,
       defaults_timeouts: defaults_timeouts
