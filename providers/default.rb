@@ -44,7 +44,7 @@ def haproxy_default_file
     cookbook 'haproxy'
     owner 'root'
     group 'root'
-    mode 00644
+    mode '0644'
     notifies :restart, 'service[haproxy]', :delayed
   end
 end
@@ -55,7 +55,7 @@ def create_haproxy_cfg
     cookbook 'haproxy'
     owner 'root'
     group 'root'
-    mode 00644
+    mode '0644'
     notifies :reload, 'service[haproxy]', :delayed
     variables(config: new_resource.config)
   end
