@@ -7,8 +7,8 @@ provisioner:
 platforms:
   - name: centos-6.8
   - name: centos-7.2
-  - name: debian-8.5
-  - name: fedora-24
+  - name: debian-8.6
+  - name: fedora-25
     run_list: yum::dnf_yum_compat
   - name: ubuntu-12.04
   - name: ubuntu-14.04

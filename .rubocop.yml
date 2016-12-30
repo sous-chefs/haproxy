@@ -8,9 +8,9 @@ Lint/UselessAssignment:
   Exclude:
     - 'spec/recipes/lb_spec.rb'
 
-Style/RaiseArgs:
-  Enabled: false
-
 Metrics/BlockNesting:
+  Max: 5
+
+Style/GuardClause:
   Exclude:
-    - 'libraries/default.rb'
+    - 'providers/default.rb'

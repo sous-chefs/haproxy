@@ -43,7 +43,7 @@ module ChefHaproxy
           end
         end
       else
-        raise TypeError.new("Expecting Hash or Array type. Received: #{thing.class}")
+        raise TypeError, "Expecting Hash or Array type. Received: #{thing.class}"
       end
       result.join("\n")
     end
