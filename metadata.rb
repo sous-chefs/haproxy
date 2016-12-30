@@ -1,5 +1,5 @@
 name              'haproxy'
-maintainer        'Sous Chefs '
+maintainer        'Sous Chefs'
 maintainer_email  'help@sous-chefs.org'
 license           'Apache 2.0'
 description       'Installs and configures haproxy'
@@ -16,6 +16,6 @@ end
 depends           'cpu', '>= 0.2.0'
 depends           'build-essential'
 
-source_url 'https://github.com/sous-chefs/haproxy-cookbook' if respond_to?(:source_url)
-issues_url 'https://github.com/sous-chefs/haproxy-cookbook/issues' if respond_to?(:issues_url)
+source_url 'https://github.com/sous-chefs/haproxy' if respond_to?(:source_url)
+issues_url 'https://github.com/sous-chefs/haproxy/issues' if respond_to?(:issues_url)
 chef_version '>= 11.0' if respond_to?(:chef_version)
