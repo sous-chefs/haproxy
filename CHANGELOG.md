@@ -2,6 +2,14 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## v2.0.2 (2016-12-30)
+
+- Cookstyle fixes
+- Travis testing updates
+- Fixed the github URL for the repo in various locations
+- Converted file modes to strings
+- Updated the config resource to lazily evaluate node attribute values to better load the values when overriden in wrapper cookbooks
+
 ## v2.0.1 (2016-12-08)
 
 - Fixed dynamic configuration to properly template out frontend and backend sections
