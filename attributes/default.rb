@@ -31,12 +31,12 @@ default['haproxy']['members'] = [{
   'hostname' => 'localhost',
   'ipaddress' => '127.0.0.1',
   'port' => 4000,
-  'ssl_port' => 4000
+  'ssl_port' => 4000,
 }, {
   'hostname' => 'localhost',
   'ipaddress' => '127.0.0.1',
   'port' => 4001,
-  'ssl_port' => 4001
+  'ssl_port' => 4001,
 }]
 default['haproxy']['member_port'] = 8080
 default['haproxy']['member_weight'] = 1
@@ -96,5 +96,5 @@ default['haproxy']['pool_members_option'] = nil
 default['haproxy']['listeners'] = {
   'listen' => {},
   'frontend' => {},
-  'backend' => {}
+  'backend' => {},
 }
