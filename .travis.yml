@@ -14,7 +14,6 @@ install: echo "skip bundle install"
 
 branches:
   only:
-    - develop
     - master
 
 services: docker
