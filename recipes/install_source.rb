@@ -82,5 +82,5 @@ poise_service 'haproxy' do
   node['haproxy']['poise_service']['options'].each do |k, v|
     options k, v
   end
-  action :enable
+  actions [ :enable, :start ]
 end
