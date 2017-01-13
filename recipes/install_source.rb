@@ -56,13 +56,14 @@ make_cmd << " ARCH=#{node['haproxy']['source']['target_arch']}" unless node['hap
 make_cmd << ' USE_PCRE=1' if node['haproxy']['source']['use_pcre']
 make_cmd << ' USE_OPENSSL=1' if node['haproxy']['source']['use_openssl']
 make_cmd << ' USE_ZLIB=1' if node['haproxy']['source']['use_zlib']
+extra_cmd = 'EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd'
 
 bash 'compile_haproxy' do
   cwd Chef::Config[:file_cache_path]
   code <<-EOH
     tar xzf haproxy-#{node['haproxy']['source']['version']}.tar.gz
     cd haproxy-#{node['haproxy']['source']['version']}
-    #{make_cmd} && make install PREFIX=#{node['haproxy']['source']['prefix']}
+    #{make_cmd} && make install PREFIX=#{node['haproxy']['source']['prefix']} #{extra_cmd}
   EOH
   not_if "#{node['haproxy']['source']['prefix']}/sbin/haproxy -v | grep #{node['haproxy']['source']['version']}"
 end
@@ -74,13 +75,24 @@ user 'haproxy' do
 end
 
 directory node['haproxy']['conf_dir']
-
-haproxy_command = ::File.join(node['haproxy']['source']['prefix'], 'sbin', 'haproxy')
-haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
-poise_service 'haproxy' do
-  command "#{haproxy_command} -f #{haproxy_config_file}"
-  node['haproxy']['poise_service']['options'].each do |k, v|
-    options k, v
+if node['init_package'] == 'systemd'
+  haproxy_systemd_wrapper = ::File.join(node['haproxy']['source']['prefix'], 'sbin', 'haproxy-systemd-wrapper')
+  haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
+  poise_service 'haproxy' do
+    provider :systemd
+    command "#{haproxy_systemd_wrapper} -f #{haproxy_config_file} -p /run/haproxy.pid $OPTIONS"
+    reload_signal '-USR2'
+    restart_mode 'always'
+    action [ :enable, :start ]
   end
-  action [ :enable, :start ]
+else
+  haproxy_command = ::File.join(node['haproxy']['source']['prefix'], 'sbin', 'haproxy')
+  haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
+  poise_service 'haproxy' do
+    command "#{haproxy_command} -f #{haproxy_config_file}"
+    node['haproxy']['poise_service']['options'].each do |k, v|
+      options k, v
+    end
+    action [ :enable, :start ]
+  end
 end
