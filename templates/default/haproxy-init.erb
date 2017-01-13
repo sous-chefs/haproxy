@@ -11,12 +11,12 @@
 
 # Author: Arnaud Cornet <acornet@debian.org>
 
-# Written by Chef on <%= @hostname %>
+# Written by Chef on <%= @options['hostname'] %>
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 PIDFILE=/var/run/haproxy.pid
-CONFIG=<%= @conf_dir %>/haproxy.cfg
-HAPROXY=<%= @prefix %>/sbin/haproxy
+CONFIG=<%= @options['conf_dir'] %>/haproxy.cfg
+HAPROXY=<%= @options['prefix'] %>/sbin/haproxy
 EXTRAOPTS=
 ENABLED=0
 

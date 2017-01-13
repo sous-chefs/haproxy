@@ -42,8 +42,6 @@ package zlib_pkg do
   only_if { node['haproxy']['source']['use_zlib'] }
 end
 
-node.default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['source']['prefix'], node['haproxy']['conf_dir'])
-
 download_file_path = ::File.join(Chef::Config[:file_cache_path], "haproxy-#{node['haproxy']['source']['version']}.tar.gz")
 remote_file 'haproxy source file' do
   path download_file_path
@@ -77,19 +75,29 @@ end
 
 directory node['haproxy']['conf_dir']
 
-template '/etc/init.d/haproxy' do
-  source 'haproxy-init.erb'
-  owner 'root'
-  group 'root'
-  mode '0755'
-  variables(
-    hostname: node['hostname'],
-    conf_dir: node['haproxy']['conf_dir'],
-    prefix: node['haproxy']['source']['prefix']
-  )
-end
+# template '/etc/init.d/haproxy' do
+#   source 'haproxy-init.erb'
+#   owner 'root'
+#   group 'root'
+#   mode '0755'
+#   variables(
+#     hostname: node['hostname'],
+#     conf_dir: node['haproxy']['conf_dir'],
+#     prefix: node['haproxy']['source']['prefix']
+#   )
+# end
 
-service 'haproxy' do
-  supports restart: true, status: true, reload: true
-  action [:enable]
+# service 'haproxy' do
+#   supports restart: true, status: true, reload: true
+#   action [:enable]
+# end
+
+haproxy_command = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy')
+haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
+poise_service "haproxy" do
+  command "#{haproxy_command} -f #{haproxy_config_file}"
+  node['haproxy']['poise_service']['options'].each do |k, v|
+    options k, v
+  end
+  action :enable
 end
