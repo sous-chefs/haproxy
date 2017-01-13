@@ -75,24 +75,7 @@ end
 
 directory node['haproxy']['conf_dir']
 
-# template '/etc/init.d/haproxy' do
-#   source 'haproxy-init.erb'
-#   owner 'root'
-#   group 'root'
-#   mode '0755'
-#   variables(
-#     hostname: node['hostname'],
-#     conf_dir: node['haproxy']['conf_dir'],
-#     prefix: node['haproxy']['source']['prefix']
-#   )
-# end
-
-# service 'haproxy' do
-#   supports restart: true, status: true, reload: true
-#   action [:enable]
-# end
-
-haproxy_command = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy')
+haproxy_command = ::File.join(node['haproxy']['source']['prefix'], 'sbin', 'haproxy')
 haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
 poise_service "haproxy" do
   command "#{haproxy_command} -f #{haproxy_config_file}"
