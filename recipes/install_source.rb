@@ -90,7 +90,7 @@ if node['init_package'] == 'systemd'
     action [ :enable, :start ]
   end
 else
-  haproxy_command = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy')
+  haproxy_command = ::File.join(node['haproxy']['source']['prefix'], 'sbin', 'haproxy')
   haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
   poise_service 'haproxy' do
     provider :sysvinit
