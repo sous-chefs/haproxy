@@ -62,6 +62,7 @@ def create_haproxy_cfg
 end
 
 action :create do
+  node.override['haproxy']['conf_dir'] = new_resource.config_directory
   run_context.include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
 
   if new_resource.config.is_a?(Proc)
