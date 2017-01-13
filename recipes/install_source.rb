@@ -82,9 +82,10 @@ if node['init_package'] == 'systemd'
     provider :systemd
     command "#{haproxy_systemd_wrapper} -f #{haproxy_config_file} -p /run/haproxy.pid $OPTIONS"
     options ({
-      reload_signal: '-USR2',
+      reload_signal: 'USR2',
       restart_mode: 'always',
-      after_target: %w(network syslog)
+      after_target: 'network',
+      auto_reload: true
     })
     action [ :enable, :start ]
   end
