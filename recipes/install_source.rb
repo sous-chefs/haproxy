@@ -90,20 +90,12 @@ if node['init_package'] == 'systemd'
     action [ :enable, :start ]
   end
 else
-  template '/etc/init.d/haproxy' do
-    source 'haproxy-init.erb'
-    owner 'root'
-    group 'root'
-    mode '0755'
-    variables(
-      hostname: node['hostname'],
-      conf_dir: node['haproxy']['conf_dir'],
-      prefix: node['haproxy']['source']['prefix']
-    )
-  end
-
-  service 'haproxy' do
-    supports restart: true, status: true, reload: true
-    action [:enable]
+  haproxy_command = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy')
+  haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
+  poise_service 'haproxy' do
+    provider :sysvinit
+    command "#{haproxy_command} -f #{haproxy_config_file}"
+    options node['haproxy']['poise_service']['options']['sysvinit']
+    action [ :enable, :start ]
   end
 end
