@@ -31,12 +31,12 @@ default['haproxy']['members'] = [{
   'hostname' => 'localhost',
   'ipaddress' => '127.0.0.1',
   'port' => 4000,
-  'ssl_port' => 4000,
+  'ssl_port' => 4000
 }, {
   'hostname' => 'localhost',
   'ipaddress' => '127.0.0.1',
   'port' => 4001,
-  'ssl_port' => 4001,
+  'ssl_port' => 4001
 }]
 default['haproxy']['member_port'] = 8080
 default['haproxy']['member_weight'] = 1
@@ -67,9 +67,9 @@ default['haproxy']['x_forwarded_for'] = false
 default['haproxy']['global_options'] = {}
 # debug_options could be either "debug" or "quiet". "quiet" by default.
 default['haproxy']['debug_options'] = 'quiet'
-default['haproxy']['defaults_timeouts']['connect'] = "5s"
-default['haproxy']['defaults_timeouts']['client'] = "50s"
-default['haproxy']['defaults_timeouts']['server'] = "50s"
+default['haproxy']['defaults_timeouts']['connect'] = '5s'
+default['haproxy']['defaults_timeouts']['client'] = '50s'
+default['haproxy']['defaults_timeouts']['server'] = '50s'
 default['haproxy']['cookie'] = nil
 
 default['haproxy']['global_max_connections'] = 4096
@@ -97,7 +97,7 @@ default['haproxy']['pool_members_option'] = nil
 default['haproxy']['listeners'] = {
   'listen' => {},
   'frontend' => {},
-  'backend' => {},
+  'backend' => {}
 }
 
 default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['install_method'].eql?('source') ? node['haproxy']['source']['prefix'] : '/', 'etc', 'haproxy')
@@ -108,6 +108,6 @@ default['haproxy']['poise_service']['options'] = {
     template:   'haproxy-init.erb',
     hostname:   node['hostname'],
     conf_dir:   node['haproxy']['conf_dir'],
-    prefix:     node['haproxy']['global_prefix'],
-  },
+    prefix:     node['haproxy']['global_prefix']
+  }
 }

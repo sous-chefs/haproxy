@@ -13,8 +13,8 @@ recipe 'haproxy::app_lb', 'Installs and configures haproxy by searching for node
   supports os
 end
 
-depends           "cpu", ">= 0.2.0"
-depends           "build-essential"
+depends           'cpu', '>= 0.2.0'
+depends           'build-essential'
 depends           'poise-service'
 
 source_url 'https://github.com/sous-chefs/haproxy' if respond_to?(:source_url)

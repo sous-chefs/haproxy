@@ -77,7 +77,7 @@ directory node['haproxy']['conf_dir']
 
 haproxy_command = ::File.join(node['haproxy']['source']['prefix'], 'sbin', 'haproxy')
 haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
-poise_service "haproxy" do
+poise_service 'haproxy' do
   command "#{haproxy_command} -f #{haproxy_config_file}"
   node['haproxy']['poise_service']['options'].each do |k, v|
     options k, v
