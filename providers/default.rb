@@ -121,3 +121,7 @@ action :delete do
     action :stop
   end
 end
+
+action :create_service do
+  set_updated { create_poise_service }
+end

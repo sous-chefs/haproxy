@@ -22,3 +22,7 @@ package node['haproxy']['package']['name'] do
 end
 
 directory node['haproxy']['conf_dir']
+
+haproxy 'create service' do
+  action :create_service
+end
