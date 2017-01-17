@@ -17,12 +17,13 @@ platforms:
 suites:
 - name: package
   run_list:
-  - recipe[test]
+    - recipe[test]
 - name: source
-  - recipe[test]
+  run_list:
+    - recipe[test]
   attributes:
     haproxy:
       install_method: source
 - name: app_lb
   run_list:
-- recipe[haproxy::app_lb]
+    - recipe[haproxy::app_lb]
