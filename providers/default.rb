@@ -74,21 +74,19 @@ def create_poise_service
     haproxy_systemd_wrapper = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy-systemd-wrapper')
     haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
     poise_service 'haproxy' do
-      user node['haproxy']['user']
       provider :systemd
       command "#{haproxy_systemd_wrapper} -f #{haproxy_config_file} -p /run/haproxy.pid $OPTIONS"
       options node['haproxy']['poise_service']['options']['systemd']
-      action [ :enable, :start ]
+      action [:enable, :start]
     end
   else
     haproxy_command = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy')
     haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
     poise_service 'haproxy' do
-      user node['haproxy']['user']
       provider :sysvinit
       command "#{haproxy_command} -f #{haproxy_config_file}"
       options node['haproxy']['poise_service']['options']['sysvinit']
-      action [ :enable, :start ]
+      action [:enable, :start]
     end
   end
 end
@@ -112,7 +110,6 @@ action :create do
   set_updated { create_haproxy_cfg }
 
   set_updated { create_poise_service }
-
 end
 
 action :delete do
