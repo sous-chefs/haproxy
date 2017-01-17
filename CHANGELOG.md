@@ -1,6 +1,10 @@
 # haproxy Cookbook CHANGELOG
 
-This file is used to list changes made in each version of the haproxy cookbook.
+This file is used to list changes made in each version of the haproxy cookbook. (@sun77)
+
+## v2.0.3 (tbc)
+
+- Configurable debug options
 
 ## v2.0.2 (2016-12-30)
 
@@ -40,7 +44,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Enabled why-run support in the default haproxy resource
 - Removed broken tarball validation in the source recipe to prevented installs from completing
 - Fixed source installs not running if an older version was present on the node
-- Broke search logic out into a new _discovery recipe
+- Broke search logic out into a new_discovery recipe
 - Added new node['haproxy']['pool_members'] and node['haproxy']['pool_members_option'] attributes
 - Resolved all cookstyle and foodcritic warnings
 - Added a new haproxy_config resource
