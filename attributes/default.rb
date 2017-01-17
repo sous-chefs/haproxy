@@ -79,8 +79,14 @@ default['haproxy']['frontend_ssl_max_connections'] = 2000
 default['haproxy']['install_method'] = 'package'
 default['haproxy']['conf_dir'] = '/etc/haproxy'
 
-default['haproxy']['source']['version'] = '1.6.9'
-default['haproxy']['source']['url'] = 'http://www.haproxy.org/download/1.6/src/haproxy-1.6.9.tar.gz'
+default['haproxy']['source']['version'] = '1.6.11'
+default['haproxy']['source']['url'] = [
+  'http://www.haproxy.org/download/1.6/src/haproxy-1.6.11.tar.gz',
+  'http://pkgs.fedoraproject.org/repo/pkgs/haproxy/haproxy-1.6.11.tar.gz/sha512/\
+    73ff1c7301197b3bd75a3b1355787419676854d132ce2dcdacb2a296e297dcdfc52b0c571a4fb\
+    715e369f1126e1a58196fabb21f828c880f15904032da78e434/haproxy-1.6.11.tar.gz',
+  'http://ps-cf.rightscale.com/haproxy/haproxy-1.6.11.tar.gz',
+]
 default['haproxy']['source']['checksum'] = 'cf7d2fa891d2ae4aa6489fc43a9cadf68c42f9cb0de4801afad45d32e7dda133'
 default['haproxy']['source']['prefix'] = '/usr/local'
 default['haproxy']['source']['target_os'] = 'generic'
