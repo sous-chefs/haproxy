@@ -13,27 +13,27 @@ describe 'haproxy::install_source' do
       'packages' => [
         'libpcre3-dev',
         'libssl-dev',
-        'zlib1g-dev'
-      ]
+        'zlib1g-dev',
+      ],
     },
     'centos' => {
       'packages' => [
         'pcre-devel',
         'openssl-devel',
-        'zlib-devel'
-      ]
-    }
+        'zlib-devel',
+      ],
+    },
   }
 
   platforms = {
     'ubuntu' => {
       'platform' => 'ubuntu',
-      'versions' => ['16.04']
+      'versions' => ['16.04'],
     },
     'centos' => {
       'platform' => 'centos',
-      'versions' => ['6.7']
-    }
+      'versions' => ['6.7'],
+    },
   }
 
   platforms.each do |platform_name, platform|

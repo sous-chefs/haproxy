@@ -32,12 +32,12 @@ default['haproxy']['members'] = [{
   'hostname' => 'localhost',
   'ipaddress' => '127.0.0.1',
   'port' => 4000,
-  'ssl_port' => 4000
+  'ssl_port' => 4000,
 }, {
   'hostname' => 'localhost',
   'ipaddress' => '127.0.0.1',
   'port' => 4001,
-  'ssl_port' => 4001
+  'ssl_port' => 4001,
 }]
 default['haproxy']['member_port'] = 8080
 default['haproxy']['member_weight'] = 1
@@ -98,7 +98,7 @@ default['haproxy']['pool_members_option'] = nil
 default['haproxy']['listeners'] = {
   'listen' => {},
   'frontend' => {},
-  'backend' => {}
+  'backend' => {},
 }
 
 default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['install_method'].eql?('source') ? node['haproxy']['source']['prefix'] : '/', 'etc', 'haproxy')
@@ -107,12 +107,12 @@ default['haproxy']['global_prefix'] = node['haproxy']['install_method'].eql?('so
 default['haproxy']['poise_service']['options'] = {
   sysvinit: {
     hostname:   node['hostname'],
-    conf_dir:   node['haproxy']['conf_dir']
+    conf_dir:   node['haproxy']['conf_dir'],
   },
   systemd: {
     reload_signal: 'USR2',
     restart_mode: 'always',
     after_target: 'network',
-    auto_reload: true
-  }
+    auto_reload: true,
+  },
 }
