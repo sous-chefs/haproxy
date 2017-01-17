@@ -68,34 +68,4 @@ bash 'compile_haproxy' do
   not_if "#{node['haproxy']['source']['prefix']}/sbin/haproxy -v | grep #{node['haproxy']['source']['version']}"
 end
 
-user 'haproxy' do
-  comment 'haproxy system account'
-  system true
-  shell '/bin/false'
-end
-
 directory node['haproxy']['conf_dir']
-if node['init_package'] == 'systemd'
-  haproxy_systemd_wrapper = ::File.join(node['haproxy']['source']['prefix'], 'sbin', 'haproxy-systemd-wrapper')
-  haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
-  poise_service 'haproxy' do
-    provider :systemd
-    command "#{haproxy_systemd_wrapper} -f #{haproxy_config_file} -p /run/haproxy.pid $OPTIONS"
-    options ({
-      reload_signal: 'USR2',
-      restart_mode: 'always',
-      after_target: 'network',
-      auto_reload: true
-    })
-    action [ :enable, :start ]
-  end
-else
-  haproxy_command = ::File.join(node['haproxy']['source']['prefix'], 'sbin', 'haproxy')
-  haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
-  poise_service 'haproxy' do
-    provider :sysvinit
-    command "#{haproxy_command} -f #{haproxy_config_file}"
-    options node['haproxy']['poise_service']['options']['sysvinit']
-    action [ :enable, :start ]
-  end
-end

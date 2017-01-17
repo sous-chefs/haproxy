@@ -21,6 +21,7 @@ default['haproxy']['conf_cookbook'] = 'haproxy'
 default['haproxy']['conf_template_source'] = 'haproxy.cfg.erb'
 default['haproxy']['user'] = 'haproxy'
 default['haproxy']['group'] = 'haproxy'
+default['haproxy']['package']['name'] = 'haproxy'
 
 default['haproxy']['enable_default_http'] = true
 default['haproxy']['mode'] = 'http'
@@ -107,5 +108,11 @@ default['haproxy']['poise_service']['options'] = {
   sysvinit: {
     hostname:   node['hostname'],
     conf_dir:   node['haproxy']['conf_dir']
+  },
+  systemd: {
+    reload_signal: 'USR2',
+    restart_mode: 'always',
+    after_target: 'network',
+    auto_reload: true
   }
 }
