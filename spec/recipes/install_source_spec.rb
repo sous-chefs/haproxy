@@ -67,25 +67,12 @@ describe 'haproxy::install_source' do
           expect(chef_run).to run_bash('compile_haproxy')
         end
 
-        it 'creates a haproxy system account' do
-          expect(chef_run).to create_user('haproxy').with(
-            system: true,
-            shell: '/bin/false',
-            comment: 'haproxy system account'
-          )
-        end
-
         it 'creates the haproxy conf directory' do
           expect(chef_run).to create_directory('/usr/local/etc/haproxy')
         end
 
-        it 'creates the haproxy init.d script' do
-          expect(chef_run).to create_template('/etc/init.d/haproxy').with(
-            source: 'haproxy-init.erb',
-            owner: 'root',
-            group: 'root',
-            mode: '0755'
-          )
+        it 'creates the poise_service haproxy' do
+          expect(chef_run).to create_service_haproxy('create service')
         end
       end
     end

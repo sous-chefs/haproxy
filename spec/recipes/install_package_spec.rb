@@ -11,13 +11,8 @@ describe 'haproxy::install_package' do
     expect(chef_run).to create_directory('/etc/haproxy')
   end
 
-  it 'creates the haproxy init.d script' do
-    expect(chef_run).to create_template('/etc/init.d/haproxy').with(
-      source: 'haproxy-init.erb',
-      owner: 'root',
-      group: 'root',
-      mode: '0755'
-    )
+  it 'creates the haproxy poise_service' do
+    expect(chef_run).to create_service_haproxy('create service')
   end
 
   describe 'with version set' do

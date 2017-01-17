@@ -21,6 +21,7 @@ default['haproxy']['conf_cookbook'] = 'haproxy'
 default['haproxy']['conf_template_source'] = 'haproxy.cfg.erb'
 default['haproxy']['user'] = 'haproxy'
 default['haproxy']['group'] = 'haproxy'
+default['haproxy']['package']['name'] = 'haproxy'
 
 default['haproxy']['enable_default_http'] = true
 default['haproxy']['mode'] = 'http'
@@ -65,6 +66,8 @@ default['haproxy']['syslog']['length'] = nil
 default['haproxy']['defaults_options'] = %w(httplog dontlognull redispatch)
 default['haproxy']['x_forwarded_for'] = false
 default['haproxy']['global_options'] = {}
+# debug_options could be either "debug" or "quiet". "quiet" by default.
+default['haproxy']['debug_options'] = 'quiet'
 default['haproxy']['defaults_timeouts']['connect'] = '5s'
 default['haproxy']['defaults_timeouts']['client'] = '50s'
 default['haproxy']['defaults_timeouts']['server'] = '50s'
@@ -76,11 +79,10 @@ default['haproxy']['frontend_max_connections'] = 2000
 default['haproxy']['frontend_ssl_max_connections'] = 2000
 
 default['haproxy']['install_method'] = 'package'
-default['haproxy']['conf_dir'] = '/etc/haproxy'
 
-default['haproxy']['source']['version'] = '1.6.9'
-default['haproxy']['source']['url'] = 'http://www.haproxy.org/download/1.6/src/haproxy-1.6.9.tar.gz'
-default['haproxy']['source']['checksum'] = 'cf7d2fa891d2ae4aa6489fc43a9cadf68c42f9cb0de4801afad45d32e7dda133'
+default['haproxy']['source']['version'] = '1.6.11'
+default['haproxy']['source']['url'] = 'http://www.haproxy.org/download/1.6/src/haproxy-1.6.11.tar.gz'
+default['haproxy']['source']['checksum'] = '62fe982edb102a9f55205792bc14b0d05745cc7993cd6bee5d73cd3c5ae16ace'
 default['haproxy']['source']['prefix'] = '/usr/local'
 default['haproxy']['source']['target_os'] = 'generic'
 default['haproxy']['source']['target_cpu'] = ''
@@ -97,4 +99,20 @@ default['haproxy']['listeners'] = {
   'listen' => {},
   'frontend' => {},
   'backend' => {},
+}
+
+default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['install_method'].eql?('source') ? node['haproxy']['source']['prefix'] : '/', 'etc', 'haproxy')
+default['haproxy']['global_prefix'] = node['haproxy']['install_method'].eql?('source') ? node['haproxy']['source']['prefix'] : '/usr'
+# We keep the init script for sysvinit
+default['haproxy']['poise_service']['options'] = {
+  sysvinit: {
+    hostname:   node['hostname'],
+    conf_dir:   node['haproxy']['conf_dir'],
+  },
+  systemd: {
+    reload_signal: 'USR2',
+    restart_mode: 'always',
+    after_target: 'network',
+    auto_reload: true,
+  },
 }

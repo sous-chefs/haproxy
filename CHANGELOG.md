@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## v2.0.3
+
+- Merging [#123][] - CentOS7 compatibility
+- Adding changes to match PR [#91][].
+
 ## v2.0.2 (2016-12-30)
 
 - Cookstyle fixes
