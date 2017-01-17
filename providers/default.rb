@@ -45,7 +45,7 @@ def haproxy_default_file
     owner 'root'
     group 'root'
     mode '0644'
-    notifies :restart, 'service[haproxy]', :delayed
+    notifies :restart, 'poise_service[haproxy]', :delayed
   end
 end
 
@@ -56,12 +56,43 @@ def create_haproxy_cfg
     owner 'root'
     group 'root'
     mode '0644'
-    notifies :reload, 'service[haproxy]', :delayed
+    notifies :reload, 'poise_service[haproxy]', :delayed
     variables(config: new_resource.config)
   end
 end
 
+def create_poise_service
+  poise_service_user node['haproxy']['user'] do
+    home '/home/haproxy'
+    group node['haproxy']['group']
+    action :create
+  end
+
+  node.override['haproxy']['conf_dir'] = ::File.join(node['haproxy']['install_method'].eql?('source') ? node['haproxy']['source']['prefix'] : '/', 'etc', 'haproxy')
+  node.override['haproxy']['global_prefix'] = node['haproxy']['install_method'].eql?('source') ? node['haproxy']['source']['prefix'] : '/usr'
+  if node['init_package'] == 'systemd'
+    haproxy_systemd_wrapper = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy-systemd-wrapper')
+    haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
+    poise_service 'haproxy' do
+      provider :systemd
+      command "#{haproxy_systemd_wrapper} -f #{haproxy_config_file} -p /run/haproxy.pid $OPTIONS"
+      options node['haproxy']['poise_service']['options']['systemd']
+      action [:enable, :start]
+    end
+  else
+    haproxy_command = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy')
+    haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
+    poise_service 'haproxy' do
+      provider :sysvinit
+      command "#{haproxy_command} -f #{haproxy_config_file}"
+      options node['haproxy']['poise_service']['options']['sysvinit']
+      action [:enable, :start]
+    end
+  end
+end
+
 action :create do
+  node.override['haproxy']['conf_dir'] = new_resource.config_directory
   run_context.include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
 
   if new_resource.config.is_a?(Proc)
@@ -78,10 +109,7 @@ action :create do
 
   set_updated { create_haproxy_cfg }
 
-  service 'haproxy' do
-    supports restart: true, status: true, reload: true
-    action [:enable, :start]
-  end
+  set_updated { create_poise_service }
 end
 
 action :delete do
@@ -89,7 +117,11 @@ action :delete do
     action :delete
   end
 
-  service 'haproxy' do
+  poise_service 'haproxy' do
     action :stop
   end
+end
+
+action :create_service do
+  set_updated { create_poise_service }
 end

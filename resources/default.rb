@@ -1,4 +1,4 @@
-actions :create, :delete
+actions :create, :delete, :create_service
 default_action :create
 
 attribute :config_directory, kind_of: String
