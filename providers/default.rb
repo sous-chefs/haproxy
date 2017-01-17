@@ -45,7 +45,7 @@ def haproxy_default_file
     owner 'root'
     group 'root'
     mode '0644'
-    notifies :restart, 'service[haproxy]', :delayed
+    notifies :restart, 'poise_service[haproxy]', :delayed
   end
 end
 
@@ -56,7 +56,7 @@ def create_haproxy_cfg
     owner 'root'
     group 'root'
     mode '0644'
-    notifies :reload, 'service[haproxy]', :delayed
+    notifies :reload, 'poise_service[haproxy]', :delayed
     variables(config: new_resource.config)
   end
 end
