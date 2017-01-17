@@ -62,6 +62,7 @@ default['haproxy']['stats_socket_group'] = node['haproxy']['group']
 default['haproxy']['stats_socket_level'] = 'user'
 default['haproxy']['pid_file'] = '/var/run/haproxy.pid'
 default['haproxy']['syslog']['length'] = nil
+default['haproxy']['debug_options'] = 'quiet'
 
 default['haproxy']['defaults_options'] = %w(httplog dontlognull redispatch)
 default['haproxy']['x_forwarded_for'] = false
