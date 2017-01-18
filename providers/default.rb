@@ -84,7 +84,7 @@ def create_poise_service
     haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
     poise_service 'haproxy' do
       provider :sysvinit
-      command "#{haproxy_command}"
+      command haproxy_command
       options node['haproxy']['poise_service']['options']['sysvinit']
       action [:enable, :start]
     end
