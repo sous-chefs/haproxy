@@ -20,6 +20,7 @@
 include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
 
 poise_service 'haproxy' do
+  provider :sysvinit unless node['init_package'] == 'systemd'
   action :nothing
 end
 

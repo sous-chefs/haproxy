@@ -107,8 +107,10 @@ default['haproxy']['global_prefix'] = node['haproxy']['install_method'].eql?('so
 # We keep the init script for sysvinit
 default['haproxy']['poise_service']['options'] = {
   sysvinit: {
+    template: 'haproxy-init.erb',
     hostname:   node['hostname'],
     conf_dir:   node['haproxy']['conf_dir'],
+    pid_file:  '/var/run/haproxy.pid',
   },
   systemd: {
     reload_signal: 'USR2',

@@ -14,10 +14,10 @@
 # Written by Chef on <%= @options['hostname'] %>
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-PIDFILE=/var/run/haproxy.pid
+PIDFILE="<%= @pid_file %>"
 CONFIG=<%= @options['conf_dir'] %>/haproxy.cfg
-HAPROXY=<%= @options['prefix'] %>/sbin/haproxy
-EXTRAOPTS=
+HAPROXY="<%= @daemon %>"
+EXTRAOPTS="<%= @daemon_options %>"
 ENABLED=0
 
 test -x $HAPROXY || exit 0
