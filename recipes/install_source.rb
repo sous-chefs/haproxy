@@ -42,7 +42,7 @@ package zlib_pkg do
   only_if { node['haproxy']['source']['use_zlib'] }
 end
 
-node.default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['source']['prefix'], node['haproxy']['conf_dir'])
+node.default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['source']['prefix'], 'etc', 'haproxy')
 
 download_file_path = ::File.join(Chef::Config[:file_cache_path], "haproxy-#{node['haproxy']['source']['version']}.tar.gz")
 remote_file 'haproxy source file' do
@@ -71,8 +71,3 @@ bash 'compile_haproxy' do
 end
 
 directory node['haproxy']['conf_dir']
-
-haproxy 'create service' do
-  config_directory node['haproxy']['conf_dir']
-  action :create_service
-end

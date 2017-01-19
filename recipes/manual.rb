@@ -19,18 +19,12 @@
 
 include_recipe "haproxy::install_#{node['haproxy']['install_method']}"
 
-poise_service 'haproxy' do
-  provider :sysvinit unless node['init_package'] == 'systemd'
-  provider :systemd if node['init_package'] == 'systemd'
-  action :nothing
-end
-
 cookbook_file '/etc/default/haproxy' do
   source 'haproxy-default'
   owner 'root'
   group 'root'
   mode '0644'
-  notifies :restart, 'poise_service[haproxy]', :delayed
+  action :create
 end
 
 if node['haproxy']['enable_admin']
@@ -107,5 +101,10 @@ unless node['haproxy']['global_options'].is_a?(Hash)
 end
 
 haproxy_config 'Create haproxy.cfg' do
-  notifies :restart, 'poise_service[haproxy]', :delayed
+  action :create
+end
+
+haproxy 'create service' do
+  config_directory node['haproxy']['conf_dir']
+  action :create_service
 end
