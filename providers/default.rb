@@ -82,6 +82,7 @@ def create_poise_service
   else
     haproxy_command = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy')
     haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
+    node.override['haproxy']['poise_service']['options']['conf_dir'] = node['haproxy']['conf_dir']
     poise_service 'haproxy' do
       provider :sysvinit
       command haproxy_command
