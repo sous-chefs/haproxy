@@ -61,7 +61,7 @@ def create_haproxy_cfg
   end
 end
 
-def create_poise_service(default_action = :nothing)
+def create_poise_service
   poise_service_user node['haproxy']['user'] do
     home '/home/haproxy'
     group node['haproxy']['group']
