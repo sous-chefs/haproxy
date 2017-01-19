@@ -73,5 +73,6 @@ end
 directory node['haproxy']['conf_dir']
 
 haproxy 'create service' do
+  config_directory node['haproxy']['conf_dir']
   action :create_service
 end
