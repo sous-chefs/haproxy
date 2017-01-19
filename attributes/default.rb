@@ -81,12 +81,22 @@ default['haproxy']['frontend_ssl_max_connections'] = 2000
 
 default['haproxy']['install_method'] = 'package'
 
+# if source determine target
+@target_os = 'generic'
+if node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6
+  @target_os = 'linux2628'
+elif ( node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && ( node['kernel']['release'].split('.')[2].split('-').first.to_if > 28 )
+  @target_os = 'linux2628'
+elif ( node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6)
+  @target_os = 'linux26'
+end
+
 default['haproxy']['source']['version'] = '1.6.11'
 default['haproxy']['source']['url'] = 'http://www.haproxy.org/download/1.6/src/haproxy-1.6.11.tar.gz'
 default['haproxy']['source']['checksum'] = '62fe982edb102a9f55205792bc14b0d05745cc7993cd6bee5d73cd3c5ae16ace'
 default['haproxy']['source']['prefix'] = '/usr/local'
-default['haproxy']['source']['target_os'] = 'generic'
-default['haproxy']['source']['target_cpu'] = ''
+default['haproxy']['source']['target_os'] = @target_os
+default['haproxy']['source']['target_cpu'] = node['kernel']['machine']
 default['haproxy']['source']['target_arch'] = ''
 default['haproxy']['source']['use_pcre'] = false
 default['haproxy']['source']['use_openssl'] = false
