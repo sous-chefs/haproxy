@@ -70,10 +70,6 @@ describe 'haproxy::install_source' do
         it 'creates the haproxy conf directory' do
           expect(chef_run).to create_directory('/usr/local/etc/haproxy')
         end
-
-        it 'creates the poise_service haproxy' do
-          expect(chef_run).to create_service_haproxy('create service')
-        end
       end
     end
   end

@@ -11,10 +11,6 @@ describe 'haproxy::install_package' do
     expect(chef_run).to create_directory('/etc/haproxy')
   end
 
-  it 'creates the haproxy poise_service' do
-    expect(chef_run).to create_service_haproxy('create service')
-  end
-
   describe 'with version set' do
     let(:given_version) { '1.2.3.4' }
     cached(:chef_run) do
