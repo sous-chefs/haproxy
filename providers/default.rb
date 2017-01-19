@@ -61,7 +61,7 @@ def create_haproxy_cfg
   end
 end
 
-def create_poise_service
+def create_poise_service(default_action=:nothing)
   poise_service_user node['haproxy']['user'] do
     home '/home/haproxy'
     group node['haproxy']['group']
@@ -77,7 +77,7 @@ def create_poise_service
       provider :systemd
       command "#{haproxy_systemd_wrapper} -f #{haproxy_config_file} -p /run/haproxy.pid $OPTIONS"
       options node['haproxy']['poise_service']['options']['systemd']
-      action :nothing
+      action default_action
     end
   else
     haproxy_command = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy')
@@ -87,7 +87,7 @@ def create_poise_service
       provider :sysvinit
       command haproxy_command
       options node['haproxy']['poise_service']['options']['sysvinit']
-      action :nothing
+      action default_action
     end
   end
 end
@@ -110,13 +110,7 @@ action :create do
 
   set_updated { create_haproxy_cfg }
 
-  set_updated { create_poise_service }
-
-  poise_service 'haproxy' do
-    provider :sysvinit unless node['init_package'] == 'systemd'
-    provider :systemd if node['init_package'] == 'systemd'
-    action [:enable, :start]
-  end
+  set_updated { create_poise_service(:enable) }
 end
 
 action :delete do
