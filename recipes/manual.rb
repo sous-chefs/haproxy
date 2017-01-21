@@ -101,5 +101,5 @@ unless node['haproxy']['global_options'].is_a?(Hash)
 end
 
 haproxy_config 'Create haproxy.cfg' do
-  notifies :restart, 'service[haproxy]', :delayed
+  notifies :reload, 'service[haproxy]', :delayed
 end
