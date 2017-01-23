@@ -9,6 +9,7 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 - Adding poise-service for service management
 - Adding changes to match PR [#91][].
 - updating source install to use Haproxy 1.7.2
+- Chef >= 12.1 required
 
 ## v2.0.2 (2016-12-30)
 
