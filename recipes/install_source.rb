@@ -42,7 +42,7 @@ package zlib_pkg do
   only_if { node['haproxy']['source']['use_zlib'] }
 end
 
-node.default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['source']['prefix'], node['haproxy']['conf_dir'])
+node.default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['source']['prefix'], 'etc', 'haproxy')
 
 download_file_path = ::File.join(Chef::Config[:file_cache_path], "haproxy-#{node['haproxy']['source']['version']}.tar.gz")
 remote_file 'haproxy source file' do
@@ -58,38 +58,16 @@ make_cmd << " ARCH=#{node['haproxy']['source']['target_arch']}" unless node['hap
 make_cmd << ' USE_PCRE=1' if node['haproxy']['source']['use_pcre']
 make_cmd << ' USE_OPENSSL=1' if node['haproxy']['source']['use_openssl']
 make_cmd << ' USE_ZLIB=1' if node['haproxy']['source']['use_zlib']
+extra_cmd = 'EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd'
 
 bash 'compile_haproxy' do
   cwd Chef::Config[:file_cache_path]
   code <<-EOH
     tar xzf haproxy-#{node['haproxy']['source']['version']}.tar.gz
     cd haproxy-#{node['haproxy']['source']['version']}
-    #{make_cmd} && make install PREFIX=#{node['haproxy']['source']['prefix']}
+    #{make_cmd} && make install PREFIX=#{node['haproxy']['source']['prefix']} #{extra_cmd}
   EOH
   not_if "#{node['haproxy']['source']['prefix']}/sbin/haproxy -v | grep #{node['haproxy']['source']['version']}"
 end
 
-user 'haproxy' do
-  comment 'haproxy system account'
-  system true
-  shell '/bin/false'
-end
-
 directory node['haproxy']['conf_dir']
-
-template '/etc/init.d/haproxy' do
-  source 'haproxy-init.erb'
-  owner 'root'
-  group 'root'
-  mode '0755'
-  variables(
-    hostname: node['hostname'],
-    conf_dir: node['haproxy']['conf_dir'],
-    prefix: node['haproxy']['source']['prefix']
-  )
-end
-
-service 'haproxy' do
-  supports restart: true, status: true, reload: true
-  action [:enable]
-end

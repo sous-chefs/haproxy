@@ -27,12 +27,4 @@ describe 'haproxy::manual' do
   it 'writes out the haproxy config' do
     expect(chef_run).to create_haproxy_config('Create haproxy.cfg')
   end
-
-  it 'enables the haproxy service' do
-    expect(chef_run).to enable_service('haproxy')
-  end
-
-  it 'starts the haproxy service' do
-    expect(chef_run).to start_service('haproxy')
-  end
 end

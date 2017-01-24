@@ -11,13 +11,13 @@
 
 # Author: Arnaud Cornet <acornet@debian.org>
 
-# Written by Chef on <%= @hostname %>
+# Written by Chef on <%= @options['hostname'] %>
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-PIDFILE=/var/run/haproxy.pid
-CONFIG=<%= @conf_dir %>/haproxy.cfg
-HAPROXY=<%= @prefix %>/sbin/haproxy
-EXTRAOPTS=
+PIDFILE="<%= @pid_file %>"
+CONFIG=<%= @options['conf_dir'] %>/haproxy.cfg
+HAPROXY="<%= @daemon %>"
+EXTRAOPTS="<%= @daemon_options %>"
 ENABLED=0
 
 test -x $HAPROXY || exit 0

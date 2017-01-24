@@ -12,6 +12,10 @@ if defined?(ChefSpec)
     ChefSpec::Matchers::ResourceMatcher.new(:haproxy, :delete, name)
   end
 
+  def create_service_haproxy(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:haproxy, :create_service, name)
+  end
+
   def create_haproxy_lb(name)
     ChefSpec::Matchers::ResourceMatcher.new(:haproxy_lb, :create, name)
   end

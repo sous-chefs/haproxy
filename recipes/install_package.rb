@@ -17,25 +17,8 @@
 # limitations under the License.
 #
 
-package 'haproxy' do
+package node['haproxy']['package']['name'] do
   version node['haproxy']['package']['version'] if node['haproxy']['package']['version']
 end
 
 directory node['haproxy']['conf_dir']
-
-template '/etc/init.d/haproxy' do
-  source 'haproxy-init.erb'
-  owner 'root'
-  group 'root'
-  mode '0755'
-  variables(
-    hostname: node['hostname'],
-    conf_dir: node['haproxy']['conf_dir'],
-    prefix: '/usr'
-  )
-end
-
-service 'haproxy' do
-  supports restart: true, status: true, reload: true
-  action [:enable, :start]
-end

@@ -24,7 +24,8 @@ cookbook_file '/etc/default/haproxy' do
   owner 'root'
   group 'root'
   mode '0644'
-  notifies :restart, 'service[haproxy]', :delayed
+  action :create
+  notifies :restart, 'poise_service[haproxy]', :delayed
 end
 
 if node['haproxy']['enable_admin']
@@ -101,5 +102,35 @@ unless node['haproxy']['global_options'].is_a?(Hash)
 end
 
 haproxy_config 'Create haproxy.cfg' do
-  notifies :restart, 'service[haproxy]', :delayed
+  action :create
+  notifies :restart, 'poise_service[haproxy]', :delayed
+end
+
+poise_service_user node['haproxy']['user'] do
+  home '/home/haproxy'
+  group node['haproxy']['group']
+  action :create
+end
+
+node.override['haproxy']['conf_dir'] = ::File.join(node['haproxy']['install_method'].eql?('source') ? node['haproxy']['source']['prefix'] : '/', 'etc', 'haproxy')
+node.override['haproxy']['global_prefix'] = node['haproxy']['install_method'].eql?('source') ? node['haproxy']['source']['prefix'] : '/usr'
+if node['init_package'] == 'systemd'
+  haproxy_systemd_wrapper = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy-systemd-wrapper')
+  haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
+  poise_service 'haproxy' do
+    provider :systemd
+    command "#{haproxy_systemd_wrapper} -f #{haproxy_config_file} -p /run/haproxy.pid $OPTIONS"
+    options node['haproxy']['poise_service']['options']['systemd']
+    action :enable
+  end
+else
+  haproxy_command = ::File.join(node['haproxy']['global_prefix'], 'sbin', 'haproxy')
+  haproxy_config_file = ::File.join(node['haproxy']['conf_dir'], 'haproxy.cfg')
+  node.override['haproxy']['poise_service']['options']['sysvinit']['conf_dir'] = node['haproxy']['conf_dir']
+  poise_service 'haproxy' do
+    provider :sysvinit
+    command haproxy_command
+    options node['haproxy']['poise_service']['options']['sysvinit']
+    action :enable
+  end
 end

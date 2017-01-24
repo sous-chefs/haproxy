@@ -5,11 +5,13 @@
 Installs haproxy and prepares the configuration location.
 
 ## Requirements
+- Chef 12.1+
 
 ### Platforms
 
 - Ubuntu 12.04+
-- RHEL 6+
+- RHEL 6+, CentOS6+
+- RHEL 7+, CentOS7+
 - Debian 8+
 
 ## Attributes
