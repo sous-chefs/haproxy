@@ -2,11 +2,7 @@
 
 This file is used to list changes made in each version of the haproxy cookbook. (@sun77)
 
-## v3.0.1 (tbc)
-
-- changing ['haproxy']['source']['target_os'], ['haproxy']['source']['target_cpu'] to use proper architecture, Issue: [#150][]
-
-## v3.0.0 (tbc)
+## v3.0.0 (2017-1-24)
 
 - Configurable debug options
 - Merging [#123][] - CentOS7 compatibility
@@ -14,6 +10,7 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 - Adding changes to match PR [#91][].
 - updating source install to use Haproxy 1.7.2
 - Chef >= 12.1 required
+- changing ['haproxy']['source']['target_os'], ['haproxy']['source']['target_cpu'] to use proper architecture, Issue: [#150][]
 
 ## v2.0.2 (2016-12-30)
 
