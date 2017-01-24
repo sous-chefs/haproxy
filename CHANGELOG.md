@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the haproxy cookbook. (@sun77)
 
+## v3.0.1 (tbc)
+
+- changing ['haproxy']['source']['target_os'], ['haproxy']['source']['target_cpu'] to use proper architecture, Issue: [#150][]
+
 ## v3.0.0 (tbc)
 
 - Configurable debug options
