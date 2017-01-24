@@ -85,9 +85,9 @@ default['haproxy']['install_method'] = 'package'
 @target_os = 'generic'
 if node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6
   @target_os = 'linux2628'
-  elif ( node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i > 28)
+elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i > 28)
   @target_os = 'linux2628'
-  elif ( node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6)
+elsif node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6
   @target_os = 'linux26'
 end
 
