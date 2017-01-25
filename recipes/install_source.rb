@@ -58,6 +58,8 @@ make_cmd << " ARCH=#{node['haproxy']['source']['target_arch']}" unless node['hap
 make_cmd << ' USE_PCRE=1' if node['haproxy']['source']['use_pcre']
 make_cmd << ' USE_OPENSSL=1' if node['haproxy']['source']['use_openssl']
 make_cmd << ' USE_ZLIB=1' if node['haproxy']['source']['use_zlib']
+make_cmd << ' USE_LINUX_TPROXY=1' if node['haproxy']['source']['use_tproxy']
+make_cmd << ' USE_LINUX_SPLICE=1' if node['haproxy']['source']['use_splice']
 extra_cmd = 'EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd'
 
 bash 'compile_haproxy' do
