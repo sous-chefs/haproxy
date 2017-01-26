@@ -23,7 +23,11 @@ include_recipe 'haproxy::_discovery'
 pool = ["option httpchk #{node['haproxy']['httpchk']}"] if node['haproxy']['httpchk']
 
 servers = node['haproxy']['pool_members'].uniq.map do |s|
-  "#{s[:hostname]} #{s[:ipaddress]}:#{node['haproxy']['member_port']} weight 1 maxconn #{node['haproxy']['member_max_connections']} check"
+  if !s[:ipaddress].nil?
+    "#{s[:hostname]} #{s[:ipaddress]}:#{node['haproxy']['member_port']} weight 1 maxconn #{node['haproxy']['member_max_connections']} check"
+  else
+    Chef::Log.info "haproxy_host_missing_ip: #{s[:hostname]}"
+  end
 end
 
 haproxy_lb (node['haproxy']['mode']).to_s do
