@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 ## v3.0.1 (tbc)
 
 - adding tproxy and splice per [#98][]
+- removing members with nil ips from member array. [#79][]
 
 ## v3.0.0 (2017-1-24)
 
