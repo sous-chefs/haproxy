@@ -1,7 +1,8 @@
 global
-  log 127.0.0.1  <% unless node['haproxy']['syslog']['length'].nil? %>len <%= node['haproxy']['syslog']['length'] %><% end %> local0
-  log 127.0.0.1  <% unless node['haproxy']['syslog']['length'].nil? %>len <%= node['haproxy']['syslog']['length'] %><% end %> local1 notice
-  #log loghost    local0 info
+  <% node['haproxy']['syslog']['facilities'].each do |k,v| %>
+    log 127.0.0.1  <% unless node['haproxy']['syslog']['length'].nil? %>len <%= node['haproxy']['syslog']['length'] %><% end %> <%= k %> <%= v %>
+  <% end %>
+  #log loghost local0 info
   maxconn <%= node['haproxy']['global_max_connections'] %>
   <%= node['haproxy']['debug_options'] %>
   user <%= node['haproxy']['user'] %>

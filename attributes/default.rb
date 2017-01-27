@@ -62,6 +62,10 @@ default['haproxy']['stats_socket_group'] = node['haproxy']['group']
 default['haproxy']['stats_socket_level'] = 'user'
 default['haproxy']['pid_file'] = '/var/run/haproxy.pid'
 default['haproxy']['syslog']['length'] = nil
+default['haproxy']['syslog']['facilities'] = {
+  'local0' => nil,
+  'local1' => 'notice'
+}
 default['haproxy']['debug_options'] = 'quiet'
 
 default['haproxy']['defaults_options'] = %w(httplog dontlognull redispatch)
