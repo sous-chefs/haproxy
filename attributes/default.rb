@@ -64,7 +64,7 @@ default['haproxy']['pid_file'] = '/var/run/haproxy.pid'
 default['haproxy']['syslog']['length'] = nil
 default['haproxy']['syslog']['facilities'] = {
   'local0' => nil,
-  'local1' => 'notice'
+  'local1' => 'notice',
 }
 default['haproxy']['debug_options'] = 'quiet'
 
