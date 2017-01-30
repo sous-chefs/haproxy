@@ -103,7 +103,7 @@ end
 
 haproxy_config 'Create haproxy.cfg' do
   action :create
-  notifies :restart, 'poise_service[haproxy]', :delayed
+  notifies :reload, 'poise_service[haproxy]', :delayed
 end
 
 poise_service_user node['haproxy']['user'] do
