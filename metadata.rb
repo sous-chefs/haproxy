@@ -13,6 +13,7 @@ recipe 'haproxy::app_lb', 'Installs and configures haproxy by searching for node
   supports os
 end
 
+depends           'compat_resource', '>= 12.16.3'
 depends           'cpu', '>= 0.2.0'
 depends           'build-essential'
 depends           'poise-service'
