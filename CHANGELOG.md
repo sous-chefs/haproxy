@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 
 ## v3.0.1 (tbc)
 
+- Reload haproxy configuration on changes [#152][]
 - merging in generic socket conf [#107][]
 - updating config to use facilities hash dynamically [#102][]
 - adding tproxy and splice per [#98][]
