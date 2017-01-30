@@ -57,11 +57,15 @@ default['haproxy']['admin']['port'] = 22_002
 default['haproxy']['admin']['options'] = { 'stats' => 'uri /' }
 default['haproxy']['enable_stats_socket'] = false
 default['haproxy']['stats_socket_path'] = '/var/run/haproxy.sock'
-default['haproxy']['stats_socket_user'] = node['haproxy']['user']
-default['haproxy']['stats_socket_group'] = node['haproxy']['group']
-default['haproxy']['stats_socket_level'] = 'user'
+default['haproxy']['stats_socket']['user'] = node['haproxy']['user']
+default['haproxy']['stats_socket']['group'] = node['haproxy']['group']
+default['haproxy']['stats_socket']['level'] = 'user'
 default['haproxy']['pid_file'] = '/var/run/haproxy.pid'
 default['haproxy']['syslog']['length'] = nil
+default['haproxy']['syslog']['facilities'] = {
+  'local0' => nil,
+  'local1' => 'notice',
+}
 default['haproxy']['debug_options'] = 'quiet'
 
 default['haproxy']['defaults_options'] = %w(httplog dontlognull redispatch)
