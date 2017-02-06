@@ -49,12 +49,6 @@ default['haproxy']['enable_admin'] = true
 default['haproxy']['admin']['address_bind'] = '127.0.0.1'
 default['haproxy']['admin']['port'] = 22_002
 default['haproxy']['admin']['options'] = { 'stats' => 'uri /' }
-default['haproxy']['enable_stats_socket'] = false
-default['haproxy']['stats_socket_path'] = '/var/run/haproxy.sock'
-default['haproxy']['stats_socket']['user'] = node['haproxy']['user']
-default['haproxy']['stats_socket']['group'] = node['haproxy']['group']
-default['haproxy']['stats_socket']['level'] = 'user'
-default['haproxy']['pid_file'] = '/var/run/haproxy.pid'
 default['haproxy']['syslog']['length'] = nil
 default['haproxy']['syslog']['facilities'] = {
   'local0' => nil,
@@ -64,20 +58,14 @@ default['haproxy']['debug_options'] = 'quiet'
 
 default['haproxy']['defaults_options'] = %w(httplog dontlognull redispatch)
 default['haproxy']['x_forwarded_for'] = false
-default['haproxy']['global_options'] = {}
-# debug_options could be either "debug" or "quiet". "quiet" by default.
-default['haproxy']['debug_options'] = 'quiet'
 default['haproxy']['defaults_timeouts']['connect'] = '5s'
 default['haproxy']['defaults_timeouts']['client'] = '50s'
 default['haproxy']['defaults_timeouts']['server'] = '50s'
 default['haproxy']['cookie'] = nil
 
-default['haproxy']['global_max_connections'] = 4096
 default['haproxy']['member_max_connections'] = 100
 default['haproxy']['frontend_max_connections'] = 2000
 default['haproxy']['frontend_ssl_max_connections'] = 2000
-
-default['haproxy']['install_method'] = 'package'
 
 # if source determine target
 @target_os = 'generic'
@@ -101,8 +89,6 @@ default['haproxy']['source']['use_openssl'] = false
 default['haproxy']['source']['use_zlib'] = false
 default['haproxy']['source']['use_tproxy'] = false
 default['haproxy']['source']['use_splice'] = false
-
-default['haproxy']['package']['version'] = nil
 
 default['haproxy']['pool_members'] = {}
 default['haproxy']['pool_members_option'] = nil

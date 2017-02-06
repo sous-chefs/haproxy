@@ -11,6 +11,7 @@ property :config_template_source, String, default: 'haproxy.cfg.erb'
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 property :package_name, String, default: 'haproxy'
+property :package_version, String, default: nil
 
 property :enable_default_http, [TrueClass, FalseClass], default: true
 property :haproxy_mode, String, default: 'http', equal_to: %w(http)
@@ -22,8 +23,8 @@ action :create do
 
   case install_type
   when 'package'
-    package node['haproxy']['package']['name'] do
-      version node['haproxy']['package']['version'] if node['haproxy']['package']['version']
+    package package_name do
+      version package_version if package_version
       action :install
     end
 
