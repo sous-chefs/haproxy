@@ -1,4 +1,4 @@
-provides :haproxy
+resource_name :haproxy
 
 property :name, String, default: 'default', name_property: true
 property :install_type, String, default: 'package', equal_to: %w(package source)
