@@ -70,14 +70,12 @@ default['haproxy']['listeners'] = {
   'backend' => {},
 }
 
-default['haproxy']['conf_dir'] = ::File.join(node['haproxy']['install_method'].eql?('source') ? node['haproxy']['source']['prefix'] : '/', 'etc', 'haproxy')
-default['haproxy']['global_prefix'] = node['haproxy']['install_method'].eql?('source') ? node['haproxy']['source']['prefix'] : '/usr'
 # We keep the init script for sysvinit
 default['haproxy']['poise_service']['options'] = {
   sysvinit: {
     template: 'haproxy:haproxy-init.erb',
     hostname:   node['hostname'],
-    conf_dir:   node['haproxy']['conf_dir'],
+    conf_dir:   '/etc/haproxy',
     pid_file:  '/var/run/haproxy.pid',
   },
   systemd: {
