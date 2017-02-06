@@ -67,9 +67,6 @@ default['haproxy']['x_forwarded_for'] = false
 default['haproxy']['global_options'] = {}
 # debug_options could be either "debug" or "quiet". "quiet" by default.
 default['haproxy']['debug_options'] = 'quiet'
-default['haproxy']['defaults_timeouts']['connect'] = '5s'
-default['haproxy']['defaults_timeouts']['client'] = '50s'
-default['haproxy']['defaults_timeouts']['server'] = '50s'
 default['haproxy']['cookie'] = nil
 
 default['haproxy']['global_max_connections'] = 4096
