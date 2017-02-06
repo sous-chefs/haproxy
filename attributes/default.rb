@@ -17,12 +17,6 @@
 # limitations under the License.
 #
 
-default['haproxy']['conf_cookbook'] = 'haproxy'
-default['haproxy']['conf_template_source'] = 'haproxy.cfg.erb'
-default['haproxy']['user'] = 'haproxy'
-default['haproxy']['group'] = 'haproxy'
-default['haproxy']['package']['name'] = 'haproxy'
-
 default['haproxy']['enable_default_http'] = true
 default['haproxy']['mode'] = 'http'
 default['haproxy']['ssl_mode'] = 'http'
