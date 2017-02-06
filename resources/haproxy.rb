@@ -14,8 +14,8 @@ property :package_version, String, default: nil
 property :enable_default_http, [TrueClass, FalseClass], default: true
 property :haproxy_mode, String, default: 'http', equal_to: %w(http)
 property :ssl_mode, String, default: 'http'
-property :incoming_address, String, default: '0.0.0.0'
-property :incoming_port, Integer, default: 80
+property :bind_address, String, default: '0.0.0.0'
+property :bind_port, Integer, default: 80
 
 action :create do
   case install_type
