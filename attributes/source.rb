@@ -4,7 +4,7 @@ if node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6
   @target_os = 'linux2628'
 elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i > 28)
   @target_os = 'linux2628'
-elsif node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6
+elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i < 28)
   @target_os = 'linux26'
 end
 
@@ -15,8 +15,8 @@ default['haproxy']['source']['prefix'] = '/usr/local'
 default['haproxy']['source']['target_os'] = @target_os
 default['haproxy']['source']['target_cpu'] = node['kernel']['machine']
 default['haproxy']['source']['target_arch'] = ''
-default['haproxy']['source']['use_pcre'] = false
-default['haproxy']['source']['use_openssl'] = false
-default['haproxy']['source']['use_zlib'] = false
-default['haproxy']['source']['use_tproxy'] = false
-default['haproxy']['source']['use_splice'] = false
+default['haproxy']['source']['options']['use_pcre'] = 1
+default['haproxy']['source']['options']['use_openssl'] = 1
+default['haproxy']['source']['options']['use_zlib'] = 1
+default['haproxy']['source']['options']['use_linux_tproxy'] = 1
+default['haproxy']['source']['options']['use_linux_splice'] = 1
