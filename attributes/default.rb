@@ -54,7 +54,6 @@ default['haproxy']['syslog']['facilities'] = {
   'local0' => nil,
   'local1' => 'notice',
 }
-default['haproxy']['debug_options'] = 'quiet'
 
 default['haproxy']['defaults_options'] = %w(httplog dontlognull redispatch)
 default['haproxy']['x_forwarded_for'] = false
