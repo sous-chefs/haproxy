@@ -1,4 +1,10 @@
-use_inline_resources
+property :name, String, name_attribute: true
+property :type, String, default: 'listen', equal_to: %w(listen backend frontend)
+property :servers, [Array, NilClass], default: []
+property :balance, String
+property :bind, [String, NilClass]
+property :mode, String, default: 'http', equal_to: %w(http tcp health)
+property :parameters, [Array, Hash], default: []
 
 action :create do
   # While there is no way to have an include directive for haproxy
