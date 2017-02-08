@@ -60,6 +60,19 @@ if node['haproxy']['enable_ssl']
   end
 end
 
+cookbook_file '/etc/default/haproxy' do
+  source 'haproxy-default'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  action :create
+  notifies :restart, 'service[haproxy]', :delayed
+end
+
 haproxy_config 'Create haproxy.cfg' do
   notifies :restart, 'service[haproxy]', :delayed
+end
+
+service 'haproxy' do # Dummy resource for restarting on config updates
+  action :nothing
 end
