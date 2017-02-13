@@ -3,13 +3,13 @@ driver:
 
 provisioner:
   name: chef_zero
+  deprecations_as_errors: true
 
 platforms:
   - name: centos-6.8
   - name: centos-7.2
   - name: debian-8.6
   - name: fedora-25
-    run_list: yum::dnf_yum_compat
   - name: ubuntu-12.04
   - name: ubuntu-14.04
   - name: ubuntu-16.04
@@ -17,13 +17,7 @@ platforms:
 suites:
 - name: package
   run_list:
-    - recipe[test]
+    - recipe[test::package]
 - name: source
   run_list:
-    - recipe[test]
-  attributes:
-    haproxy:
-      install_method: source
-- name: app_lb
-  run_list:
-    - recipe[haproxy::app_lb]
+    - recipe[test::source]
