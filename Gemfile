@@ -11,4 +11,3 @@ gem 'rake'
 
 gem 'guard-rubocop'
 gem 'guard-rspec'
-# gem 'guard-foodcritic' # until a non-constained release is made
