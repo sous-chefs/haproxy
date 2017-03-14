@@ -33,7 +33,8 @@ Installs haproxy and prepares the configuration location.
     "ssl_port" => 4001
   }]
   ```
-
+- `node['haproxy']['ssl_members']` - used by the manual recipe to create a seperate member pool for the SSL listener. Opitional. Defaults to `node['haproxy']['members']`
+- `node['haproxy']['ssl_pool_members_option']` - used by the manual recipe to define member options for the SSL member pool. Optional. Defaults to `node['haproxy']['pool_members_option']`
 - `node['haproxy']['member_port']` - the port that member systems will be listening on if not otherwise specified in the members attribute, default 8080
 - `node['haproxy']['member_weight']` - the weight to apply to member systems if not otherwise specified in the members attribute, default 1
 - `node['haproxy']['app_server_role']` - used by the `app_lb` recipe to search for a specific role of member systems. Default `webserver`.
