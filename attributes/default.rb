@@ -66,7 +66,7 @@ default['haproxy']['syslog'] = { 'destination0' => { address: '127.0.0.1',
                                                      format: nil,
                                                      facility: 'local0',
                                                      max_level: nil,
-                                                     min_level: nil }
+                                                     min_level: nil },
                                  'destination1' => { address: '127.0.0.1',
                                                      length: nil,
                                                      format: nil,
