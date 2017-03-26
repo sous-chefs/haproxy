@@ -61,18 +61,18 @@ default['haproxy']['stats_socket']['user'] = node['haproxy']['user']
 default['haproxy']['stats_socket']['group'] = node['haproxy']['group']
 default['haproxy']['stats_socket']['level'] = 'user'
 default['haproxy']['pid_file'] = '/var/run/haproxy.pid'
-default['haproxy']['syslog']{'destination0' => { address: '127.0.0.1',
-                                                 length: nil,
-                                                 format: nil,
-                                                 facility: 'local0',
-                                                 max_level: nil,
-                                                 min_level: nil }
-                             'destination1' => { address: '127.0.0.1',
-                                                 length: nil,
-                                                 format: nil,
-                                                 facility: 'local1',
-                                                 max_level: 'notice',
-                                                 min_level: nil }}
+default['haproxy']['syslog'] = { 'destination0' => { address: '127.0.0.1',
+                                                     length: nil,
+                                                     format: nil,
+                                                     facility: 'local0',
+                                                     max_level: nil,
+                                                     min_level: nil }
+                                 'destination1' => { address: '127.0.0.1',
+                                                     length: nil,
+                                                     format: nil,
+                                                     facility: 'local1',
+                                                     max_level: 'notice',
+                                                     min_level: nil }}
 default['haproxy']['debug_options'] = 'quiet'
 
 default['haproxy']['defaults_options'] = %w(httplog dontlognull redispatch)
