@@ -6,14 +6,29 @@ provisioner:
   deprecations_as_errors: true
 
 platforms:
-  - name: centos-6.8
-  - name: centos-7.2
-  - name: debian-8.6
+  - name: centos-6
+    driver:
+      box: bento/centos-6.8
+
+  - name: centos-7
+    driver:
+      box: bento/centos-7.3
+
+  - name: debian-8
+    driver:
+      box: bento/debian-8.6
+
   - name: fedora-25
-    run_list: yum::dnf_yum_compat
-  - name: ubuntu-12.04
+    driver:
+      box: bento/fedora-25
+
   - name: ubuntu-14.04
+    driver:
+      box: bento/ubuntu-14.04
+
   - name: ubuntu-16.04
+    driver:
+      box: bento/ubuntu-16.04
 
 suites:
 - name: package
