@@ -33,7 +33,7 @@ if node['haproxy']['enable_admin']
   haproxy_lb 'admin' do
     bind "#{admin['address_bind']}:#{admin['port']}"
     mode 'http'
-    params(admin['options'])
+    parameters(admin['options'])
   end
 end
 
@@ -44,9 +44,9 @@ member_weight = conf['member_weight']
 if conf['enable_default_http']
   haproxy_lb 'http' do
     type 'frontend'
-    params('maxconn' => conf['frontend_max_connections'],
-           'bind' => "#{conf['incoming_address']}:#{conf['incoming_port']}",
-           'default_backend' => 'servers-http')
+    parameters('maxconn' => conf['frontend_max_connections'],
+               'bind' => "#{conf['incoming_address']}:#{conf['incoming_port']}",
+               'default_backend' => 'servers-http')
   end
 
   member_port = conf['member_port']
@@ -59,7 +59,7 @@ if conf['enable_default_http']
   haproxy_lb 'servers-http' do
     type 'backend'
     servers servers
-    params pool
+    parameters pool
   end
 end
 
@@ -73,9 +73,9 @@ if node['haproxy']['enable_ssl']
   haproxy_lb 'https' do
     type 'frontend'
     mode node['haproxy']['ssl_mode']
-    params('maxconn' => node['haproxy']['frontend_ssl_max_connections'],
-           'bind' => bind,
-           'default_backend' => 'servers-https')
+    parameters('maxconn' => node['haproxy']['frontend_ssl_max_connections'],
+               'bind' => bind,
+               'default_backend' => 'servers-https')
   end
 
   ssl_member_port = conf['ssl_member_port']
@@ -89,7 +89,7 @@ if node['haproxy']['enable_ssl']
     type 'backend'
     mode node['haproxy']['ssl_mode']
     servers servers
-    params pool
+    parameters pool
   end
 end
 
