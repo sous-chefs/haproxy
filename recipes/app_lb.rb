@@ -33,8 +33,8 @@ end
 haproxy_lb (node['haproxy']['mode']).to_s do
   type 'frontend'
   parameters('maxconn' => node['haproxy']['frontend_max_connections'],
-         'bind' => "#{node['haproxy']['incoming_address']}:#{node['haproxy']['incoming_port']}",
-         'default_backend' => "servers-#{node['haproxy']['mode']}")
+             'bind' => "#{node['haproxy']['incoming_address']}:#{node['haproxy']['incoming_port']}",
+             'default_backend' => "servers-#{node['haproxy']['mode']}")
 end
 
 haproxy_lb "servers-#{node['haproxy']['mode']}" do
