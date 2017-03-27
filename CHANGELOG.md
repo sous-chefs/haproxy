@@ -2,9 +2,11 @@
 
 This file is used to list changes made in each version of the haproxy cookbook. (@sun77)
 
-## v3.0.2 (tbc)
+## v3.0.2 (27-03-2017)
 
 - Allow server startup from `app_lb` recipe. [#171][]
+- Use Delivery instead of Rake
+- Make this cookbook compatible with Chef-13, note: `params` option is now `parameters` [#175][]
 
 ## v3.0.1 (2017-1-30)
 
