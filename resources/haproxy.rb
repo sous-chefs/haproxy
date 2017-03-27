@@ -20,20 +20,28 @@ property :package_name, String, default: 'haproxy'
 property :package_version, String, default: nil
 
 # Source
-property :source_prefix, String, deafult: node['haproxy']['source']['prefix']
-property :source_version, String, default: node['haproxy']['source']['version']
-property :source_url, String, default: node['haproxy']['source']['url']
-property :source_checksum, String, default: node['haproxy']['source']['checksum']
-property :source_target_os, String, default: node['haproxy']['source']['target_os']
-property :source_target_cpu, [String, Nil], default: lazy { node['haproxy']['source']['target_cpu'] }
-property :source_target_arch, [String, Nil], deafult: lazy { node['haproxy']['source']['target_arch'] }
-
+property :source_prefix, String, deafult: '/usr/local'
+property :source_version, String, default: '1.7.2'
+property :source_url, String, default: 'http://www.haproxy.org/download/1.7/src/haproxy-1.7.2.tar.gz'
+property :source_checksum, String, default: 'f95b40f52a4d61feaae363c9b15bf411c16fe8f61fddb297c7afcca0072e4b2f'
+property :source_target_cpu, [String, Nil], default: lazy { node['kernel']['machine'] }
+property :source_target_arch, [String, nil], deafult: nil
+property :source_target_os, String, default: lazy {
+  if node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6
+    @target_os = 'linux2628'
+  elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i > 28)
+    @target_os = 'linux2628'
+  elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i < 28)
+    @target_os = 'linux26'
+  else
+    'generic'
+  end
+}
 property :use_pcre, Integer, equal_to: %w{0 1}, default: '1'
 property :use_openssl, Integer, equal_to: %w{0 1}, default: '1'
 property :use_zlib, String, equal_to: %{0 1}, default: '1'
 property :use_linux_tproxy, Integer, equal_to: %w{0 1}, default: '1'
 property :use_linux_splice, Integer, equal_to: %w{0 1}, default: '1'
-
 
 action :create do
   case install_type
