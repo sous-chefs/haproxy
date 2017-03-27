@@ -32,16 +32,16 @@ end
 
 haproxy_lb (node['haproxy']['mode']).to_s do
   type 'frontend'
-  params('maxconn' => node['haproxy']['frontend_max_connections'],
-         'bind' => "#{node['haproxy']['incoming_address']}:#{node['haproxy']['incoming_port']}",
-         'default_backend' => "servers-#{node['haproxy']['mode']}")
+  parameters('maxconn' => node['haproxy']['frontend_max_connections'],
+             'bind' => "#{node['haproxy']['incoming_address']}:#{node['haproxy']['incoming_port']}",
+             'default_backend' => "servers-#{node['haproxy']['mode']}")
 end
 
 haproxy_lb "servers-#{node['haproxy']['mode']}" do
   type 'backend'
   mode node['haproxy']['mode']
   servers servers
-  params pool
+  parameters pool
 end
 
 if node['haproxy']['enable_ssl']
@@ -56,7 +56,7 @@ if node['haproxy']['enable_ssl']
     type 'backend'
     mode node['haproxy']['mode']
     servers servers
-    params pool
+    parameters pool
   end
 end
 
