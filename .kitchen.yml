@@ -3,7 +3,10 @@ driver:
 
 provisioner:
   name: chef_zero
-  deprecations_as_errors: true
+
+client_rb:
+  treat_deprecation_warnings_as_errors: true
+  resource_cloning: false
 
 platforms:
   - name: centos-6.8
