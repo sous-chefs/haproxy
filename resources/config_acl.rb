@@ -5,3 +5,6 @@ property :criterion, String
 property :flags, String
 property :operator, String
 property :value, String
+
+action :create do
+end
