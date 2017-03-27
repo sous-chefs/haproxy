@@ -19,7 +19,7 @@ spec_path = 'test/unit'
 rspec_guard_config = {
   cmd: "bundle exec rspec --color --format progress --default-path=#{spec_path}",
   all_on_start: true,
-  spec_paths: [spec_path]
+  spec_paths: [spec_path],
 }
 
 guard 'rspec', rspec_guard_config do
