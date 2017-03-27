@@ -72,7 +72,7 @@ default['haproxy']['syslog'] = { 'destination0' => { address: '127.0.0.1',
                                                      format: nil,
                                                      facility: 'local1',
                                                      max_level: 'notice',
-                                                     min_level: nil }}
+                                                     min_level: nil } }
 default['haproxy']['debug_options'] = 'quiet'
 
 default['haproxy']['defaults_options'] = %w(httplog dontlognull redispatch)
