@@ -43,5 +43,5 @@ script: KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen 
 matrix:
   include:
     - script:
-      - /opt/chefdk/bin/chef exec rake
+      - /opt/chefdk/bin/chef exec delivery local all
       env: UNIT_AND_LINT=1

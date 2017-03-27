@@ -10,7 +10,7 @@ property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 
 property :enable_default_http, [TrueClass, FalseClass], default: true
-property :haproxy_mode, String, default: 'http', equal_to: %w(http)
+property :mode, String, default: 'http', equal_to: %w(http)
 property :ssl_mode, String, default: 'http'
 property :bind_address, String, default: '0.0.0.0'
 property :bind_port, Integer, default: 80
