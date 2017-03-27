@@ -19,10 +19,10 @@ action :create do
   listener << "mode #{new_resource.mode}" unless new_resource.mode.nil?
   listener += new_resource.servers.map { |server| "server #{server}" }
 
-  listener += if new_resource.params.is_a? Hash
-                new_resource.params.map { |k, v| "#{k} #{v}" }
+  listener += if new_resource.parameters.is_a? Hash
+                new_resource.parameters.map { |k, v| "#{k} #{v}" }
               else
-                new_resource.params
+                new_resource.parameters
               end
 
   node.default['haproxy']['listeners'][new_resource.type][new_resource.name] = listener
