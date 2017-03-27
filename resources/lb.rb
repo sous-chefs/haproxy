@@ -8,7 +8,7 @@ attribute :type, kind_of: String, default: 'listen', equal_to: %w(listen backend
 # if convenient.
 attribute :servers, kind_of: Array, default: []
 attribute :balance, kind_of: String
-attribute :bind, kind_of: String, default: nil
+attribute :bind, kind_of: [String, Hash], default: nil
 attribute :mode, kind_of: String, default: nil,
                  equal_to: ['http', 'tcp', 'health', nil]
 
