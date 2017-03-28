@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the haproxy cookbook. (@sun77)
 
+## v3.0.3 (28-03-2017)
+
+- Multiple addresses and ports on listener and frontend [#174][]
+- Customize logging destination [#178][]
+- updating to use bats/serverspec [#179][]
+
 ## v3.0.2 (27-03-2017)
 
 - Allow server startup from `app_lb` recipe. [#171][]
@@ -210,3 +216,9 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 ## v1.0.0
 
 - Use `node.chef_environment` instead of `node['app_environment']`
+
+[Unreleased]: https://github.com/sous-chefs/haproxy/compare/v3.0.3...HEAD
+[3.0.3]: https://github.com/sous-chefs/haproxy/compare/v3.0.2...v3.0.3
+[3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
+[3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
+[3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
