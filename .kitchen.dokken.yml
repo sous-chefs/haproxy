@@ -9,6 +9,10 @@ transport:
 provisioner:
   name: dokken
 
+verifier:
+  root_path: '/opt/verifier'
+  sudo: true
+
 platforms:
 - name: centos-6
   driver:
