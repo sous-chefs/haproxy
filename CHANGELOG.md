@@ -2,19 +2,22 @@
 
 This file is used to list changes made in each version of the haproxy cookbook. (@sun77)
 
-## v3.0.3 (28-03-2017)
+
+## [Unreleased]
+
+## [v3.0.3] (28-03-2017)
 
 - Multiple addresses and ports on listener and frontend [#174][]
 - Customize logging destination [#178][]
 - updating to use bats/serverspec [#179][]
 
-## v3.0.2 (27-03-2017)
+## [v3.0.2] (27-03-2017)
 
 - Allow server startup from `app_lb` recipe. [#171][]
 - Use Delivery instead of Rake
 - Make this cookbook compatible with Chef-13, note: `params` option is now `parameters` [#175][]
 
-## v3.0.1 (2017-1-30)
+## [v3.0.1] (2017-1-30)
 
 - Reload haproxy configuration on changes [#152][]
 - merging in generic socket conf [#107][]
@@ -22,7 +25,7 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 - adding tproxy and splice per [#98][]
 - removing members with nil ips from member array. [#79][]
 
-## v3.0.0 (2017-1-24)
+## [v3.0.0] (2017-1-24)
 
 - Configurable debug options
 - Merging [#123][] - CentOS7 compatibility
@@ -32,7 +35,7 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 - Chef >= 12.1 required
 - changing ['haproxy']['source']['target_os'], ['haproxy']['source']['target_cpu'] to use proper architecture, Issue: [#150][]
 
-## v2.0.2 (2016-12-30)
+## [v2.0.2] (2016-12-30)
 
 - Cookstyle fixes
 - Travis testing updates
@@ -218,7 +221,7 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
 [Unreleased]: https://github.com/sous-chefs/haproxy/compare/v3.0.3...HEAD
-[3.0.3]: https://github.com/sous-chefs/haproxy/compare/v3.0.2...v3.0.3
-[3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
-[3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
-[3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
+[v3.0.3]: https://github.com/sous-chefs/haproxy/compare/v3.0.2...v3.0.3
+[v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
+[v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
+[v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
