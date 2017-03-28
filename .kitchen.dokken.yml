@@ -11,7 +11,7 @@ provisioner:
 
 verifier:
   root_path: '/opt/verifier'
-  sudo: true
+  sudo: false
 
 platforms:
 - name: centos-6
