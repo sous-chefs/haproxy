@@ -42,9 +42,7 @@ action :create do
         extra_options: new_resourcextra_options,
 
       )
-      samba_services.each do |samba_service|
-        notifies :restart, "service[#{samba_service}]"
-      end
+      notifies :restart, "service[haproxy]"
 
       action :nothing
       delayed_action :create
