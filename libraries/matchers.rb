@@ -1,11 +1,11 @@
 if defined?(ChefSpec)
 
-  # ChefSpec.define_matcher :haproxy
+  ChefSpec.define_matcher :haproxy_haproxy
   # ChefSpec.define_matcher :haproxy_lb
   # ChefSpec.define_matcher :haproxy_config
 
-  def create_haproxy(resource_name)
-    ChefSpec::Matchers::ResourceMatcher.new(:haproxy, :create, resource_name)
+  def create_haproxy(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:haproxy, :create, name)
   end
 
   # def delete_haproxy(name)

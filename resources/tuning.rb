@@ -17,10 +17,10 @@
 # limitations under the License.
 #
 
-include_recipe 'cpu::affinity'
-
-cpu_affinity 'set affinity for haproxy' do
-  pid node['haproxy']['pid_file']
-  cpu 0
-  subscribes :set, 'poise_service[haproxy]'
-end
+# include_recipe 'cpu::affinity'
+#
+# cpu_affinity 'set affinity for haproxy' do
+#   pid node['haproxy']['pid_file']
+#   cpu 0
+#   subscribes :set, 'poise_service[haproxy]'
+# end

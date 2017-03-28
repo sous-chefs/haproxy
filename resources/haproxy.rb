@@ -1,11 +1,14 @@
-property :name, String, default: 'default', name_property: true
-property :install_type, String, default: 'package', equal_to: %w(package source)
+property :install_type, String, default: 'package', name_property: true, equal_to: %w(package source)
 
 property :client_timeout, String, default: '10s'
 property :server_timeout, String, default: '10s'
 property :connect_timeout, String, default: '10s'
 property :config_cookbook, String, default: 'haproxy'
 property :config_template_source, String, default: 'haproxy.cfg.erb'
+property :config_dir, String, default: '/etc/haproxy'
+property :bin_prefix, String, default: '/usr/sbin'
+property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 
@@ -17,13 +20,13 @@ property :bind_port, Integer, default: 80
 
 # Package
 property :package_name, String, default: 'haproxy'
-property :package_version, String, default: nil
+property :package_version, [String, nil], default: nil
 
 # Source
 property :source_prefix, String, deafult: '/usr/local'
-property :source_version, String, default: '1.7.2'
-property :source_url, String, default: 'http://www.haproxy.org/download/1.7/src/haproxy-1.7.2.tar.gz'
-property :source_checksum, String, default: 'f95b40f52a4d61feaae363c9b15bf411c16fe8f61fddb297c7afcca0072e4b2f'
+property :source_version, String, default: '1.7.4'
+property :source_url, String, default: 'http://www.haproxy.org/download/1.7/src/haproxy-1.7.4.tar.gz'
+property :source_checksum, String, default: 'dc1e7621fd41a1c3ca5621975ca5ed4191469a144108f6c47d630ca8da835dbe'
 property :source_target_cpu, [String, nil], default: lazy { node['kernel']['machine'] }
 property :source_target_arch, [String, nil], deafult: nil
 property :source_target_os, String, default: lazy {
@@ -37,45 +40,34 @@ property :source_target_os, String, default: lazy {
     'generic'
   end
 }
-property :use_pcre, Integer, equal_to: %w(0 1), default: '1'
-property :use_openssl, Integer, equal_to: %w(0 1), default: '1'
-property :use_zlib, String, equal_to: %(0 1), default: '1'
-property :use_linux_tproxy, Integer, equal_to: %w(0 1), default: '1'
-property :use_linux_splice, Integer, equal_to: %w(0 1), default: '1'
+property :use_pcre,         String, equal_to: %w(0 1), default: '1'
+property :use_openssl,      String, equal_to: %w(0 1), default: '1'
+property :use_zlib,         String, equal_to: %w(0 1), default: '1'
+property :use_linux_tproxy, String, equal_to: %w(0 1), default: '1'
+property :use_linux_splice, String, equal_to: %w(0 1), default: '1'
 
 resource_name :haproxy
 
 action :create do
   case install_type
   when 'package'
-    config_dir = '/etc/haproxy'
-    config_file = ::File.join(config_dir, 'haproxy.cfg')
-    bin_prefix = '/usr/sbin'
-
     package package_name do
       version package_version if package_version
       action :install
     end
 
   when 'source'
-    prefix = source_prefix
-    config_dir = ::File.join(prefix, '/etc/haproxy')
-    config_file = ::File.join(config_dir, 'haproxy.cfg')
-    bin_prefix = ::File.join(prefix, 'sbin')
-    node.override['haproxy']['poise_service']['options']['sysvinit']['conf_dir'] = config_dir
+    # node.override['haproxy']['poise_service']['options']['sysvinit']['conf_dir'] = config_dir
 
     pkg_list = value_for_platform_family(
       'debian' => %w(libpcre3-dev libssl-dev zlib1g-dev),
       'rhel' => %w(pcre-devel openssl-devel zlib-devel)
     )
 
-    pkg_list.each do |pkg|
-      package pkg
-    end
+    package pkg_list
 
-    download_file_path = ::File.join(Chef::Config[:file_cache_path], "haproxy-#{source_version}.tar.gz")
     remote_file 'haproxy source file' do
-      path download_file_path
+      path ::File.join(Chef::Config[:file_cache_path], "haproxy-#{source_version}.tar.gz")
       source source_url
       checksum source_checksum
       action :create
@@ -84,11 +76,11 @@ action :create do
     make_cmd = "make TARGET=#{source_target_os}"
     make_cmd << " CPU=#{source_target_cpu}" unless source_target_cpu.nil?
     make_cmd << " ARCH=#{source_target_arch}" unless source_target_arch.nil?
-    make_cmd << "use_pcre #{use_pcre}"
-    make_cmd << "use_openssl #{use_openssl}"
-    make_cmd << "use_zlib #{use_zlib}"
-    make_cmd << "use_linux_tproxy #{use_linux_tproxy}"
-    make_cmd << "use_linux_splice #{use_linux_splice}"
+    make_cmd << " use_pcre #{use_pcre}"
+    make_cmd << " use_openssl #{use_openssl}"
+    make_cmd << " use_zlib #{use_zlib}"
+    make_cmd << " use_linux_tproxy #{use_linux_tproxy}"
+    make_cmd << " use_linux_splice #{use_linux_splice}"
 
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd'
 
@@ -97,7 +89,7 @@ action :create do
       code <<-EOH
         tar xzf haproxy-#{source_version}.tar.gz
         cd haproxy-#{source_version}
-        #{make_cmd} && make install PREFIX=#{prefix} #{extra_cmd}
+        #{make_cmd} && make install PREFIX=#{bin_prefix} #{extra_cmd}
       EOH
       not_if "#{::File.join(bin_prefix, 'haproxy')} -v | grep #{source_version}"
     end
