@@ -9,9 +9,6 @@ transport:
 provisioner:
   name: dokken
 
-verifier:
-  name: inspec
-
 platforms:
 - name: centos-6
   driver:
