@@ -59,6 +59,8 @@ action :create do
   when 'source'
     # node.override['haproxy']['poise_service']['options']['sysvinit']['conf_dir'] = config_dir
 
+    include_recipe 'build-essential'
+    
     pkg_list = value_for_platform_family(
       'debian' => %w(libpcre3-dev libssl-dev zlib1g-dev),
       'rhel' => %w(pcre-devel openssl-devel zlib-devel)
@@ -76,11 +78,11 @@ action :create do
     make_cmd = "make TARGET=#{source_target_os}"
     make_cmd << " CPU=#{source_target_cpu}" unless source_target_cpu.nil?
     make_cmd << " ARCH=#{source_target_arch}" unless source_target_arch.nil?
-    make_cmd << " use_pcre #{use_pcre}"
-    make_cmd << " use_openssl #{use_openssl}"
-    make_cmd << " use_zlib #{use_zlib}"
-    make_cmd << " use_linux_tproxy #{use_linux_tproxy}"
-    make_cmd << " use_linux_splice #{use_linux_splice}"
+    make_cmd << " USE_PCRE=#{use_pcre}"
+    make_cmd << " USE_OPENSSL=#{use_openssl}"
+    make_cmd << " USE_ZLIB=#{use_zlib}"
+    make_cmd << " USE_LINUX_TPROXY=#{use_linux_tproxy}"
+    make_cmd << " USE_LINUX_SPLICE=#{use_linux_splice}"
 
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd'
 
