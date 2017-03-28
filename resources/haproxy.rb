@@ -1,22 +1,8 @@
 property :install_type, String, default: 'package', name_property: true, equal_to: %w(package source)
-
-property :client_timeout, String, default: '10s'
-property :server_timeout, String, default: '10s'
-property :connect_timeout, String, default: '10s'
-property :config_cookbook, String, default: 'haproxy'
 property :config_template_source, String, default: 'haproxy.cfg.erb'
 property :config_dir, String, default: '/etc/haproxy'
 property :bin_prefix, String, default: '/usr/sbin'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
-
-property :enable_default_http, [TrueClass, FalseClass], default: true
-property :mode, String, default: 'http', equal_to: %w(http)
-property :ssl_mode, String, default: 'http'
-property :bind_address, String, default: '0.0.0.0'
-property :bind_port, Integer, default: 80
 
 # Package
 property :package_name, String, default: 'haproxy'
