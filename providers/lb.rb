@@ -13,7 +13,7 @@ action :create do
       end
     end
   else
-    listener << "bind #{new_resource.bind}"
+    listener << "bind #{new_resource.bind}" unless new_resource.bind.nil?
   end
   listener << "balance #{new_resource.balance}" unless new_resource.balance.nil?
   listener << "mode #{new_resource.mode}" unless new_resource.mode.nil?
