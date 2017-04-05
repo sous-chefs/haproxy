@@ -1,4 +1,4 @@
-property :install_type, String, default: 'package', name_property: true, equal_to: %w(package source)
+property :install_type, String, name_property: true, equal_to: %w(package source)
 property :config_template_source, String, default: 'haproxy.cfg.erb'
 property :config_dir, String, default: '/etc/haproxy'
 property :bin_prefix, String, default: '/usr/sbin'
@@ -88,6 +88,20 @@ action :create do
       mode '0755'
       recursive true
       action :create
+    end
+
+    with_run_context :root do
+      template config_file do
+        source 'haproxy.cfg.erb'
+        owner 'haproxy'
+        group 'haproxy'
+        mode '0644'
+        cookbook 'haproxy'
+        notifies :restart, "service[haproxy]"
+        variables()
+        action :nothing
+        delayed_action :create
+      end
     end
 
     haproxy_command = if node['init_package'] == 'systemd'

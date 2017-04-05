@@ -1,5 +1,7 @@
-# A "backend" section describes a set of servers to which the proxy will connect
-# to forward incoming connections.
+# a "listen" section defines a complete proxy with its frontend and backend
+# parts combined in one section. It is generally useful for TCP-only traffic.
+
+
 
 # property :http_check_disable_on_404, [TrueClass, FalseClass, nil], default: true
 # property :http_check_expect, [String, nil]
@@ -10,4 +12,5 @@
 # property :http_send_name_header, [String, nil]
 #
 # action :create do
+#
 # end

@@ -1,39 +1,79 @@
 global
   user <%= @user %>
   group <%= @group %>
-  pidfile <% @pid_file %>
+  <% if @pid_file-%>pidfile <% @pid_file %><% end %>
   log <%= @log %>
+  <% if @log_tag -%>log-tag <%= @log_tag %><% end -%>
+  <% if @chroot -%>chroot <%= @chroot %><% end -%>
+  <% if @daemon == true -%>daemon<% end -%>
+  <%= @debug_option %>
+  stats socket <%= @stats_socket %>
+  stats timeout <%= @stats_timeout %>
   maxconn <%= @maxconn %>
-  <%= if @daemon %>daemon<% end %>
-  <% @debug_option %>
-  <%= if @enable_stats_socket %>
-  stats socket /var/run/haproxy.sock user <% @user %> group <% @group %>
-  <% end %>
-  <%= @extra_options.each do |option,value| %>
+  retries <%= @retries %>
+  client-timeout <%= @client_timeout %>
+  server-timeout <%= @server_timeout %>
+  connect-timeout <%= @connect_timeout %>
+  mode <%= @mode %>
+  <% if @pidfile -%>pidfile <%= @pidfile %><% end -%>
+<% if !@tuning.nil? %>
+  <% @tuning.each do |option,value| -%>
+  tune.<%= option %> <%= value %>
+  <% end -%>
+<% end -%>
+<% if !@extra_options.nil? -%>
+  <% @extra_options.each do |option,value| -%>
   <%= option %> <%= value %>
-  <% end %>
+  <% end -%>
+<% end -%>
 
 defaults
-  log     global
-  mode    <%= @mode %>
-  retries <%= @defaults_retries %>
-<% @defaults_timeouts.sort.map do | value, time | -%>
+  mode <%= @defaults['mode'] %>
+  <% if !@defaults['maxconn'] == '' -%>maxconn <%= @defaults['maxconn'] %><% end -%>
+  <% if !@defaults['retries'] == '0' -%>retries <%= @defaults['retries'] %><% end -%>
+  <% if !@defaults['balance'] == '' -%>balance <%= @defaults['balance'] %><% end -%>
+  log <%= @defaults['log'] %>
+  retries <%= @defaults['retries'] %>
+  <% @defaults['timeouts'].each do | value, time | -%>
   timeout <%= value %> <%= time %>
-<% end -%>
-<% @defaults_options.sort.each do | option | -%>
+  <% end -%>
+
+  <% @defaults['options'].each do | option | -%>
   option <%= option %>
-<% end -%>
-  balance  <%= @balance_algorithm %>
+  <% end -%>
 
-# Set up application listeners here.
-
-<% node['haproxy']['listeners'].each do |type, listeners | %>
+# Frontend
+<% if !@frontend_listeners.nil? %>
+<% @frontend_listeners.each do |type, listeners | %>
 <% listeners.each do |name, listen| %>
 <%= type %> <%= name %>
 <% listen.each do |option| %>
-  <%= option %>
-<% end %>
+<%= option %>
+<% end -%>
+<% end -%>
+<% end -%>
+bind <%= @bind_address%>:<%= @bind_port %>
+mode <%= @mode %>
+<% @acl.each do |acl| -%>
+acl <% acl %>
+<% end -%>
+default_backend <%= @default_backend %>
+<% @use_backend.each do |backend| -%>
+use_backend <%= backend %>
+<% end -%>
+<% @backend_options.sort.each do | option, value | -%>
+<%= option %><%= value %>
+<% end -%>
+<% end -%>
 
-<% end %>
-
-<% end %>
+# Backend
+<% if !@backend_listeners.nil? %>
+<% @backend_listeners.each do |type, listeners | %>
+<% listeners.each do |name, listen| %>
+<%= type %> <%= name %>
+<% listen.each do |option| %>
+<%= option %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% end -%>

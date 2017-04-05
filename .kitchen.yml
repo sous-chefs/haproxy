@@ -32,3 +32,15 @@ suites:
   - name: source
     run_list:
       - recipe[test::source]
+  - name: config_1
+    run_list:
+      - recipe[test::config_1]
+    includes: centos-7.3
+  - name: config_2
+    run_list:
+      - recipe[test::config_2]
+    includes: centos-7.3
+  - name: config_3
+    run_list:
+      - recipe[test::config_3]
+    includes: centos-7.3
