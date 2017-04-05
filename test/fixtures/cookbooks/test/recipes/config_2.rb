@@ -1,5 +1,4 @@
-haproxy 'package' do
-end
+haproxy 'package'
 
 haproxy_config_global 'global' do
   daemon true
@@ -13,9 +12,6 @@ haproxy_config_defaults 'defaults' do
     client: '5000ms',
     server: '5000ms'
   }
-  connect_timeout '5000ms'
-  client_timeout '5000ms'
-  server_timeout '5000ms'
 end
 
 haproxy_frontend 'http-in' do

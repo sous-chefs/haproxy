@@ -29,51 +29,24 @@ global
 
 defaults
   mode <%= @defaults['mode'] %>
-  <% if !@defaults['maxconn'] == '' -%>maxconn <%= @defaults['maxconn'] %><% end -%>
-  <% if !@defaults['retries'] == '0' -%>retries <%= @defaults['retries'] %><% end -%>
-  <% if !@defaults['balance'] == '' -%>balance <%= @defaults['balance'] %><% end -%>
+  <% unless @defaults['maxconn'] == '' -%>maxconn <%= @defaults['maxconn'] %><% end -%>
+  <% unless @defaults['retries'] == '0' -%>retries <%= @defaults['retries'] %><% end -%>
+  <% unless @defaults['balance'] == '' -%>balance <%= @defaults['balance'] %><% end -%>
   log <%= @defaults['log'] %>
   retries <%= @defaults['retries'] %>
   <% @defaults['timeouts'].each do | value, time | -%>
   timeout <%= value %> <%= time %>
   <% end -%>
-
   <% @defaults['options'].each do | option | -%>
   option <%= option %>
   <% end -%>
 
 # Frontend
-<% if !@frontend_listeners.nil? %>
-<% @frontend_listeners.each do |type, listeners | %>
-<% listeners.each do |name, listen| %>
-<%= type %> <%= name %>
-<% listen.each do |option| %>
-<%= option %>
-<% end -%>
-<% end -%>
-<% end -%>
-bind <%= @bind_address%>:<%= @bind_port %>
-mode <%= @mode %>
-<% @acl.each do |acl| -%>
-acl <% acl %>
-<% end -%>
-default_backend <%= @default_backend %>
-<% @use_backend.each do |backend| -%>
-use_backend <%= backend %>
-<% end -%>
-<% @backend_options.sort.each do | option, value | -%>
-<%= option %><%= value %>
+<% @frontend.each do | key, listeners | %>
+frontend <%= key %>
+<% listeners.each do | key , value | %>
+  <%= key %> <%= value %>
 <% end -%>
 <% end -%>
 
 # Backend
-<% if !@backend_listeners.nil? %>
-<% @backend_listeners.each do |type, listeners | %>
-<% listeners.each do |name, listen| %>
-<%= type %> <%= name %>
-<% listen.each do |option| %>
-<%= option %>
-<% end -%>
-<% end -%>
-<% end -%>
-<% end -%>
