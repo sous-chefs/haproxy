@@ -5,6 +5,7 @@
 Installs haproxy and prepares the configuration location.
 
 ## Requirements
+
 - Chef 12.1+
 
 ### Platforms
@@ -36,6 +37,7 @@ Installs haproxy and prepares the configuration location.
 - `node['haproxy']['ssl_members']` - used by the manual recipe to create a seperate member pool for the SSL listener. Opitional. Defaults to `node['haproxy']['members']`
 - `node['haproxy']['ssl_pool_members_option']` - used by the manual recipe to define member options for the SSL member pool. Optional. Defaults to `node['haproxy']['pool_members_option']`
 - `node['haproxy']['member_port']` - the port that member systems will be listening on if not otherwise specified in the members attribute, default 8080
+
 - `node['haproxy']['member_weight']` - the weight to apply to member systems if not otherwise specified in the members attribute, default 1
 - `node['haproxy']['app_server_role']` - used by the `app_lb` recipe to search for a specific role of member systems. Default `webserver`.
 - `node['haproxy']['balance_algorithm']` - sets the load balancing algorithm; defaults to roundrobin.
@@ -115,7 +117,7 @@ Installs haproxy from source. Used by the `default` and `app_lb` recipes.
 
 ### haproxy_lb
 
-Configure a part of haproxy (`frontend|backend|listen`). It is used in `manual` and `app_lb` recipes to configure default frontends and backends. Several common options can be set as attributes of the LWRP. Others can always be set with the `params` attribute. For instance,
+Configure a part of haproxy (`frontend|backend|listen`). It is used in `manual` and `app_lb` recipes to configure default frontends and backends. Several common options can be set as attributes of the LWRP. Others can always be set with the `parameters` attribute. For instance,
 
 ```ruby
 haproxy_lb 'rabbitmq' do
@@ -124,7 +126,7 @@ haproxy_lb 'rabbitmq' do
   servers (1..4).map do |i|
     "rmq#{i} 10.0.0.#{i}:5672 check inter 10s rise 2 fall 3"
   end
-  params({
+  parameters({
     'maxconn' => 20000,
     'balance' => 'roundrobin'
   })
@@ -145,11 +147,11 @@ listen rabbitmq'
   balance roundrobin
 ```
 
-All options can also be set in the params instead. In that case, you might want to provide an array to params attributes to avoid conflicts for options occuring several times.
+All options can also be set in the parameters instead. In that case, you might want to provide an array to parameters attributes to avoid conflicts for options occuring several times.
 
 ```ruby
 haproxy_lb 'rabbitmq' do
-  params([
+  parameters([
     'bind 0.0.0.0:5672',
     'mode tcp',
     'rmq1 10.0.0.1:5672 check inter 10s rise 2 fall 3',

@@ -10,7 +10,8 @@ provisioner:
   name: dokken
 
 verifier:
-  name: inspec
+  root_path: '/opt/verifier'
+  sudo: false
 
 platforms:
 - name: centos-6
