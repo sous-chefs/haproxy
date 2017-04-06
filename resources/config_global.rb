@@ -51,15 +51,15 @@ action :create do
       variables['server_timeout'] << new_resource.server_timeout
       variables['connect_timeout'] ||= ''
       variables['connect_timeout'] << new_resource.connect_timeout
-      variables['mode'] ||= ''
+      variables['mode'] ||= '' unless new_resource.mode.nil?
       variables['mode'] << new_resource.mode unless new_resource.mode.nil?
-      variables['chroot'] ||= ''
+      variables['chroot'] ||= '' unless new_resource.chroot.nil?
       variables['chroot'] << new_resource.chroot unless new_resource.chroot.nil?
       variables['log_tag'] ||= ''
       variables['log_tag'] << new_resource.log_tag
-      variables['tuning'] ||= {}
+      variables['tuning'] ||= {} unless new_resource.tuning.nil?
       variables['tuning'] = new_resource.tuning unless new_resource.tuning.nil?
-      variables['extra_options'] ||= {}
+      variables['extra_options'] ||= {} unless new_resource.extra_options.nil?
       variables['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
       action :nothing
       delayed_action :create
