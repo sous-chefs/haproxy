@@ -10,7 +10,7 @@ haproxy_config_global '' do
   log_tag 'WARDEN'
   pidfile '/var/run/haproxy.pid'
   stats_socket '/var/lib/haproxy/stats level admin'
-  tuning 'bufsize'=> '262144'
+  tuning 'bufsize' => '262144'
 end
 
 haproxy_config_defaults 'defaults' do
@@ -25,6 +25,6 @@ haproxy_frontend 'http-in' do
   default_backend 'servers'
 end
 
-# haproxy_backend 'servers' do
-#   server ['server1 127.0.0.1:8000 maxconn 32']
-# end
+haproxy_backend 'servers' do
+  server ['server1 127.0.0.1:8000 maxconn 32']
+end

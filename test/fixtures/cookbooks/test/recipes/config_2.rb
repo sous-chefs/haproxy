@@ -7,11 +7,9 @@ end
 
 haproxy_config_defaults 'defaults' do
   mode 'http'
-  timeout {
-    connect: '500ms',
-    client: '5000ms',
-    server: '5000ms'
-  }
+  timeout connect: '500ms',
+          client: '5000ms',
+          server: '5000ms'
 end
 
 haproxy_frontend 'http-in' do

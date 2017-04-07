@@ -37,8 +37,10 @@ defaults
   <% @defaults['timeouts'].each do | value, time | -%>
   timeout <%= value %> <%= time %>
   <% end -%>
+  <% unless @defaults['options'].nil? %>
   <% @defaults['options'].each do | option | -%>
   option <%= option %>
+  <% end -%>
   <% end -%>
 
 # Frontend
@@ -50,3 +52,9 @@ frontend <%= key %>
 <% end -%>
 
 # Backend
+<% @frontend.each do | key, listeners | %>
+frontend <%= key %>
+<% listeners.each do | key , value | %>
+  <%= key %> <%= value %>
+<% end -%>
+<% end -%>
