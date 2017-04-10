@@ -10,7 +10,6 @@ property :default_backend, String
 property :extra_options, Hash
 property :stats_uri, String, default: '/'
 
-
 action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent

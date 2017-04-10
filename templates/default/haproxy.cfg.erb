@@ -96,6 +96,14 @@ backend <%= key %>
   <% end -%>
   <% end -%>
   <% end -%>
+  <% if !listeners['tcp_request'].nil? %>
+  <% listeners['tcp_request'].each do | tcp_request |%>
+  <% backend.each do | tcp_request | %>
+  tcp-request <%= tcp_request %>
+  <% end -%>
+  <% end -%>
+  <% end -%>
+
   <% if !listeners['extra_options'].nil? %>
   <% listeners['extra_options'].each do | key, value |%>
   <%= key %><%= value %>

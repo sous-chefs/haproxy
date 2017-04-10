@@ -1,3 +1,5 @@
+title 'Frontend & Backend should be configurable'
+
 describe package('haproxy') do
   it { should be_installed }
 end
