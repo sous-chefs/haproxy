@@ -15,7 +15,7 @@ property :http_request, [String, nil]
 property :http_response, [String, nil]
 property :http_reuse, [String, nil], equal_to: %w(never safe aggressive always)
 property :http_send_name_header, [String, nil]
-property :options, Hash
+property :extra_options, Hash
 property :haproxy_retries, Integer
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
@@ -62,8 +62,8 @@ action :create do
       variables['defaults']['http_reuse'] << new_resource.http_reuse unless new_resource.http_reuse.nil?
       variables['defaults']['http_send_name_header'] ||= '' unless new_resource.http_send_name_header.nil?
       variables['defaults']['http_send_name_header'] << new_resource.http_send_name_header unless new_resource.http_send_name_header.nil?
-      variables['defaults']['options'] ||= {} unless new_resource.options.nil?
-      variables['defaults']['options'] = new_resource.options unless new_resource.options.nil?
+      variables['defaults']['extra_options'] ||= {} unless new_resource.extra_options.nil?
+      variables['defaults']['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
 
       owner node['haproxy']['user']
       group node['haproxy']['group']

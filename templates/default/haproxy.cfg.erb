@@ -37,17 +37,39 @@ defaults
   <% @defaults['timeouts'].each do | value, time | -%>
   timeout <%= value %> <%= time %>
   <% end -%>
-  <% unless @defaults['options'].nil? %>
-  <% @defaults['options'].each do | option | -%>
-  option <%= option %>
+  <% unless @defaults['extra_options'].nil? %>
+  <% @defaults['extra_options'].each do | option, value | -%>
+  <%= option %> <%= value %>
   <% end -%>
   <% end -%>
 
-<% @frontend.each do | key, listeners | %>
-frontend <%= key %>
-<% listeners.each do | key, value | %>
+
+<% @frontend.each do |frontend, value | %>
+frontend <%= frontend %>
+  bind <%= value['bind'] %>
+  default_backend <%= value['default_backend'] %>
+  maxconn <%= value['maxconn'] %>
+  <% if !value['use_backend'].nil? %>
+  <% value['use_backend'].each do | backend |%>
+  <% backend.each do | backend | %>
+  use_backend <%= backend %>
+  <% end -%>
+  <% end -%>
+  <% end -%>
+  <% if !value['option'].nil? %>
+  <% value['option'].each do | option |%>
+  <% option.each do | option | %>
+  option <%= option %>
+  <% end -%>
+  <% end -%>
+  <% end -%>
+
+  <% if !value['extra_options'].nil? %>
+  <% value['extra_options'].each do | key, value |%>
   <%= key %> <%= value %>
-<% end -%>
+  <% end -%>
+  <% end -%>
+
 <% end -%>
 
 <% @backend.each do | key, listeners | %>
