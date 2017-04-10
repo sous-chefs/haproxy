@@ -43,12 +43,20 @@ defaults
   <% end -%>
   <% end -%>
 
-
+<% if !@frontend.nil? %>
 <% @frontend.each do |frontend, value | %>
 frontend <%= frontend %>
   bind <%= value['bind'] %>
   default_backend <%= value['default_backend'] %>
   maxconn <%= value['maxconn'] %>
+  <% if !value['acl'].nil? %>
+  <% value['acl'].each do | acl |%>
+  <% acl.each do | acl | %>
+  use_backend <%= backend %>
+  <% end -%>
+  <% end -%>
+  <% end -%>
+
   <% if !value['use_backend'].nil? %>
   <% value['use_backend'].each do | backend |%>
   <% backend.each do | backend | %>
@@ -70,8 +78,10 @@ frontend <%= frontend %>
   <% end -%>
   <% end -%>
 
-<% end -%>
+<% end #frontend loop -%>
+<% end #frontend -%>
 
+<% if !@backend.nil? %>
 <% @backend.each do | key, listeners | %>
 backend <%= key %>
   <% listeners['server'].each do | s |%>
@@ -79,9 +89,36 @@ backend <%= key %>
   server <%= server %>
     <% end -%>
   <% end -%>
+  <% if !listeners['acl'].nil? %>
+  <% listeners['acl'].each do | acl |%>
+  <% backend.each do | acl | %>
+  acl <%= acl %>
+  <% end -%>
+  <% end -%>
+  <% end -%>
   <% if !listeners['extra_options'].nil? %>
   <% listeners['extra_options'].each do | key, value |%>
   <%= key %><%= value %>
   <% end -%>
   <% end -%>
-<% end -%>
+<% end # backend loop -%>
+<% end # backend -%>
+
+<% if !@listen.nil? %>
+<% @listen.each do | key, listen |%>
+listen <%= key %>
+  mode <%= listen['mode']%>
+  bind <%= listen['bind']%>
+  maxconn <%= listen['maxconn']%>
+  stats uri <%= listen['stats_uri']%>
+  <% if listen['http_request'] -%>http-request <% listen['http_request'] %><% end %>
+  <% if listen['http_response'] -%>http-request <% listen['http_response'] %><% end %>
+  <% if listen['default_backend'] -%>http-request <% listen['default_backend'] %><% end %>
+
+  <% if !listen['extra_options'].nil? %>
+  <% listen['extra_options'].each do | key, value |%>
+  <%= key %> <%= value %>
+  <% end -%>
+  <% end -%>
+<% end #listen loop -%>
+<% end # listen-%>

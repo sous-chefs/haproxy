@@ -44,3 +44,7 @@ suites:
     run_list:
       - recipe[test::config_3]
     includes: centos-7.3
+  - name: config_4
+    run_list:
+      - recipe[test::config_4]
+    includes: centos-7.3

@@ -8,3 +8,7 @@
 #
 # action :create do
 # end
+
+
+# acl destination_jasper path_beg /jasperserver/
+# acl tile_host	hdr(host)	-i -f /etc/haproxy/tile_domains.lst

@@ -7,6 +7,7 @@ property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 property :default_backend, String, required: true
 property :use_backend, Array
+property :acl, Array
 property :option, Array
 property :extra_options, Hash
 
@@ -31,6 +32,8 @@ action :create do
       variables['frontend'][new_resource.name]['default_backend'] << new_resource.default_backend
       variables['frontend'][new_resource.name]['use_backend'] ||= [] unless new_resource.use_backend.nil?
       variables['frontend'][new_resource.name]['use_backend'] << new_resource.use_backend unless new_resource.use_backend.nil?
+      variables['frontend'][new_resource.name]['acl'] ||= [] unless new_resource.acl.nil?
+      variables['frontend'][new_resource.name]['acl'] << new_resource.acl unless new_resource.acl.nil?
       variables['frontend'][new_resource.name]['option'] ||= [] unless new_resource.option.nil?
       variables['frontend'][new_resource.name]['option'] << new_resource.option unless new_resource.option.nil?
       variables['frontend'][new_resource.name]['extra_options'] ||= {} unless new_resource.extra_options.nil?
