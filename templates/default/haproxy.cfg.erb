@@ -1,28 +1,28 @@
 global
   user <%= @user %>
-  group <%= @group %>
-  <% if @pid_file-%>pidfile <% @pid_file %><% end %>
-  log <%= @log %>
-  <% if @log_tag -%>log-tag <%= @log_tag %><% end -%>
-  <% if @chroot -%>chroot <%= @chroot %><% end -%>
-  <% if @daemon == true -%>daemon<% end -%>
-  <%= @debug_option %>
-  stats socket <%= @stats_socket %>
-  stats timeout <%= @stats_timeout %>
-  maxconn <%= @maxconn %>
-  retries <%= @retries %>
-  client-timeout <%= @client_timeout %>
-  server-timeout <%= @server_timeout %>
-  connect-timeout <%= @connect_timeout %>
-  mode <%= @mode %>
-  <% if @pidfile -%>pidfile <%= @pidfile %><% end -%>
-<% if !@tuning.nil? %>
-  <% @tuning.each do |option,value| -%>
+  group <%= @global['group'] %>
+  <% if @global['pid_file'] -%>pidfile <% @global['pid_file'] %><% end %>
+  log <%= @global['log'] %>
+  <% if @global['log_tag'] -%>log-tag <%= @global['log_tag'] %><% end -%>
+  <% if @global['chroot'] -%>chroot <%= @global['chroot'] %><% end -%>
+  <% if @global['daemon'].eql? 'true' -%>daemon<% end -%>
+  <%= @global['debug_option'] %>
+  stats socket <%= @global['stats_socket'] %>
+  stats timeout <%= @global['stats_timeout'] %>
+  maxconn <%= @global['maxconn'] %>
+  retries <%= @global['retries'] %>
+  client-timeout <%= @global['client_timeout'] %>
+  server-timeout <%= @global['server_timeout'] %>
+  connect-timeout <%= @global['connect_timeout'] %>
+  mode <%= @global['mode'] %>
+  <% if @global['pidfile'] -%>pidfile <%= @global['pidfile'] %><% end -%>
+<% if !@global['tuning'].nil? %>
+  <% @global['tuning'].each do |option,value| -%>
   tune.<%= option %> <%= value %>
   <% end -%>
 <% end -%>
-<% if !@extra_options.nil? -%>
-  <% @extra_options.each do |option,value| -%>
+<% if !@global['extra_options'].nil? -%>
+  <% @global['extra_options'].each do |option,value| -%>
   <%= option %> <%= value %>
   <% end -%>
 <% end -%>
@@ -43,18 +43,23 @@ defaults
   <% end -%>
   <% end -%>
 
-# Frontend
 <% @frontend.each do | key, listeners | %>
 frontend <%= key %>
-<% listeners.each do | key , value | %>
+<% listeners.each do | key, value | %>
   <%= key %> <%= value %>
 <% end -%>
 <% end -%>
 
-# Backend
-<% @frontend.each do | key, listeners | %>
-frontend <%= key %>
-<% listeners.each do | key , value | %>
-  <%= key %> <%= value %>
-<% end -%>
+<% @backend.each do | key, listeners | %>
+backend <%= key %>
+  <% listeners['server'].each do | s |%>
+    <% s.each  do |server|%>
+  server <%= server %>
+    <% end -%>
+  <% end -%>
+  <% if !listeners['extra_options'].nil? %>
+  <% listeners['extra_options'].each do | key, value |%>
+  <%= key %><%= value %>
+  <% end -%>
+  <% end -%>
 <% end -%>

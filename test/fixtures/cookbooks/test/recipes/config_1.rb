@@ -2,10 +2,8 @@ haproxy 'package'
 
 haproxy_config_global '' do
   chroot '/var/lib/haproxy'
-  daemon false
+  daemon true
   maxconn 256
-  haproxy_user 'haproxy'
-  haproxy_group 'haproxy'
   log '/dev/log local0'
   log_tag 'WARDEN'
   pidfile '/var/run/haproxy.pid'

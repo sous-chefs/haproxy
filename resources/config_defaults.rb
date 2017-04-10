@@ -65,6 +65,9 @@ action :create do
       variables['defaults']['options'] ||= {} unless new_resource.options.nil?
       variables['defaults']['options'] = new_resource.options unless new_resource.options.nil?
 
+      owner node['haproxy']['user']
+      group node['haproxy']['group']
+
       action :nothing
       delayed_action :create
     end

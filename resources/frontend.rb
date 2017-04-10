@@ -24,6 +24,8 @@ action :create do
       variables['frontend'][new_resource.name]['http_request'] << new_resource.http_request unless new_resource.http_request.nil?
       variables['frontend'][new_resource.name]['http_response'] ||= '' unless new_resource.http_response.nil?
       variables['frontend'][new_resource.name]['http_response'] << new_resource.http_response unless new_resource.http_response.nil?
+      variables['frontend'][new_resource.name]['default_backend'] ||= '' unless new_resource.default_backend.nil?
+      variables['frontend'][new_resource.name]['default_backend'] << new_resource.default_backend
 
       action :nothing
       delayed_action :create

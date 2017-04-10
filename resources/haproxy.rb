@@ -1,8 +1,10 @@
 property :install_type, String, name_property: true, equal_to: %w(package source)
 property :config_template_source, String, default: 'haproxy.cfg.erb'
-property :config_dir, String, default: '/etc/haproxy'
 property :bin_prefix, String, default: '/usr/sbin'
+property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :haproxy_user, String, default: 'haproxy'
+property :haproxy_group, String, default: 'haproxy'
 
 # Package
 property :package_name, String, default: 'haproxy'
@@ -90,14 +92,16 @@ action :create do
       action :create
     end
 
+    node.default['haproxy']['config_dir'] = new_resource.config_dir
+
     with_run_context :root do
       template config_file do
         source 'haproxy.cfg.erb'
-        owner 'haproxy'
-        group 'haproxy'
+        owner node['haproxy']['user']
+        group node['haproxy']['group']
         mode '0644'
         cookbook 'haproxy'
-        notifies :restart, "service[haproxy]"
+        notifies :restart, 'service[haproxy]'
         variables()
         action :nothing
         delayed_action :create

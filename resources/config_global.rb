@@ -21,46 +21,49 @@ property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
 action :create do
+  node.default['haproxy']['user'] = new_resource.haproxy_user
+  node.default['haproxy']['group'] = new_resource.haproxy_group
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent
   with_run_context :root do
     edit_resource(:template, config_file) do |new_resource|
       cookbook 'haproxy'
-      variables['user'] ||= ''
-      variables['user'] << new_resource.haproxy_user
-      variables['group'] ||= ''
-      variables['group'] = new_resource.haproxy_group
-      variables['pidfile'] ||= ''
-      variables['pidfile'] << new_resource.pidfile
-      variables['log'] ||= ''
-      variables['log'] = new_resource.log
-      variables['daemon'] ||= ''
-      variables['daemon'] << new_resource.daemon.to_s
-      variables['debug_option'] ||= ''
-      variables['debug_option'] << new_resource.debug_option
-      variables['stats_socket'] ||= ''
-      variables['stats_socket'] << new_resource.stats_socket
-      variables['stats_timeout'] ||= ''
-      variables['stats_timeout'] << new_resource.stats_timeout
-      variables['maxconn'] ||= new_resource.maxconn
-      variables['retries'] ||= ''
-      variables['retries'] << new_resource.haproxy_retries
-      variables['client_timeout'] ||= ''
-      variables['client_timeout'] << new_resource.client_timeout
-      variables['server_timeout'] ||= ''
-      variables['server_timeout'] << new_resource.server_timeout
-      variables['connect_timeout'] ||= ''
-      variables['connect_timeout'] << new_resource.connect_timeout
-      variables['mode'] ||= '' unless new_resource.mode.nil?
-      variables['mode'] << new_resource.mode unless new_resource.mode.nil?
-      variables['chroot'] ||= '' unless new_resource.chroot.nil?
-      variables['chroot'] << new_resource.chroot unless new_resource.chroot.nil?
-      variables['log_tag'] ||= ''
-      variables['log_tag'] << new_resource.log_tag
-      variables['tuning'] ||= {} unless new_resource.tuning.nil?
-      variables['tuning'] = new_resource.tuning unless new_resource.tuning.nil?
-      variables['extra_options'] ||= {} unless new_resource.extra_options.nil?
-      variables['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
+      variables['global'] ||= {}
+      variables['global']['user'] ||= ''
+      variables['global']['user'] << new_resource.haproxy_user
+      variables['global']['group'] ||= ''
+      variables['global']['group'] = new_resource.haproxy_group
+      variables['global']['pidfile'] ||= ''
+      variables['global']['pidfile'] << new_resource.pidfile
+      variables['global']['log'] ||= ''
+      variables['global']['log'] = new_resource.log
+      variables['global']['daemon'] ||= ''
+      variables['global']['daemon'] << new_resource.daemon.to_s
+      variables['global']['debug_option'] ||= ''
+      variables['global']['debug_option'] << new_resource.debug_option
+      variables['global']['stats_socket'] ||= ''
+      variables['global']['stats_socket'] << new_resource.stats_socket
+      variables['global']['stats_timeout'] ||= ''
+      variables['global']['stats_timeout'] << new_resource.stats_timeout
+      variables['global']['maxconn'] ||= new_resource.maxconn
+      variables['global']['retries'] ||= ''
+      variables['global']['retries'] << new_resource.haproxy_retries
+      variables['global']['client_timeout'] ||= ''
+      variables['global']['client_timeout'] << new_resource.client_timeout
+      variables['global']['server_timeout'] ||= ''
+      variables['global']['server_timeout'] << new_resource.server_timeout
+      variables['global']['connect_timeout'] ||= ''
+      variables['global']['connect_timeout'] << new_resource.connect_timeout
+      variables['global']['mode'] ||= '' unless new_resource.mode.nil?
+      variables['global']['mode'] << new_resource.mode unless new_resource.mode.nil?
+      variables['global']['chroot'] ||= '' unless new_resource.chroot.nil?
+      variables['global']['chroot'] << new_resource.chroot unless new_resource.chroot.nil?
+      variables['global']['log_tag'] ||= ''
+      variables['global']['log_tag'] << new_resource.log_tag
+      variables['global']['tuning'] ||= {} unless new_resource.tuning.nil?
+      variables['global']['tuning'] = new_resource.tuning unless new_resource.tuning.nil?
+      variables['global']['extra_options'] ||= {} unless new_resource.extra_options.nil?
+      variables['global']['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
       action :nothing
       delayed_action :create
     end
