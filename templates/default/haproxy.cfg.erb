@@ -52,7 +52,7 @@ frontend <%= frontend %>
   <% if !value['acl'].nil? %>
   <% value['acl'].each do | acl |%>
   <% acl.each do | acl | %>
-  use_backend <%= backend %>
+  acl <%= acl %>
   <% end -%>
   <% end -%>
   <% end -%>
@@ -91,14 +91,14 @@ backend <%= key %>
   <% end -%>
   <% if !listeners['acl'].nil? %>
   <% listeners['acl'].each do | acl |%>
-  <% backend.each do | acl | %>
+  <% acl.each do | acl | %>
   acl <%= acl %>
   <% end -%>
   <% end -%>
   <% end -%>
   <% if !listeners['tcp_request'].nil? %>
   <% listeners['tcp_request'].each do | tcp_request |%>
-  <% backend.each do | tcp_request | %>
+  <% tcp_request.each do | tcp_request | %>
   tcp-request <%= tcp_request %>
   <% end -%>
   <% end -%>
