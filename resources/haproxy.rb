@@ -125,7 +125,6 @@ action :create do
       poise_service 'haproxy' do
         provider :systemd
         command "#{haproxy_systemd_wrapper} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS"
-        template 'haproxy:haproxy-init.erb'
         options haproxy_poise_service_options['systemd']
         action :enable
       end
@@ -133,7 +132,6 @@ action :create do
       poise_service 'haproxy' do
         provider :sysvinit
         command ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy')
-        template 'haproxy:haproxy-init.erb'
         options haproxy_poise_service_options['sysvinit']
         action :enable
       end
