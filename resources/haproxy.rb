@@ -44,7 +44,7 @@ action :create do
     group new_resource.haproxy_group
     action :create
   end
-  
+
   case install_type
   when 'package'
     package package_name do
@@ -148,7 +148,7 @@ action :create do
       # notifies :restart, 'poise_service[haproxy]', :delayed
       variables()
       action :nothing
-      delayed_action :create
+      delayed_action :nothing
     end
   end
 end
