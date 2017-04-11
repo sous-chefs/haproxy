@@ -101,7 +101,7 @@ action :create do
         group node['haproxy']['group']
         mode '0644'
         cookbook 'haproxy'
-        notifies :restart, 'service[haproxy]'
+        notifies :restart, 'poise_service[haproxy]'
         variables()
         action :nothing
         delayed_action :create
@@ -113,36 +113,45 @@ action :create do
                       else
                         ::File.join(bin_prefix, 'haproxy')
                       end
-
-    poise_service 'haproxy' do
-      provider node['init_package']
-      command haproxy_command
-      options node['haproxy']['poise_service']['options'][node['init_package']]
-      action :enable
+    with_run_context(:root) do
+      poise_service 'haproxy' do
+        provider node['init_package']
+        command haproxy_command
+        options node['haproxy']['poise_service']['options'][node['init_package']]
+        action :enable
+      end
     end
   end
 end
 
 action :start do
-  poise_service 'haproxy' do
-    action :start
+  with_run_context(:root) do
+    poise_service 'haproxy' do
+      action :start
+    end
   end
 end
 
 action :stop do
-  poise_service 'haproxy' do
-    action :stop
+  with_run_context(:root) do
+    poise_service 'haproxy' do
+      action :stop
+    end
   end
 end
 
 action :restart do
-  poise_service 'haproxy' do
-    action :restart
+  with_run_context(:root) do
+    poise_service 'haproxy' do
+      action :restart
+    end
   end
 end
 
 action :reload do
-  poise_service 'haproxy' do
-    action :reload
+  with_run_context(:root) do
+    poise_service 'haproxy' do
+      action :reload
+    end
   end
 end

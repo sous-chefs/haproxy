@@ -1,5 +1,5 @@
 global
-  user <%= @user %>
+  user <%= @global['user'] %>
   group <%= @global['group'] %>
   <% if @global['pid_file'] -%>pidfile <% @global['pid_file'] %><% end %>
   log <%= @global['log'] %>
