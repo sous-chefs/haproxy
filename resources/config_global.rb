@@ -7,12 +7,7 @@ property :debug_option, String, default: 'quiet', equal_to: %w(quiet debug)
 property :stats_socket, String, default: lazy { "/var/run/haproxy.sock user #{haproxy_user} group #{haproxy_group}" }
 property :stats_timeout, String, default: '2m'
 property :maxconn, Integer, default: 4096
-property :haproxy_retries, Integer, default: 3
-property :client_timeout, String, default: '10s'
-property :server_timeout, String, default: '10s'
-property :connect_timeout, String, default: '10s'
 property :config_cookbook, String, default: 'haproxy'
-property :mode, String, default: 'http', equal_to: %w(http tcp)
 property :chroot, String
 property :log_tag, String, default: 'haproxy'
 property :tuning, Hash, default: { 'bufsize' => '262144' }
@@ -46,16 +41,6 @@ action :create do
       variables['global']['stats_timeout'] ||= ''
       variables['global']['stats_timeout'] << new_resource.stats_timeout
       variables['global']['maxconn'] ||= new_resource.maxconn
-      variables['global']['retries'] ||= ''
-      variables['global']['retries'] << new_resource.haproxy_retries
-      variables['global']['client_timeout'] ||= ''
-      variables['global']['client_timeout'] << new_resource.client_timeout
-      variables['global']['server_timeout'] ||= ''
-      variables['global']['server_timeout'] << new_resource.server_timeout
-      variables['global']['connect_timeout'] ||= ''
-      variables['global']['connect_timeout'] << new_resource.connect_timeout
-      variables['global']['mode'] ||= '' unless new_resource.mode.nil?
-      variables['global']['mode'] << new_resource.mode unless new_resource.mode.nil?
       variables['global']['chroot'] ||= '' unless new_resource.chroot.nil?
       variables['global']['chroot'] << new_resource.chroot unless new_resource.chroot.nil?
       variables['global']['log_tag'] ||= ''

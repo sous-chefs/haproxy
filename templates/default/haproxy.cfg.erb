@@ -9,12 +9,6 @@ global
   <%= @global['debug_option'] %>
   stats socket <%= @global['stats_socket'] %>
   stats timeout <%= @global['stats_timeout'] %>
-  maxconn <%= @global['maxconn'] %>
-  retries <%= @global['retries'] %>
-  client-timeout <%= @global['client_timeout'] %>
-  server-timeout <%= @global['server_timeout'] %>
-  connect-timeout <%= @global['connect_timeout'] %>
-  mode <%= @global['mode'] %>
   <% if @global['pidfile'] -%>pidfile <%= @global['pidfile'] %><% end -%>
 <% if !@global['tuning'].nil? %>
   <% @global['tuning'].each do |option,value| -%>
@@ -29,11 +23,10 @@ global
 
 defaults
   mode <%= @defaults['mode'] %>
-  <% unless @defaults['maxconn'] == '' -%>maxconn <%= @defaults['maxconn'] %><% end -%>
-  <% unless @defaults['retries'] == '0' -%>retries <%= @defaults['retries'] %><% end -%>
-  <% unless @defaults['balance'] == '' -%>balance <%= @defaults['balance'] %><% end -%>
+  <% unless @defaults['maxconn'].eql? '' -%>maxconn <%= @defaults['maxconn'] %><% end -%>
+  <% unless @defaults['retries'].eql? '0' -%>retries <%= @defaults['retries'] %><% end -%>
+  <% unless @defaults['balance'].eql? '' -%>balance <%= @defaults['balance'] %><% end -%>
   log <%= @defaults['log'] %>
-  retries <%= @defaults['retries'] %>
   <% @defaults['timeouts'].each do | value, time | -%>
   timeout <%= value %> <%= time %>
   <% end -%>
