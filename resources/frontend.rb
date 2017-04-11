@@ -15,8 +15,7 @@ action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent
   with_run_context :root do
-    template config_file do
-      source 'haproxy.cfg.erb'
+    edit_resource(:template, config_file) do | new_resource |
       cookbook 'haproxy'
       variables['frontend'] ||= {}
       variables['frontend'][new_resource.name] ||= {}

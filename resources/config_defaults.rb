@@ -24,8 +24,7 @@ action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent
   with_run_context :root do
-    template config_file do
-      source 'haproxy.cfg.erb'
+    edit_resource(:template, config_file) do | new_resource |
       cookbook 'haproxy'
       variables['defaults'] ||= {}
       variables['defaults']['timeouts'] ||= {}
@@ -45,7 +44,7 @@ action :create do
       variables['defaults']['status_password'] ||= ''
       variables['defaults']['status_password'] << new_resource.status_password
       variables['defaults']['maxconn'] ||= '' unless new_resource.maxconn.nil?
-      variables['defaults']['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
+      variables['defaults']['maxconn'] << new_resource.maxconn.to_s
       variables['defaults']['retries'] ||= '' unless new_resource.retries.nil?
       variables['defaults']['retries'] << new_resource.retries.to_s unless new_resource.retries.nil?
       variables['defaults']['http_check_disable_on_404'] ||= ''
@@ -64,9 +63,6 @@ action :create do
       variables['defaults']['http_send_name_header'] << new_resource.http_send_name_header unless new_resource.http_send_name_header.nil?
       variables['defaults']['extra_options'] ||= {} unless new_resource.extra_options.nil?
       variables['defaults']['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
-
-      owner node['haproxy']['user']
-      group node['haproxy']['group']
 
       action :nothing
       delayed_action :create

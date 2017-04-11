@@ -1,3 +1,4 @@
+<% unless @global.nil? %>
 global
   user <%= @global['user'] %>
   group <%= @global['group'] %>
@@ -20,7 +21,9 @@ global
   <%= option %> <%= value %>
   <% end -%>
 <% end -%>
+<% end -%>
 
+<% unless @defaults.nil? %>
 defaults
   mode <%= @defaults['mode'] %>
   <% unless @defaults['maxconn'].eql? '0' -%>maxconn <%= @defaults['maxconn'] %><% end -%>
@@ -35,6 +38,7 @@ defaults
   <%= option %> <%= value %>
   <% end -%>
   <% end -%>
+<% end -%>
 
 <% if !@frontend.nil? %>
 <% @frontend.each do |frontend, value | %>

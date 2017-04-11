@@ -21,7 +21,7 @@ action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent
   with_run_context :root do
-    edit_resource(:template, config_file) do |new_resource|
+    edit_resource(:template, config_file) do | new_resource |
       cookbook 'haproxy'
       variables['global'] ||= {}
       variables['global']['user'] ||= ''
@@ -49,6 +49,7 @@ action :create do
       variables['global']['tuning'] = new_resource.tuning unless new_resource.tuning.nil?
       variables['global']['extra_options'] ||= {} unless new_resource.extra_options.nil?
       variables['global']['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
+
       action :nothing
       delayed_action :create
     end
