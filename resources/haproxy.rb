@@ -38,6 +38,13 @@ property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.
 resource_name :haproxy
 
 action :create do
+
+  poise_service_user new_resource.haproxy_user do
+    home '/home/haproxy'
+    group new_resource.haproxy_group
+    action :create
+  end
+  
   case install_type
   when 'package'
     package package_name do
