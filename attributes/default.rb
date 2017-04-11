@@ -56,24 +56,3 @@ default['haproxy']['frontend_ssl_max_connections'] = 2000
 
 default['haproxy']['pool_members'] = {}
 default['haproxy']['pool_members_option'] = nil
-default['haproxy']['listeners'] = {
-  'listen' => {},
-  'frontend' => {},
-  'backend' => {},
-}
-
-# We keep the init script for sysvinit
-default['haproxy']['poise_service']['options'] = {
-  sysvinit: {
-    template: 'haproxy:haproxy-init.erb',
-    hostname:   node['hostname'],
-    conf_dir:   '/etc/haproxy',
-    pid_file:  '/var/run/haproxy.pid',
-  },
-  systemd: {
-    reload_signal: 'USR2',
-    restart_mode: 'always',
-    after_target: 'network',
-    auto_reload: true,
-  },
-}

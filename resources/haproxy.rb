@@ -1,8 +1,6 @@
 property :install_type, String, name_property: true, equal_to: %w(package source)
 property :config_template_source, String, default: 'haproxy.cfg.erb'
-property :bin_prefix, String, default: '/usr/sbin'
-property :config_dir, String, default: '/etc/haproxy'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :bin_prefix, String, default: '/usr'
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 
@@ -11,7 +9,6 @@ property :package_name, String, default: 'haproxy'
 property :package_version, [String, nil], default: nil
 
 # Source
-property :source_prefix, String, deafult: '/usr/local'
 property :source_version, String, default: '1.7.4'
 property :source_url, String, default: 'http://www.haproxy.org/download/1.7/src/haproxy-1.7.4.tar.gz'
 property :source_checksum, String, default: 'dc1e7621fd41a1c3ca5621975ca5ed4191469a144108f6c47d630ca8da835dbe'
@@ -34,6 +31,10 @@ property :use_zlib,         String, equal_to: %w(0 1), default: '1'
 property :use_linux_tproxy, String, equal_to: %w(0 1), default: '1'
 property :use_linux_splice, String, equal_to: %w(0 1), default: '1'
 
+property :bin_prefix,  String, default: lazy { '/usr' }
+property :config_dir,  String, default: lazy { '/etc/haproxy'}
+property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+
 resource_name :haproxy
 
 action :create do
@@ -45,8 +46,6 @@ action :create do
     end
 
   when 'source'
-    # node.override['haproxy']['poise_service']['options']['sysvinit']['conf_dir'] = config_dir
-
     include_recipe 'build-essential'
 
     pkg_list = value_for_platform_family(
@@ -81,51 +80,66 @@ action :create do
         cd haproxy-#{source_version}
         #{make_cmd} && make install PREFIX=#{bin_prefix} #{extra_cmd}
       EOH
-      not_if "#{::File.join(bin_prefix, 'haproxy')} -v | grep #{source_version}"
+      not_if "#{::File.join(bin_prefix, 'sbin', 'haproxy')} -v | grep #{source_version}"
     end
 
-    directory config_dir do
-      owner 'root'
-      group 'root'
-      mode '0755'
-      recursive true
+    poise_service_user new_resource.haproxy_user do
+      home '/home/haproxy'
+      group new_resource.haproxy_group
       action :create
     end
 
-    node.default['haproxy']['config_dir'] = new_resource.config_dir
+    haproxy_poise_service_options = {
+      sysvinit: {
+        template: 'haproxy:haproxy-init.erb',
+        hostname:   node['hostname'],
+        conf_dir:   new_resource.config_dir,
+        pid_file:  '/var/run/haproxy.pid',
+      },
+      systemd: {
+        reload_signal: 'USR2',
+        restart_mode: 'always',
+        after_target: 'network',
+        auto_reload: true,
+      }
+    }
 
-    with_run_context :root do
-      template config_file do
-        source 'haproxy.cfg.erb'
-        owner node['haproxy']['user']
-        group node['haproxy']['group']
-        mode '0644'
-        cookbook 'haproxy'
-        notifies :restart, 'poise_service[haproxy]'
-        variables()
-        action :nothing
-        delayed_action :create
-      end
-    end
+    if node['init_package'] == 'systemd'
+      haproxy_systemd_wrapper = ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy-systemd-wrapper')
 
-    haproxy_command = if node['init_package'] == 'systemd'
-                        "#{::File.join(bin_prefix, 'haproxy-systemd-wrapper')} -f #{config_file} -p /run/haproxy.pid $OPTIONS"
-                      else
-                        ::File.join(bin_prefix, 'haproxy')
-                      end
-    with_run_context(:root) do
       poise_service 'haproxy' do
-        provider node['init_package']
-        command haproxy_command
-        options node['haproxy']['poise_service']['options'][node['init_package']]
+        provider :systemd
+        command "#{haproxy_systemd_wrapper} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS"
+        options haproxy_poise_service_options['systemd']
         action :enable
       end
+    else
+      poise_service 'haproxy' do
+        provider :sysvinit
+        command ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy')
+        options haproxy_poise_service_options['sysvinit']
+        action :enable
+      end
+    end
+  end
+
+  with_run_context :root do
+    template config_file do
+      source 'haproxy.cfg.erb'
+      owner new_resource.haproxy_user
+      group new_resource.haproxy_group
+      mode '0644'
+      cookbook 'haproxy'
+      # notifies :restart, 'poise_service[haproxy]', :delayed
+      variables()
+      action :nothing
+      delayed_action :create
     end
   end
 end
 
 action :start do
-  with_run_context(:root) do
+  with_run_context :root do
     poise_service 'haproxy' do
       action :start
     end
@@ -133,7 +147,7 @@ action :start do
 end
 
 action :stop do
-  with_run_context(:root) do
+  with_run_context :root  do
     poise_service 'haproxy' do
       action :stop
     end
@@ -141,7 +155,7 @@ action :stop do
 end
 
 action :restart do
-  with_run_context(:root) do
+  with_run_context :root  do
     poise_service 'haproxy' do
       action :restart
     end
@@ -149,7 +163,7 @@ action :restart do
 end
 
 action :reload do
-  with_run_context(:root) do
+  with_run_context :root  do
     poise_service 'haproxy' do
       action :reload
     end

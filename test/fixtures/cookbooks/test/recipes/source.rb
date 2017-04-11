@@ -1,3 +1,9 @@
+haproxy_config_global '' do
+end
+
+haproxy_config_defaults '' do
+end
+
 haproxy 'source' do
   use_pcre '1'
   use_openssl '1'
