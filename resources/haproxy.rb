@@ -96,6 +96,14 @@ action :create do
       action :create
     end
 
+    directory new_resource.config_dir do
+      owner new_resource.haproxy_user
+      group new_resource.haproxy_group
+      mode '0755'
+      recursive true
+      action :create
+    end
+
     haproxy_poise_service_options = {
       sysvinit: {
         template: 'haproxy:haproxy-init.erb',
