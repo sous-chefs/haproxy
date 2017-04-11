@@ -7,7 +7,7 @@ property :option, Array, default: %w(httplog dontlognull redispatch)
 property :status_uri, String, default: '/haproxy-status'
 property :status_user, String, default: 'stats'
 property :status_password, String, default: 'stats'
-property :maxconn, Integer, default: ''
+property :maxconn, Integer, default: 0
 property :http_check_disable_on_404, [TrueClass, FalseClass, nil], default: true
 property :http_check_expect, [String, nil]
 property :http_check_send_state, [TrueClass, FalseClass, nil]

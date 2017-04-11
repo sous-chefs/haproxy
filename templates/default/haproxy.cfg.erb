@@ -23,7 +23,7 @@ global
 
 defaults
   mode <%= @defaults['mode'] %>
-  <% unless @defaults['maxconn'].eql? '' -%>maxconn <%= @defaults['maxconn'] %><% end -%>
+  <% unless @defaults['maxconn'].eql? '0' -%>maxconn <%= @defaults['maxconn'] %><% end -%>
   <% unless @defaults['retries'].eql? '0' -%>retries <%= @defaults['retries'] %><% end -%>
   <% unless @defaults['balance'].eql? '' -%>balance <%= @defaults['balance'] %><% end -%>
   log <%= @defaults['log'] %>
