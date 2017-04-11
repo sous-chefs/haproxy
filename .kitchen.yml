@@ -1,8 +1,10 @@
 driver:
   name: vagrant
 
+
 provisioner:
   name: chef_zero
+  require_chef_omnibus: 12.19.36
 
 client_rb:
   treat_deprecation_warnings_as_errors: true
@@ -21,7 +23,6 @@ platforms:
   - name: opensuse-leap-42.1
   - name: oracle-6.8
   - name: oracle-7.3
-  - name: ubuntu-12.04
   - name: ubuntu-14.04
   - name: ubuntu-16.04
 
@@ -29,6 +30,7 @@ suites:
   - name: package
     run_list:
       - recipe[test::package]
+    excludes: debian-7.11
   - name: source
     run_list:
       - recipe[test::source]
