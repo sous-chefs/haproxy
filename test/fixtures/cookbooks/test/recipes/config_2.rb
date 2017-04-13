@@ -1,4 +1,4 @@
-haproxy 'package'
+haproxy_install 'package'
 
 haproxy_config_global 'global' do
   daemon false

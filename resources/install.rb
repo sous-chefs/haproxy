@@ -35,8 +35,6 @@ property :bin_prefix,  String, default: lazy { '/usr' }
 property :config_dir,  String, default: lazy { '/etc/haproxy'}
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
-resource_name :haproxy
-
 action :create do
 
   poise_service_user new_resource.haproxy_user do

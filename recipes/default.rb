@@ -1,7 +1,7 @@
 # This recipe is for an example only,
 # it is not supported in a runlist.
-
-haproxy 'default' do
+# It will only create a blank useless configuration
+haproxy_install 'package' do
   action :create
 end
 
@@ -19,8 +19,4 @@ end
 
 haproxy_config_backend 'default' do
   action :create
-end
-
-haproxy 'default' do
-  action :restart
 end

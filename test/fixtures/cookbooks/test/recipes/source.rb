@@ -1,11 +1,11 @@
 haproxy_config_global '' do
-  
+
 end
 
 haproxy_config_defaults '' do
 end
 
-haproxy 'source' do
+haproxy_install 'source' do
   use_pcre '1'
   use_openssl '1'
   use_zlib '1'

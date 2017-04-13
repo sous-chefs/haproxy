@@ -15,7 +15,7 @@ describe 'haproxy::install_package' do
     let(:given_version) { '1.2.3.4' }
     cached(:chef_run) do
       ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node|
-        node.normal['haproxy']['package']['version'] = given_version
+        
       end.converge(described_recipe)
     end
 
