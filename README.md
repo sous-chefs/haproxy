@@ -1,4 +1,5 @@
 # haproxy Cookbook
+## This cookbook is currently frozen at 3.0.4 for features. Critical bugs will be merged. We are focusing on 4.0. Please join chef chat and help. :)
 
 [![Build Status](https://travis-ci.org/sous-chefs/haproxy.svg?branch=master)](https://travis-ci.org/sous-chefs/haproxy) [![Cookbook Version](https://img.shields.io/cookbook/v/haproxy.svg)](https://supermarket.chef.io/cookbooks/haproxy)
 
