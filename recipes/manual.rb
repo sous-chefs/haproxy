@@ -82,8 +82,9 @@ if node['haproxy']['enable_ssl']
   pool = ['option ssl-hello-chk']
   pool << "option httpchk #{conf['ssl_httpchk']}" if conf['ssl_httpchk']
   pool << "cookie #{node['haproxy']['cookie']}" if node['haproxy']['cookie']
-  servers = node['haproxy']['members'].map do |member|
-    "#{member['hostname']} #{member['ipaddress']}:#{member['ssl_port'] || ssl_member_port} weight #{member['weight'] || member_weight} maxconn #{member['max_connections'] || member_max_conn} check #{node['haproxy']['pool_members_option']}"
+  member_pool = node['haproxy']['ssl_members'] || node['haproxy']['members']
+  servers = member_pool.map do |member|
+    "#{member['hostname']} #{member['ipaddress']}:#{member['ssl_port'] || ssl_member_port} weight #{member['weight'] || member_weight} maxconn #{member['max_connections'] || member_max_conn} check #{node['haproxy']['ssl_pool_members_option'] || node['haproxy']['pool_members_option']}"
   end
   haproxy_lb 'servers-https' do
     type 'backend'
