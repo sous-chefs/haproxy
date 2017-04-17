@@ -32,11 +32,10 @@ property :use_linux_tproxy, String, equal_to: %w(0 1), default: '1'
 property :use_linux_splice, String, equal_to: %w(0 1), default: '1'
 
 property :bin_prefix,  String, default: lazy { '/usr' }
-property :config_dir,  String, default: lazy { '/etc/haproxy'}
+property :config_dir,  String, default: lazy { '/etc/haproxy' }
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
 action :create do
-
   poise_service_user new_resource.haproxy_user do
     home '/home/haproxy'
     group new_resource.haproxy_group
@@ -114,7 +113,7 @@ action :create do
         restart_mode: 'always',
         after_target: 'network',
         auto_reload: true,
-      }
+      },
     }
 
     if node['init_package'] == 'systemd'
@@ -160,7 +159,7 @@ action :start do
 end
 
 action :stop do
-  with_run_context :root  do
+  with_run_context :root do
     poise_service 'haproxy' do
       action :stop
     end
@@ -168,7 +167,7 @@ action :stop do
 end
 
 action :restart do
-  with_run_context :root  do
+  with_run_context :root do
     poise_service 'haproxy' do
       action :restart
     end
@@ -176,7 +175,7 @@ action :restart do
 end
 
 action :reload do
-  with_run_context :root  do
+  with_run_context :root do
     poise_service 'haproxy' do
       action :reload
     end
