@@ -37,9 +37,9 @@ platforms:
     intermediate_instructions:
       - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
 
-- name: fedora-latest
+- name: fedora-25
   driver:
-    image: fedora:latest
+    image: fedora:25
     pid_one_command: /usr/lib/systemd/systemd
     intermediate_instructions:
       - RUN dnf -y install yum which systemd-sysv initscripts wget net-tools
@@ -60,13 +60,6 @@ platforms:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
-- name: opensuse-13.2
-  driver:
-    image: opensuse:13.2
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which net-tools
-
 - name: opensuse-leap
   driver:
     image: opensuse:leap
@@ -81,4 +74,3 @@ suites:
 - name: source
   run_list:
     - recipe[test:source]
-
