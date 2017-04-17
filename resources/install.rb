@@ -100,15 +100,9 @@ action :create do
       recursive true
       action :create
     end
+  end
 
-    cookbook_file '/etc/default/haproxy' do
-      source 'haproxy-default'
-      cookbook 'haproxy'
-      owner 'root'
-      group 'root'
-      mode '0644'
-    end
-
+  with_run_context :root do
     haproxy_poise_service_options = {
       sysvinit: {
         template: 'haproxy:haproxy-init.erb',
@@ -141,16 +135,14 @@ action :create do
         action :enable
       end
     end
-  end
 
-  with_run_context :root do
     template config_file do
       source 'haproxy.cfg.erb'
       owner new_resource.haproxy_user
       group new_resource.haproxy_group
       mode '0644'
       cookbook 'haproxy'
-      # notifies :restart, 'poise_service[haproxy]', :delayed
+      notifies :restart, 'poise_service[haproxy]', :delayed
       variables()
       action :nothing
       delayed_action :nothing
