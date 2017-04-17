@@ -28,6 +28,5 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match /data_rate_abuse sc2_bytes_out_rate gt 20000000/ }
   its('content') { should match /reject if conn_rate_abuse !authorized_network mark_as_abuser/ }
   its('content') { should match /tile0 10.0.0.10:80 check weight 1 maxconn 100/ }
-  its('content') { should match /tile1 10.0.0.11:80 check weight 1 maxconn 100/ }
   its('content') { should match /tile1/ }
 end
