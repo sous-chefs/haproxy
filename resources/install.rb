@@ -101,6 +101,14 @@ action :create do
       action :create
     end
 
+    cookbook_file '/etc/default/haproxy' do
+      source 'haproxy-default'
+      cookbook 'haproxy'
+      owner 'root'
+      group 'root'
+      mode '0644'
+    end
+
     haproxy_poise_service_options = {
       sysvinit: {
         template: 'haproxy:haproxy-init.erb',
