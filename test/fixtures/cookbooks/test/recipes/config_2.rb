@@ -58,3 +58,7 @@ haproxy_backend 'tiles_public' do
      ]
   extra_options 'stick-table' => 'type ip size 200k expire 2m store conn_rate(60s),bytes_out_rate(60s)'
 end
+
+haproxy_backend 'abuser' do
+  extra_options 'errorfile' => '403 /etc/haproxy/errors/403.http'
+end
