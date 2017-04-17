@@ -70,7 +70,7 @@ platforms:
 suites:
 - name: package
   run_list:
-    - recipe[test:package]
+    - recipe[test::package]
 - name: source
   run_list:
-    - recipe[test:source]
+    - recipe[test::source]
