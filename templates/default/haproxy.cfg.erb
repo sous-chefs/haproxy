@@ -81,10 +81,12 @@ frontend <%= frontend %>
 <% if !@backend.nil? %>
 <% @backend.each do | key, listeners | %>
 backend <%= key %>
+  <% if !listeners['server'].nil? %>
   <% listeners['server'].each do | s |%>
     <% s.each  do |server|%>
   server <%= server %>
     <% end -%>
+  <% end -%>
   <% end -%>
   <% if !listeners['acl'].nil? %>
   <% listeners['acl'].each do | acl |%>
@@ -103,7 +105,7 @@ backend <%= key %>
 
   <% if !listeners['extra_options'].nil? %>
   <% listeners['extra_options'].each do | key, value |%>
-  <%= key %><%= value %>
+  <%= key %> <%= value %>
   <% end -%>
   <% end -%>
 <% end # backend loop -%>
