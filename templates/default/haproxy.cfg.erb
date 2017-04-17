@@ -103,7 +103,7 @@ backend <%= key %>
 
   <% if !listeners['extra_options'].nil? %>
   <% listeners['extra_options'].each do | key, value |%>
-  <%= key %><%= value %>
+  <%= key %> <%= value %>
   <% end -%>
   <% end -%>
 <% end # backend loop -%>
