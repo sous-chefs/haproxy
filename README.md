@@ -1,4 +1,5 @@
 # haproxy Cookbook
+## This cookbook is currently frozen at 3.0.4 for features. Critical bugs will be merged. We are focusing on 4.0. Please join chef chat and help. :)
 
 [![Build Status](https://travis-ci.org/sous-chefs/haproxy.svg?branch=master)](https://travis-ci.org/sous-chefs/haproxy) [![Cookbook Version](https://img.shields.io/cookbook/v/haproxy.svg)](https://supermarket.chef.io/cookbooks/haproxy)
 
@@ -117,7 +118,7 @@ Installs haproxy from source. Used by the `default` and `app_lb` recipes.
 
 ### haproxy_lb
 
-Configure a part of haproxy (`frontend|backend|listen`). It is used in `manual` and `app_lb` recipes to configure default frontends and backends. Several common options can be set as attributes of the LWRP. Others can always be set with the `params` attribute. For instance,
+Configure a part of haproxy (`frontend|backend|listen`). It is used in `manual` and `app_lb` recipes to configure default frontends and backends. Several common options can be set as attributes of the LWRP. Others can always be set with the `parameters` attribute. For instance,
 
 ```ruby
 haproxy_lb 'rabbitmq' do
@@ -126,7 +127,7 @@ haproxy_lb 'rabbitmq' do
   servers (1..4).map do |i|
     "rmq#{i} 10.0.0.#{i}:5672 check inter 10s rise 2 fall 3"
   end
-  params({
+  parameters({
     'maxconn' => 20000,
     'balance' => 'roundrobin'
   })
@@ -147,11 +148,11 @@ listen rabbitmq'
   balance roundrobin
 ```
 
-All options can also be set in the params instead. In that case, you might want to provide an array to params attributes to avoid conflicts for options occuring several times.
+All options can also be set in the parameters instead. In that case, you might want to provide an array to parameters attributes to avoid conflicts for options occuring several times.
 
 ```ruby
 haproxy_lb 'rabbitmq' do
-  params([
+  parameters([
     'bind 0.0.0.0:5672',
     'mode tcp',
     'rmq1 10.0.0.1:5672 check inter 10s rise 2 fall 3',
