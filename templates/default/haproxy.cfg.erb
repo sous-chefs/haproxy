@@ -37,9 +37,9 @@ defaults
   <% end -%>
   <% end -%>
 
-  <% unless @defaults['status_uri'].empty? ->status_uri <% @defaults['status_uri'] =%><% end -%>
-  <% unless @defaults['status_user'].empty? ->status_user <% @defaults['status_user'] =%><% end -%>
-  <% unless @defaults['status_password'].empty? ->status_password <% @defaults['status_password'] =%><% end -%>
+  <% unless @defaults['status_uri'].empty? -%>status_uri <% @defaults['status_uri'] =%><% end -%>
+  <% unless @defaults['status_user'].empty? -%>status_user <% @defaults['status_user'] =%><% end -%>
+  <% unless @defaults['status_password'].empty? -%>status_password <% @defaults['status_password'] =%><% end -%>
   <% unless @defaults['maxconn'].eql? '0' -%>maxconn <%= @defaults['maxconn'] %><% end -%>
   <% unless @defaults['retries'].eql? '0' -%>retries <%= @defaults['retries'] %><% end -%>
   <% unless @defaults['http_check_disable_on_404'].empty? -%>http-check-disable-on-404 <%= @defaults['http_check_disable_on_404'] %><% end -%>
