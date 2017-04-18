@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This recipe is for an example only,
 # it is not supported in a runlist.
 # It will only create a blank useless configuration

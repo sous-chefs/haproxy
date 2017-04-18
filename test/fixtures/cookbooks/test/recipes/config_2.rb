@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 haproxy_install 'package'
 
 directory '/etc/haproxy/errors' do
@@ -57,9 +58,8 @@ haproxy_backend 'tiles_public' do
      ]
   extra_options(
     'stick-table' => 'type ip size 200k expire 2m store conn_rate(60s),bytes_out_rate(60s)',
-    'http-request' => 'set-header X-Public-User yes',
+    'http-request' => 'set-header X-Public-User yes'
   )
-
 end
 
 haproxy_backend 'abuser' do

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe package('haproxy') do
   it { should be_installed }
 end

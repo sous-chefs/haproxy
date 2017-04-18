@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 property :pidfile, String, default: '/var/run/haproxy.pid'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 property :name, String, name_property: true
 property :server, Array
 property :tcp_request, Array

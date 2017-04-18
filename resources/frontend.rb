@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 property :name, String, name_property: true
 property :bind, String, default: '0.0.0.0:80'
 property :maxconn, Integer, default: 2000
