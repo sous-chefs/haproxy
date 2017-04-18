@@ -31,24 +31,18 @@ defaults
   log <%= @defaults['log'] %>
   mode <%= @defaults['mode'] %>
   <% unless @defaults['balance'].empty? -%>balance <%= @defaults['balance'] %><% end -%>
-  <% unless @defualts['option'].empty? -%>
   <% @defaults['option'].each do | option | -%>
   option <%= option %>
   <% end -%>
-  <% end -%>
 
-  <% unless @defaults['status_uri'].empty? -%>status_uri <% @defaults['status_uri'] =%><% end -%>
-  <% unless @defaults['status_user'].empty? -%>status_user <% @defaults['status_user'] =%><% end -%>
-  <% unless @defaults['status_password'].empty? -%>status_password <% @defaults['status_password'] =%><% end -%>
-  <% unless @defaults['maxconn'].eql? '0' -%>maxconn <%= @defaults['maxconn'] %><% end -%>
-  <% unless @defaults['retries'].eql? '0' -%>retries <%= @defaults['retries'] %><% end -%>
-  <% unless @defaults['http_check_disable_on_404'].empty? -%>http-check-disable-on-404 <%= @defaults['http_check_disable_on_404'] %><% end -%>
-  <% unless @defaults['http-check_expect'].empty? -%>http-check-expect <%= @defaults['http_check_expect'] %><% end -%>
-  <% unless @defaults['http_check_send_state'].empty? -%>http-check-send-state <%= @defaults['http_check_send_state'] %><% end -%>
-  <% unless @defaults['http_request'].empty? -%>http-request <%= @defaults['http_request'] %><% end -%>
-  <% unless @defaults['http_response'].empty? -%>http-response <%= @defaults['http_response'] %><% end -%>
-  <% unless @defaults['http_reuse'].empty? -%>http-reuse <%= @defaults['http_reuse'] %><% end -%>
-  <% unless @defaults['http_send_name_header'].empty? -%>http-send-name-header <%= @defaults['http_send_name_header'] %><% end -%>
+  <% unless @defaults['maxconn'].nil? -%>maxconn <%= @defaults['maxconn'] %><% end -%>
+  <% unless @defaults['retries'].nil? -%>retries <%= @defaults['retries'] %><% end -%>
+
+  <% unless @defaults['stats'].nil? %>
+  <% @defaults['stats'].each do | key, value | -%>
+  stats <%= key %> <%= value %>
+  <% end -%>
+  <% end -%>
 
   <% unless @defaults['extra_options'].nil? %>
   <% @defaults['extra_options'].each do | option, value | -%>
@@ -131,7 +125,7 @@ backend <%= key %>
   <%= key %><%= value %>
   <% end -%>
   <% end -%>
-  
+
 <% end # backend loop -%>
 <% end # backend -%>
 

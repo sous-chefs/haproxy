@@ -4,17 +4,8 @@ property :log, String, default: 'global'
 property :mode, String, default: 'http', equal_to: %w(http tcp)
 property :balance, default: 'roundrobin', equal_to: %w(roundrobin static-rr leastconn first source uri url_param header rdp-cookie)
 property :option, Array, default: %w(httplog dontlognull redispatch)
-property :status_uri, String, default: '/haproxy-status'
-property :status_user, String, default: 'stats'
-property :status_password, String, default: 'stats'
-property :maxconn, Integer, default: 0
-property :http_check_disable_on_404, [true, false, nil], default: true
-property :http_check_expect, String
-property :http_check_send_state, [true, false, nil]
-property :http_request, String
-property :http_response, String
-property :http_reuse, String, equal_to: %w(never safe aggressive always)
-property :http_send_name_header, String
+property :stats, Hash, default: {'uri' => '/haproxy-status'}
+property :maxconn, Integer
 property :extra_options, Hash
 property :haproxy_retries, Integer
 property :config_dir, String, default: '/etc/haproxy'
@@ -36,31 +27,13 @@ action :create do
       variables['defaults']['balance'] ||= '' unless new_resource.balance.nil?
       variables['defaults']['balance'] << new_resource.balance unless new_resource.balance.nil?
       variables['defaults']['option'] ||= []
-      variables['defaults']['option'] << new_resource.option
-      variables['defaults']['status_uri'] ||= ''
-      variables['defaults']['status_uri'] << new_resource.status_uri
-      variables['defaults']['status_user'] ||= ''
-      variables['defaults']['status_user'] << new_resource.status_user
-      variables['defaults']['status_password'] ||= ''
-      variables['defaults']['status_password'] << new_resource.status_password
+      (variables['defaults']['option'] << new_resource.option).flatten!
+      variables['defaults']['stats'] ||= {}
+      variables['defaults']['stats'] = new_resource.stats
       variables['defaults']['maxconn'] ||= '' unless new_resource.maxconn.nil?
-      variables['defaults']['maxconn'] << new_resource.maxconn.to_s
+      variables['defaults']['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
       variables['defaults']['retries'] ||= '' unless new_resource.haproxy_retries.nil?
       variables['defaults']['retries'] << new_resource.retries.to_s unless new_resource.haproxy_retries.nil?
-      variables['defaults']['http_check_disable_on_404'] ||= ''
-      variables['defaults']['http_check_disable_on_404'] << new_resource.http_check_disable_on_404.to_s
-      variables['defaults']['http_check_expect'] ||= '' unless new_resource.http_check_expect.nil?
-      variables['defaults']['http_check_expect'] << new_resource.http_check_expect unless new_resource.http_check_expect.nil?
-      variables['defaults']['http_check_send_state'] ||= ''
-      variables['defaults']['http_check_send_state'] << new_resource.http_check_send_state.to_s
-      variables['defaults']['http_request'] ||= '' unless new_resource.http_request.nil?
-      variables['defaults']['http_request'] << new_resource.http_request unless new_resource.http_request.nil?
-      variables['defaults']['http_response'] ||= '' unless new_resource.http_response.nil?
-      variables['defaults']['http_response'] << new_resource.http_response unless new_resource.http_response.nil?
-      variables['defaults']['http_reuse'] ||= '' unless new_resource.http_reuse.nil?
-      variables['defaults']['http_reuse'] << new_resource.http_reuse unless new_resource.http_reuse.nil?
-      variables['defaults']['http_send_name_header'] ||= '' unless new_resource.http_send_name_header.nil?
-      variables['defaults']['http_send_name_header'] << new_resource.http_send_name_header unless new_resource.http_send_name_header.nil?
       variables['defaults']['extra_options'] ||= {} unless new_resource.extra_options.nil?
       variables['defaults']['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
 
