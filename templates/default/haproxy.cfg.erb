@@ -57,8 +57,6 @@ frontend <%= frontend %>
   default_backend <%= f['default_backend'] %>
   <% unless f['bind'].empty? -%>bind <%= f['bind'] %><% end -%>
   <% unless f['maxconn'].empty? -%>maxconn <%= f['maxconn'] %><% end -%>
-  <% unless f['http_request'].empty? -%>http_request<%= f['http_request'] %><% end -%>
-  <% unless f['http_response'].empty? -%>http_response<%= f['http_response'] %><% end -%>
 
   <% unless f['use_backend'].nil? %>
   <% f['use_backend'].each do | backend |%>
