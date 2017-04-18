@@ -1,6 +1,3 @@
-#!/usr/bin/env ruby
-# ^syntax detection
-
 require 'cookstyle'
 
 guard :rubocop, keep_failed: false, cli: '-r finstyle' do

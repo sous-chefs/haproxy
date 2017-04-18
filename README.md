@@ -5,6 +5,7 @@
 Installs haproxy and prepares the configuration location.
 
 ## Requirements
+
 - Chef 12.1+
 
 ### Platforms
@@ -35,7 +36,9 @@ Installs haproxy and prepares the configuration location.
   ```
 
 - `node['haproxy']['member_port']` - the port that member systems will be listening on if not otherwise specified in the members attribute, default 8080
+
 - `node['haproxy']['member_weight']` - the weight to apply to member systems if not otherwise specified in the members attribute, default 1
+
 - `node['haproxy']['app_server_role']` - used by the `app_lb` recipe to search for a specific role of member systems. Default `webserver`.
 - `node['haproxy']['balance_algorithm']` - sets the load balancing algorithm; defaults to roundrobin.
 - `node['haproxy']['enable_ssl']` - whether or not to create listeners for ssl, default false

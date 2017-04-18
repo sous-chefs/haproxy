@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 property :timeout, Hash, default: { client: '10s', server: '10s', connect: '10s' }
 property :name, String, name_property: true
 property :log, String, default: 'global'

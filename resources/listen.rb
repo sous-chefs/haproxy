@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 property :name, String, name_property: true
 property :mode, String, default: 'http', equal_to: %w(http tcp)
 property :bind, String, default: '0.0.0.0:80'

@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 property :install_type, String, name_property: true, equal_to: %w(package source)
 property :config_template_source, String, default: 'haproxy.cfg.erb'
 property :bin_prefix, String, default: '/usr'
