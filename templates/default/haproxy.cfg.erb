@@ -58,18 +58,18 @@ frontend <%= frontend %>
   <% unless f['bind'].empty? -%>bind <%= f['bind'] %><% end -%>
   <% unless f['maxconn'].empty? -%>maxconn <%= f['maxconn'] %><% end -%>
 
-  <% unless f['use_backend'].nil? %>
-  <% f['use_backend'].each do | backend |%>
-  <% backend.each do | backend | %>
-  use_backend <%= backend %>
-  <% end -%>
-  <% end -%>
-  <% end -%>
-
   <% unless f['acl'].nil? %>
   <% f['acl'].each do | acl |%>
   <% acl.each do | acl | %>
   acl <%= acl %>
+  <% end -%>
+  <% end -%>
+  <% end -%>
+
+  <% unless f['use_backend'].nil? %>
+  <% f['use_backend'].each do | backend |%>
+  <% backend.each do | backend | %>
+  use_backend <%= backend %>
   <% end -%>
   <% end -%>
   <% end -%>
@@ -120,7 +120,7 @@ backend <%= key %>
 
   <% unless backend['extra_options'].nil? %>
   <% backend['extra_options'].each do | key, value |%>
-  <%= key %><%= value %>
+  <%= key %> <%= value %>
   <% end -%>
   <% end -%>
 
