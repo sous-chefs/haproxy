@@ -4,7 +4,6 @@ driver:
 
 provisioner:
   name: chef_zero
-  deprecations_as_errors: true
 
 client_rb:
   treat_deprecation_warnings_as_errors: true
@@ -24,12 +23,7 @@ platforms:
   - name: oracle-6.8
   - name: oracle-7.3
   - name: ubuntu-14.04
-    driver:
-      box: bento/ubuntu-14.04
-
   - name: ubuntu-16.04
-    driver:
-      box: bento/ubuntu-16.04
 
 suites:
   - name: package
