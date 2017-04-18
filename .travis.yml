@@ -42,3 +42,4 @@ matrix:
   include:
     - script:
       - /opt/chefdk/bin/chef exec delivery local all
+    env: UNIT_AND_LINT=1
