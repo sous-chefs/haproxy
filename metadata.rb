@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 name              'haproxy'
 maintainer        'Sous Chefs'
 maintainer_email  'help@sous-chefs.org'
