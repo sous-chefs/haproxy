@@ -10,17 +10,10 @@ provisioner:
   name: dokken
 
 verifier:
-  name: inspec
+  root_path: '/opt/verifier'
+  sudo: false
 
 platforms:
-- name: debian-8
-  driver:
-    image: debian:8
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
-
 - name: centos-6
   driver:
     image: centos:6
@@ -42,7 +35,8 @@ platforms:
     image: fedora:25
     pid_one_command: /usr/lib/systemd/systemd
     intermediate_instructions:
-      - RUN dnf -y install yum which systemd-sysv initscripts wget net-tools
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
 - name: ubuntu-14.04
   driver:
