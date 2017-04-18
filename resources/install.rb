@@ -101,17 +101,13 @@ action :create do
       action :create
     end
 
-    service 'rsyslog' do
-    end
-
     template config_file do
       source 'haproxy.cfg.erb'
       owner new_resource.haproxy_user
       group new_resource.haproxy_group
       mode '0644'
       cookbook 'haproxy'
-      notifies :restart, 'poise_service[haproxy]', :delayed
-      notifies :restart, 'service[rsyslog]', :delayed
+      notifies :enable, 'poise_service[haproxy]', :immediately
       variables()
       action :nothing
       delayed_action :nothing
