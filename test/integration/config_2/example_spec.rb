@@ -32,3 +32,7 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(/backend abuser/) }
   its('content') { should match(%r{errorfile 403 /etc/haproxy/errors/403.http}) }
 end
+
+describe service('haproxy') do
+  it { should be_running }
+end
