@@ -5,7 +5,9 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 
 ## [Unreleased]
 ## [v4.0.0] (18-04-2017)
-- Custom Resource Rewrite
+- THIS IS GOING TO BREAK EVERYTHING YOU KNOW AND LOVE
+- 12.5 or greater rewrite
+- Custom Resource Only, no recipes
 
 ## [v3.0.4] (29-03-2017)
 - Fix bug introduced in #174 [#182][]
