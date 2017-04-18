@@ -20,13 +20,12 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(%r{acl bbox_request path_reg -i /bbox}) }
   its('content') { should match(/acl gina_host hdr\(host\) -i foo.bar.com/) }
   its('content') { should match(/acl rrhost_host hdr\(host\) -i dave.foo.bar.com foo.foo.com/) }
-  its('content') { should match(%r{acl tile_host hdr\(host\) -i -f /etc/haproxy/tile_domains.lst}) }
   its('content') { should match(/tcp-request connection track-sc1 src if !source_is_abuser/) }
   # Tiles Public
   its('content') { should match(/backend tiles_public/) }
   its('content') { should match /conn_rate_abuse sc2_conn_rate gt 3000/ }
   its('content') { should match /data_rate_abuse sc2_bytes_out_rate gt 20000000/ }
-  its('content') { should match /reject if conn_rate_abuse !authorized_network mark_as_abuser/ }
+  its('content') { should match /reject if conn_rate_abuse mark_as_abuser/ }
   its('content') { should match /tile0 10.0.0.10:80 check weight 1 maxconn 100/ }
   its('content') { should match /tile1/ }
 
