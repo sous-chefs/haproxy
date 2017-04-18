@@ -21,7 +21,7 @@ global
   <%= option %> <%= value %>
   <% end -%>
   <% end -%>
-  <% end -%>
+<% end -%>
 
 <% unless @defaults.nil? %>
 defaults
@@ -61,13 +61,13 @@ defaults
 <% @frontend.each do |frontend, f | %>
 frontend <%= frontend %>
   default_backend <%= f['default_backend'] %>
-  <% unless f['bind'].empty? -%>bind <%= f['bind'] %>
-  <% unless f['maxconn'].empty? -%>maxconn <%= f['maxconn'] %>
+  <% unless f['bind'].empty? -%>bind <%= f['bind'] %><% end -%>
+  <% unless f['maxconn'].empty? -%>maxconn <%= f['maxconn'] %><% end -%>
   <% unless f['http_request'].empty? -%>http_request<%= f['http_request'] %><% end -%>
   <% unless f['http_response'].empty? -%>http_response<%= f['http_response'] %><% end -%>
 
-  <% unless value['use_backend'].nil? %>
-  <% value['use_backend'].each do | backend |%>
+  <% unless f['use_backend'].nil? %>
+  <% f['use_backend'].each do | backend |%>
   <% backend.each do | backend | %>
   use_backend <%= backend %>
   <% end -%>
@@ -82,16 +82,16 @@ frontend <%= frontend %>
   <% end -%>
   <% end -%>
 
-  <% unless value['option'].nil? %>
-  <% value['option'].each do | option |%>
+  <% unless f['option'].nil? %>
+  <% f['option'].each do | option |%>
   <% option.each do | option | %>
   option <%= option %>
   <% end -%>
   <% end -%>
   <% end -%>
 
-  <% unless value['extra_options'].nil? %>
-  <% value['extra_options'].each do | key, value |%>
+  <% unless f['extra_options'].nil? %>
+  <% f['extra_options'].each do | key, value | %>
   <%= key %> <%= value %>
   <% end -%>
   <% end -%>
@@ -102,20 +102,22 @@ frontend <%= frontend %>
 <% unless @backend.nil? %>
 <% @backend.each do | key, backend | %>
 backend <%= key %>
-  <% unless listeners['server'].nil? %>
-  <% listeners['server'].each do | s |%>
-    <% s.each  do |server|%>
+  <% unless backend['server'].nil? %>
+  <% backend['server'].each do | s |%>
+  <% s.each  do |server|%>
   server <%= server %>
-    <% end -%>
   <% end -%>
   <% end -%>
-  <% unless listeners['acl'].nil? %>
-  <% listeners['acl'].each do | acl |%>
+  <% end -%>
+
+  <% unless backend['acl'].nil? %>
+  <% backend['acl'].each do | acl |%>
   <% acl.each do | acl | %>
   acl <%= acl %>
   <% end -%>
   <% end -%>
   <% end -%>
+
   <% unless backend['tcp_request'].nil? %>
   <% backend['tcp_request'].each do | tcp_request |%>
   <% tcp_request.each do | tcp_request | %>
@@ -123,11 +125,13 @@ backend <%= key %>
   <% end -%>
   <% end -%>
   <% end -%>
+
   <% unless backend['extra_options'].nil? %>
   <% backend['extra_options'].each do | key, value |%>
   <%= key %><%= value %>
   <% end -%>
   <% end -%>
+  
 <% end # backend loop -%>
 <% end # backend -%>
 

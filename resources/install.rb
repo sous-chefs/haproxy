@@ -104,6 +104,19 @@ action :create do
     service 'rsyslog' do
     end
 
+    template config_file do
+      source 'haproxy.cfg.erb'
+      owner new_resource.haproxy_user
+      group new_resource.haproxy_group
+      mode '0644'
+      cookbook 'haproxy'
+      notifies :restart, 'poise_service[haproxy]', :delayed
+      notifies :restart, 'service[rsyslog]', :delayed
+      variables()
+      action :nothing
+      delayed_action :nothing
+    end
+
     haproxy_poise_service_options = {
       sysvinit: {
         template: 'haproxy:haproxy-init.erb',
@@ -126,28 +139,15 @@ action :create do
         provider :systemd
         command "#{haproxy_systemd_wrapper} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS"
         options haproxy_poise_service_options[:systemd]
-        # action :enable
+        action :enable
       end
     else
       poise_service 'haproxy' do
         provider :sysvinit
         command ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy')
         options haproxy_poise_service_options[:sysvinit]
-        # action :enable
+        action :enable
       end
-    end
-
-    template config_file do
-      source 'haproxy.cfg.erb'
-      owner new_resource.haproxy_user
-      group new_resource.haproxy_group
-      mode '0644'
-      cookbook 'haproxy'
-      notifies :restart, 'poise_service[haproxy]', :delayed
-      notifies :restart, 'service[syslog]', :delayed
-      variables()
-      action :nothing
-      delayed_action :nothing
     end
   end
 end
