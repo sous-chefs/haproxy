@@ -1,0 +1,2 @@
+# let the init script to start haproxy.
+ENABLED=1

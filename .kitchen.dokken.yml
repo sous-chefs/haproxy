@@ -10,10 +10,17 @@ provisioner:
   name: dokken
 
 verifier:
-  root_path: '/opt/verifier'
-  sudo: false
+  name: inspec
 
 platforms:
+- name: debian-8
+  driver:
+    image: debian:8
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
+
 - name: centos-6
   driver:
     image: centos:6
@@ -30,20 +37,12 @@ platforms:
     intermediate_instructions:
       - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
 
-- name: debian-8
+- name: fedora-25
   driver:
-    image: debian:8
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
-
-- name: fedora-latest
-  driver:
-    image: fedora:latest
+    image: fedora:25
     pid_one_command: /usr/lib/systemd/systemd
     intermediate_instructions:
-      - RUN dnf -y install which systemd-sysv initscripts wget net-tools
+      - RUN dnf -y install yum which systemd-sysv initscripts wget net-tools
 
 - name: ubuntu-14.04
   driver:
@@ -71,13 +70,7 @@ platforms:
 suites:
 - name: package
   run_list:
-  - recipe[test]
+    - recipe[test::package]
 - name: source
   run_list:
-  - recipe[test]
-  attributes:
-    haproxy:
-      install_method: source
-- name: app_lb
-  run_list:
-  - recipe[haproxy::app_lb]
+    - recipe[test::source]

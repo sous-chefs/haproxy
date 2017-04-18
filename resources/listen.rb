@@ -1,0 +1,44 @@
+property :name, String, name_property: true
+property :mode, String, default: 'http', equal_to: %w(http tcp)
+property :bind, String, default: '0.0.0.0:80'
+property :maxconn, Integer, default: 2000
+property :stats_uri, String, default: '/'
+property :http_request, String
+property :http_response, String
+property :default_backend, String
+property :extra_options, Hash
+property :extra_options, Hash
+property :config_dir, String, default: '/etc/haproxy'
+property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+
+action :create do
+  # As we're using the accumulator pattern we need to shove everything
+  # into the root run context so each of the sections can find the parent
+  with_run_context :root do
+    edit_resource(:template, config_file) do |new_resource|
+      source 'haproxy.cfg.erb'
+      cookbook 'haproxy'
+      variables['listen'] ||= {}
+      variables['listen'][new_resource.name] ||= {}
+      variables['listen'][new_resource.name]['mode'] ||= ''
+      variables['listen'][new_resource.name]['mode'] << new_resource.mode
+      variables['listen'][new_resource.name]['bind'] ||= ''
+      variables['listen'][new_resource.name]['bind'] << new_resource.bind
+      variables['listen'][new_resource.name]['maxconn'] ||= ''
+      variables['listen'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s
+      variables['listen'][new_resource.name]['stats_uri'] ||= ''
+      variables['listen'][new_resource.name]['stats_uri'] << new_resource.stats_uri
+      variables['listen'][new_resource.name]['http_request'] ||= '' unless new_resource.http_request.nil?
+      variables['listen'][new_resource.name]['http_request'] << new_resource.http_request unless new_resource.http_request.nil?
+      variables['listen'][new_resource.name]['http_response'] ||= '' unless new_resource.http_response.nil?
+      variables['listen'][new_resource.name]['http_response'] << new_resource.http_response unless new_resource.http_response.nil?
+      variables['listen'][new_resource.name]['default_backend'] ||= '' unless new_resource.default_backend.nil?
+      variables['listen'][new_resource.name]['default_backend'] << new_resource.default_backend unless new_resource.default_backend.nil?
+      variables['listen'][new_resource.name]['extra_options'] ||= {} unless new_resource.extra_options.nil?
+      variables['listen'][new_resource.name]['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
+
+      action :nothing
+      delayed_action :create
+    end
+  end
+end
