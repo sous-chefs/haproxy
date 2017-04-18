@@ -11,28 +11,45 @@ global
   stats socket <%= @global['stats_socket'] %>
   stats timeout <%= @global['stats_timeout'] %>
   <% if @global['pidfile'] -%>pidfile <%= @global['pidfile'] %><% end -%>
-<% if !@global['tuning'].nil? %>
-  <% @global['tuning'].each do |option,value| -%>
+  <% unless @global['tuning'].nil? %>
+  <% @global['tuning'].each do | option, value | -%>
   tune.<%= option %> <%= value %>
   <% end -%>
-<% end -%>
-<% if !@global['extra_options'].nil? -%>
-  <% @global['extra_options'].each do |option,value| -%>
+  <% end -%>
+  <% unless @global['extra_options'].nil? -%>
+  <% @global['extra_options'].each do | option, value | -%>
   <%= option %> <%= value %>
   <% end -%>
-<% end -%>
-<% end -%>
+  <% end -%>
+  <% end -%>
 
 <% unless @defaults.nil? %>
 defaults
+  <% @defaults['timeout'].each do | key, timeout | -%>
+  timeout <%= key %> <%= timeout %>
+  <% end -%>
+  log <%= @defaults['log'] %>
   mode <%= @defaults['mode'] %>
+  <% unless @defaults['balance'].empty? -%>balance <%= @defaults['balance'] %><% end -%>
+  <% unless @defualts['option'].empty? -%>
+  <% @defaults['option'].each do | option | -%>
+  option <%= option %>
+  <% end -%>
+  <% end -%>
+
+  <% unless @defaults['status_uri'].empty? ->status_uri <% @defaults['status_uri'] =%><% end -%>
+  <% unless @defaults['status_user'].empty? ->status_user <% @defaults['status_user'] =%><% end -%>
+  <% unless @defaults['status_password'].empty? ->status_password <% @defaults['status_password'] =%><% end -%>
   <% unless @defaults['maxconn'].eql? '0' -%>maxconn <%= @defaults['maxconn'] %><% end -%>
   <% unless @defaults['retries'].eql? '0' -%>retries <%= @defaults['retries'] %><% end -%>
-  <% unless @defaults['balance'].eql? '' -%>balance <%= @defaults['balance'] %><% end -%>
-  log <%= @defaults['log'] %>
-  <% @defaults['timeouts'].each do | value, time | -%>
-  timeout <%= value %> <%= time %>
-  <% end -%>
+  <% unless @defaults['http_check_disable_on_404'].empty? -%>http-check-disable-on-404 <%= @defaults['http_check_disable_on_404'] %><% end -%>
+  <% unless @defaults['http-check_expect'].empty? -%>http-check-expect <%= @defaults['http_check_expect'] %><% end -%>
+  <% unless @defaults['http_check_send_state'].empty? -%>http-check-send-state <%= @defaults['http_check_send_state'] %><% end -%>
+  <% unless @defaults['http_request'].empty? -%>http-request <%= @defaults['http_request'] %><% end -%>
+  <% unless @defaults['http_response'].empty? -%>http-response <%= @defaults['http_response'] %><% end -%>
+  <% unless @defaults['http_reuse'].empty? -%>http-reuse <%= @defaults['http_reuse'] %><% end -%>
+  <% unless @defaults['http_send_name_header'].empty? -%>http-send-name-header <%= @defaults['http_send_name_header'] %><% end -%>
+
   <% unless @defaults['extra_options'].nil? %>
   <% @defaults['extra_options'].each do | option, value | -%>
   <%= option %> <%= value %>
@@ -40,28 +57,32 @@ defaults
   <% end -%>
 <% end -%>
 
-<% if !@frontend.nil? %>
-<% @frontend.each do |frontend, value | %>
+<% unless @frontend.nil? %>
+<% @frontend.each do |frontend, f | %>
 frontend <%= frontend %>
-  bind <%= value['bind'] %>
-  default_backend <%= value['default_backend'] %>
-  maxconn <%= value['maxconn'] %>
-  <% if !value['acl'].nil? %>
-  <% value['acl'].each do | acl |%>
-  <% acl.each do | acl | %>
-  acl <%= acl %>
-  <% end -%>
-  <% end -%>
-  <% end -%>
+  default_backend <%= f['default_backend'] %>
+  <% unless f['bind'].empty? -%>bind <%= f['bind'] %>
+  <% unless f['maxconn'].empty? -%>maxconn <%= f['maxconn'] %>
+  <% unless f['http_request'].empty? -%>http_request<%= f['http_request'] %><% end -%>
+  <% unless f['http_response'].empty? -%>http_response<%= f['http_response'] %><% end -%>
 
-  <% if !value['use_backend'].nil? %>
+  <% unless value['use_backend'].nil? %>
   <% value['use_backend'].each do | backend |%>
   <% backend.each do | backend | %>
   use_backend <%= backend %>
   <% end -%>
   <% end -%>
   <% end -%>
-  <% if !value['option'].nil? %>
+
+  <% unless f['acl'].nil? %>
+  <% f['acl'].each do | acl |%>
+  <% acl.each do | acl | %>
+  acl <%= acl %>
+  <% end -%>
+  <% end -%>
+  <% end -%>
+
+  <% unless value['option'].nil? %>
   <% value['option'].each do | option |%>
   <% option.each do | option | %>
   option <%= option %>
@@ -69,49 +90,48 @@ frontend <%= frontend %>
   <% end -%>
   <% end -%>
 
-  <% if !value['extra_options'].nil? %>
+  <% unless value['extra_options'].nil? %>
   <% value['extra_options'].each do | key, value |%>
   <%= key %> <%= value %>
   <% end -%>
   <% end -%>
 
-<% end #frontend loop -%>
-<% end #frontend -%>
+<% end # frontend loop -%>
+<% end # frontend -%>
 
-<% if !@backend.nil? %>
-<% @backend.each do | key, listeners | %>
+<% unless @backend.nil? %>
+<% @backend.each do | key, backend | %>
 backend <%= key %>
-  <% if !listeners['server'].nil? %>
+  <% unless listeners['server'].nil? %>
   <% listeners['server'].each do | s |%>
     <% s.each  do |server|%>
   server <%= server %>
     <% end -%>
   <% end -%>
   <% end -%>
-  <% if !listeners['acl'].nil? %>
+  <% unless listeners['acl'].nil? %>
   <% listeners['acl'].each do | acl |%>
   <% acl.each do | acl | %>
   acl <%= acl %>
   <% end -%>
   <% end -%>
   <% end -%>
-  <% if !listeners['tcp_request'].nil? %>
-  <% listeners['tcp_request'].each do | tcp_request |%>
+  <% unless backend['tcp_request'].nil? %>
+  <% backend['tcp_request'].each do | tcp_request |%>
   <% tcp_request.each do | tcp_request | %>
   tcp-request <%= tcp_request %>
   <% end -%>
   <% end -%>
   <% end -%>
-
-  <% if !listeners['extra_options'].nil? %>
-  <% listeners['extra_options'].each do | key, value |%>
-  <%= key %> <%= value %>
+  <% unless backend['extra_options'].nil? %>
+  <% backend['extra_options'].each do | key, value |%>
+  <%= key %><%= value %>
   <% end -%>
   <% end -%>
 <% end # backend loop -%>
 <% end # backend -%>
 
-<% if !@listen.nil? %>
+<% unless @listen.nil? %>
 <% @listen.each do | key, listen |%>
 listen <%= key %>
   mode <%= listen['mode']%>
@@ -122,10 +142,10 @@ listen <%= key %>
   <% if listen['http_response'] -%>http-request <% listen['http_response'] %><% end %>
   <% if listen['default_backend'] -%>http-request <% listen['default_backend'] %><% end %>
 
-  <% if !listen['extra_options'].nil? %>
+  <% unless listen['extra_options'].nil? %>
   <% listen['extra_options'].each do | key, value |%>
   <%= key %> <%= value %>
   <% end -%>
   <% end -%>
-<% end #listen loop -%>
-<% end # listen-%>
+<% end # listen loop -%>
+<% end # listen -%>

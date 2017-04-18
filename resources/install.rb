@@ -1,6 +1,8 @@
 property :install_type, String, name_property: true, equal_to: %w(package source)
 property :config_template_source, String, default: 'haproxy.cfg.erb'
 property :bin_prefix, String, default: '/usr'
+property :config_dir,  String, default: '/etc/haproxy'
+property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 
@@ -30,10 +32,6 @@ property :use_openssl,      String, equal_to: %w(0 1), default: '1'
 property :use_zlib,         String, equal_to: %w(0 1), default: '1'
 property :use_linux_tproxy, String, equal_to: %w(0 1), default: '1'
 property :use_linux_splice, String, equal_to: %w(0 1), default: '1'
-
-property :bin_prefix,  String, default: lazy { '/usr' }
-property :config_dir,  String, default: lazy { '/etc/haproxy' }
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
 action :create do
   poise_service_user new_resource.haproxy_user do

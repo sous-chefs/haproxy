@@ -32,6 +32,10 @@ action :create do
       variables['global']['pidfile'] << new_resource.pidfile
       variables['global']['log'] ||= ''
       variables['global']['log'] = new_resource.log
+      variables['global']['log_tag'] ||= ''
+      variables['global']['log_tag'] << new_resource.log_tag
+      variables['global']['chroot'] ||= '' unless new_resource.chroot.nil?
+      variables['global']['chroot'] << new_resource.chroot unless new_resource.chroot.nil?
       variables['global']['daemon'] ||= ''
       variables['global']['daemon'] << new_resource.daemon.to_s
       variables['global']['debug_option'] ||= ''
@@ -40,11 +44,6 @@ action :create do
       variables['global']['stats_socket'] << new_resource.stats_socket
       variables['global']['stats_timeout'] ||= ''
       variables['global']['stats_timeout'] << new_resource.stats_timeout
-      variables['global']['maxconn'] ||= new_resource.maxconn
-      variables['global']['chroot'] ||= '' unless new_resource.chroot.nil?
-      variables['global']['chroot'] << new_resource.chroot unless new_resource.chroot.nil?
-      variables['global']['log_tag'] ||= ''
-      variables['global']['log_tag'] << new_resource.log_tag
       variables['global']['tuning'] ||= {} unless new_resource.tuning.nil?
       variables['global']['tuning'] = new_resource.tuning unless new_resource.tuning.nil?
       variables['global']['extra_options'] ||= {} unless new_resource.extra_options.nil?

@@ -8,13 +8,13 @@ property :status_uri, String, default: '/haproxy-status'
 property :status_user, String, default: 'stats'
 property :status_password, String, default: 'stats'
 property :maxconn, Integer, default: 0
-property :http_check_disable_on_404, [TrueClass, FalseClass, nil], default: true
-property :http_check_expect, [String, nil]
-property :http_check_send_state, [TrueClass, FalseClass, nil]
-property :http_request, [String, nil]
-property :http_response, [String, nil]
-property :http_reuse, [String, nil], equal_to: %w(never safe aggressive always)
-property :http_send_name_header, [String, nil]
+property :http_check_disable_on_404, [true, false, nil], default: true
+property :http_check_expect, String
+property :http_check_send_state, [true, false, nil]
+property :http_request, String
+property :http_response, String
+property :http_reuse, String, equal_to: %w(never safe aggressive always)
+property :http_send_name_header, String
 property :extra_options, Hash
 property :haproxy_retries, Integer
 property :config_dir, String, default: '/etc/haproxy'
@@ -27,8 +27,8 @@ action :create do
     edit_resource(:template, config_file) do |new_resource|
       cookbook 'haproxy'
       variables['defaults'] ||= {}
-      variables['defaults']['timeouts'] ||= {}
-      variables['defaults']['timeouts'] = new_resource.timeout unless new_resource.timeout.nil?
+      variables['defaults']['timeout'] ||= {}
+      variables['defaults']['timeout'] = new_resource.timeout unless new_resource.timeout.nil?
       variables['defaults']['log'] ||= ''
       variables['defaults']['log'] << new_resource.log
       variables['defaults']['mode'] ||= ''
@@ -45,8 +45,8 @@ action :create do
       variables['defaults']['status_password'] << new_resource.status_password
       variables['defaults']['maxconn'] ||= '' unless new_resource.maxconn.nil?
       variables['defaults']['maxconn'] << new_resource.maxconn.to_s
-      variables['defaults']['retries'] ||= '' unless new_resource.retries.nil?
-      variables['defaults']['retries'] << new_resource.retries.to_s unless new_resource.retries.nil?
+      variables['defaults']['retries'] ||= '' unless new_resource.haproxy_retries.nil?
+      variables['defaults']['retries'] << new_resource.retries.to_s unless new_resource.haproxy_retries.nil?
       variables['defaults']['http_check_disable_on_404'] ||= ''
       variables['defaults']['http_check_disable_on_404'] << new_resource.http_check_disable_on_404.to_s
       variables['defaults']['http_check_expect'] ||= '' unless new_resource.http_check_expect.nil?
