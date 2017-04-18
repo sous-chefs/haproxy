@@ -19,3 +19,7 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(/backend servers/) }
   its('content') { should match(/server server1 127.0.0.1:8000 maxconn 32/) }
 end
+
+describe service('haproxy') do
+  it { should be_running }
+end

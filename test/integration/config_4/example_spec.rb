@@ -18,3 +18,7 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(/stats realm Haproxy-Statistics/) }
   its('content') { should match(/stats auth user:pwd/) }
 end
+
+describe service('haproxy') do
+  it { should be_running }
+end
