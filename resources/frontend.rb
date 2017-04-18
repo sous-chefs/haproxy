@@ -1,8 +1,6 @@
 property :name, String, name_property: true
 property :bind, String, default: '0.0.0.0:80'
 property :maxconn, Integer, default: 2000
-property :http_request, String
-property :http_response, String
 property :default_backend, String, required: true
 property :use_backend, Array
 property :acl, Array
@@ -25,10 +23,6 @@ action :create do
       variables['frontend'][new_resource.name]['bind'] << new_resource.bind
       variables['frontend'][new_resource.name]['maxconn'] ||= ''
       variables['frontend'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s
-      variables['frontend'][new_resource.name]['http_request'] ||= '' unless new_resource.http_request.nil?
-      variables['frontend'][new_resource.name]['http_request'] << new_resource.http_request unless new_resource.http_request.nil?
-      variables['frontend'][new_resource.name]['http_response'] ||= '' unless new_resource.http_response.nil?
-      variables['frontend'][new_resource.name]['http_response'] << new_resource.http_response unless new_resource.http_response.nil?
       variables['frontend'][new_resource.name]['use_backend'] ||= [] unless new_resource.use_backend.nil?
       variables['frontend'][new_resource.name]['use_backend'] << new_resource.use_backend unless new_resource.use_backend.nil?
       variables['frontend'][new_resource.name]['acl'] ||= [] unless new_resource.acl.nil?
