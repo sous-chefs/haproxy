@@ -5,7 +5,14 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 
 ## [Unreleased]
 ## [v4.0.0] (18-04-2017)
-- Custom Resource Rewrite
+- COMPATIBILIY WARNING!!!! This version removes the existing recipes, attributes, and instance provider in favor of the new
+  haproxy_install and haproxy_ configuration resources. Why not just leave them in place?
+  Well unfortunately they were utterly broken for anything other than the most trivial usage.
+  Rather than continue the user pain we've opted to remove them and point users to a more modern installation method.
+  If you need the legacy installation methods simply pin to the 3.0.4 release.
+- THIS IS GOING TO BREAK EVERYTHING YOU KNOW AND LOVE
+- 12.5 or greater rewrite
+- Custom Resource Only, no recipes
 
 ## [v3.0.4] (29-03-2017)
 - Fix bug introduced in #174 [#182][]
