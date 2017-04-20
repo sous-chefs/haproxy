@@ -2,7 +2,7 @@
 global
   user <%= @global['user'] %>
   group <%= @global['group'] %>
-  <% if @global['pid_file'] -%>pidfile <% @global['pid_file'] %><% end %>
+  <% if @global['pid_file'] -%>pidfile <%= @global['pid_file'] %><% end %>
   log <%= @global['log'] %>
   <% if @global['log_tag'] -%>log-tag <%= @global['log_tag'] %><% end -%>
   <% if @global['chroot'] -%>chroot <%= @global['chroot'] %><% end -%>
