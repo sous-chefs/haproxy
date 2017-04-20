@@ -16,3 +16,4 @@ end
 depends           'cpu', '>= 0.2.0'
 depends           'build-essential'
 depends           'poise-service'
+depends           'compat_resource', '>= 12.16'

@@ -21,6 +21,7 @@ env:
   matrix:
   - INSTANCE=package-centos-6
   - INSTANCE=package-centos-7
+  - INSTANCE=package-centos-7 CHEF_VERSION=12.19.36
   - INSTANCE=package-debian-8
   - INSTANCE=package-ubuntu-1404
   - INSTANCE=package-ubuntu-1604
