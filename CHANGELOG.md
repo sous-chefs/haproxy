@@ -4,8 +4,11 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 
 
 ## [Unreleased]
+
+## [v4.0.1] (20-04-2017)
 - Updating README.md
 - Adding compat_resource for chef-12 support
+- Improved rendering of the configuration file [#96]
 
 ## [v4.0.0] (18-04-2017)
 - COMPATIBILIY WARNING!!!! This version removes the existing recipes, attributes, and instance provider in favor of the new
@@ -235,7 +238,8 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[Unreleased]: https://github.com/sous-chefs/haproxy/compare/v4.0.0...HEAD
+[Unreleased]: https://github.com/sous-chefs/haproxy/compare/v4.0.1...HEAD
+[v4.0.1]: https://github.com/sous-chefs/haproxy/compare/v4.0.0...v4.0.1
 [v4.0.0]: https://github.com/sous-chefs/haproxy/compare/v3.0.4...v4.0.0
 [v3.0.4]: https://github.com/sous-chefs/haproxy/compare/v3.0.3...v3.0.4
 [v3.0.3]: https://github.com/sous-chefs/haproxy/compare/v3.0.2...v3.0.3
