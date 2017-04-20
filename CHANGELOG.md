@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 
 
 ## [Unreleased]
+- Updating README.md
+- Adding compat_resource for chef-12 support
+
 ## [v4.0.0] (18-04-2017)
 - COMPATIBILIY WARNING!!!! This version removes the existing recipes, attributes, and instance provider in favor of the new
   haproxy_install and haproxy_ configuration resources. Why not just leave them in place?
