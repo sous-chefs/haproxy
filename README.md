@@ -38,14 +38,14 @@ haproxy_config_global '' do
 end
 ```
 
-````ruby
+```ruby
 haproxy_config_defaults '' do
   mode 'http'
   timeout connect: '5000ms',
           client: '5000ms',
           server: '5000ms'
 end
-```ruby
+```
 
 ```ruby
 haproxy_frontend 'http-in' do
