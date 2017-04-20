@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the haproxy cookbook. 
 
 
 ## [Unreleased]
+## [v4.0.1] (20-04-2017)
+- Improved rendering of the configuration file [#96]
+
 ## [v4.0.0] (18-04-2017)
 - COMPATIBILIY WARNING!!!! This version removes the existing recipes, attributes, and instance provider in favor of the new
   haproxy_install and haproxy_ configuration resources. Why not just leave them in place?
