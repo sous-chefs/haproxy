@@ -52,7 +52,7 @@ haproxy_frontend 'http-in' do
   bind '*:80'
   default_backend 'servers'
 end
-````
+```
 
 ```ruby
 haproxy_backend 'servers' do
