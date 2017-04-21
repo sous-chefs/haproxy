@@ -3,7 +3,9 @@
 This file is used to list changes made in each version of the haproxy cookbook. (@sun77)
 
 
-## [Unreleased]
+## [v4.0.2] (21-04-2017)
+- Fix haproxy service start on Ubuntu 14.04 #199
+- Reload HAProxy when changing configuration #197
 
 ## [v4.0.1] (20-04-2017)
 - Updating README.md
