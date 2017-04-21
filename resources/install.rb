@@ -136,6 +136,14 @@ action :create do
                 pid_file: '/var/run/haproxy.pid'
         action :nothing
       end
+
+      cookbook_file '/etc/default/haproxy' do
+        cookbook 'haproxy'
+        source 'haproxy-default'
+        owner 'root'
+        group 'root'
+        mode '0644'
+      end
     end
   end
 end
