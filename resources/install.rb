@@ -107,7 +107,7 @@ action :create do
       group new_resource.haproxy_group
       mode '0644'
       cookbook 'haproxy'
-      notifies :enable, 'poise_service[haproxy]', :immediately
+      notifies :restart, 'poise_service[haproxy]', :immediately
       variables()
       action :nothing
       delayed_action :nothing
