@@ -108,6 +108,7 @@ action :create do
       mode '0644'
       cookbook 'haproxy'
       notifies :enable, 'poise_service[haproxy]', :immediately
+      notifies :restart, 'poise_service[haproxy]', :delayed
       variables()
       action :nothing
       delayed_action :nothing
