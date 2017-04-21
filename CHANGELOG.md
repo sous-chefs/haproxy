@@ -1,6 +1,6 @@
 # haproxy Cookbook CHANGELOG
 
-This file is used to list changes made in each version of the haproxy cookbook. (@sun77)
+This file is used to list changes made in each version of the haproxy cookbook.
 
 
 ## [v4.0.2] (21-04-2017)
