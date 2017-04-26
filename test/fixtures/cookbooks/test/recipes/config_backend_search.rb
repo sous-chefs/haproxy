@@ -27,7 +27,6 @@ end
 environment = node.chef_environment
 role = 'app'
 app_backends = search(:node, "roles:#{role} AND chef_environment:#{environment}")
-Chef::Log.info "AAA: #{app_backends.inspect}"
 server_array = ["disabled-server 127.0.0.1:1 disabled"]
 
 app_backends.each do |be|
