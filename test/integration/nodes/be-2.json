@@ -1,0 +1,9 @@
+{
+  "id": "be-2",
+  "run_list": ["role[app]"],
+  "automatic": {
+    "hostname": "be-2",
+    "ipaddress": "10.0.0.76",
+    "roles": ["app"]
+  }
+}

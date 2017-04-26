@@ -45,3 +45,6 @@ suites:
     run_list:
       - recipe[test::config_4]
     includes: centos-7.3
+  - name: config_backend_search
+    run_list:
+      - recipe[test::config_backend_search]
