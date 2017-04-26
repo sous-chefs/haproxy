@@ -27,7 +27,7 @@ end
 environment = node.chef_environment
 role = 'app'
 app_backends = search(:node, "roles:#{role} AND chef_environment:#{environment}")
-server_array = ["disabled-server 127.0.0.1:1 disabled"]
+server_array = ['disabled-server 127.0.0.1:1 disabled']
 
 app_backends.each do |be|
   server_array.push("#{be['hostname']} #{be['ipaddress']}:8000 maxconn 32")
