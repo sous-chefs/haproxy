@@ -19,17 +19,16 @@ action :create do
       variables['frontend'][new_resource.name] ||= {}
       variables['frontend'][new_resource.name]['default_backend'] ||= ''
       variables['frontend'][new_resource.name]['default_backend'] << new_resource.default_backend
+      variables['frontend'][new_resource.name]['bind'] = []
       if new_resource.bind.is_a? Hash
-        variables['frontend'][new_resource.name]['bind'] = []
         new_resource.bind.map do |addresses, ports|
           addresses = Array(addresses) unless addresses.is_a? Array
           ports = Array(ports) unless ports.is_a? Array
           (Array(addresses).product Array(ports)).each do |combo|
-            variables['frontend'][new_resource.name]['bind'] << "#{combo.join(':')}"
+            variables['frontend'][new_resource.name]['bind'] << combo.join(':')
           end
         end
       else
-        variables['frontend'][new_resource.name]['bind'] ||= []
         variables['frontend'][new_resource.name]['bind'] << new_resource.bind
       end
       variables['frontend'][new_resource.name]['maxconn'] ||= ''
