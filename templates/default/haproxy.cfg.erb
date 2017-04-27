@@ -82,10 +82,8 @@ userlist <%= userlist %>
 
 frontend <%= frontend %>
   default_backend <%= f['default_backend'] %>
-<% unless f['bind'].empty? -%>
 <% f['bind'].each do |binding| -%>
   bind <%= binding %>
-<% end -%>
 <% end -%>
 <% unless f['maxconn'].empty? -%>
   maxconn <%= f['maxconn'] %>
@@ -157,10 +155,8 @@ backend <%= key %>
 
 listen <%= key %>
   mode <%= listen['mode']%>
-<% unless listen['bind'].empty? -%>
 <% listen['bind'].each do |binding| -%>
   bind <%= binding %>
-<% end -%>
 <% end -%>
   maxconn <%= listen['maxconn']%>
   stats uri <%= listen['stats_uri']%>
