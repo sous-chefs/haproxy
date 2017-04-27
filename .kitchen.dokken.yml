@@ -74,3 +74,7 @@ suites:
 - name: source
   run_list:
     - recipe[test::source]
+   attributes:
+     haproxy:
+       source_url: http://ps-cf.rightscale.com/haproxy/haproxy-1.7.5.tar.gz
+       source_checksum: b04d7db6383c662eb0a421a95af7becac6d9744a1abf0df6b0280c1e61416121
