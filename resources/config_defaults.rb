@@ -33,7 +33,7 @@ action :create do
       variables['defaults']['maxconn'] ||= '' unless new_resource.maxconn.nil?
       variables['defaults']['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
       variables['defaults']['retries'] ||= '' unless new_resource.haproxy_retries.nil?
-      variables['defaults']['retries'] << new_resource.retries.to_s unless new_resource.haproxy_retries.nil?
+      variables['defaults']['retries'] << new_resource.haproxy_retries.to_s unless new_resource.haproxy_retries.nil?
       variables['defaults']['extra_options'] ||= {} unless new_resource.extra_options.nil?
       variables['defaults']['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
 

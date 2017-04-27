@@ -17,6 +17,7 @@ haproxy_config_defaults 'defaults' do
   timeout connect: '5000ms',
           client: '5000ms',
           server: '5000ms'
+  haproxy_retries 5
 end
 
 haproxy_frontend 'http-in' do
