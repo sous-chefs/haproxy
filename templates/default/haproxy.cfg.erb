@@ -64,6 +64,14 @@ defaults
 <% end -%>
 <% end -%>
 
+<% unless @userlist.nil? %>
+<% @userlist.each do |userlist, u| %>
+userlist <%= userlist %>
+<% u.each do |type,i| -%>
+  <%= type %> <%= i %>
+<% end -%>
+<% end -%>
+
 <% unless @frontend.nil? %>
 <% @frontend.each do |frontend, f | %>
 
