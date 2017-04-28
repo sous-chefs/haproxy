@@ -81,16 +81,20 @@ suites:
 - name: config_1
   run_list:
     - recipe[test::config_1]
-  includes: centos-7.3
+  includes: centos-7
 - name: config_2
   run_list:
     - recipe[test::config_2]
-  includes: centos-7.3
+  includes: centos-7
 - name: config_4
   run_list:
     - recipe[test::config_4]
-  includes: centos-7.3
+  includes: centos-7
 - name: config_backend_search
   run_list:
     - recipe[test::config_backend_search]
-  includes: centos-7.3
+  includes: centos-7
+- name: config_1_userlist
+  run_list:
+    - recipe[test::config_1_userlist]
+  includes: centos-7

@@ -68,7 +68,11 @@ defaults
 <% @userlist.each do |userlist, u| %>
 userlist <%= userlist %>
 <% u.each do |type,i| -%>
-  <%= type %> <%= i %>
+<% i.each do |item| -%>
+<% item.each do |k,v| %>
+  <%= type %> <%=k%> <%= v %>
+<% end -%> 
+<% end -%>
 <% end -%>
 <% end -%>
 <% end -%>

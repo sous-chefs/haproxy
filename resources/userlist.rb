@@ -1,6 +1,8 @@
 property :name, String, name_property: true
-property :type, String, equal_to: %w(user group)
-property :list_item, String, required: true
+property :group, Hash
+property :user, Hash
+property :config_dir, String, default: '/etc/haproxy'
+property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
 action :create do
   # As we're using the accumulator pattern we need to shove everything
@@ -10,8 +12,13 @@ action :create do
       cookbook 'haproxy'
       variables['userlist'] ||= {}
       variables['userlist'][new_resource.name] ||= {}
-      variables['userlist'][new_resource.name][new_resource.type] ||= []
-      variables['userlist'][new_resource.name][new_resource.type] << new_resource.list_item
+      variables['userlist'][new_resource.name]['group'] ||= []
+      variables['userlist'][new_resource.name]['group'] << new_resource.group unless new_resource.group.nil?
+      variables['userlist'][new_resource.name]['user'] ||= []
+      variables['userlist'][new_resource.name]['user'] << new_resource.user unless new_resource.user.nil?
+
+      action :nothing
+      delayed_action :create
     end
   end
 end
