@@ -78,3 +78,23 @@ suites:
     haproxy:
       source_url: <%= ENV['HAPROXY_SOURCE_URL'].nil? ? 'http://www.haproxy.org/download/1.7/src/haproxy-1.7.5.tar.gz' : ENV['HAPROXY_SOURCE_URL'] %>
       source_checksum: <%= ENV['HAPROXY_SOURCE_CHECKSUM'].nil? ? 'b04d7db6383c662eb0a421a95af7becac6d9744a1abf0df6b0280c1e61416121' : ENV['HAPROXY_SOURCE_CHECKSUM'] %>
+- name: config_1
+  run_list:
+    - recipe[test::config_1]
+  includes: centos-7
+- name: config_2
+  run_list:
+    - recipe[test::config_2]
+  includes: centos-7
+- name: config_4
+  run_list:
+    - recipe[test::config_4]
+  includes: centos-7
+- name: config_backend_search
+  run_list:
+    - recipe[test::config_backend_search]
+  includes: centos-7
+- name: config_1_userlist
+  run_list:
+    - recipe[test::config_1_userlist]
+  includes: centos-7
