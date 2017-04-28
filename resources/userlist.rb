@@ -1,5 +1,5 @@
 property :name, String, name_property: true
-property :type, String, equal_to: ['user', 'group']
+property :type, String, equal_to: %w(user group)
 property :list_item, String, required: true
 
 action :create do
