@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## Unreleased
+- Adding userlist resource, to see usage: `test/fixtures/cookbooks/test/recipes/config_1_userlist.rb`
+- fixing haproxy_retries in haproxy_config_defaults resource
+- updating source install test to take node attributes as haproxy.org is slow.
+- added chef-search example in: `test/fixtures/cookbooks/test/recipes/config_backend_search.rb`
 
 ## [v4.0.2] (21-04-2017)
 - Fix haproxy service start on Ubuntu 14.04 #199
