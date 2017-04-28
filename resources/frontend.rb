@@ -22,8 +22,6 @@ action :create do
       variables['frontend'][new_resource.name]['bind'] = []
       if new_resource.bind.is_a? Hash
         new_resource.bind.map do |addresses, ports|
-          addresses = Array(addresses) unless addresses.is_a? Array
-          ports = Array(ports) unless ports.is_a? Array
           (Array(addresses).product Array(ports)).each do |combo|
             variables['frontend'][new_resource.name]['bind'] << combo.join(':')
           end
