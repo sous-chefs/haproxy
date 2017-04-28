@@ -22,7 +22,7 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(/userlist mylist/) }
   its('content') { should match(/  group G1 users tiger,scott/) }
   its('content') { should match(/  group G2 users xdb,scott/) }
-#  its('content') { should match(%r{user tiger password $6$k6y3o.eP$JlKBx9za9667qe4(...)xHSwRv6J.C0/D7cV91}) } # commented until I figure out the regex
+  #  its('content') { should match(%r{user tiger password $6$k6y3o.eP$JlKBx9za9667qe4(...)xHSwRv6J.C0/D7cV91}) } # commented until I figure out the regex
   its('content') { should match(/  user scott insecure-password elgato/) }
   its('content') { should match(/  user xdb insecure-password hello/) }
 end
