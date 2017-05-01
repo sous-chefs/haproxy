@@ -3,10 +3,13 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
+
+## [v4.1.0]
 - Adding userlist resource, to see usage: `test/fixtures/cookbooks/test/recipes/config_1_userlist.rb`
 - fixing haproxy_retries in haproxy_config_defaults resource
 - updating source install test to take node attributes as haproxy.org is slow.
 - added chef-search example in: `test/fixtures/cookbooks/test/recipes/config_backend_search.rb`
+- Multiple addresses and ports on listener and frontend #205
 
 ## [v4.0.2] (21-04-2017)
 - Fix haproxy service start on Ubuntu 14.04 #199
@@ -245,7 +248,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[Unreleased]: https://github.com/sous-chefs/haproxy/compare/v4.0.2...HEAD
+[Unreleased]: https://github.com/sous-chefs/haproxy/compare/v4.1.0...HEAD
+[v4.1.0]: https://github.com/sous-chefs/haproxy/compare/v4.0.2...v4.1.0
 [v4.0.2]: https://github.com/sous-chefs/haproxy/compare/v4.0.1...v4.0.2
 [v4.0.1]: https://github.com/sous-chefs/haproxy/compare/v4.0.0...v4.0.1
 [v4.0.0]: https://github.com/sous-chefs/haproxy/compare/v3.0.4...v4.0.0
