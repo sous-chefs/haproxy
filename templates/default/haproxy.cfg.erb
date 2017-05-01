@@ -89,7 +89,7 @@ frontend <%= frontend %>
   maxconn <%= f['maxconn'] %>
 <% end -%>
 <% unless f['acl'].nil? %>
-<% f['acl'].flatten.each do | acl |%>
+<% f['acl'].flatten.uniq.each do | acl |%>
   acl <%= acl %>
 <% end -%>
 <% end -%>
@@ -127,7 +127,7 @@ backend <%= key %>
 <% end -%>
 <% end -%>
 <% unless backend['acl'].nil? %>
-<% backend['acl'].flatten.each do | acl |%>
+<% backend['acl'].flatten.uniq.each do | acl |%>
   acl <%= acl %>
 <% end -%>
 <% end -%>
@@ -165,6 +165,18 @@ listen <%= key %>
 <% if listen['default_backend'] -%>
   default_backend <% listen['default_backend'] %>
 <% end %>
+<% unless listen['acl'].nil? %>
+<% listen['acl'].flatten.uniq.each do | acl |%>
+  acl <%= acl %>
+<% end -%>
+<% end -%>
+<% unless listen['use_backend'].nil? %>
+<% listen['use_backend'].each do | backend |%>
+<% backend.each do | backend | %>
+  use_backend <%= backend %>
+<% end -%>
+<% end -%>
+<% end -%>
 
 <% unless listen['extra_options'].nil? %>
 <% listen['extra_options'].each do | key, value |%>
