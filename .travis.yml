@@ -34,6 +34,8 @@ env:
   - INSTANCE=config-4-centos-7
   - INSTANCE=config-backend-search-centos-7
   - INSTANCE=config-1-userlist-centos-7
+  - INSTANCE=config-acl-centos-7
+
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
