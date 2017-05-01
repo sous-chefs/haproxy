@@ -16,7 +16,11 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(/daemon/) }
   its('content') { should match(/timeout connect 5000ms/) }
   its('content') { should match(/frontend http-in/) }
+  its('content') { should match(/frontend multiport/) }
   its('content') { should match(/bind \*:80/) }
+  its('content') { should match(/bind \*:8080/) }
+  its('content') { should match(/bind 0.0.0.0:8081/) }
+  its('content') { should match(/bind 0.0.0.0:8180/) }
   its('content') { should match(/backend servers/) }
   its('content') { should match(/server server1 127.0.0.1:8000 maxconn 32/) }
 end

@@ -1,5 +1,5 @@
 property :name, String, name_property: true
-property :bind, String, default: '0.0.0.0:80'
+property :bind, [String, Hash], default: '0.0.0.0:80'
 property :maxconn, Integer, default: 2000
 property :default_backend, String, required: true
 property :use_backend, Array
@@ -19,8 +19,16 @@ action :create do
       variables['frontend'][new_resource.name] ||= {}
       variables['frontend'][new_resource.name]['default_backend'] ||= ''
       variables['frontend'][new_resource.name]['default_backend'] << new_resource.default_backend
-      variables['frontend'][new_resource.name]['bind'] ||= ''
-      variables['frontend'][new_resource.name]['bind'] << new_resource.bind
+      variables['frontend'][new_resource.name]['bind'] = []
+      if new_resource.bind.is_a? Hash
+        new_resource.bind.map do |addresses, ports|
+          (Array(addresses).product Array(ports)).each do |combo|
+            variables['frontend'][new_resource.name]['bind'] << combo.join(':')
+          end
+        end
+      else
+        variables['frontend'][new_resource.name]['bind'] << new_resource.bind
+      end
       variables['frontend'][new_resource.name]['maxconn'] ||= ''
       variables['frontend'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s
       variables['frontend'][new_resource.name]['use_backend'] ||= [] unless new_resource.use_backend.nil?

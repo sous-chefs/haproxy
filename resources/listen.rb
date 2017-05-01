@@ -1,6 +1,6 @@
 property :name, String, name_property: true
 property :mode, String, default: 'http', equal_to: %w(http tcp)
-property :bind, String, default: '0.0.0.0:80'
+property :bind, [String, Hash], default: '0.0.0.0:80'
 property :maxconn, Integer, default: 2000
 property :stats_uri, String, default: '/'
 property :http_request, String
@@ -22,8 +22,16 @@ action :create do
       variables['listen'][new_resource.name] ||= {}
       variables['listen'][new_resource.name]['mode'] ||= ''
       variables['listen'][new_resource.name]['mode'] << new_resource.mode
-      variables['listen'][new_resource.name]['bind'] ||= ''
-      variables['listen'][new_resource.name]['bind'] << new_resource.bind
+      variables['listen'][new_resource.name]['bind'] ||= []
+      if new_resource.bind.is_a? Hash
+        new_resource.bind.map do |addresses, ports|
+          (Array(addresses).product Array(ports)).each do |combo|
+            variables['listen'][new_resource.name]['bind'] << combo.join(':')
+          end
+        end
+      else
+        variables['listen'][new_resource.name]['bind'] << new_resource.bind
+      end
       variables['listen'][new_resource.name]['maxconn'] ||= ''
       variables['listen'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s
       variables['listen'][new_resource.name]['stats_uri'] ||= ''
