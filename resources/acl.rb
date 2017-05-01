@@ -12,8 +12,7 @@ action :create do
       cookbook 'haproxy'
       variables[new_resource.section] ||= {}
       variables[new_resource.section][new_resource.section_name]['acl'] ||= []
-      variables[new_resource.section][new_resource.section_name]['acl'] << new_resource.acl if new_resource.is_a? String
-      variables[new_resource.section][new_resource.section_name]['acl'] += new_resource.acl if new_resource.is_a? Array
+      variables[new_resource.section][new_resource.section_name]['acl'] += Array(new_resource.acl)
 
       action :nothing
       delayed_action :create

@@ -89,10 +89,8 @@ frontend <%= frontend %>
   maxconn <%= f['maxconn'] %>
 <% end -%>
 <% unless f['acl'].nil? %>
-<% f['acl'].each do | acl |%>
-<% acl.each do | acl | %>
+<% f['acl'].flatten.each do | acl |%>
   acl <%= acl %>
-<% end -%>
 <% end -%>
 <% end -%>
 <% unless f['use_backend'].nil? %>
@@ -129,10 +127,8 @@ backend <%= key %>
 <% end -%>
 <% end -%>
 <% unless backend['acl'].nil? %>
-<% backend['acl'].each do | acl |%>
-<% acl.each do | acl | %>
+<% backend['acl'].flatten.each do | acl |%>
   acl <%= acl %>
-<% end -%>
 <% end -%>
 <% end -%>
 <% unless backend['tcp_request'].nil? %>
