@@ -32,6 +32,16 @@ describe file('/etc/haproxy/haproxy.cfg') do
 
   its('content') { should match(/backend abuser/) }
   its('content') { should match(%r{errorfile 403 /etc/haproxy/errors/403.http}) }
+  
+  its('content') { should match(/listen admin/) }
+  its('content') { should match(/bind 0.0.0.0:1337/) }
+  its('content') { should match(/mode http/) }
+  its('content') { should match(/acl network_allowed src 127.0.0.1/) }
+  its('content') { should match(/acl restricted_page path_beg /) }
+  its('content') { should match(/block if restricted_page !network_allowed/) }
+  its('content') { should match(%r{stats uri /}) }
+  its('content') { should match(/stats realm Haproxy-Statistics/) }
+  its('content') { should match(/stats auth user:pwd/) }
 end
 
 describe service('haproxy') do

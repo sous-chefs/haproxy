@@ -97,3 +97,24 @@ haproxy_backend 'gina' do
   server ['tile0 10.0.0.10:80 check weight 1 maxconn 100',
           'tile1 10.0.0.10:80 check weight 1 maxconn 100']
 end
+
+haproxy_listen 'admin' do
+  bind '0.0.0.0:1337'
+  mode 'http'
+  stats_uri '/'
+  extra_options('stats realm' => 'Haproxy-Statistics',
+                'stats auth' => 'user:pwd',
+                'block if restricted_page' => '!network_allowed'
+  )         
+end
+
+haproxy_acl 'acls for listen' do
+  section 'listen'
+  section_name 'admin'
+  acl [ 'network_allowed src 127.0.0.1' ]
+end
+
+haproxy_acl 'restricted_page path_beg /' do
+  section 'listen'
+  section_name 'admin'
+end
