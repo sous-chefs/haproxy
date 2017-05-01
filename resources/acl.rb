@@ -1,5 +1,5 @@
-property :acl, [String,Array], name_property: true
-property :section, String, required: true, equal_to: ['frontend','listen','backend']
+property :acl, [String, Array], name_property: true
+property :section, String, required: true, equal_to: %w(frontend listen backend)
 property :section_name, String, required: true
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }

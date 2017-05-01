@@ -55,8 +55,8 @@ haproxy_acl 'acls for frontend:http' do
   section 'frontend'
   section_name 'http'
   acl [
-  'rrhost_host hdr(host) -i dave.foo.bar.com foo.foo.com',
-  'tile_host hdr(host) -i dough.foo.bar.com',
+    'rrhost_host hdr(host) -i dave.foo.bar.com foo.foo.com',
+    'tile_host hdr(host) -i dough.foo.bar.com',
   ]
 end
 
@@ -65,7 +65,7 @@ haproxy_use_backend 'use_backends for frontend:http' do
   section_name 'http'
   use_backend [
     'rrhost if rrhost_host',
-    'tiles_public if tile_host'
+    'tiles_public if tile_host',
   ]
 end
 
