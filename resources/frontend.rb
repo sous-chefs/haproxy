@@ -5,6 +5,7 @@ property :default_backend, String, required: true
 property :use_backend, Array
 property :acl, Array
 property :option, Array
+property :stats, Hash, default: {}
 property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
@@ -29,6 +30,9 @@ action :create do
       else
         variables['frontend'][new_resource.name]['bind'] << new_resource.bind
       end
+      variables['frontend'][new_resource.name]['stats'] ||= {}
+      variables['frontend'][new_resource.name]['stats'].merge!(new_resource.stats)
+
       variables['frontend'][new_resource.name]['maxconn'] ||= ''
       variables['frontend'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s
       variables['frontend'][new_resource.name]['use_backend'] ||= [] unless new_resource.use_backend.nil?

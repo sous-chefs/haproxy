@@ -8,7 +8,7 @@ haproxy_config_global '' do
   log '/dev/log local0'
   log_tag 'WARDEN'
   pidfile '/var/run/haproxy.pid'
-  stats_socket '/var/lib/haproxy/stats level admin'
+  stats socket: '/var/lib/haproxy/stats level admin'
   tuning 'bufsize' => '262144'
 end
 

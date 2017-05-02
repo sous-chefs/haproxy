@@ -8,6 +8,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Cleaned up arrays in `templates/default/haproxy.cfg.erb`
 - Added `acl` and `use_backend` to `listen` resource.
 
+- BREAKING CHANGES: This version removes `stats_socket`, `stats_uri` and `stats_timeout` properties from the `haproxy_global` and `haproxy_listen` resources in favor of using a hash to pass configuration options.
+
 ## [v4.1.0]
 - Adding `userlist` resource, to see usage: `test/fixtures/cookbooks/test/recipes/config_1_userlist.rb`
 - fixing haproxy_retries in haproxy_config_defaults resource

@@ -2,7 +2,7 @@ property :name, String, name_property: true
 property :mode, String, default: 'http', equal_to: %w(http tcp)
 property :bind, [String, Hash], default: '0.0.0.0:80'
 property :maxconn, Integer, default: 2000
-property :stats_uri, String, default: '/'
+property :stats, Hash, default: {}
 property :http_request, String
 property :http_response, String
 property :default_backend, String
@@ -35,8 +35,8 @@ action :create do
       end
       variables['listen'][new_resource.name]['maxconn'] ||= ''
       variables['listen'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s
-      variables['listen'][new_resource.name]['stats_uri'] ||= ''
-      variables['listen'][new_resource.name]['stats_uri'] << new_resource.stats_uri
+      variables['listen'][new_resource.name]['stats'] ||= {}
+      variables['listen'][new_resource.name]['stats'].merge!(new_resource.stats)
       variables['listen'][new_resource.name]['http_request'] ||= '' unless new_resource.http_request.nil?
       variables['listen'][new_resource.name]['http_request'] << new_resource.http_request unless new_resource.http_request.nil?
       variables['listen'][new_resource.name]['http_response'] ||= '' unless new_resource.http_response.nil?

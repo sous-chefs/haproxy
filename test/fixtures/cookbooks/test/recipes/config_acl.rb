@@ -14,8 +14,8 @@ haproxy_config_global 'global' do
   daemon false
   maxconn 4096
   chroot '/var/lib/haproxy'
-  stats_socket '/var/lib/haproxy/haproxy.stat mode 600 level admin'
-  stats_timeout '2m'
+  stats socket: '/var/lib/haproxy/haproxy.stat mode 600 level admin',
+        timeout: '2m'
 end
 
 haproxy_config_defaults 'defaults' do
@@ -101,11 +101,10 @@ end
 haproxy_listen 'admin' do
   bind '0.0.0.0:1337'
   mode 'http'
-  stats_uri '/'
-  extra_options('stats realm' => 'Haproxy-Statistics',
-                'stats auth' => 'user:pwd',
-                'block if restricted_page' => '!network_allowed'
-               )
+  stats uri: '/',
+        realm: 'Haproxy-Statistics',
+        auth: 'user:pwd'
+  extra_options('block if restricted_page' => '!network_allowed')
 end
 
 haproxy_acl 'acls for listen' do
