@@ -105,13 +105,13 @@ haproxy_listen 'admin' do
   extra_options('stats realm' => 'Haproxy-Statistics',
                 'stats auth' => 'user:pwd',
                 'block if restricted_page' => '!network_allowed'
-  )         
+               )
 end
 
 haproxy_acl 'acls for listen' do
   section 'listen'
   section_name 'admin'
-  acl [ 'network_allowed src 127.0.0.1' ]
+  acl ['network_allowed src 127.0.0.1']
 end
 
 haproxy_acl 'restricted_page path_beg /' do

@@ -32,7 +32,7 @@ describe file('/etc/haproxy/haproxy.cfg') do
 
   its('content') { should match(/backend abuser/) }
   its('content') { should match(%r{errorfile 403 /etc/haproxy/errors/403.http}) }
-  
+
   its('content') { should match(/listen admin/) }
   its('content') { should match(/bind 0.0.0.0:1337/) }
   its('content') { should match(/mode http/) }
