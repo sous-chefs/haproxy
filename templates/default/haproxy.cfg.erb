@@ -87,6 +87,9 @@ frontend <%= frontend %>
 <% unless f['maxconn'].empty? -%>
   maxconn <%= f['maxconn'] %>
 <% end -%>
+<% f['stats'].each do |option, value| -%>
+  stats <%= option %> <%= value %>
+<% end -%>
 <% unless f['acl'].nil? %>
 <% f['acl'].each do | acl |%>
 <% acl.each do | acl | %>

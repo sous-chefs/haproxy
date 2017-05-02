@@ -43,6 +43,9 @@ haproxy_frontend 'http' do
        'source_is_abuser src_get_gpc0(http) gt 0',
        'tile_host hdr(host) -i dough.foo.bar.com',
   ]
+
+  stats uri: '/haproxy?stats'
+
   extra_options 'stick-table' => 'type ip size 200k expire 10m store gpc0',
                 'tcp-request' => 'connection track-sc1 src if !source_is_abuser'
 end
