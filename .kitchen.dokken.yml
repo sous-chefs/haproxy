@@ -98,3 +98,7 @@ suites:
   run_list:
     - recipe[test::config_1_userlist]
   includes: centos-7
+- name: config_acl
+  run_list:
+    - recipe[test::config_acl]
+  includes: centos-7
