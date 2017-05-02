@@ -4,9 +4,11 @@ property :pidfile, String, default: '/var/run/haproxy.pid'
 property :log, String, default: '/dev/log syslog info'
 property :daemon, [TrueClass, FalseClass], default: true
 property :debug_option, String, default: 'quiet', equal_to: %w(quiet debug)
-property :stats, Hash, default: {
-  socket: lazy { "/var/run/haproxy.sock user #{haproxy_user} group #{haproxy_group}" },
-  timeout: '2m',
+property :stats, Hash, default: lazy {
+  {
+    socket: "/var/run/haproxy.sock user #{haproxy_user} group #{haproxy_group}",
+    timeout: '2m',
+  }
 }
 property :maxconn, Integer, default: 4096
 property :config_cookbook, String, default: 'haproxy'

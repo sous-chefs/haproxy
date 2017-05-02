@@ -4,7 +4,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
-- BREAKING CHANGES: This version removes some stat related properties from the `haproxy_global` and `haproxy_listen` resources in favor of using a hash for configuration options.
+- BREAKING CHANGES: This version removes `stats_socket`, `stats_uri` and `stats_timeout` properties from the `haproxy_global` and `haproxy_listen` resources in favor of using a hash to pass configuration options.
 
 ## [v4.1.0]
 - Adding userlist resource, to see usage: `test/fixtures/cookbooks/test/recipes/config_1_userlist.rb`
