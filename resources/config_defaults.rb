@@ -29,7 +29,7 @@ action :create do
       variables['defaults']['option'] ||= []
       (variables['defaults']['option'] << new_resource.option).flatten!
       variables['defaults']['stats'] ||= {}
-      variables['defaults']['stats'] = new_resource.stats
+      variables['defaults']['stats'].merge!(new_resource.stats)
       variables['defaults']['maxconn'] ||= '' unless new_resource.maxconn.nil?
       variables['defaults']['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
       variables['defaults']['retries'] ||= '' unless new_resource.haproxy_retries.nil?

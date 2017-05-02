@@ -16,8 +16,9 @@ global
   daemon
 <% end -%>
   <%= @global['debug_option'] %>
-  stats socket <%= @global['stats_socket'] %>
-  stats timeout <%= @global['stats_timeout'] %>
+<% @global['stats'].each do |option, value| -%>
+  stats <%= option %> <%= value %>
+<% end -%>
 <% if @global['pidfile'] -%>
   pidfile <%= @global['pidfile'] %>
 <% end -%>
@@ -52,10 +53,8 @@ defaults
 <% unless @defaults['retries'].nil? -%>
   retries <%= @defaults['retries'] %>
 <% end -%>
-<% unless @defaults['stats'].nil? %>
-<% @defaults['stats'].each do | key, value | -%>
-  stats <%= key %> <%= value %>
-<% end -%>
+<% @defaults['stats'].each do |option, value| -%>
+  stats <%= option %> <%= value %>
 <% end -%>
 <% unless @defaults['extra_options'].nil? %>
 <% @defaults['extra_options'].each do | option, value | -%>
@@ -71,7 +70,7 @@ userlist <%= userlist %>
 <% i.each do |item| -%>
 <% item.each do |k,v| %>
   <%= type %> <%=k%> <%= v %>
-<% end -%> 
+<% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -159,7 +158,9 @@ listen <%= key %>
   bind <%= binding %>
 <% end -%>
   maxconn <%= listen['maxconn']%>
-  stats uri <%= listen['stats_uri']%>
+<% listen['stats'].each do |option, value| -%>
+  stats <%= option %> <%= value %>
+<% end -%>
 <% if listen['http_request'] -%>
   http-request <% listen['http_request'] %>
 <% end %>

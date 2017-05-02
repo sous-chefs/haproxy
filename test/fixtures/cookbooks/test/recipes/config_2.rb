@@ -14,8 +14,8 @@ haproxy_config_global 'global' do
   daemon false
   maxconn 4096
   chroot '/var/lib/haproxy'
-  stats_socket '/var/lib/haproxy/haproxy.stat mode 600 level admin'
-  stats_timeout '2m'
+  stats socket: '/var/lib/haproxy/haproxy.stat mode 600 level admin',
+        timeout: '2m'
 end
 
 haproxy_config_defaults 'defaults' do

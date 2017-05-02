@@ -4,8 +4,10 @@ property :pidfile, String, default: '/var/run/haproxy.pid'
 property :log, String, default: '/dev/log syslog info'
 property :daemon, [TrueClass, FalseClass], default: true
 property :debug_option, String, default: 'quiet', equal_to: %w(quiet debug)
-property :stats_socket, String, default: lazy { "/var/run/haproxy.sock user #{haproxy_user} group #{haproxy_group}" }
-property :stats_timeout, String, default: '2m'
+property :stats, Hash, default: {
+  socket: lazy { "/var/run/haproxy.sock user #{haproxy_user} group #{haproxy_group}" },
+  timeout: '2m',
+}
 property :maxconn, Integer, default: 4096
 property :config_cookbook, String, default: 'haproxy'
 property :chroot, String
@@ -40,10 +42,8 @@ action :create do
       variables['global']['daemon'] << new_resource.daemon.to_s
       variables['global']['debug_option'] ||= ''
       variables['global']['debug_option'] << new_resource.debug_option
-      variables['global']['stats_socket'] ||= ''
-      variables['global']['stats_socket'] << new_resource.stats_socket
-      variables['global']['stats_timeout'] ||= ''
-      variables['global']['stats_timeout'] << new_resource.stats_timeout
+      variables['global']['stats'] ||= {}
+      variables['global']['stats'].merge!(new_resource.stats)
       variables['global']['tuning'] ||= {} unless new_resource.tuning.nil?
       variables['global']['tuning'] = new_resource.tuning unless new_resource.tuning.nil?
       variables['global']['extra_options'] ||= {} unless new_resource.extra_options.nil?

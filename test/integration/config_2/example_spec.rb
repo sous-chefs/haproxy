@@ -16,6 +16,8 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(/timeout client 50s/) }
   its('content') { should match(/timeout server 50s/) }
   its('content') { should match(/timeout connect 5s/) }
+  its('content') { should match(/stats socket \/var\/lib\/haproxy\/haproxy.stat mode 600 level admin/) }
+  its('content') { should match(/stats timeout 2m/) }
   its('content') { should match(/stick-table type ip size 200k expire 10m store gpc0/) }
   its('content') { should match(%r{acl kml_request path_reg -i /kml}) }
   its('content') { should match(%r{acl bbox_request path_reg -i /bbox}) }

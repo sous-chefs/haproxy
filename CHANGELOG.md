@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+- BREAKING CHANGES: This version removes some stat related properties from the `haproxy_global` and `haproxy_listen` resources in favor of using a hash for configuration options.
+
 ## [v4.1.0]
 - Adding userlist resource, to see usage: `test/fixtures/cookbooks/test/recipes/config_1_userlist.rb`
 - fixing haproxy_retries in haproxy_config_defaults resource
