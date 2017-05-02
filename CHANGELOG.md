@@ -3,11 +3,15 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
+- Added in `acl` resource, usage: `test/fixtures/cookbooks/test/recipes/config_acl.rb`
+- Added in `use_backend` resource, usage: `test/fixtures/cookbooks/test/recipes/config_acl.rb`
+- Cleaned up arrays in `templates/default/haproxy.cfg.erb`
+- Added `acl` and `use_backend` to `listen` resource.
 
 - BREAKING CHANGES: This version removes `stats_socket`, `stats_uri` and `stats_timeout` properties from the `haproxy_global` and `haproxy_listen` resources in favor of using a hash to pass configuration options.
 
 ## [v4.1.0]
-- Adding userlist resource, to see usage: `test/fixtures/cookbooks/test/recipes/config_1_userlist.rb`
+- Adding `userlist` resource, to see usage: `test/fixtures/cookbooks/test/recipes/config_1_userlist.rb`
 - fixing haproxy_retries in haproxy_config_defaults resource
 - updating source install test to take node attributes as haproxy.org is slow.
 - added chef-search example in: `test/fixtures/cookbooks/test/recipes/config_backend_search.rb`

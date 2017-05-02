@@ -6,7 +6,8 @@ property :stats, Hash, default: {}
 property :http_request, String
 property :http_response, String
 property :default_backend, String
-property :extra_options, Hash
+property :use_backend, Array
+property :acl, Array
 property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
@@ -40,6 +41,10 @@ action :create do
       variables['listen'][new_resource.name]['http_request'] << new_resource.http_request unless new_resource.http_request.nil?
       variables['listen'][new_resource.name]['http_response'] ||= '' unless new_resource.http_response.nil?
       variables['listen'][new_resource.name]['http_response'] << new_resource.http_response unless new_resource.http_response.nil?
+      variables['listen'][new_resource.name]['use_backend'] ||= [] unless new_resource.use_backend.nil?
+      variables['listen'][new_resource.name]['use_backend'] << new_resource.use_backend unless new_resource.use_backend.nil?
+      variables['listen'][new_resource.name]['acl'] ||= [] unless new_resource.acl.nil?
+      variables['listen'][new_resource.name]['acl'] << new_resource.acl unless new_resource.acl.nil?
       variables['listen'][new_resource.name]['default_backend'] ||= '' unless new_resource.default_backend.nil?
       variables['listen'][new_resource.name]['default_backend'] << new_resource.default_backend unless new_resource.default_backend.nil?
       variables['listen'][new_resource.name]['extra_options'] ||= {} unless new_resource.extra_options.nil?
