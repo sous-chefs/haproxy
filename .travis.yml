@@ -20,6 +20,7 @@ services: docker
 env:
   matrix:
    - INSTANCE=source-amazon
+   - INSTANCE=package-amazon
 #  - INSTANCE=package-centos-6
 #  - INSTANCE=package-centos-7
 #  - INSTANCE=package-centos-7 CHEF_VERSION=12.19.36
