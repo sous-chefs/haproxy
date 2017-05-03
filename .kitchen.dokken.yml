@@ -67,6 +67,13 @@ platforms:
     intermediate_instructions:
       - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which hostname
 
+- name: amazon
+  driver:
+    image: amazonlinux:latest
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN yum -y install which initscripts net-tools wget
+
 suites:
 - name: package
   run_list:
