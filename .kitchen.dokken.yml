@@ -72,7 +72,8 @@ platforms:
     image: amazonlinux:latest
     pid_one_command: /sbin/init
     intermediate_instructions:
-      - RUN yum -y install which initscripts net-tools wget
+      - RUN yum -y install which initscripts net-tools wget upstart procps util-linux
+      - RUN echo -e "NETWORKING=yes\nNETWORKING_IPV6=no\nHOSTNAME=localhost.localdomain\n" > /etc/sysconfig/network
 
 suites:
 - name: package
