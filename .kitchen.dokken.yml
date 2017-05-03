@@ -74,7 +74,7 @@ platforms:
     intermediate_instructions:
       - RUN yum update -y
       - RUN yum -y install which initscripts net-tools wget upstart procps util-linux
-      - RUN echo -e "NETWORKING=yes\nNETWORKING_IPV6=no\nHOSTNAME=localhost.localdomain\n" > /etc/sysconfig/network
+      - RUN echo -e "NETWORKING=yes\nHOSTNAME=localhost\n" > /etc/sysconfig/network
 
 suites:
 - name: package
