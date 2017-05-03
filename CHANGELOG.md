@@ -2,16 +2,19 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## Unreleased
+## [v4.2.0] (Unreleased)
+
 - Added in `acl` resource, usage: `test/fixtures/cookbooks/test/recipes/config_acl.rb`
 - Added in `use_backend` resource, usage: `test/fixtures/cookbooks/test/recipes/config_acl.rb`
 - Cleaned up arrays in `templates/default/haproxy.cfg.erb`
 - Added `acl` and `use_backend` to `listen` resource.
-- Fixed init script for amazon linux
+- Fixed init script for Amazon Linux.
+- Added Amazon Linux as a supported platform.
 
 - BREAKING CHANGES: This version removes `stats_socket`, `stats_uri` and `stats_timeout` properties from the `haproxy_global` and `haproxy_listen` resources in favor of using a hash to pass configuration options.
 
 ## [v4.1.0]
+
 - Adding `userlist` resource, to see usage: `test/fixtures/cookbooks/test/recipes/config_1_userlist.rb`
 - fixing haproxy_retries in haproxy_config_defaults resource
 - updating source install test to take node attributes as haproxy.org is slow.
@@ -19,25 +22,25 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Multiple addresses and ports on listener and frontend #205
 
 ## [v4.0.2] (21-04-2017)
+
 - Fix haproxy service start on Ubuntu 14.04 #199
 - Reload HAProxy when changing configuration #197
 
 ## [v4.0.1] (20-04-2017)
+
 - Updating README.md
 - Adding compat_resource for chef-12 support
 - Improved rendering of the configuration file [#196]
 
 ## [v4.0.0] (18-04-2017)
-- COMPATIBILIY WARNING!!!! This version removes the existing recipes, attributes, and instance provider in favor of the new
-  haproxy_install and haproxy_ configuration resources. Why not just leave them in place?
-  Well unfortunately they were utterly broken for anything other than the most trivial usage.
-  Rather than continue the user pain we've opted to remove them and point users to a more modern installation method.
-  If you need the legacy installation methods simply pin to the 3.0.4 release.
+
+- COMPATIBILIY WARNING!!!! This version removes the existing recipes, attributes, and instance provider in favor of the new haproxy_install and haproxy_ configuration resources. Why not just leave them in place? Well unfortunately they were utterly broken for anything other than the most trivial usage. Rather than continue the user pain we've opted to remove them and point users to a more modern installation method. If you need the legacy installation methods simply pin to the 3.0.4 release.
 - THIS IS GOING TO BREAK EVERYTHING YOU KNOW AND LOVE
 - 12.5 or greater rewrite
 - Custom Resource Only, no recipes
 
 ## [v3.0.4] (29-03-2017)
+
 - Fix bug introduced in #174 [#182][]
 
 ## [v3.0.3] (28-03-2017)
@@ -255,13 +258,13 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[Unreleased]: https://github.com/sous-chefs/haproxy/compare/v4.1.0...HEAD
-[v4.1.0]: https://github.com/sous-chefs/haproxy/compare/v4.0.2...v4.1.0
-[v4.0.2]: https://github.com/sous-chefs/haproxy/compare/v4.0.1...v4.0.2
-[v4.0.1]: https://github.com/sous-chefs/haproxy/compare/v4.0.0...v4.0.1
-[v4.0.0]: https://github.com/sous-chefs/haproxy/compare/v3.0.4...v4.0.0
-[v3.0.4]: https://github.com/sous-chefs/haproxy/compare/v3.0.3...v3.0.4
-[v3.0.3]: https://github.com/sous-chefs/haproxy/compare/v3.0.2...v3.0.3
-[v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
-[v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
+[unreleased]: https://github.com/sous-chefs/haproxy/compare/v4.1.0...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
+[v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
+[v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
+[v3.0.3]: https://github.com/sous-chefs/haproxy/compare/v3.0.2...v3.0.3
+[v3.0.4]: https://github.com/sous-chefs/haproxy/compare/v3.0.3...v3.0.4
+[v4.0.0]: https://github.com/sous-chefs/haproxy/compare/v3.0.4...v4.0.0
+[v4.0.1]: https://github.com/sous-chefs/haproxy/compare/v4.0.0...v4.0.1
+[v4.0.2]: https://github.com/sous-chefs/haproxy/compare/v4.0.1...v4.0.2
+[v4.1.0]: https://github.com/sous-chefs/haproxy/compare/v4.0.2...v4.1.0

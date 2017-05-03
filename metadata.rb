@@ -9,7 +9,7 @@ source_url        'https://github.com/sous-chefs/haproxy'
 issues_url        'https://github.com/sous-chefs/haproxy/issues'
 chef_version      '>= 12.5' if respond_to?(:chef_version)
 
-%w( debian ubuntu centos redhat scientific oracle ).each do |os|
+%w( debian ubuntu centos redhat scientific oracle amazon ).each do |os|
   supports os
 end
 
