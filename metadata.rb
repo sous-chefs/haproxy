@@ -14,6 +14,6 @@ chef_version      '>= 12.5' if respond_to?(:chef_version)
 end
 
 depends           'cpu', '>= 0.2.0'
-depends           'build-essential'
-depends           'poise-service'
+depends           'build-essential', '>= 8.0.1'
+depends           'poise-service', '>= 1.5.1'
 depends           'compat_resource', '>= 12.16'
