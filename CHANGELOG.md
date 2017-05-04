@@ -2,7 +2,9 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## [v4.2.0] (Unreleased)
+## [unreleased]
+
+## [v4.2.0] (04-05-2017)
 
 - Added in `acl` resource, usage: `test/fixtures/cookbooks/test/recipes/config_acl.rb`
 - Added in `use_backend` resource, usage: `test/fixtures/cookbooks/test/recipes/config_acl.rb`
@@ -10,10 +12,12 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Added `acl` and `use_backend` to `listen` resource.
 - Fixed init script for Amazon Linux.
 - Added Amazon Linux as a supported platform.
+- Pinned `build-essential`, `>= 8.0.1`
+- Pinned `poise-service`, `>= 1.5.1`
 
 - BREAKING CHANGES: This version removes `stats_socket`, `stats_uri` and `stats_timeout` properties from the `haproxy_global` and `haproxy_listen` resources in favor of using a hash to pass configuration options.
 
-## [v4.1.0]
+## [v4.1.0] (01-05-2017)
 
 - Adding `userlist` resource, to see usage: `test/fixtures/cookbooks/test/recipes/config_1_userlist.rb`
 - fixing haproxy_retries in haproxy_config_defaults resource
@@ -258,7 +262,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[unreleased]: https://github.com/sous-chefs/haproxy/compare/v4.1.0...HEAD
+[unreleased]: https://github.com/sous-chefs/haproxy/compare/v4.2.0...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
@@ -268,3 +272,4 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v4.0.1]: https://github.com/sous-chefs/haproxy/compare/v4.0.0...v4.0.1
 [v4.0.2]: https://github.com/sous-chefs/haproxy/compare/v4.0.1...v4.0.2
 [v4.1.0]: https://github.com/sous-chefs/haproxy/compare/v4.0.2...v4.1.0
+[v4.2.0]: https://github.com/sous-chefs/haproxy/compare/v4.1.0...v4.2.0
