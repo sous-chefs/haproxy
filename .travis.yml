@@ -19,22 +19,24 @@ services: docker
 
 env:
   matrix:
-  - INSTANCE=package-centos-6
-  - INSTANCE=package-centos-7
-  - INSTANCE=package-centos-7 CHEF_VERSION=12.19.36
-  - INSTANCE=package-debian-8
-  - INSTANCE=package-ubuntu-1404
-  - INSTANCE=package-ubuntu-1604
-  - INSTANCE=source-centos-7
-  - INSTANCE=source-debian-8
-  - INSTANCE=source-ubuntu-1404
-  - INSTANCE=source-ubuntu-1604
-  - INSTANCE=config-1-centos-7
-  - INSTANCE=config-2-centos-7
-  - INSTANCE=config-4-centos-7
-  - INSTANCE=config-backend-search-centos-7
-  - INSTANCE=config-1-userlist-centos-7
-  - INSTANCE=config-acl-centos-7
+   - INSTANCE=source-amazon
+   - INSTANCE=package-amazon
+   - INSTANCE=package-centos-6
+   - INSTANCE=package-centos-7
+   - INSTANCE=package-centos-7 CHEF_VERSION=12.19.36
+   - INSTANCE=package-debian-8
+   - INSTANCE=package-ubuntu-1404
+   - INSTANCE=package-ubuntu-1604
+   - INSTANCE=source-centos-7
+   - INSTANCE=source-debian-8
+   - INSTANCE=source-ubuntu-1404
+   - INSTANCE=source-ubuntu-1604
+   - INSTANCE=config-1-centos-7
+   - INSTANCE=config-2-centos-7
+   - INSTANCE=config-4-centos-7
+   - INSTANCE=config-backend-search-centos-7
+   - INSTANCE=config-1-userlist-centos-7
+   - INSTANCE=config-acl-centos-7
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
