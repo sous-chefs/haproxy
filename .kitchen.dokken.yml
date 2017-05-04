@@ -73,8 +73,7 @@ platforms:
     pid_one_command: /sbin/init
     intermediate_instructions:
       - RUN yum update -y
-      - RUN yum -y install which initscripts net-tools wget upstart procps util-linux
-      - RUN echo -e "NETWORKING=yes\nHOSTNAME=localhost\n" > /etc/sysconfig/network
+      - RUN yum -y install which initscripts net-tools wget procps util-linux
 
 suites:
 - name: package

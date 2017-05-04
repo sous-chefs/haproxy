@@ -16,10 +16,11 @@
 . /etc/rc.d/init.d/functions
 
 # Source networking configuration.
+if [ -e /etc/sysconfig/network ]; then
 . /etc/sysconfig/network
-
 # Check that networking is up.
 [ "$NETWORKING" = "no" ] && exit 0
+fi
 
 config="<%= @options['conf_dir'] %>/haproxy.cfg"
 exec="<%= @daemon %>"
