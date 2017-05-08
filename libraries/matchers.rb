@@ -8,7 +8,7 @@ if defined?(ChefSpec)
     haproxy_install: [:create, :start, :stop, :restart, :reload],
     haproxy_listen: [:create],
     haproxy_use_backend: [:create],
-    haproxy_userlist: [:create]
+    haproxy_userlist: [:create],
   }
 
   custom_resources.each do |resource, actions|
