@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 ## [unreleased]
 
 * Added Chefspec Matchers for the resources defined in this cookbook.
+* Added `mode` property to `backend` and `frontend` resources.
 
 ## [v4.2.0] (04-05-2017)
 

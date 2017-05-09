@@ -80,6 +80,9 @@ userlist <%= userlist %>
 <% @frontend.each do |frontend, f | %>
 
 frontend <%= frontend %>
+<% unless f['mode'].nil? -%>
+  mode <%= f['mode'] %>
+<% end -%>
   default_backend <%= f['default_backend'] %>
 <% f['bind'].each do |binding| -%>
   bind <%= binding %>
@@ -119,6 +122,9 @@ frontend <%= frontend %>
 <% @backend.each do | key, backend | %>
 
 backend <%= key %>
+<% unless backend['mode'].nil? -%>
+  mode <%= backend['mode'] %>
+<% end -%>
 <% unless backend['server'].nil? %>
 <% backend['server'].each do | s |%>
 <% s.each  do |server|%>

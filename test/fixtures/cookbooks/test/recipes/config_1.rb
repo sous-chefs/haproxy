@@ -25,6 +25,12 @@ haproxy_frontend 'http-in' do
   default_backend 'servers'
 end
 
+haproxy_frontend 'tcp-in' do
+  mode 'tcp'
+  bind '*:3307'
+  default_backend 'tcp-servers'
+end
+
 bind_hash = { '*' => '8080', '0.0.0.0' => %w(8081 8180) }
 
 haproxy_frontend 'multiport' do
@@ -34,4 +40,9 @@ end
 
 haproxy_backend 'servers' do
   server ['server1 127.0.0.1:8000 maxconn 32']
+end
+
+haproxy_backend 'tcp-servers' do
+  mode 'tcp'
+  server ['server2 127.0.0.1:3306 maxconn 32']
 end
