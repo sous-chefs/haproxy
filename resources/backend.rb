@@ -1,4 +1,5 @@
 property :name, String, name_property: true
+property :mode, String, equal_to: %w(http tcp)
 property :server, Array
 property :tcp_request, Array
 property :acl, Array
@@ -14,6 +15,8 @@ action :create do
       cookbook 'haproxy'
       variables['backend'] ||= {}
       variables['backend'][new_resource.name] ||= {}
+      variables['backend'][new_resource.name]['mode'] ||= '' unless new_resource.mode.nil?
+      variables['backend'][new_resource.name]['mode'] << new_resource.mode unless new_resource.mode.nil?
       variables['backend'][new_resource.name]['server'] ||= [] unless new_resource.server.nil?
       variables['backend'][new_resource.name]['server'] << new_resource.server unless new_resource.server.nil?
       variables['backend'][new_resource.name]['tcp_request'] ||= [] unless new_resource.tcp_request.nil?

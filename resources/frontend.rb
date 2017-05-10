@@ -1,5 +1,6 @@
 property :name, String, name_property: true
 property :bind, [String, Hash], default: '0.0.0.0:80'
+property :mode, String, equal_to: %w(http tcp)
 property :maxconn, Integer, default: 2000
 property :default_backend, String, required: true
 property :use_backend, Array
@@ -30,6 +31,8 @@ action :create do
       else
         variables['frontend'][new_resource.name]['bind'] << new_resource.bind
       end
+      variables['frontend'][new_resource.name]['mode'] ||= '' unless new_resource.mode.nil?
+      variables['frontend'][new_resource.name]['mode'] << new_resource.mode unless new_resource.mode.nil?
       variables['frontend'][new_resource.name]['stats'] ||= {}
       variables['frontend'][new_resource.name]['stats'].merge!(new_resource.stats)
 
