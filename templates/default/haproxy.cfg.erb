@@ -19,6 +19,9 @@ global
 <% @global['stats'].each do |option, value| -%>
   stats <%= option %> <%= value %>
 <% end -%>
+<% unless @global['maxconn'].nil? -%>
+  maxconn <%= @global['maxconn'] %>
+<% end -%>
 <% if @global['pidfile'] -%>
   pidfile <%= @global['pidfile'] %>
 <% end -%>
