@@ -12,7 +12,7 @@ end
 
 haproxy_config_global 'global' do
   daemon false
-  maxconn 4096
+  maxconn 4097
   chroot '/var/lib/haproxy'
   stats socket: '/var/lib/haproxy/haproxy.stat mode 600 level admin',
         timeout: '2m'
