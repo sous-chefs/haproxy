@@ -19,16 +19,12 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(%r{stats socket /var/lib/haproxy/stats level admin}) }
   its('content') { should match(%r{stats uri /haproxy-status}) }
   its('content') { should match(/frontend http-in/) }
-  its('content') { should match(/frontend multiport/) }
   its('content') { should match(/bind \*:80/) }
-  its('content') { should match(/bind \*:8080/) }
-  its('content') { should match(/bind 0.0.0.0:8081/) }
-  its('content') { should match(/bind 0.0.0.0:8180/) }
-  its('content') { should match(/^backend servers/) }
-  its('content') { should match(/default_backend servers/) }
+  its('content') { should match(/redirect scheme https code 301 if !{ ssl_fc }/) }
+  its('content') { should match(/frontend https/) }
+  its('content') { should match(%r{bind \*:443 ssl crt /etc/ssl/private/example.com.pem}) }
+  its('content') { should match(/backend servers/) }
   its('content') { should match(/server server1 127.0.0.1:8000 maxconn 32/) }
-  its('content') { should match(/frontend tcp-in\n  mode tcp/) }
-  its('content') { should match(/backend tcp-servers\n  mode tcp/) }
 end
 
 describe service('haproxy') do

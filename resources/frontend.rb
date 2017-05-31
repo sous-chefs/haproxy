@@ -2,7 +2,7 @@ property :name, String, name_property: true
 property :bind, [String, Hash], default: '0.0.0.0:80'
 property :mode, String, equal_to: %w(http tcp)
 property :maxconn, Integer, default: 2000
-property :default_backend, String, required: true
+property :default_backend, String
 property :use_backend, Array
 property :acl, Array
 property :option, Array
@@ -19,8 +19,8 @@ action :create do
       cookbook 'haproxy'
       variables['frontend'] ||= {}
       variables['frontend'][new_resource.name] ||= {}
-      variables['frontend'][new_resource.name]['default_backend'] ||= ''
-      variables['frontend'][new_resource.name]['default_backend'] << new_resource.default_backend
+      variables['frontend'][new_resource.name]['default_backend'] ||= '' unless new_resource.default_backend.nil?
+      variables['frontend'][new_resource.name]['default_backend'] << new_resource.default_backend unless new_resource.default_backend.nil?
       variables['frontend'][new_resource.name]['bind'] = []
       if new_resource.bind.is_a? Hash
         new_resource.bind.map do |addresses, ports|

@@ -37,6 +37,7 @@ env:
    - INSTANCE=config-backend-search-centos-7
    - INSTANCE=config-1-userlist-centos-7
    - INSTANCE=config-acl-centos-7
+   - INSTANCE=config-ssl-redirect-centos-7
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
