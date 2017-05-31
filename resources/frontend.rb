@@ -20,7 +20,7 @@ action :create do
       variables['frontend'] ||= {}
       variables['frontend'][new_resource.name] ||= {}
       variables['frontend'][new_resource.name]['default_backend'] ||= ''
-      variables['frontend'][new_resource.name]['default_backend'] << new_resource.default_backend
+      variables['frontend'][new_resource.name]['default_backend'] << new_resource.default_backend unless new_resource.default_backend.nil?
       variables['frontend'][new_resource.name]['bind'] = []
       if new_resource.bind.is_a? Hash
         new_resource.bind.map do |addresses, ports|

@@ -86,7 +86,9 @@ frontend <%= frontend %>
 <% unless f['mode'].nil? -%>
   mode <%= f['mode'] %>
 <% end -%>
+<% unless f['default_backend'].nil? %>
   default_backend <%= f['default_backend'] %>
+<% end -%>
 <% f['bind'].each do |binding| -%>
   bind <%= binding %>
 <% end -%>
