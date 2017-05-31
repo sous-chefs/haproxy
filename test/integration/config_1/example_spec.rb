@@ -15,7 +15,7 @@ describe file('/etc/haproxy/haproxy.cfg') do
   it { should be_grouped_into 'haproxy' }
   its('content') { should match(/daemon/) }
   its('content') { should match(/timeout connect 5000ms/) }
-  its('content') { should match(/4096/) }
+  its('content') { should match(/maxconn 256/) }
   its('content') { should match(%r{stats socket /var/lib/haproxy/stats level admin}) }
   its('content') { should match(%r{stats uri /haproxy-status}) }
   its('content') { should match(/frontend http-in/) }
