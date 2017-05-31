@@ -2,7 +2,7 @@ property :name, String, name_property: true
 property :bind, [String, Hash], default: '0.0.0.0:80'
 property :mode, String, equal_to: %w(http tcp)
 property :maxconn, Integer, default: 2000
-property :default_backend, String, required: true
+property :default_backend, String
 property :use_backend, Array
 property :acl, Array
 property :option, Array
