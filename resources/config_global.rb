@@ -44,6 +44,8 @@ action :create do
       variables['global']['daemon'] << new_resource.daemon.to_s
       variables['global']['debug_option'] ||= ''
       variables['global']['debug_option'] << new_resource.debug_option
+      variables['global']['maxconn'] ||= '' unless new_resource.maxconn.nil?
+      variables['global']['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
       variables['global']['stats'] ||= {}
       variables['global']['stats'].merge!(new_resource.stats)
       variables['global']['tuning'] ||= {} unless new_resource.tuning.nil?
