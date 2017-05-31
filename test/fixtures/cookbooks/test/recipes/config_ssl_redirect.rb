@@ -10,7 +10,7 @@ haproxy_config_global '' do
   pidfile '/var/run/haproxy.pid'
   stats socket: '/var/lib/haproxy/stats level admin'
   tuning 'bufsize' => '262144'
-  extra_options 'tune.ssl.default-dh-param': 2048
+  extra_options 'tune.ssl.default-dh-param' => 2048
 end
 
 haproxy_config_defaults 'defaults' do
