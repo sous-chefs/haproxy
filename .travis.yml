@@ -27,6 +27,8 @@ env:
    - INSTANCE=package-debian-8
    - INSTANCE=package-ubuntu-1404
    - INSTANCE=package-ubuntu-1604
+   - INSTANCE=package-oel-6
+   - INSTANCE=package-sci-6
    - INSTANCE=source-centos-7
    - INSTANCE=source-debian-8
    - INSTANCE=source-ubuntu-1404

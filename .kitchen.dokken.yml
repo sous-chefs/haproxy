@@ -75,6 +75,22 @@ platforms:
       - RUN yum update -y
       - RUN yum -y install which initscripts net-tools wget procps util-linux
 
+- name: oel-6
+  driver:
+    image: oraclecloud:6
+    platform: rhel
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN yum -y install which initscripts net-tools wget
+
+- name: sci-6
+  driver:
+    image: jtang/scientificlinux-6
+    platform: rhel
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN yum -y install which initscripts net-tools wget
+
 suites:
 - name: package
   run_list:

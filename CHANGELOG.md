@@ -3,7 +3,7 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
-
+* fixing oracle linux and scientific linux - 6.x
 
 ## [v4.3.0] (05-31-2017)
 
