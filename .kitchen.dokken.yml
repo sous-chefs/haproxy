@@ -77,7 +77,7 @@ platforms:
 
 - name: oel-6
   driver:
-    image: oraclecloud:6
+    image: oraclelinux:6
     platform: rhel
     pid_one_command: /sbin/init
     intermediate_instructions:
