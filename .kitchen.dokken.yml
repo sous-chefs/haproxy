@@ -75,6 +75,22 @@ platforms:
       - RUN yum update -y
       - RUN yum -y install which initscripts net-tools wget procps util-linux
 
+- name: oel-6
+  driver:
+    image: oraclelinux:6
+    platform: rhel
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN yum -y install which initscripts net-tools wget
+
+- name: oel-7
+  driver:
+    image: oraclelinux:7
+    platform: rhel
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+      - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
+
 suites:
 - name: package
   run_list:

@@ -3,7 +3,8 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
-
+* Adding Oracle Linux 6 support
+* Removing scientific linux support as we don't have a reliable image
 
 ## [v4.3.0] (05-31-2017)
 
