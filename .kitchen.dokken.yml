@@ -83,6 +83,14 @@ platforms:
     intermediate_instructions:
       - RUN yum -y install which initscripts net-tools wget
 
+- name: oel-7
+  driver:
+    image: oraclelinux:7
+    platform: rhel
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+      - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
+
 - name: sci-6
   driver:
     image: scientificlinux-6.4-x86-64
