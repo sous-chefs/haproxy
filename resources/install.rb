@@ -134,7 +134,10 @@ action :create do
         options template: 'haproxy:haproxy-init.erb',
                 hostname: node['hostname'],
                 conf_dir: new_resource.config_dir,
-                pid_file: '/var/run/haproxy.pid'
+                pid_file: '/var/run/haproxy.pid',
+                run_dir: '/run/haproxy',
+                haproxy_user: new_resource.haproxy_user,
+                haproxy_group: new_resource.haproxy_group
         action :nothing
       end
 
