@@ -11,8 +11,8 @@ Installs and configures haproxy.
 ### Platforms
 
 - Ubuntu 12.04+, Ubuntu 14.04+
-- RHEL 6+, CentOS6+
-- RHEL 7+, CentOS7+
+- RHEL 6+, CentOS6+, OracleLinux6+
+- RHEL 7+, CentOS7+, OracleLinux7+
 - Debian 8+
 
 ## Resources
