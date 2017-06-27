@@ -39,6 +39,12 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(%r{errorfile 403 /etc/haproxy/errors/403.http}) }
 end
 
+describe bash('grep -A 12 "^backend tiles_public" /etc/haproxy/haproxy.cfg') do
+  its('stdout') { should match(/option httplog/) }
+  its('stdout') { should match(/option dontlognull/) }
+  its('stdout') { should match(/option forwardfor/) }
+end
+
 describe service('haproxy') do
   it { should be_running }
 end

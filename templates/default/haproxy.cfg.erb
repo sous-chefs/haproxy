@@ -142,6 +142,13 @@ backend <%= key %>
   acl <%= acl %>
 <% end -%>
 <% end -%>
+<% unless backend['option'].nil? %>
+<% backend['option'].each do | option |%>
+<% option.each do | option | %>
+  option <%= option %>
+<% end -%>
+<% end -%>
+<% end -%>
 <% unless backend['tcp_request'].nil? %>
 <% backend['tcp_request'].each do | tcp_request |%>
 <% tcp_request.each do | tcp_request | %>
