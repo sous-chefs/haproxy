@@ -3,6 +3,7 @@ property :mode, String, equal_to: %w(http tcp)
 property :server, Array
 property :tcp_request, Array
 property :acl, Array
+property :option, Array
 property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
@@ -23,6 +24,8 @@ action :create do
       variables['backend'][new_resource.name]['tcp_request'] << new_resource.tcp_request unless new_resource.tcp_request.nil?
       variables['backend'][new_resource.name]['acl'] ||= [] unless new_resource.acl.nil?
       variables['backend'][new_resource.name]['acl'] << new_resource.acl unless new_resource.acl.nil?
+      variables['backend'][new_resource.name]['option'] ||= [] unless new_resource.option.nil?
+      variables['backend'][new_resource.name]['option'] << new_resource.option unless new_resource.option.nil?
       variables['backend'][new_resource.name]['extra_options'] ||= {} unless new_resource.extra_options.nil?
       variables['backend'][new_resource.name]['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
 
