@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
+* Synced Debian/Ubuntu init script with latest upstream package changes
 
 ## [v4.3.1] (06-13-2017)
 * Adding Oracle Linux 6 support
