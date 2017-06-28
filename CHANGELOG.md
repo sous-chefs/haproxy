@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
+* Added `option` as an Array `property` for `backend` resource. This fixes #234
 
 ## [v4.4.0] (06-28-2017)
 * Synced Debian/Ubuntu init script with latest upstream package changes
