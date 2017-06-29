@@ -61,6 +61,10 @@ suites:
     run_list:
       - recipe[test::config_acl]
     includes: centos-7.3
+  - name: config_resolver
+    run_list:
+      - recipe[test::config_resolver]
+    includes: centos-7.3
   - name: config_ssl_redirect
     run_list:
       - recipe[test::config_ssl_redirect]

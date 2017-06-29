@@ -37,6 +37,22 @@ global
 <% end -%>
 <% end -%>
 
+<% unless @resolvers.nil? %>
+<% @resolvers.each do |resolver, r | %>
+resolvers <%= resolver %>
+<% unless r['nameserver'].nil? %>
+<% r['nameserver'].each do | s |%>
+<% s.each  do |nameserver|%>
+  nameserver <%= nameserver %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% r['extra_options'].each do | option, value | -%>
+  <%= option %> <%= value %>
+<% end -%>
+<% end -%>
+<% end -%>
+
 <% unless @defaults.nil? %>
 defaults
 <% @defaults['timeout'].each do | key, timeout | -%>
