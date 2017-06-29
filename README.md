@@ -60,6 +60,16 @@ haproxy_backend 'servers' do
 end
 ```
 
+### Resolver
+
+```ruby
+haproxy_resolver 'dns' do
+  nameserver ['google 8.8.8.8:53']
+  extra_options('resolve_retries' => 30,
+                'timeout' => 'retry 1s')
+end
+```
+
 ## License & Authors
 
 - Author:: Dan Webb ([https://github.com/damacus](https://github.com/damacus))
