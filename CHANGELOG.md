@@ -3,6 +3,8 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
+
+## [v4.5.0] (06-29-2017)
 * Added `resolver` resource (#240)
 
 ## [v4.4.0] (06-28-2017)
@@ -278,7 +280,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[unreleased]: https://github.com/sous-chefs/haproxy/compare/v4.4.0...HEAD
+[unreleased]: https://github.com/sous-chefs/haproxy/compare/v4.5.0...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
@@ -292,3 +294,4 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v4.3.0]: https://github.com/sous-chefs/haproxy/compare/v4.2.0...v4.3.0
 [v4.3.1]: https://github.com/sous-chefs/haproxy/compare/v4.3.0...v4.3.1
 [v4.4.0]: https://github.com/sous-chefs/haproxy/compare/v4.3.1...v4.4.0
+[v4.5.0]: https://github.com/sous-chefs/haproxy/compare/v4.4.0...v4.5.0
