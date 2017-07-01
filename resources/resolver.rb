@@ -8,8 +8,10 @@ action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent
   with_run_context :root do
+    default_conf
     edit_resource(:template, config_file) do |new_resource|
-      cookbook 'haproxy'
+      source node['haproxy']['conf_template_source']
+      cookbook node['haproxy']['conf_cookbook']
       variables['resolvers'] ||= {}
       variables['resolvers'][new_resource.name] ||= {}
       variables['resolvers'][new_resource.name]['nameserver'] ||= [] unless new_resource.nameserver.nil?

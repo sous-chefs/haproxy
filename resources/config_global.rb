@@ -22,11 +22,13 @@ property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.
 action :create do
   node.default['haproxy']['user'] = new_resource.haproxy_user
   node.default['haproxy']['group'] = new_resource.haproxy_group
+  default_conf
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent
   with_run_context :root do
     edit_resource(:template, config_file) do |new_resource|
-      cookbook 'haproxy'
+      source node['haproxy']['conf_template_source']
+      cookbook node['haproxy']['conf_cookbook']
       variables['global'] ||= {}
       variables['global']['user'] ||= ''
       variables['global']['user'] << new_resource.haproxy_user

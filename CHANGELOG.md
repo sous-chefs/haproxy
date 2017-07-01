@@ -3,6 +3,8 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
+* Re-added `conf_template_source`
+* Re-added `conf_cookbook`
 
 ## [v4.5.0] (06-29-2017)
 * Added `resolver` resource (#240)
