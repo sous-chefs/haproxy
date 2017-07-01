@@ -1,5 +1,6 @@
 property :install_type, String, name_property: true, equal_to: %w(package source)
-property :config_template_source, String, default: 'haproxy.cfg.erb'
+property :conf_template_source, String, default: 'haproxy.cfg.erb'
+property :conf_cookbook, String, default: 'haproxy'
 property :bin_prefix, String, default: '/usr'
 property :config_dir,  String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
@@ -34,6 +35,10 @@ property :use_linux_tproxy, String, equal_to: %w(0 1), default: '1'
 property :use_linux_splice, String, equal_to: %w(0 1), default: '1'
 
 action :create do
+  node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
+  node.run_state['haproxy']['conf_template_source'][config_file] = conf_template_source
+  node.run_state['haproxy']['conf_cookbook'][config_file] = conf_cookbook
+
   poise_service_user new_resource.haproxy_user do
     home '/home/haproxy'
     group new_resource.haproxy_group
@@ -103,11 +108,11 @@ action :create do
     end
 
     template config_file do
-      source 'haproxy.cfg.erb'
       owner new_resource.haproxy_user
       group new_resource.haproxy_group
       mode '0644'
-      cookbook 'haproxy'
+      source lazy { node.run_state['haproxy']['conf_template_source'][config_file] }
+      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
       notifies :enable, 'poise_service[haproxy]', :immediately
       notifies :restart, 'poise_service[haproxy]', :delayed
       variables()
