@@ -54,7 +54,13 @@ resolvers <%= resolver %>
 <% end -%>
 <% end -%>
 <% r['extra_options'].each do | option, value | -%>
+  <% if value.is_a?(Array) %>
+  <% value.each do | array_element | %>
+  <%= option %> <%= array_element %>
+  <% end -%>
+  <% else %>
   <%= option %> <%= value %>
+  <% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -83,7 +89,13 @@ defaults
 <% end -%>
 <% unless @defaults['extra_options'].nil? %>
 <% @defaults['extra_options'].each do | option, value | -%>
+  <% if value.is_a?(Array) %>
+  <% value.each do | array_element | %>
+  <%= option %> <%= array_element %>
+  <% end -%>
+  <% else %>
   <%= option %> <%= value %>
+  <% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
