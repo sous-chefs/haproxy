@@ -9,7 +9,9 @@ action :create do
   # into the root run context so each of the sections can find the parent
   with_run_context :root do
     edit_resource(:template, config_file) do |new_resource|
-      cookbook 'haproxy'
+      node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
+      source lazy { node.run_state['haproxy']['conf_template_source'][config_file] ||= 'haproxy.cfg.erb' }
+      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] ||= 'haproxy' }
       variables[new_resource.section] ||= {}
       variables[new_resource.section][new_resource.section_name]['acl'] ||= []
       variables[new_resource.section][new_resource.section_name]['acl'] += Array(new_resource.acl)
