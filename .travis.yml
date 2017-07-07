@@ -14,6 +14,7 @@ install: echo "skip bundle install"
 branches:
   only:
     - master
+    - multi_log_file
 
 services: docker
 
