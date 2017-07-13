@@ -24,8 +24,8 @@ haproxy_frontend 'http-in' do
   bind '*:80'
   extra_options(
     'redirect' => [
-      'code 301 prefix / if acl1',
-      'scheme https if !acl_2'
+      'prefix http://www.bar.com code 301 if { hdr(host) -i foo.com }',
+      'prefix http://www.bar.com code 301 if { hdr(host) -i www.foo.com }'
     ])
   default_backend 'servers'
 end

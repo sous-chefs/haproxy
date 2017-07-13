@@ -19,6 +19,8 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(%r{stats socket /var/lib/haproxy/stats level admin}) }
   its('content') { should match(%r{stats uri /haproxy-status}) }
   its('content') { should match(/frontend http-in/) }
+  its('content') { should include('redirect prefix http://www.bar.com code 301 if { hdr(host) -i foo.com }') }
+  its('content') { should include('redirect prefix http://www.bar.com code 301 if { hdr(host) -i www.foo.com }') }
   its('content') { should match(/frontend multiport/) }
   its('content') { should match(/bind \*:80/) }
   its('content') { should match(/bind \*:8080/) }
