@@ -32,7 +32,13 @@ global
 <% end -%>
 <% unless @global['extra_options'].nil? -%>
 <% @global['extra_options'].each do | option, value | -%>
+  <% if value.is_a?(Array) %>
+  <% value.each do | array_element | %>
+  <%= option %> <%= array_element %>
+  <% end -%>
+  <% else %>
   <%= option %> <%= value %>
+  <% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -48,7 +54,13 @@ resolvers <%= resolver %>
 <% end -%>
 <% end -%>
 <% r['extra_options'].each do | option, value | -%>
+  <% if value.is_a?(Array) %>
+  <% value.each do | array_element | %>
+  <%= option %> <%= array_element %>
+  <% end -%>
+  <% else %>
   <%= option %> <%= value %>
+  <% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -77,7 +89,13 @@ defaults
 <% end -%>
 <% unless @defaults['extra_options'].nil? %>
 <% @defaults['extra_options'].each do | option, value | -%>
+  <% if value.is_a?(Array) %>
+  <% value.each do | array_element | %>
+  <%= option %> <%= array_element %>
+  <% end -%>
+  <% else %>
   <%= option %> <%= value %>
+  <% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -133,7 +151,13 @@ frontend <%= frontend %>
 <% end -%>
 <% unless f['extra_options'].nil? %>
 <% f['extra_options'].each do | key, value | %>
+  <% if value.is_a?(Array) %>
+  <% value.each do | array_element | %>
+  <%= key %> <%= array_element %>
+  <% end -%>
+  <% else %>
   <%= key %> <%= value %>
+  <% end -%>
 <% end -%>
 <% end -%>
 <% end # frontend loop -%>
@@ -174,7 +198,13 @@ backend <%= key %>
 <% end -%>
 <% unless backend['extra_options'].nil? %>
 <% backend['extra_options'].each do | key, value |%>
+  <% if value.is_a?(Array) %>
+  <% value.each do | array_element | %>
+  <%= key %> <%= array_element %>
+  <% end -%>
+  <% else %>
   <%= key %> <%= value %>
+  <% end -%>
 <% end -%>
 <% end -%>
 <% end # backend loop -%>
@@ -214,7 +244,13 @@ listen <%= key %>
 
 <% unless listen['extra_options'].nil? %>
 <% listen['extra_options'].each do | key, value |%>
+  <% if value.is_a?(Array) %>
+  <% value.each do | array_element | %>
+  <%= key %> <%= array_element %>
+  <% end -%>
+  <% else %>
   <%= key %> <%= value %>
+  <% end -%>
 <% end -%>
 <% end -%>
 <% end # listen loop -%>

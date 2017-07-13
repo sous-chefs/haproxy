@@ -10,7 +10,7 @@ Installs and configures haproxy.
 
 ### Platforms
 
-- Ubuntu 12.04+, Ubuntu 14.04+
+- Ubuntu 12.04+, Ubuntu 14.04+, Ubuntu 16.04
 - RHEL 6+, CentOS6+, OracleLinux6+
 - RHEL 7+, CentOS7+, OracleLinux7+
 - Debian 8+
@@ -50,6 +50,11 @@ end
 ```ruby
 haproxy_frontend 'http-in' do
   bind '*:80'
+  extra_options(
+    'redirect' => [
+      'code 301 prefix / if acl1',
+      'scheme https if !acl_2'
+    ])
   default_backend 'servers'
 end
 ```
