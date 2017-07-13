@@ -74,3 +74,7 @@ suites:
     run_list:
       - recipe[test::config_custom_template]
     includes: centos-7.3
+  - name: config_array
+    run_list:
+      - recipe[test::config_array]
+    includes: centos-7.3
