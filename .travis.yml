@@ -42,7 +42,7 @@ env:
    - INSTANCE=config-ssl-redirect-centos-7
    - INSTANCE=config-resolver-centos-7
    - INSTANCE=config-custom-template-centos-7
-
+   - INSTANCE=config-array-centos-7
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
