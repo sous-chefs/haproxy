@@ -4,7 +4,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
-## [4.6.0] (07-13-2017)
+## [v4.6.0] (07-13-2017)
 * Re-added `conf_template_source`
 * Re-added `conf_cookbook`
 * Support Array value for extra_options entries. #245,#246
