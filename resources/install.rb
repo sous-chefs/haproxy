@@ -6,6 +6,7 @@ property :config_dir,  String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
+property :install_only, [TrueClass, FalseClass], default: false
 
 # Package
 property :package_name, String, default: 'haproxy'
@@ -79,7 +80,7 @@ action :create do
     make_cmd << " USE_LINUX_TPROXY=#{use_linux_tproxy}"
     make_cmd << " USE_LINUX_SPLICE=#{use_linux_splice}"
 
-    extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd'
+    extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd' && !install_only
 
     bash 'compile_haproxy' do
       cwd Chef::Config[:file_cache_path]
@@ -113,8 +114,10 @@ action :create do
       mode '0644'
       source lazy { node.run_state['haproxy']['conf_template_source'][config_file] }
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
-      notifies :enable, 'poise_service[haproxy]', :immediately
-      notifies :restart, 'poise_service[haproxy]', :delayed
+      unless install_only
+        notifies :enable, 'poise_service[haproxy]', :immediately
+        notifies :restart, 'poise_service[haproxy]', :delayed
+      end
       variables()
       action :nothing
       delayed_action :nothing
@@ -132,7 +135,7 @@ action :create do
                 auto_reload: true
         action :nothing
       end
-    else
+    elsif !install_only
       poise_service 'haproxy' do
         provider :sysvinit
         command ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy')
