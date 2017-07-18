@@ -1,16 +1,13 @@
 driver:
   name: dokken
   privileged: true # because Docker and SystemD/Upstart
-  chef_version: current
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
 
 transport:
   name: dokken
 
 provisioner:
   name: dokken
-
-verifier:
-  name: inspec
 
 platforms:
 - name: debian-8
@@ -137,4 +134,12 @@ suites:
 - name: config_ssl_redirect
   run_list:
     - recipe[test::config_ssl_redirect]
+  includes: centos-7
+- name: config_custom_template
+  run_list:
+    - recipe[test::config_custom_template]
+  includes: centos-7
+- name: config_array
+  run_list:
+    - recipe[test::config_array]
   includes: centos-7

@@ -17,8 +17,9 @@ action :create do
   # into the root run context so each of the sections can find the parent
   with_run_context :root do
     edit_resource(:template, config_file) do |new_resource|
-      source 'haproxy.cfg.erb'
-      cookbook 'haproxy'
+      node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
+      source lazy { node.run_state['haproxy']['conf_template_source'][config_file] ||= 'haproxy.cfg.erb' }
+      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] ||= 'haproxy' }
       variables['listen'] ||= {}
       variables['listen'][new_resource.name] ||= {}
       variables['listen'][new_resource.name]['mode'] ||= ''

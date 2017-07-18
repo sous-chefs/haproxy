@@ -4,6 +4,7 @@ driver:
 
 provisioner:
   name: chef_zero
+  require_chef_omnibus: <%= ENV['CHEF_VERSION'] || 'latest' %>
 
 client_rb:
   treat_deprecation_warnings_as_errors: true
@@ -72,4 +73,12 @@ suites:
   - name: config_ssl_redirect
     run_list:
       - recipe[test::config_ssl_redirect]
+    includes: centos-7.3
+  - name: config_custom_template
+    run_list:
+      - recipe[test::config_custom_template]
+    includes: centos-7.3
+  - name: config_array
+    run_list:
+      - recipe[test::config_array]
     includes: centos-7.3
