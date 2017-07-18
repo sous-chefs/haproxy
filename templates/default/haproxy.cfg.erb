@@ -8,12 +8,14 @@ global
 
 <% if @global['log'] && @global['log'].is_a?(Array)-%>
 <% @global['log'].each do | l | -%>
+<% if l && l.is_a?(Array)-%>
 <% l.each  do | log | -%>
   log <%= log %>
 <% end -%>
-<% end -%>
 <% else -%>
   log <%= @global['log'] %>
+<% end -%>
+<% end -%>
 <% end -%>
 
 <% if @global['log_tag'] -%>
