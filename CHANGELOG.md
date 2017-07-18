@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
+* Added `log` as an optional Array `property` for `global` resource. This fixes #252
 
 ## [v4.6.0] (07-13-2017)
 * Re-added `conf_template_source`
