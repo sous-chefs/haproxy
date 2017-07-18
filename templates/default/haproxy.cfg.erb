@@ -5,11 +5,14 @@ global
 <% if @global['pid_file'] -%>
   pidfile <%= @global['pid_file'] %>
 <% end %>
-<% @global['log'].each do | l | -%>
-<% l.each  do | log | -%>
+<% if @global['log'] && @global['log'].is_a?(Array)-%>
+<% @global['log'].each do | log | -%>
   log <%= log %>
 <% end -%>
+<% else -%>
+  log <%= @global['log'] %>
 <% end -%>
+
 <% if @global['log_tag'] -%>
   log-tag <%= @global['log_tag'] %>
 <% end -%>
