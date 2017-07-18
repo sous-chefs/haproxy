@@ -7,13 +7,13 @@ global
 <% end %>
 
 <% if @global['log'] && @global['log'].is_a?(Array)-%>
-<% @global['log'].each do | l | -%>
-<% if l && l.is_a?(Array)-%>
-<% l.each  do | log | -%>
+<% @global['log'].each do | logvar | -%>
+<% if logvar && logvar.is_a?(Array)-%>
+<% logvar.each  do | log | -%>
   log <%= log %>
 <% end -%>
 <% else -%>
-  log <%= @global['log'] %>
+  log <%= logvar %>
 <% end -%>
 <% end -%>
 <% end -%>
