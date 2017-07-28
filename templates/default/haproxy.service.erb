@@ -1,0 +1,15 @@
+[Unit]
+Description=<%= @name %>
+After=syslog.target network.target
+
+[Service]
+Environment=<%= @environment.map {|key, val| %Q{"#{key}=#{val}"} }.join(' ') %>
+ExecStart=<%= @command %>
+ExecReload=/usr/sbin/haproxy-systemd-wrapper -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid -sf $(cat /run/haproxy.pid)
+KillSignal=<%= @stop_signal %>
+User=<%= @user %>
+WorkingDirectory=<%= @directory %>
+Restart=<%= @restart_mode %>
+
+[Install]
+WantedBy=multi-user.target

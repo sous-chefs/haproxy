@@ -125,6 +125,7 @@ action :create do
 
       poise_service 'haproxy' do
         provider :systemd
+        template 'haproxy:haproxy.service.erb'
         command "#{haproxy_systemd_wrapper} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS"
         options reload_signal: 'USR2',
                 restart_mode: 'always',
