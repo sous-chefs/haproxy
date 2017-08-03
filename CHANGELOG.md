@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 - updating service to use cookbook template
+- Add option for install only #251
 
 ## [v4.6.1] (2017-08-02)
 - Reload instead of restart on config change
