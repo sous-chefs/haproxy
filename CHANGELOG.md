@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
+* Reload instead of restart on config change
 
 ## [v4.6.0] (07-13-2017)
 * Re-added `conf_template_source`

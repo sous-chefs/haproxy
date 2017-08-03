@@ -114,7 +114,7 @@ action :create do
       source lazy { node.run_state['haproxy']['conf_template_source'][config_file] }
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
       notifies :enable, 'poise_service[haproxy]', :immediately
-      notifies :restart, 'poise_service[haproxy]', :delayed
+      notifies :reload, 'poise_service[haproxy]', :delayed
       variables()
       action :nothing
       delayed_action :nothing
