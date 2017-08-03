@@ -1,7 +1,13 @@
 # frozen_string_literal: true
+
 haproxy_install 'source' do
   conf_template_source 'custom-template.cfg.erb'
   conf_cookbook 'test'
+end
+
+directory '/var/lib/haproxy' do
+  owner 'haproxy'
+  mode '0777'
 end
 
 haproxy_config_global '' do
