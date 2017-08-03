@@ -46,7 +46,7 @@ action :create do
     action :create
   end
 
-  case install_type
+  case new_resource.install_type
   when 'package'
     package package_name do
       version package_version if package_version

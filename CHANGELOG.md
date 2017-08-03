@@ -7,6 +7,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Add option for install only #251
 - `log` `property` in `global` resource can now be of type `Array` or `String`. This fixes #252
 - updating to haproxy 1.7.8
+- fixing supports line #258
 
 ## [v4.6.1] (2017-08-02)
 - Reload instead of restart on config change
