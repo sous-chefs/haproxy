@@ -9,12 +9,12 @@ source_url        'https://github.com/sous-chefs/haproxy'
 issues_url        'https://github.com/sous-chefs/haproxy/issues'
 chef_version      '>= 12.5' if respond_to?(:chef_version)
 
-supports debian
-supports ubuntu
-supports centos
-supports redhat
-supports oracle
-supports amazon
+supports 'debian'
+supports 'ubuntu'
+supports 'centos'
+supports 'redhat'
+supports 'oracle'
+supports 'amazon'
 
 depends           'cpu', '>= 0.2.0'
 depends           'build-essential', '>= 8.0.1'
