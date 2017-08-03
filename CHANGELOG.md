@@ -2,8 +2,10 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## [v4.6.1] (2017-08-02)
+## [unreleased]
+- updating service to use cookbook template
 
+## [v4.6.1] (2017-08-02)
 - Reload instead of restart on config change
 - Specify -sf argument last to support haproxy < 1.6.0
 

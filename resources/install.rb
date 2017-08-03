@@ -132,7 +132,8 @@ action :create do
         options reload_signal: 'USR2',
                 restart_mode: 'always',
                 after_target: 'network',
-                auto_reload: true
+                auto_reload: true,
+                template: 'haproxy:haproxy.service.erb'
         action :nothing
       end
     elsif !new_resource.install_only

@@ -1,0 +1,18 @@
+[Unit]
+Description=<%= @name %>
+After=syslog.target network.target
+
+[Service]
+Environment="CONFIG=/etc/haproxy/haproxy.cfg" "PIDFILE=/run/haproxy.pid"
+ExecStartPre=/usr/sbin/haproxy -f $CONFIG -c -q
+ExecStart=<%= @command %>
+ExecReload=/usr/sbin/haproxy -f $CONFIG -c -q
+ExecReload=/bin/kill -USR2 $MAINPID
+KillSignal=<%= @stop_signal %>
+User=<%= @user %>
+WorkingDirectory=<%= @directory %>
+KillMode=mixed
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
