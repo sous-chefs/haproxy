@@ -25,10 +25,10 @@ action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent
   with_run_context :root do
-    edit_resource(:template, config_file) do |new_resource|
+    edit_resource(:template, new_resource.config_file) do |new_resource|
       node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-      source lazy { node.run_state['haproxy']['conf_template_source'][config_file] ||= 'haproxy.cfg.erb' }
-      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] ||= 'haproxy' }
+      source lazy { node.run_state['haproxy']['conf_template_source'][new_resource.config_file] ||= 'haproxy.cfg.erb' }
+      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] ||= 'haproxy' }
       variables['global'] ||= {}
       variables['global']['user'] ||= ''
       variables['global']['user'] << new_resource.haproxy_user

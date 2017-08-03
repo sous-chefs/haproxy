@@ -37,8 +37,8 @@ property :use_linux_splice, String, equal_to: %w(0 1), default: '1'
 
 action :create do
   node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-  node.run_state['haproxy']['conf_template_source'][config_file] = conf_template_source
-  node.run_state['haproxy']['conf_cookbook'][config_file] = conf_cookbook
+  node.run_state['haproxy']['conf_template_source'][new_resource.config_file] = new_resource.conf_template_source
+  node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] = new_resource.conf_cookbook
 
   poise_service_user new_resource.haproxy_user do
     home '/home/haproxy'
@@ -48,8 +48,8 @@ action :create do
 
   case new_resource.install_type
   when 'package'
-    package package_name do
-      version package_version if package_version
+    package new_resource.package_name do
+      version new_resource.package_version if new_resource.package_version
       action :install
     end
 
@@ -65,31 +65,31 @@ action :create do
     package pkg_list
 
     remote_file 'haproxy source file' do
-      path ::File.join(Chef::Config[:file_cache_path], "haproxy-#{source_version}.tar.gz")
-      source source_url
-      checksum source_checksum
+      path ::File.join(Chef::Config[:file_cache_path], "haproxy-#{new_resource.source_version}.tar.gz")
+      source new_resource.source_url
+      checksum new_resource.source_checksum
       action :create
     end
 
-    make_cmd = "make TARGET=#{source_target_os}"
-    make_cmd << " CPU=#{source_target_cpu}" unless source_target_cpu.nil?
-    make_cmd << " ARCH=#{source_target_arch}" unless source_target_arch.nil?
-    make_cmd << " USE_PCRE=#{use_pcre}"
-    make_cmd << " USE_OPENSSL=#{use_openssl}"
-    make_cmd << " USE_ZLIB=#{use_zlib}"
-    make_cmd << " USE_LINUX_TPROXY=#{use_linux_tproxy}"
-    make_cmd << " USE_LINUX_SPLICE=#{use_linux_splice}"
+    make_cmd = "make TARGET=#{new_resource.source_target_os}"
+    make_cmd << " CPU=#{new_resource.source_target_cpu}" unless new_resource.source_target_cpu.nil?
+    make_cmd << " ARCH=#{new_resource.source_target_arch}" unless new_resource.source_target_arch.nil?
+    make_cmd << " USE_PCRE=#{new_resource.use_pcre}"
+    make_cmd << " USE_OPENSSL=#{new_resource.use_openssl}"
+    make_cmd << " USE_ZLIB=#{new_resource.use_zlib}"
+    make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
+    make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
 
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd' && !new_resource.install_only
 
     bash 'compile_haproxy' do
       cwd Chef::Config[:file_cache_path]
       code <<-EOH
-        tar xzf haproxy-#{source_version}.tar.gz
-        cd haproxy-#{source_version}
-        #{make_cmd} && make install PREFIX=#{bin_prefix} #{extra_cmd}
+        tar xzf haproxy-#{new_resource.source_version}.tar.gz
+        cd haproxy-#{new_resource.source_version}
+        #{make_cmd} && make install PREFIX=#{new_resource.bin_prefix} #{extra_cmd}
       EOH
-      not_if "#{::File.join(bin_prefix, 'sbin', 'haproxy')} -v | grep #{source_version}"
+      not_if "#{::File.join(new_resource.bin_prefix, 'sbin', 'haproxy')} -v | grep #{new_resource.source_version}"
     end
 
     poise_service_user new_resource.haproxy_user do
@@ -108,7 +108,7 @@ action :create do
       action :create
     end
 
-    template config_file do
+    template new_resource.config_file do
       owner new_resource.haproxy_user
       group new_resource.haproxy_group
       mode '0644'
