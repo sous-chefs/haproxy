@@ -30,7 +30,7 @@ haproxy_config_global '' do
   chroot '/var/lib/haproxy'
   daemon true
   maxconn 256
-  log '/dev/log local0'
+  log '/dev/log local0' #It can also be defined as Array
   log_tag 'WARDEN'
   pidfile '/var/run/haproxy.pid'
   stats socket: '/var/lib/haproxy/stats level admin'
