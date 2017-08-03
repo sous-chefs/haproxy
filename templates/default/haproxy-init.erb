@@ -86,7 +86,8 @@ haproxy_reload()
 {
   check_haproxy_config
 
-  $HAPROXY -f "$CONFIG" -p $PIDFILE -sf $(cat $PIDFILE) -D $EXTRAOPTS \
+  # Specify -sf argument last to support haproxy < 1.6.0
+  $HAPROXY -f "$CONFIG" -p $PIDFILE -D $EXTRAOPTS -sf $(cat $PIDFILE) \
     || return 2
   return 0
 }
