@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-haproxy_install 'package' do
+haproxy_install 'source' do
   conf_template_source 'custom-template.cfg.erb'
   conf_cookbook 'test'
 end
