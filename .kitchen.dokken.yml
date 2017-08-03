@@ -107,6 +107,10 @@ suites:
   run_list:
     - recipe[test::config_2]
   includes: centos-7
+- name: config_3_logs
+  run_list:
+    - recipe[test::config_3_logs]
+  includes: centos-7
 - name: config_4
   run_list:
     - recipe[test::config_4]
