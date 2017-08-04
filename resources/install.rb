@@ -6,15 +6,16 @@ property :config_dir,  String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
+property :install_only, [TrueClass, FalseClass], default: false
 
 # Package
 property :package_name, String, default: 'haproxy'
 property :package_version, [String, nil], default: nil
 
 # Source
-property :source_version, String, default: '1.7.5'
-property :source_url, String, default: 'http://www.haproxy.org/download/1.7/src/haproxy-1.7.5.tar.gz'
-property :source_checksum, String, default: 'b04d7db6383c662eb0a421a95af7becac6d9744a1abf0df6b0280c1e61416121'
+property :source_version, String, default: '1.7.8'
+property :source_url, String, default: 'http://www.haproxy.org/download/1.7/src/haproxy-1.7.8.tar.gz'
+property :source_checksum, String, default: 'ec90153ccedd20ad4015d3eaf76b502ff1f61b431d54c22b8457b5784a9ae142'
 property :source_target_cpu, [String, nil], default: lazy { node['kernel']['machine'] }
 property :source_target_arch, [String, nil], deafult: nil
 property :source_target_os, String, default: lazy {
@@ -36,8 +37,8 @@ property :use_linux_splice, String, equal_to: %w(0 1), default: '1'
 
 action :create do
   node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-  node.run_state['haproxy']['conf_template_source'][config_file] = conf_template_source
-  node.run_state['haproxy']['conf_cookbook'][config_file] = conf_cookbook
+  node.run_state['haproxy']['conf_template_source'][new_resource.config_file] = new_resource.conf_template_source
+  node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] = new_resource.conf_cookbook
 
   poise_service_user new_resource.haproxy_user do
     home '/home/haproxy'
@@ -45,10 +46,10 @@ action :create do
     action :create
   end
 
-  case install_type
+  case new_resource.install_type
   when 'package'
-    package package_name do
-      version package_version if package_version
+    package new_resource.package_name do
+      version new_resource.package_version if new_resource.package_version
       action :install
     end
 
@@ -64,31 +65,31 @@ action :create do
     package pkg_list
 
     remote_file 'haproxy source file' do
-      path ::File.join(Chef::Config[:file_cache_path], "haproxy-#{source_version}.tar.gz")
-      source source_url
-      checksum source_checksum
+      path ::File.join(Chef::Config[:file_cache_path], "haproxy-#{new_resource.source_version}.tar.gz")
+      source new_resource.source_url
+      checksum new_resource.source_checksum
       action :create
     end
 
-    make_cmd = "make TARGET=#{source_target_os}"
-    make_cmd << " CPU=#{source_target_cpu}" unless source_target_cpu.nil?
-    make_cmd << " ARCH=#{source_target_arch}" unless source_target_arch.nil?
-    make_cmd << " USE_PCRE=#{use_pcre}"
-    make_cmd << " USE_OPENSSL=#{use_openssl}"
-    make_cmd << " USE_ZLIB=#{use_zlib}"
-    make_cmd << " USE_LINUX_TPROXY=#{use_linux_tproxy}"
-    make_cmd << " USE_LINUX_SPLICE=#{use_linux_splice}"
+    make_cmd = "make TARGET=#{new_resource.source_target_os}"
+    make_cmd << " CPU=#{new_resource.source_target_cpu}" unless new_resource.source_target_cpu.nil?
+    make_cmd << " ARCH=#{new_resource.source_target_arch}" unless new_resource.source_target_arch.nil?
+    make_cmd << " USE_PCRE=#{new_resource.use_pcre}"
+    make_cmd << " USE_OPENSSL=#{new_resource.use_openssl}"
+    make_cmd << " USE_ZLIB=#{new_resource.use_zlib}"
+    make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
+    make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
 
-    extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd'
+    extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd' && !new_resource.install_only
 
     bash 'compile_haproxy' do
       cwd Chef::Config[:file_cache_path]
       code <<-EOH
-        tar xzf haproxy-#{source_version}.tar.gz
-        cd haproxy-#{source_version}
-        #{make_cmd} && make install PREFIX=#{bin_prefix} #{extra_cmd}
+        tar xzf haproxy-#{new_resource.source_version}.tar.gz
+        cd haproxy-#{new_resource.source_version}
+        #{make_cmd} && make install PREFIX=#{new_resource.bin_prefix} #{extra_cmd}
       EOH
-      not_if "#{::File.join(bin_prefix, 'sbin', 'haproxy')} -v | grep #{source_version}"
+      not_if "#{::File.join(new_resource.bin_prefix, 'sbin', 'haproxy')} -v | grep #{new_resource.source_version}"
     end
 
     poise_service_user new_resource.haproxy_user do
@@ -107,14 +108,16 @@ action :create do
       action :create
     end
 
-    template config_file do
+    template new_resource.config_file do
       owner new_resource.haproxy_user
       group new_resource.haproxy_group
       mode '0644'
       source lazy { node.run_state['haproxy']['conf_template_source'][config_file] }
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
-      notifies :enable, 'poise_service[haproxy]', :immediately
-      notifies :reload, 'poise_service[haproxy]', :delayed
+      unless new_resource.install_only
+        notifies :enable, 'poise_service[haproxy]', :immediately
+        notifies :restart, 'poise_service[haproxy]', :delayed
+      end
       variables()
       action :nothing
       delayed_action :nothing
@@ -129,10 +132,11 @@ action :create do
         options reload_signal: 'USR2',
                 restart_mode: 'always',
                 after_target: 'network',
-                auto_reload: true
+                auto_reload: true,
+                template: 'haproxy:haproxy.service.erb'
         action :nothing
       end
-    else
+    elsif !new_resource.install_only
       poise_service 'haproxy' do
         provider :sysvinit
         command ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy')

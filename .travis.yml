@@ -35,6 +35,7 @@ env:
    - INSTANCE=source-ubuntu-1604
    - INSTANCE=config-1-centos-7
    - INSTANCE=config-2-centos-7
+   - INSTANCE=config-3-logs-centos-7   
    - INSTANCE=config-4-centos-7
    - INSTANCE=config-backend-search-centos-7
    - INSTANCE=config-1-userlist-centos-7

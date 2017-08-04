@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-haproxy_install 'package'
+haproxy_install 'source'
 
 haproxy_config_global '' do
 end

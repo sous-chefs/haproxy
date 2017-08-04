@@ -1,7 +1,7 @@
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 property :pidfile, String, default: '/var/run/haproxy.pid'
-property :log, String, default: '/dev/log syslog info'
+property :log, [String, Array], default: '/dev/log syslog info'
 property :daemon, [TrueClass, FalseClass], default: true
 property :debug_option, String, default: 'quiet', equal_to: %w(quiet debug)
 property :stats, Hash, default: lazy {
@@ -25,10 +25,10 @@ action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent
   with_run_context :root do
-    edit_resource(:template, config_file) do |new_resource|
+    edit_resource(:template, new_resource.config_file) do |new_resource|
       node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-      source lazy { node.run_state['haproxy']['conf_template_source'][config_file] ||= 'haproxy.cfg.erb' }
-      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] ||= 'haproxy' }
+      source lazy { node.run_state['haproxy']['conf_template_source'][new_resource.config_file] ||= 'haproxy.cfg.erb' }
+      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] ||= 'haproxy' }
       variables['global'] ||= {}
       variables['global']['user'] ||= ''
       variables['global']['user'] << new_resource.haproxy_user
@@ -36,8 +36,8 @@ action :create do
       variables['global']['group'] = new_resource.haproxy_group
       variables['global']['pidfile'] ||= ''
       variables['global']['pidfile'] << new_resource.pidfile
-      variables['global']['log'] ||= ''
-      variables['global']['log'] = new_resource.log
+      variables['global']['log'] ||= []
+      variables['global']['log'] << new_resource.log
       variables['global']['log_tag'] ||= ''
       variables['global']['log_tag'] << new_resource.log_tag
       variables['global']['chroot'] ||= '' unless new_resource.chroot.nil?

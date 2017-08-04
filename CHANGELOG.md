@@ -2,8 +2,15 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## [v4.6.1] (2017-08-02)
+## [unreleased]
+- updating service to use cookbook template
+- Add option for install only #251
+- `log` `property` in `global` resource can now be of type `Array` or `String`. This fixes #252
+- updating to haproxy 1.7.8, updating source_version in test files(kitchen,cookbook, etc)
+- fixing supports line #258
+- updating properties to use new_resource
 
+## [v4.6.1] (2017-08-02)
 - Reload instead of restart on config change
 - Specify -sf argument last to support haproxy < 1.6.0
 
