@@ -5,7 +5,6 @@ global
 <% if @global['pid_file'] -%>
   pidfile <%= @global['pid_file'] %>
 <% end %>
-
 <% if @global['log'] && @global['log'].is_a?(Array)-%>
 <% @global['log'].each do | logvar | -%>
 <% if logvar && logvar.is_a?(Array)-%>
@@ -17,7 +16,6 @@ global
 <% end -%>
 <% end -%>
 <% end -%>
-
 <% if @global['log_tag'] -%>
   log-tag <%= @global['log_tag'] %>
 <% end -%>
@@ -44,13 +42,13 @@ global
 <% end -%>
 <% unless @global['extra_options'].nil? -%>
 <% @global['extra_options'].each do | option, value | -%>
-  <% if value.is_a?(Array) %>
-  <% value.each do | array_element | %>
+<% if value.is_a?(Array) %>
+<% value.each do | array_element | %>
   <%= option %> <%= array_element %>
-  <% end -%>
-  <% else %>
+<% end -%>
+<% else %>
   <%= option %> <%= value %>
-  <% end -%>
+<% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -66,13 +64,13 @@ resolvers <%= resolver %>
 <% end -%>
 <% end -%>
 <% r['extra_options'].each do | option, value | -%>
-  <% if value.is_a?(Array) %>
-  <% value.each do | array_element | %>
+<% if value.is_a?(Array) %>
+<% value.each do | array_element | %>
   <%= option %> <%= array_element %>
-  <% end -%>
-  <% else %>
+<% end -%>
+<% else %>
   <%= option %> <%= value %>
-  <% end -%>
+<% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -101,13 +99,13 @@ defaults
 <% end -%>
 <% unless @defaults['extra_options'].nil? %>
 <% @defaults['extra_options'].each do | option, value | -%>
-  <% if value.is_a?(Array) %>
-  <% value.each do | array_element | %>
+<% if value.is_a?(Array) %>
+<% value.each do | array_element | %>
   <%= option %> <%= array_element %>
-  <% end -%>
-  <% else %>
+<% end -%>
+<% else %>
   <%= option %> <%= value %>
-  <% end -%>
+<% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -134,7 +132,10 @@ frontend <%= frontend %>
 <% end -%>
 <% unless f['default_backend'].nil? %>
   default_backend <%= f['default_backend'] %>
+<<<<<<< HEAD
+=======
 <% end -%>
+>>>>>>> 1b0b421500ff6649e57385c38f2e18d39b73ed8a
 <% f['bind'].each do |binding| -%>
   bind <%= binding %>
 <% end -%>
@@ -163,13 +164,13 @@ frontend <%= frontend %>
 <% end -%>
 <% unless f['extra_options'].nil? %>
 <% f['extra_options'].each do | key, value | %>
-  <% if value.is_a?(Array) %>
-  <% value.each do | array_element | %>
+<% if value.is_a?(Array) %>
+<% value.each do | array_element | %>
   <%= key %> <%= array_element %>
-  <% end -%>
-  <% else %>
+<% end -%>
+<% else %>
   <%= key %> <%= value %>
-  <% end -%>
+<% end -%>
 <% end -%>
 <% end -%>
 <% end # frontend loop -%>
@@ -210,13 +211,13 @@ backend <%= key %>
 <% end -%>
 <% unless backend['extra_options'].nil? %>
 <% backend['extra_options'].each do | key, value |%>
-  <% if value.is_a?(Array) %>
-  <% value.each do | array_element | %>
+<% if value.is_a?(Array) %>
+<% value.each do | array_element | %>
   <%= key %> <%= array_element %>
-  <% end -%>
-  <% else %>
+<% end -%>
+<% else %>
   <%= key %> <%= value %>
-  <% end -%>
+<% end -%>
 <% end -%>
 <% end -%>
 <% end # backend loop -%>
@@ -256,13 +257,13 @@ listen <%= key %>
 
 <% unless listen['extra_options'].nil? %>
 <% listen['extra_options'].each do | key, value |%>
-  <% if value.is_a?(Array) %>
-  <% value.each do | array_element | %>
+<% if value.is_a?(Array) %>
+<% value.each do | array_element | %>
   <%= key %> <%= array_element %>
-  <% end -%>
-  <% else %>
+<% end -%>
+<% else %>
   <%= key %> <%= value %>
-  <% end -%>
+<% end -%>
 <% end -%>
 <% end -%>
 <% end # listen loop -%>
