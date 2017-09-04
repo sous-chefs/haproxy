@@ -1,6 +1,7 @@
 property :install_type, String, name_property: true, equal_to: %w(package source)
 property :conf_template_source, String, default: 'haproxy.cfg.erb'
 property :conf_cookbook, String, default: 'haproxy'
+property :conf_file_mode, String, default: '0644'
 property :bin_prefix, String, default: '/usr'
 property :config_dir,  String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
@@ -111,7 +112,8 @@ action :create do
     template new_resource.config_file do
       owner new_resource.haproxy_user
       group new_resource.haproxy_group
-      mode '0644'
+      mode new_resource.conf_file_mode
+      sensitive true
       source lazy { node.run_state['haproxy']['conf_template_source'][config_file] }
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
       unless new_resource.install_only
