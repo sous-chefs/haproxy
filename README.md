@@ -21,7 +21,7 @@ Installs and configures haproxy.
 
 ```ruby
 haproxy_install 'package' do
-
+  conf_file_mode '0640'
 end
 ```
 
