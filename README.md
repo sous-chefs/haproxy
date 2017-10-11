@@ -15,65 +15,9 @@ Installs and configures haproxy.
 - RHEL 7+, CentOS7+, OracleLinux7+
 - Debian 8+
 
-## Resources
+### Examples
+Please check for working examples in [TEST](./test/fixtures/cookbooks/test/)
 
-### Install
-
-```ruby
-haproxy_install 'package' do
-  conf_file_mode '0640'
-end
-```
-
-```ruby
-haproxy_config_global '' do
-  chroot '/var/lib/haproxy'
-  daemon true
-  maxconn 256
-  log '/dev/log local0' #It can also be defined as Array
-  log_tag 'WARDEN'
-  pidfile '/var/run/haproxy.pid'
-  stats socket: '/var/lib/haproxy/stats level admin'
-  tuning 'bufsize' => '262144'
-end
-```
-
-```ruby
-haproxy_config_defaults '' do
-  mode 'http'
-  timeout connect: '5000ms',
-          client: '5000ms',
-          server: '5000ms'
-end
-```
-
-```ruby
-haproxy_frontend 'http-in' do
-  bind '*:80'
-  extra_options(
-    'redirect' => [
-      'code 301 prefix / if acl1',
-      'scheme https if !acl_2'
-    ])
-  default_backend 'servers'
-end
-```
-
-```ruby
-haproxy_backend 'servers' do
-  server ['server1 127.0.0.1:8000 maxconn 32']
-end
-```
-
-### Resolver
-
-```ruby
-haproxy_resolver 'dns' do
-  nameserver ['google 8.8.8.8:53']
-  extra_options('resolve_retries' => 30,
-                'timeout' => 'retry 1s')
-end
-```
 
 ## License & Authors
 
