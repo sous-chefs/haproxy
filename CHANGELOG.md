@@ -66,7 +66,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - added chef-search example in: `test/fixtures/cookbooks/test/recipes/config_backend_search.rb`
 - Multiple addresses and ports on listener and frontend (#205)
 
-## [v4.0.2] (2017-04-2017)
+## [v4.0.2] (2017-04-21)
 
 - Fix haproxy service start on Ubuntu 14.04 (#199)
 - Reload HAProxy when changing configuration (#197)
@@ -77,30 +77,30 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Adding compat_resource for chef-12 support
 - Improved rendering of the configuration file (#196)
 
-## [v4.0.0] (18-04-2017)
+## [v4.0.0] (2017-04-18)
 
 - COMPATIBILIY WARNING!!!! This version removes the existing recipes, attributes, and instance provider in favor of the new haproxy_install and haproxy_ configuration resources. Why not just leave them in place? Well unfortunately they were utterly broken for anything other than the most trivial usage. Rather than continue the user pain we've opted to remove them and point users to a more modern installation method. If you need the legacy installation methods simply pin to the 3.0.4 release.
 - THIS IS GOING TO BREAK EVERYTHING YOU KNOW AND LOVE
 - 12.5 or greater rewrite
 - Custom Resource Only, no recipes
 
-## [v3.0.4] (29-03-2017)
+## [v3.0.4] (2017-03-29)
 
 - Fix bug introduced in (#174) (#182)
 
-## [v3.0.3] (28-03-2017)
+## [v3.0.3] (2017-03-28)
 
 - Multiple addresses and ports on listener and frontend (#174)
 - Customize logging destination (#178)
 - updating to use bats/serverspec (#179)
 
-## [v3.0.2] (27-03-2017)
+## [v3.0.2] (2017-03-27)
 
 - Allow server startup from `app_lb` recipe. (#171)
 - Use Delivery instead of Rake
 - Make this cookbook compatible with Chef-13, note: `params` option is now `parameters` (#175)
 
-## [v3.0.1] (2017-1-30)
+## [v3.0.1] (2017-01-30)
 
 - Reload haproxy configuration on changes (#152)
 - merging in generic socket conf (#107)
@@ -108,7 +108,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - adding tproxy and splice per (#98
 - removing members with nil ips from member array. (#79)
 
-## [v3.0.0] (2017-1-24)
+## [v3.0.0] (2017-01-24)
 
 - Configurable debug options
 - CentOS7 compatibility (#123)
