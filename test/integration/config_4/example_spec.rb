@@ -18,6 +18,10 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(%r{stats uri /}) }
   its('content') { should match(/stats realm Haproxy-Statistics/) }
   its('content') { should match(/stats auth user:pwd/) }
+  its('content') { should match(/http-request add-header X-Proto http/) }
+  its('content') { should match(/http-response set-header Expires \%\[date\(3600\),http_date\]/) }
+  its('content') { should match(/default_backend servers/) }
+  its('content') { should match(/bind-process odd/) }
 end
 
 describe service('haproxy') do

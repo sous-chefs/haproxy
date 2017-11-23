@@ -236,13 +236,13 @@ listen <%= key %>
   stats <%= option %> <%= value %>
 <% end -%>
 <% if listen['http_request'] -%>
-  http-request <% listen['http_request'] %>
+  http-request <%= listen['http_request'] %>
 <% end %>
 <% if listen['http_response'] -%>
-  http-response <% listen['http_response'] %>
+  http-response <%= listen['http_response'] %>
 <% end %>
 <% if listen['default_backend'] -%>
-  default_backend <% listen['default_backend'] %>
+  default_backend <%= listen['default_backend'] %>
 <% end %>
 <% unless listen['acl'].nil? %>
 <% listen['acl'].flatten.uniq.each do | acl |%>
