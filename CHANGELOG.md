@@ -3,6 +3,9 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
+## [v5.0.2] (2017-11-29)
+- Fixes typo in listen section, makes previously unprintable expressions, printable in http-request, http-response and default_backend.
+
 ## [v5.0.1] (2017-08-10)
 - Removed useless blank space in generated config file haproxy.cfg
 
