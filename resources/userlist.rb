@@ -1,4 +1,3 @@
-property :name, String, name_property: true
 property :group, Hash
 property :user, Hash
 property :config_dir, String, default: '/etc/haproxy'
