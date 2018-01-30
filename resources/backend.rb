@@ -1,4 +1,3 @@
-property :name, String, name_property: true
 property :mode, String, equal_to: %w(http tcp)
 property :server, Array
 property :tcp_request, Array

@@ -1,4 +1,3 @@
-property :name, String, name_property: true
 property :nameserver, Array
 property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'

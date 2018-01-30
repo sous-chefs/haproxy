@@ -1,4 +1,3 @@
-property :name, String, name_property: true
 property :mode, String, default: 'http', equal_to: %w(http tcp)
 property :bind, [String, Hash], default: '0.0.0.0:80'
 property :maxconn, Integer, default: 2000
