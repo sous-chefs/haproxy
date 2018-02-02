@@ -3,21 +3,30 @@
 This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
+
+## [v5.0.3] (2018-02-02)
+
+- Fix foodcritic warning for not defining `name_property`
+
 ## [v5.0.2] (2017-11-29)
+
 - Fixes typo in listen section, makes previously unprintable expressions, printable in http-request, http-response and default_backend.
 
 ## [v5.0.1] (2017-08-10)
+
 - Removed useless blank space in generated config file haproxy.cfg
 
 ## [v5.0.0] (2017-08-07)
+
 - updating service to use cookbook template
 - Add option for install only #251
 - `log` `property` in `global` resource can now be of type `Array` or `String`. This fixes #252
-- updating to haproxy 1.7.8, updating source_version in test files(kitchen,cookbook, etc)
+- updating to haproxy 1.7.8, updating `source_version` in test files(kitchen,cookbook, etc)
 - fixing supports line #258
-- updating properties to use new_resource
+- updating properties to use `new_resource`
 
 ## [v4.6.1] (2017-08-02)
+
 - Reload instead of restart on config change
 - Specify -sf argument last to support haproxy < 1.6.0
 
@@ -25,7 +34,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Re-added `conf_template_source`
 - Re-added `conf_cookbook`
-- Support Array value for extra_options entries. (#245, #246)
+- Support Array value for `extra_options` entries. (#245, #246)
 
 ## [v4.5.0] (2017-06-29)
 
@@ -46,7 +55,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Added Chefspec Matchers for the resources defined in this cookbook.
 - Added `mode` property to `backend` and `frontend` resources.
 - Added `maxconn` to `global` resource
-- removed `default_backend` as a required property on the `frontend` resource
+- Remove `default_backend` as a required property on the `frontend` resource
 
 ## [v4.2.0] (2017-05-04)
 
@@ -59,14 +68,14 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Pinned `build-essential`, `>= 8.0.1`
 - Pinned `poise-service`, `>= 1.5.1`
 
-- BREAKING CHANGES: This version removes `stats_socket`, `stats_uri` and `stats_timeout` properties from the `haproxy_global` and `haproxy_listen` resources in favor of using a hash to pass configuration options.
+- BREAKING CHANGES: This version removes `stats_socket`, `stats_uri` and `stats_timeout` properties from the `haproxy_global` and `haproxy_listen` resources in favour of using a hash to pass configuration options.
 
 ## [v4.1.0] (2017-05-01)
 
 - Adding `userlist` resource, to see usage: `test/fixtures/cookbooks/test/recipes/config_1_userlist.rb`
-- fixing haproxy_retries in haproxy_config_defaults resource
-- updating source install test to take node attributes as haproxy.org is slow.
-- added chef-search example in: `test/fixtures/cookbooks/test/recipes/config_backend_search.rb`
+- Fixing `haproxy_retries` in `haproxy_config_defaults` resource
+- Updating source install test to take node attributes as haproxy.org is slow.
+- Added chef-search example in: `test/fixtures/cookbooks/test/recipes/config_backend_search.rb`
 - Multiple addresses and ports on listener and frontend (#205)
 
 ## [v4.0.2] (2017-04-21)
@@ -106,17 +115,17 @@ This file is used to list changes made in each version of the haproxy cookbook.
 ## [v3.0.1] (2017-01-30)
 
 - Reload haproxy configuration on changes (#152)
-- merging in generic socket conf (#107)
-- updating config to use facilities hash dynamically (#102)
-- adding tproxy and splice per (#98
-- removing members with nil ips from member array. (#79)
+- Merging in generic socket conf (#107)
+- Updating config to use facilities hash dynamically (#102)
+- Adding `tproxy` and splice per (#98
+- Removing members with nil ips from member array. (#79)
 
 ## [v3.0.0] (2017-01-24)
 
 - Configurable debug options
 - CentOS7 compatibility (#123)
 - Adding poise-service for service management
-- updating source install to use Haproxy 1.7.2
+- Updating source install to use Haproxy 1.7.2
 - Chef >= 12.1 required
 - Use `['haproxy']['source']['target_cpu']` instead of `['haproxy']['source']['target_os']` to detect correct architecture. (#150)
 
@@ -256,7 +265,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ### Improvement
 
-- [COOK-2656]: Unify the haproxy.cfg with that from app_lb
+- [COOK-2656]: Unify the haproxy.cfg with that from `app_lb`
 
 ### New Feature
 
@@ -278,7 +287,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 ## v1.1.0
 
 - [COOK-1275] - haproxy-default.erb should be a cookbook_file
-- [COOK-1594] - Template-Service ordering issue in app_lb recipe
+- [COOK-1594] - Template-Service ordering issue in `app_lb` recipe
 
 ## v1.0.6
 
@@ -291,7 +300,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## v1.0.3
 
-- [COOK-620] haproxy::app_lb's template should use the member cloud private IP by default
+- [COOK-620] `haproxy::app_lb`'s template should use the member cloud private IP by default
 
 ## v1.0.2
 
@@ -305,8 +314,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[unreleased]: https://github.com/sous-chefs/haproxy/compare/v5.0.2...HEAD
-[v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
+[v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v5.0....v5.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
 [v3.0.3]: https://github.com/sous-chefs/haproxy/compare/v3.0.2...v3.0.3
@@ -325,3 +333,4 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v5.0.0]: https://github.com/sous-chefs/haproxy/compare/v4.6.1...v5.0.0
 [v5.0.1]: https://github.com/sous-chefs/haproxy/compare/v5.0.0...v5.0.1
 [v5.0.2]: https://github.com/sous-chefs/haproxy/compare/v5.0.1...v5.0.2
+[v5.0.3]: https://github.com/sous-chefs/haproxy/compare/v5.0.2...v5.0.3
