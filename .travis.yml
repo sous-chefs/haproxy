@@ -60,5 +60,6 @@ matrix:
       - /opt/chefdk/bin/chef exec delivery local all
       env: UNIT_AND_LINT=1
   allow_failures:
-  - INSTANCE=package-ubuntu-1404
-  - INSTANCE=source-ubuntu-1404
+    env:
+    - INSTANCE=package-ubuntu-1404
+    - INSTANCE=source-ubuntu-1404
