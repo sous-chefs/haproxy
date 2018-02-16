@@ -18,6 +18,8 @@ branches:
 services: docker
 
 env:
+- INSTANCE=package-ubuntu-1404
+- INSTANCE=source-ubuntu-1404
 - INSTANCE=source-amazon
 - INSTANCE=package-amazon
 - INSTANCE=package-centos-6
@@ -41,8 +43,6 @@ env:
 - INSTANCE=config-resolver-centos-7
 - INSTANCE=config-custom-template-centos-7
 - INSTANCE=config-array-centos-7
-- INSTANCE=package-ubuntu-1404
-- INSTANCE=source-ubuntu-1404
 # These both work fine locally in dokken and vagrant.
 
 before_script:
