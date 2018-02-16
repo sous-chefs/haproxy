@@ -16,14 +16,14 @@ Installs and configures haproxy.
 - Debian 8+
 
 ### Examples
-Please check for working examples in [TEST](./test/fixtures/cookbooks/test/)
 
+Please check for working examples in [TEST](./test/fixtures/cookbooks/test/)
 
 ## License & Authors
 
-- Author:: Dan Webb ([https://github.com/damacus](https://github.com/damacus))
-- Author:: Will Fisher ([https://github.com/teknofire](https://github.com/teknofire))
-- Author:: Richard Shade ([https://github.com/rshade](https://github.com/rshade))
+- Author:: Dan Webb (<https://github.com/damacus>)
+- Author:: Will Fisher (<https://github.com/teknofire>)
+- Author:: Richard Shade (<https://github.com/rshade>)
 - Author:: Joshua Timberman ([joshua@chef.io](mailto:joshua@chef.io))
 - Author:: Aaron Baer ([aaron@hw-ops.com](mailto:aaron@hw-ops.com))
 - Author:: Justin Kolberg ([justin@hw-ops.com](mailto:justin@hw-ops.com))
