@@ -41,9 +41,8 @@ env:
 - INSTANCE=config-resolver-centos-7
 - INSTANCE=config-custom-template-centos-7
 - INSTANCE=config-array-centos-7
-#
-# - INSTANCE=package-ubuntu-1404
-# - INSTANCE=source-ubuntu-1404
+- INSTANCE=package-ubuntu-1404
+- INSTANCE=source-ubuntu-1404
 # These both work fine locally in dokken and vagrant.
 
 before_script:
@@ -60,3 +59,6 @@ matrix:
     - script:
       - /opt/chefdk/bin/chef exec delivery local all
       env: UNIT_AND_LINT=1
+  allow_failures:
+  - INSTANCE=package-ubuntu-1404
+  - INSTANCE=source-ubuntu-1404
