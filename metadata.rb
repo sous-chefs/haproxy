@@ -18,5 +18,5 @@ supports 'amazon'
 
 depends           'cpu', '>= 0.2.0'
 depends           'build-essential', '>= 8.0.1'
-depends           'poise-service',   '= 1.5.1'
+depends           'poise-service',   '>= 1.5.1'
 depends           'compat_resource', '>= 12.16'
