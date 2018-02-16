@@ -13,6 +13,6 @@ end
 
 describe service 'haproxy' do
   it { should be_installed }
-  it { should be_enabled }
+  it { should be_enabled } unless ( os.debian? && os.release.to_i == 14 )
   it { should be_running }
 end
