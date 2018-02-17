@@ -18,20 +18,30 @@ branches:
 services: docker
 
 env:
-- INSTANCE=package-ubuntu-1404
-- INSTANCE=source-ubuntu-1404
-- INSTANCE=source-amazon
 - INSTANCE=package-amazon
+- ISTANCE=package-opensuse-leap
+- INSTANCE=package-ubuntu-1404
+- INSTANCE=package-ubuntu-1604
 - INSTANCE=package-centos-6
 - INSTANCE=package-centos-7
+- INSTANCE=package-fedora-26
+- INSTANCE=package-fedora-27
 - INSTANCE=package-centos-7 CHEF_VERSION=12.19.36
 - INSTANCE=package-debian-8
-- INSTANCE=package-ubuntu-1604
-- INSTANCE=package-oel-6
-- INSTANCE=package-oel-7
-- INSTANCE=source-centos-7
-- INSTANCE=source-debian-8
+- INSTANCE=package-debian-9
+
+- INSTANCE=source-amazon
+- ISTANCE=source-opensuse-leap
+- INSTANCE=source-ubuntu-1404
 - INSTANCE=source-ubuntu-1604
+- INSTANCE=source-centos-6
+- INSTANCE=source-centos-7
+- INSTANCE=source-fedora-26
+- INSTANCE=source-fedora-27
+- INSTANCE=source-centos-7 CHEF_VERSION=12.19.36
+- INSTANCE=source-debian-8
+- INSTANCE=source-debian-9
+
 - INSTANCE=config-1-centos-7
 - INSTANCE=config-2-centos-7
 - INSTANCE=config-3-logs-centos-7
@@ -43,7 +53,6 @@ env:
 - INSTANCE=config-resolver-centos-7
 - INSTANCE=config-custom-template-centos-7
 - INSTANCE=config-array-centos-7
-# These both work fine locally in dokken and vagrant.
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
