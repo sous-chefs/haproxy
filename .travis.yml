@@ -19,7 +19,7 @@ services: docker
 
 env:
 - INSTANCE=package-amazon
-- ISTANCE=package-opensuse-leap
+- INSTANCE=package-opensuse-leap
 - INSTANCE=package-ubuntu-1404
 - INSTANCE=package-ubuntu-1604
 - INSTANCE=package-centos-6
@@ -31,7 +31,7 @@ env:
 - INSTANCE=package-debian-9
 
 - INSTANCE=source-amazon
-- ISTANCE=source-opensuse-leap
+- INSTANCE=source-opensuse-leap
 - INSTANCE=source-ubuntu-1404
 - INSTANCE=source-ubuntu-1604
 - INSTANCE=source-centos-6
