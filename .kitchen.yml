@@ -4,7 +4,9 @@ driver:
 
 provisioner:
   name: chef_zero
-  require_chef_omnibus: <%= ENV['CHEF_VERSION'] || 'latest' %>
+  product_name: chef
+  product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
+  install_strategy: once
 
 client_rb:
   treat_deprecation_warnings_as_errors: true
