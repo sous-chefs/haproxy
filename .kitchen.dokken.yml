@@ -67,9 +67,9 @@ platforms:
     intermediate_instructions:
       - RUN zypper --non-interactive install hostname
 
-- name: amazon
+- name: amazonlinux
   driver:
-    image: amazonlinux:latest
+    image: dokken/amazonlinux
     pid_one_command: /sbin/init
 
 suites:
