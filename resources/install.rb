@@ -62,7 +62,7 @@ action :create do
       'rhel' => %w(pcre-devel openssl-devel zlib-devel),
       'fedora' => %w(pcre-devel openssl-devel zlib-devel),
       'amazon' => %w(pcre-devel openssl-devel zlib-devel),
-      'opensuse' => %w(pcre-devel openssl-devel zlib-devel)
+      'suse' => %w(pcre-devel openssl-devel zlib-devel)
     )
 
     package pkg_list
