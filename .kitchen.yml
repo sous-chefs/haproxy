@@ -1,7 +1,6 @@
 driver:
   name: vagrant
 
-
 provisioner:
   name: chef_zero
   product_name: chef
@@ -10,8 +9,6 @@ provisioner:
 
 client_rb:
   treat_deprecation_warnings_as_errors: true
-  resource_cloning: false
-
 verifier:
   name: inspec
 
@@ -26,7 +23,7 @@ platforms:
 - name: fedora-27
 - name: freebsd-10
 - name: freebsd-11
-- name: opensuse-leap-42.2
+- name: opensuse-leap-42
 - name: ubuntu-14.04
 - name: ubuntu-16.04
 
