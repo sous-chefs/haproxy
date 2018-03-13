@@ -42,12 +42,6 @@ action :create do
   node.run_state['haproxy']['conf_template_source'][new_resource.config_file] = new_resource.conf_template_source
   node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] = new_resource.conf_cookbook
 
-  poise_service_user new_resource.haproxy_user do
-    home '/home/haproxy'
-    group new_resource.haproxy_group
-    action :create
-  end
-
   case new_resource.install_type
   when 'package'
     package new_resource.package_name do
@@ -114,21 +108,21 @@ action :create do
       source lazy { node.run_state['haproxy']['conf_template_source'][config_file] }
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
       unless new_resource.install_only
-        notifies :enable, 'haproxy_service[haproxy]', :immediately
-        notifies :restart, 'haproxy_service[haproxy]', :delayed
+        notifies :enable, "haproxy_service[haproxy]", :immediately
+        notifies :restart, "haproxy_service[haproxy]", :delayed
       end
       variables()
       action :nothing
       delayed_action :nothing
     end
+  end
 
-    haproxy_service new_resource.service_name do
-      config_file new_resource.config_file
-      config_dir new_resource.config_dir
-      haproxy_user new_resource.haproxy_user
-      haproxy_group new_resource.haproxy_group
-      bin_prefix new_resource.bin_prefix
-      install_only new_resource.install_only
-    end
+  haproxy_service 'haproxy' do
+    config_file new_resource.config_file
+    config_dir new_resource.config_dir
+    haproxy_user new_resource.haproxy_user
+    haproxy_group new_resource.haproxy_group
+    bin_prefix new_resource.bin_prefix
+    install_only new_resource.install_only
   end
 end

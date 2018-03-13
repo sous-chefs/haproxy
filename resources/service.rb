@@ -73,3 +73,9 @@ action :reload do
     action :reload
   end
 end
+
+action :enable do
+  poise_service 'haproxy' do
+    action :enable
+  end
+end
