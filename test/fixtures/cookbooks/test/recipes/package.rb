@@ -11,7 +11,7 @@ haproxy_frontend 'http-in' do
   default_backend 'servers'
 end
 
-haproxy-service 'haproxy' do
+haproxy_service 'haproxy' do
   action :nothing
 end
 
