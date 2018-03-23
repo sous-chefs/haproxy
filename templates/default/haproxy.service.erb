@@ -3,10 +3,10 @@ Description=<%= @name %>
 After=syslog.target network.target
 
 [Service]
-Environment="CONFIG=/etc/haproxy/haproxy.cfg" "PIDFILE=/run/haproxy.pid"
-ExecStartPre=/usr/sbin/haproxy -f $CONFIG -c -q
+Environment="CONFIG=<%= @options['conf_file'] -%>" "PIDFILE=<%= @options['pid_file'] -%>"
+ExecStartPre=<%= @options['bin_prefix'] -%>/sbin/haproxy -f $CONFIG -c -q
 ExecStart=<%= @command %>
-ExecReload=/usr/sbin/haproxy -f $CONFIG -c -q
+ExecReload=<%= @options['bin_prefix'] -%>/sbin/haproxy -f $CONFIG -c -q
 ExecReload=/bin/kill -USR2 $MAINPID
 KillSignal=<%= @stop_signal %>
 User=<%= @user %>
