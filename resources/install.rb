@@ -141,6 +141,7 @@ action :create do
                 conf_file: new_resource.config_file,
                 bin_prefix: new_resource.bin_prefix,
                 template: 'haproxy:haproxy.service.erb'
+        action :nothing
       end
     elsif !new_resource.install_only
       poise_service 'haproxy' do
@@ -153,6 +154,7 @@ action :create do
                 run_dir: '/run/haproxy',
                 haproxy_user: new_resource.haproxy_user,
                 haproxy_group: new_resource.haproxy_group
+        action :nothing
       end
 
       cookbook_file '/etc/default/haproxy' do
