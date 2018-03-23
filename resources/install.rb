@@ -137,6 +137,9 @@ action :create do
                 restart_mode: 'always',
                 after_target: 'network',
                 auto_reload: true,
+                pid_file: '/run/haproxy.pid',
+                conf_file: new_resource.config_file,
+                bin_prefix: new_resource.bin_prefix,
                 template: 'haproxy:haproxy.service.erb'
         action :nothing
       end
