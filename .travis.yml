@@ -26,7 +26,7 @@ env:
 - INSTANCE=package-centos-7
 - INSTANCE=package-fedora-26
 - INSTANCE=package-fedora-27
-- INSTANCE=package-centos-7 CHEF_VERSION=12.19.36
+- INSTANCE=package-centos-7 CHEF_VERSION=12.20.3
 - INSTANCE=package-debian-8
 - INSTANCE=package-debian-9
 
@@ -38,7 +38,7 @@ env:
 - INSTANCE=source-centos-7
 - INSTANCE=source-fedora-26
 - INSTANCE=source-fedora-27
-- INSTANCE=source-centos-7 CHEF_VERSION=12.19.36
+- INSTANCE=source-centos-7 CHEF_VERSION=12.20.3
 - INSTANCE=source-debian-8
 - INSTANCE=source-debian-9
 
