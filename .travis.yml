@@ -56,10 +56,10 @@ env:
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
-  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
-  - /opt/chefdk/bin/chef --version
-  - /opt/chefdk/bin/cookstyle --version
-  - /opt/chefdk/bin/foodcritic --version
+  - eval "$(shell-init bash)"
+  - chef --version
+  - cookstyle --version
+  - foodcritic --version
   - chef gem install danger
 
 script: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml /opt/chefdk/bin/kitchen verify ${INSTANCE}
