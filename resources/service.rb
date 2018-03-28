@@ -1,13 +1,14 @@
-property :config_file, String
-property :config_dir, String
-property :haproxy_user, String
-property :haproxy_group, String
-property :bin_prefix, String
-property :install_only, [true, false]
+property :bin_prefix, String, default: '/usr'
+property :config_dir,  String, default: '/etc/haproxy'
+property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :haproxy_user, String, default: 'haproxy'
+property :haproxy_group, String, default: 'haproxy'
+property :install_only, [true, false], default: false
+property :service_name, String, default: 'haproxy'
 
 action :create do
   case node['init_package']
-  when'systemd'
+  when 'systemd'
     haproxy_systemd_wrapper = ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy-systemd-wrapper')
 
     poise_service 'haproxy' do

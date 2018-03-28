@@ -12,7 +12,7 @@ haproxy_frontend 'http-in' do
 end
 
 haproxy_service 'haproxy' do
-  action :nothing
+  action :create
 end
 
 haproxy_backend 'servers' do
