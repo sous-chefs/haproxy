@@ -6,7 +6,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [v6.0.0] (2018-03-28)
 
-- Remove `compat_resource` cookbok dependency and push the required Chef version to 12.18
+- Remove `compat_resource` cookbok dependency and push the required Chef version to 12.20
 
 ## [v5.0.4] (2018-03-28)
 
