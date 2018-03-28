@@ -4,6 +4,14 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
+## [v5.0.4] (2018-03-28)
+
+- Make 1.8.4 the default installed version (#279)
+- Use dokken docker images
+- Update tests for haproxy service
+- tcplog is now a valid input for the `haproxy_config_defaults` resourcce (#284)
+- bin prefix is now reflexted in the service config. (#288, #289)
+
 ## [v5.0.3] (2018-02-02)
 
 - Fix foodcritic warning for not defining `name_property`
