@@ -60,6 +60,7 @@ before_script:
   - /opt/chefdk/bin/chef --version
   - /opt/chefdk/bin/cookstyle --version
   - /opt/chefdk/bin/foodcritic --version
+  - chef gem install danger
 
 script: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml /opt/chefdk/bin/kitchen verify ${INSTANCE}
 
@@ -68,7 +69,11 @@ matrix:
     - script:
       - /opt/chefdk/bin/chef exec delivery local all
       env: UNIT_AND_LINT=1
+    - script: 
+      - chef exec danger
+      env: DANGER
   allow_failures:
     env:
     - INSTANCE=package-ubuntu-1404
     - INSTANCE=source-ubuntu-1404
+
