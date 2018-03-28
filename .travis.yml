@@ -8,7 +8,6 @@ addons:
     packages:
       - chefdk
 
-# Don't `bundle install` which takes about 1.5 mins
 install: echo "skip bundle install"
 
 branches:
@@ -16,6 +15,11 @@ branches:
     - master
 
 services: docker
+
+stages:
+  - unit
+  - danger
+  - test
 
 env:
 - INSTANCE=package-amazon
@@ -67,13 +71,22 @@ script: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml /opt/chefdk/bin/kitchen verify ${
 matrix:
   include:
     - script:
-      - /opt/chefdk/bin/chef exec delivery local all
-      env: UNIT_AND_LINT=1
-    - script: 
-      - chef exec danger
+      - chef exec delivery local all
+
+    - script:
+      -
       env: DANGER
   allow_failures:
     env:
     - INSTANCE=package-ubuntu-1404
     - INSTANCE=source-ubuntu-1404
 
+jobs:
+  include:
+    - stage: unit
+      script: chef exec delivery local all
+      env: UNIT_AND_LINT=1
+
+    - stage: danger
+      script: chef exec danger
+      env: DANGER
