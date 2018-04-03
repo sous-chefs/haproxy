@@ -8,7 +8,6 @@ addons:
     packages:
       - chefdk
 
-# Don't `bundle install` which takes about 1.5 mins
 install: echo "skip bundle install"
 
 branches:
@@ -16,6 +15,11 @@ branches:
     - master
 
 services: docker
+
+stages:
+  - unit
+  - danger
+  - test
 
 env:
 - INSTANCE=package-amazon
@@ -26,7 +30,7 @@ env:
 - INSTANCE=package-centos-7
 - INSTANCE=package-fedora-26
 - INSTANCE=package-fedora-27
-- INSTANCE=package-centos-7 CHEF_VERSION=12.19.36
+- INSTANCE=package-centos-7 CHEF_VERSION=12.20.3
 - INSTANCE=package-debian-8
 - INSTANCE=package-debian-9
 
@@ -38,7 +42,7 @@ env:
 - INSTANCE=source-centos-7
 - INSTANCE=source-fedora-26
 - INSTANCE=source-fedora-27
-- INSTANCE=source-centos-7 CHEF_VERSION=12.19.36
+- INSTANCE=source-centos-7 CHEF_VERSION=12.20.3
 - INSTANCE=source-debian-8
 - INSTANCE=source-debian-9
 
@@ -56,19 +60,33 @@ env:
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
-  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
-  - /opt/chefdk/bin/chef --version
-  - /opt/chefdk/bin/cookstyle --version
-  - /opt/chefdk/bin/foodcritic --version
+  - eval "$(shell-init bash)"
+  - chef --version
+  - cookstyle --version
+  - foodcritic --version
+  - chef gem install danger
 
 script: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml /opt/chefdk/bin/kitchen verify ${INSTANCE}
 
 matrix:
   include:
     - script:
-      - /opt/chefdk/bin/chef exec delivery local all
-      env: UNIT_AND_LINT=1
+      - chef exec delivery local all
+
+    - script:
+      -
+      env: DANGER
   allow_failures:
     env:
     - INSTANCE=package-ubuntu-1404
     - INSTANCE=source-ubuntu-1404
+
+jobs:
+  include:
+    - stage: unit
+      script: chef exec delivery local all
+      env: UNIT_AND_LINT=1
+
+    - stage: danger
+      script: chef exec danger
+      env: DANGER
