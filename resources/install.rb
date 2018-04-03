@@ -108,8 +108,8 @@ action :create do
       source lazy { node.run_state['haproxy']['conf_template_source'][config_file] }
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
       unless new_resource.install_only
-        notifies :enable, "haproxy_service[haproxy]", :immediately
-        notifies :restart, "haproxy_service[haproxy]", :delayed
+        notifies :enable, 'haproxy_service[haproxy]', :immediately
+        notifies :restart, 'haproxy_service[haproxy]', :delayed
       end
       variables()
       action :nothing
