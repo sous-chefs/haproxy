@@ -117,12 +117,7 @@ action :create do
     end
   end
 
-  haproxy_service 'haproxy' do
-    config_file new_resource.config_file
-    config_dir new_resource.config_dir
-    haproxy_user new_resource.haproxy_user
-    haproxy_group new_resource.haproxy_group
-    bin_prefix new_resource.bin_prefix
-    install_only new_resource.install_only
+  unless new_resource.install_only
+    haproxy_service 'haproxy'
   end
 end

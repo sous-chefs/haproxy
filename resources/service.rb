@@ -3,7 +3,6 @@ property :config_dir,  String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
-property :install_only, [true, false], default: false
 property :service_name, String, default: 'haproxy'
 
 action :create do

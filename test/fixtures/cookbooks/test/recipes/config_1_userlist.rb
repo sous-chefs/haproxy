@@ -36,3 +36,7 @@ haproxy_userlist 'mylist' do
         'scott' => 'insecure-password elgato',
         'xdb' => 'insecure-password hello'
 end
+
+haproxy_service 'haproxy' do
+  action [:enable,:restart]
+end

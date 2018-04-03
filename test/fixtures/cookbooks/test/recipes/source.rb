@@ -15,3 +15,7 @@ haproxy_install 'source' do
   use_linux_tproxy '1'
   use_linux_splice '1'
 end
+
+haproxy_service 'haproxy' do
+  action [:create,:enable,:restart]
+end

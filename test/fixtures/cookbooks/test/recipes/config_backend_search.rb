@@ -36,3 +36,7 @@ end
 haproxy_backend 'servers' do
   server server_array
 end
+
+haproxy_service 'haproxy' do
+  action [:enable,:restart]
+end

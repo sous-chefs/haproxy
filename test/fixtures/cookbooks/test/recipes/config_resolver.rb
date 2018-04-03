@@ -12,3 +12,7 @@ haproxy_resolver 'dns' do
   extra_options('resolve_retries' => 30,
                 'timeout' => 'retry 1s')
 end
+
+haproxy_service 'haproxy' do
+  action [:enable,:restart]
+end
