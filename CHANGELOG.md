@@ -326,7 +326,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[unreleased]: https://github.com/sous-chefs/haproxy/compare/v5.0.4...HEAD
+[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.0.0...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
@@ -348,3 +348,4 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v5.0.2]: https://github.com/sous-chefs/haproxy/compare/v5.0.1...v5.0.2
 [v5.0.3]: https://github.com/sous-chefs/haproxy/compare/v5.0.2...v5.0.3
 [v5.0.4]: https://github.com/sous-chefs/haproxy/compare/v5.0.3...v5.0.4
+[v6.0.0]: https://github.com/sous-chefs/haproxy/compare/v5.0.4...v6.0.0

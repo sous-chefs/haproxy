@@ -81,5 +81,5 @@ haproxy_backend 'gina' do
 end
 
 haproxy_service 'haproxy' do
-  action [:enable,:restart]
+  action [:enable, :restart]
 end

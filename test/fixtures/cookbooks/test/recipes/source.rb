@@ -17,5 +17,5 @@ haproxy_install 'source' do
 end
 
 haproxy_service 'haproxy' do
-  action [:create,:enable,:restart]
+  action [:create, :enable, :restart]
 end

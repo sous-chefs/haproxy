@@ -117,7 +117,5 @@ action :create do
     end
   end
 
-  unless new_resource.install_only
-    haproxy_service 'haproxy'
-  end
+  haproxy_service 'haproxy' unless new_resource.install_only
 end

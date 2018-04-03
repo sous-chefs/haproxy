@@ -119,5 +119,5 @@ haproxy_acl 'restricted_page path_beg /' do
 end
 
 haproxy_service 'haproxy' do
-  action [:enable,:restart]
+  action [:enable, :restart]
 end
