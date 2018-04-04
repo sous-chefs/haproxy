@@ -83,3 +83,11 @@ action :reload do
     end
   end
 end
+
+action :enable do
+  with_run_context :root do
+    poise_service 'haproxy' do
+      action :enable
+    end
+  end
+end
