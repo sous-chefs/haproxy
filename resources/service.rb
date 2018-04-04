@@ -54,40 +54,30 @@ end
 
 action :start do
   with_run_context :root do
-    poise_service 'haproxy' do
-      action :start
-    end
+    resources(poise_service: 'haproxy').run_action(:start)
   end
 end
 
 action :stop do
   with_run_context :root do
-    poise_service 'haproxy' do
-      action :stop
-    end
+    resources(poise_service: 'haproxy').run_action(:stop)
   end
 end
 
 action :restart do
   with_run_context :root do
-    poise_service 'haproxy' do
-      action :restart
-    end
+    resources(poise_service: 'haproxy').run_action(:restart)
   end
 end
 
 action :reload do
   with_run_context :root do
-    poise_service 'haproxy' do
-      action :reload
-    end
+    resources(poise_service: 'haproxy').run_action(:reload)
   end
 end
 
 action :enable do
   with_run_context :root do
-    poise_service 'haproxy' do
-      action :enable
-    end
+    resources(poise_service: 'haproxy').run_action(:enable)
   end
 end
