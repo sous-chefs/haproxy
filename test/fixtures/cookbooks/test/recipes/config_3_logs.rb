@@ -46,3 +46,7 @@ haproxy_backend 'tcp-servers' do
   mode 'tcp'
   server ['server2 127.0.0.1:3306 maxconn 32']
 end
+
+haproxy_service 'haproxy' do
+  action [:enable, :restart]
+end

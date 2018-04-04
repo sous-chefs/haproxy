@@ -22,3 +22,7 @@ end
 haproxy_backend 'servers' do
   server ['disabled-server 127.0.0.1:1 disabled']
 end
+
+haproxy_service 'haproxy' do
+  action [:enable, :restart]
+end
