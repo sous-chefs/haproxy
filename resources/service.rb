@@ -18,8 +18,10 @@ action :create do
                 restart_mode: 'always',
                 after_target: 'network',
                 auto_reload: true,
+                conf_file: new_resource.config_file, 
+                pid_file: '/run/haproxy.pid',
                 template: 'haproxy:haproxy.service.erb'
-        action :nothing
+        action :enable
       end
     when 'sysvinit'
       poise_service 'haproxy' do
@@ -32,7 +34,7 @@ action :create do
                 run_dir: '/run/haproxy',
                 haproxy_user: new_resource.haproxy_user,
                 haproxy_group: new_resource.haproxy_group
-        action :nothing
+        action :enable
       end
     end
 
@@ -80,14 +82,6 @@ action :reload do
   with_run_context :root do
     poise_service 'haproxy' do
       action :reload
-    end
-  end
-end
-
-action :enable do
-  with_run_context :root do
-    poise_service 'haproxy' do
-      action :enable
     end
   end
 end
