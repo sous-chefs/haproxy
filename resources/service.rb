@@ -21,7 +21,6 @@ action :create do
                 conf_file: new_resource.config_file,
                 pid_file: '/run/haproxy.pid',
                 template: 'haproxy:haproxy.service.erb'
-        action :enable
       end
     when 'sysvinit'
       poise_service 'haproxy' do
@@ -34,7 +33,6 @@ action :create do
                 run_dir: '/run/haproxy',
                 haproxy_user: new_resource.haproxy_user,
                 haproxy_group: new_resource.haproxy_group
-        action :enable
       end
     end
 
