@@ -13,7 +13,7 @@ action :create do
 
       poise_service 'haproxy' do
         provider :systemd
-       command "#{haproxy_systemd_wrapper} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS"
+        command "#{haproxy_systemd_wrapper} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS"
         options reload_signal: 'USR2',
                 restart_mode: 'always',
                 after_target: 'network',
