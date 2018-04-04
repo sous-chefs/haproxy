@@ -35,6 +35,7 @@ property :use_openssl,      String, equal_to: %w(0 1), default: '1'
 property :use_zlib,         String, equal_to: %w(0 1), default: '1'
 property :use_linux_tproxy, String, equal_to: %w(0 1), default: '1'
 property :use_linux_splice, String, equal_to: %w(0 1), default: '1'
+property :use_systemd,      String, equal_to: %w(0 1), default: '1'
 
 action :create do
   node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
@@ -58,7 +59,7 @@ action :create do
     include_recipe 'build-essential'
 
     pkg_list = value_for_platform_family(
-      'debian' => %w(libpcre3-dev libssl-dev zlib1g-dev),
+      'debian' => %w(libpcre3-dev libssl-dev zlib1g-dev libsystemd-dev),
       'rhel' => %w(pcre-devel openssl-devel zlib-devel),
       'fedora' => %w(pcre-devel openssl-devel zlib-devel),
       'amazon' => %w(pcre-devel openssl-devel zlib-devel),
@@ -82,8 +83,9 @@ action :create do
     make_cmd << " USE_ZLIB=#{new_resource.use_zlib}"
     make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
     make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
+    make_cmd << " USE_SYSTEMD=#{new_resource.use_systemd}" unless new_resource.source_version < '1.8'
 
-    extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd' && !new_resource.install_only
+    extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd' && !new_resource.install_only && new_resource.source_version < '1.8'
 
     bash 'compile_haproxy' do
       cwd Chef::Config[:file_cache_path]
@@ -128,11 +130,15 @@ action :create do
     end
 
     if node['init_package'] == 'systemd'
-      haproxy_systemd_wrapper = ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy-systemd-wrapper')
+      haproxy_systemd_command = if new_resource.source_version < '1.8'
+                                  ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy-systemd-wrapper')
+                                else
+                                  ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy') + ' -Ws'
+                                end
 
       poise_service 'haproxy' do
         provider :systemd
-        command "#{haproxy_systemd_wrapper} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS"
+        command "#{haproxy_systemd_command} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS"
         options reload_signal: 'USR2',
                 restart_mode: 'always',
                 after_target: 'network',
