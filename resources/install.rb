@@ -78,7 +78,7 @@ action :create do
     make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
     make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
 
-    extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd' && !new_resource.install_only
+    extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd'
 
     bash 'compile_haproxy' do
       cwd Chef::Config[:file_cache_path]
@@ -107,15 +107,9 @@ action :create do
       sensitive true
       source lazy { node.run_state['haproxy']['conf_template_source'][config_file] }
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
-      unless new_resource.install_only
-        notifies :enable, 'haproxy_service[haproxy]', :immediately
-        notifies :restart, 'haproxy_service[haproxy]', :delayed
-      end
       variables()
       action :nothing
       delayed_action :nothing
     end
   end
-
-  haproxy_service 'haproxy' unless new_resource.install_only
 end
