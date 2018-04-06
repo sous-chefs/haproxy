@@ -4,6 +4,14 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
+## [v6.1.0] (2018-04-07)
+
+- Adds `haproxy_service` resource **Possible breaking change**
+- Adds support for haproxy 1.8
+- Adds tests for 1.8 on ubuntu 16.04
+- Re-order test suites and simplify
+- Cookbook is now tested on chef-client 13.85 and the latest chef-client 14
+
 ## [v6.0.0] (2018-03-28)
 
 - Remove `compat_resource` cookbok dependency and push the required Chef version to 12.20
@@ -22,7 +30,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [v5.0.2] (2017-11-29)
 
-- Fixes typo in listen section, makes previously unprintable expressions, printable in http-request, http-response and default_backend.
+- Fixes typo in listen section, makes previously unprintable expressions, printable in http-request, http-response and `default_backend`.
 
 ## [v5.0.1] (2017-08-10)
 
@@ -326,7 +334,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[unreleased]: https://github.com/sous-chefs/haproxy/compare/v5.0.4...HEAD
+[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.1.0...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
@@ -348,3 +356,5 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v5.0.2]: https://github.com/sous-chefs/haproxy/compare/v5.0.1...v5.0.2
 [v5.0.3]: https://github.com/sous-chefs/haproxy/compare/v5.0.2...v5.0.3
 [v5.0.4]: https://github.com/sous-chefs/haproxy/compare/v5.0.3...v5.0.4
+[v6.0.0]: https://github.com/sous-chefs/haproxy/compare/v5.0.4...v6.0.0
+[v6.1.0]: https://github.com/sous-chefs/haproxy/compare/v6.0.0...v6.1.0

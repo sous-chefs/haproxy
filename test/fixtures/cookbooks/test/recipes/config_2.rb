@@ -79,3 +79,5 @@ haproxy_backend 'gina' do
   server ['tile0 10.0.0.10:80 check weight 1 maxconn 100',
           'tile1 10.0.0.10:80 check weight 1 maxconn 100']
 end
+
+haproxy_service 'haproxy'

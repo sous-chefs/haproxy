@@ -1,10 +1,4 @@
 # frozen_string_literal: true
-haproxy_config_global '' do
-end
-
-haproxy_config_defaults '' do
-end
-
 haproxy_install 'source' do
   source_url node['haproxy']['source_url']
   source_checksum node['haproxy']['source_checksum']
@@ -14,4 +8,13 @@ haproxy_install 'source' do
   use_zlib '1'
   use_linux_tproxy '1'
   use_linux_splice '1'
+end
+
+haproxy_config_global ''
+
+haproxy_config_defaults ''
+
+haproxy_service 'haproxy' do
+  source_version node['haproxy']['source_version']
+  action :create
 end

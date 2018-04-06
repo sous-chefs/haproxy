@@ -7,7 +7,9 @@ property :config_dir,  String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
-property :install_only, [TrueClass, FalseClass], default: false
+property :install_only, [true, false], default: false
+property :service_name, String, default: 'haproxy'
+property :use_systemd, String, equal_to: %w(0 1), default: lazy { node['init_package'] == 'systemd' ? '1' : '0' }
 
 # Package
 property :package_name, String, default: 'haproxy'
@@ -41,12 +43,6 @@ action :create do
   node.run_state['haproxy']['conf_template_source'][new_resource.config_file] = new_resource.conf_template_source
   node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] = new_resource.conf_cookbook
 
-  poise_service_user new_resource.haproxy_user do
-    home '/home/haproxy'
-    group new_resource.haproxy_group
-    action :create
-  end
-
   case new_resource.install_type
   when 'package'
     package new_resource.package_name do
@@ -60,10 +56,15 @@ action :create do
     pkg_list = value_for_platform_family(
       'debian' => %w(libpcre3-dev libssl-dev zlib1g-dev),
       'rhel' => %w(pcre-devel openssl-devel zlib-devel),
-      'fedora' => %w(pcre-devel openssl-devel zlib-devel),
+      'fedora' => %w(pcre-devel openssl-devel zlib-devel systemd-devel),
       'amazon' => %w(pcre-devel openssl-devel zlib-devel),
       'suse' => %w(pcre-devel libopenssl-devel zlib-devel)
     )
+    if new_resource.use_systemd == '1'
+      node.default['haproxy']['use_systemd'] = true
+      pkg_list << 'libsystemd-dev' if (node['platform_family'] == 'ubuntu') || (node['platform_family'] == 'debian')
+      pkg_list << 'systemd-devel' if (node['platform_family'] == 'rhel') || (node['platform_family'] == 'suse')
+    end
 
     package pkg_list
 
@@ -82,8 +83,8 @@ action :create do
     make_cmd << " USE_ZLIB=#{new_resource.use_zlib}"
     make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
     make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
-
-    extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if node['init_package'] == 'systemd' && !new_resource.install_only
+    make_cmd << " USE_SYSTEMD=#{new_resource.use_systemd}" if new_resource.use_systemd == '1' && new_resource.source_version.to_f >= 1.8
+    extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if new_resource.source_version.to_f < 1.8
 
     bash 'compile_haproxy' do
       cwd Chef::Config[:file_cache_path]
@@ -94,15 +95,15 @@ action :create do
       EOH
       not_if "#{::File.join(new_resource.bin_prefix, 'sbin', 'haproxy')} -v | grep #{new_resource.source_version}"
     end
-
-    poise_service_user new_resource.haproxy_user do
-      home '/home/haproxy'
-      group new_resource.haproxy_group
-      action :create
-    end
   end
 
   with_run_context :root do
+    find_resource(:poise_service_user, new_resource.haproxy_user) do
+      home "/home/#{new_resource.haproxy_user}"
+      group new_resource.haproxy_group
+      action :create
+    end
+
     directory new_resource.config_dir do
       owner new_resource.haproxy_user
       group new_resource.haproxy_group
@@ -118,84 +119,9 @@ action :create do
       sensitive true
       source lazy { node.run_state['haproxy']['conf_template_source'][config_file] }
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
-      unless new_resource.install_only
-        notifies :enable, 'poise_service[haproxy]', :immediately
-        notifies :restart, 'poise_service[haproxy]', :delayed
-      end
       variables()
       action :nothing
       delayed_action :nothing
-    end
-
-    if node['init_package'] == 'systemd'
-      haproxy_systemd_wrapper = ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy-systemd-wrapper')
-
-      poise_service 'haproxy' do
-        provider :systemd
-        command "#{haproxy_systemd_wrapper} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS"
-        options reload_signal: 'USR2',
-                restart_mode: 'always',
-                after_target: 'network',
-                auto_reload: true,
-                pid_file: '/run/haproxy.pid',
-                conf_file: new_resource.config_file,
-                bin_prefix: new_resource.bin_prefix,
-                template: 'haproxy:haproxy.service.erb'
-        action :nothing
-      end
-    elsif !new_resource.install_only
-      poise_service 'haproxy' do
-        provider :sysvinit
-        command ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy')
-        options template: 'haproxy:haproxy-init.erb',
-                hostname: node['hostname'],
-                conf_dir: new_resource.config_dir,
-                pid_file: '/var/run/haproxy.pid',
-                run_dir: '/run/haproxy',
-                haproxy_user: new_resource.haproxy_user,
-                haproxy_group: new_resource.haproxy_group
-        action :nothing
-      end
-
-      cookbook_file '/etc/default/haproxy' do
-        cookbook 'haproxy'
-        source 'haproxy-default'
-        owner 'root'
-        group 'root'
-        mode '0644'
-      end
-    end
-  end
-end
-
-action :start do
-  with_run_context :root do
-    poise_service 'haproxy' do
-      action :start
-    end
-  end
-end
-
-action :stop do
-  with_run_context :root do
-    poise_service 'haproxy' do
-      action :stop
-    end
-  end
-end
-
-action :restart do
-  with_run_context :root do
-    poise_service 'haproxy' do
-      action :restart
-    end
-  end
-end
-
-action :reload do
-  with_run_context :root do
-    poise_service 'haproxy' do
-      action :reload
     end
   end
 end
