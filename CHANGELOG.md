@@ -4,13 +4,28 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
-## [v6.1.0] (2018-04-07)
+## [v6.1.0] (2tbc)
 
-- Adds `haproxy_service` resource **Possible breaking change**
+### **Breaking changes**
+
+- Adds `haproxy_service` resource see test suites for usage
+
+### Improvements
+
 - Adds support for haproxy 1.8
-- Adds tests for 1.8 on ubuntu 16.04
-- Re-order test suites and simplify
-- Cookbook is now tested on chef-client 13.85 and the latest chef-client 14
+- Simplify the kitchen matrix
+- Remove kitchen.dokken.yml suites and inherit from kitchen.yml
+- Use default action in tests (:create)
+- Set the use_systemd property from the init package system
+- Adding in systemd for SUSE Linux
+- Fix source comparison
+
+### Testing Changes
+
+- Test haproxy version 1.8.7 and 1.7.8
+- Test on chef-client version 13.87 and 14
+- Add notes on how we generate the travis.yml list
+- Remove Amazon tests until a new dokken image is produced that is reliable
 
 ## [v6.0.0] (2018-03-28)
 
