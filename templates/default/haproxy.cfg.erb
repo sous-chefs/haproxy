@@ -162,6 +162,13 @@ frontend <%= frontend %>
 <% end -%>
 <% end -%>
 <% end -%>
+<% unless f['tcp_request'].nil? %>
+<% f['tcp_request'].each do | tcp_request |%>
+<% tcp_request.each do | tcp_request | %>
+  tcp-request <%= tcp_request %>
+<% end -%>
+<% end -%>
+<% end -%>
 <% unless f['extra_options'].nil? %>
 <% f['extra_options'].each do | key, value | %>
 <% if value.is_a?(Array) %>
