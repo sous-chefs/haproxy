@@ -117,3 +117,5 @@ haproxy_acl 'restricted_page path_beg /' do
   section 'listen'
   section_name 'admin'
 end
+
+haproxy_service 'haproxy'

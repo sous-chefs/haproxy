@@ -4,13 +4,48 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
+## [v6.1.0] (2tbc)
+
+### **Breaking changes**
+
+- Adds `haproxy_service` resource see test suites for usage
+
+### Improvements
+
+- Adds support for haproxy 1.8
+- Simplify the kitchen matrix
+- Remove kitchen.dokken.yml suites and inherit from kitchen.yml
+- Use default action in tests (:create)
+- Set the use_systemd property from the init package system
+- Adding in systemd for SUSE Linux
+- Fix source comparison
+
+### Testing Changes
+
+- Test haproxy version 1.8.7 and 1.7.8
+- Test on chef-client version 13.87 and 14
+- Add notes on how we generate the travis.yml list
+- Remove Amazon tests until a new dokken image is produced that is reliable
+
+## [v6.0.0] (2018-03-28)
+
+- Remove `compat_resource` cookbok dependency and push the required Chef version to 12.20
+
+## [v5.0.4] (2018-03-28)
+
+- Make 1.8.4 the default installed version (#279)
+- Use dokken docker images
+- Update tests for haproxy service
+- tcplog is now a valid input for the `haproxy_config_defaults` resourcce (#284)
+- bin prefix is now reflexted in the service config. (#288, #289)
+
 ## [v5.0.3] (2018-02-02)
 
 - Fix foodcritic warning for not defining `name_property`
 
 ## [v5.0.2] (2017-11-29)
 
-- Fixes typo in listen section, makes previously unprintable expressions, printable in http-request, http-response and default_backend.
+- Fixes typo in listen section, makes previously unprintable expressions, printable in http-request, http-response and `default_backend`.
 
 ## [v5.0.1] (2017-08-10)
 
@@ -314,7 +349,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v5.0....v5.0.0
+[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.1.0...HEAD
+[v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
 [v3.0.3]: https://github.com/sous-chefs/haproxy/compare/v3.0.2...v3.0.3
@@ -334,3 +370,6 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v5.0.1]: https://github.com/sous-chefs/haproxy/compare/v5.0.0...v5.0.1
 [v5.0.2]: https://github.com/sous-chefs/haproxy/compare/v5.0.1...v5.0.2
 [v5.0.3]: https://github.com/sous-chefs/haproxy/compare/v5.0.2...v5.0.3
+[v5.0.4]: https://github.com/sous-chefs/haproxy/compare/v5.0.3...v5.0.4
+[v6.0.0]: https://github.com/sous-chefs/haproxy/compare/v5.0.4...v6.0.0
+[v6.1.0]: https://github.com/sous-chefs/haproxy/compare/v6.0.0...v6.1.0

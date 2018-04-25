@@ -26,3 +26,5 @@ haproxy_listen 'admin' do
         realm: 'Haproxy-Statistics',
         auth: 'user:pwd'
 end
+
+haproxy_service 'haproxy'
