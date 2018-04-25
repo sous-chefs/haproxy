@@ -4,6 +4,7 @@ property :maxconn, Integer, default: 2000
 property :default_backend, String
 property :use_backend, Array
 property :acl, Array
+property :tcp_request, Array
 property :option, Array
 property :stats, Hash, default: {}
 property :extra_options, Hash
@@ -43,6 +44,8 @@ action :create do
       variables['frontend'][new_resource.name]['use_backend'] << new_resource.use_backend unless new_resource.use_backend.nil?
       variables['frontend'][new_resource.name]['acl'] ||= [] unless new_resource.acl.nil?
       variables['frontend'][new_resource.name]['acl'] << new_resource.acl unless new_resource.acl.nil?
+      variables['frontend'][new_resource.name]['tcp_request'] ||= [] unless new_resource.tcp_request.nil?
+      variables['frontend'][new_resource.name]['tcp_request'] << new_resource.tcp_request unless new_resource.tcp_request.nil?
       variables['frontend'][new_resource.name]['option'] ||= [] unless new_resource.option.nil?
       variables['frontend'][new_resource.name]['option'] << new_resource.option unless new_resource.option.nil?
       variables['frontend'][new_resource.name]['extra_options'] ||= {} unless new_resource.extra_options.nil?
