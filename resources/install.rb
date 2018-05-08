@@ -51,7 +51,7 @@ action :create do
     end
 
   when 'source'
-    include_recipe 'build-essential'
+    build_essential 'compilation tools'
 
     pkg_list = value_for_platform_family(
       'debian' => %w(libpcre3-dev libssl-dev zlib1g-dev),
