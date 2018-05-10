@@ -9,9 +9,11 @@ This file is used to list changes made in each version of the haproxy cookbook.
 ### **Breaking changes**
 
 - Adds `haproxy_service` resource see test suites for usage
+- Require Chef 12.20 or later
 
 ### Improvements
 
+- Uses the build_essential resource not the default recipe so the cookbook can be skipped entirely if running on Chef 14+
 - Adds support for haproxy 1.8
 - Simplify the kitchen matrix
 - Remove kitchen.dokken.yml suites and inherit from kitchen.yml
