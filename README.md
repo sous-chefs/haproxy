@@ -6,7 +6,7 @@ Installs and configures haproxy.
 
 ## Requirements
 
-- Chef 12.5+
+- Chef 12.20+
 
 ### Platforms
 
