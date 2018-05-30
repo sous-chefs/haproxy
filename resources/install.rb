@@ -38,6 +38,30 @@ property :use_zlib,         String, equal_to: %w(0 1), default: '1'
 property :use_linux_tproxy, String, equal_to: %w(0 1), default: '1'
 property :use_linux_splice, String, equal_to: %w(0 1), default: '1'
 
+description <<-EOL
+Install HAProxy from package or source.
+EOL
+
+examples <<-EOL
+```
+haproxy_install 'package'
+```
+```
+haproxy_install 'source' do
+  source_url node['haproxy']['source_url']
+  source_checksum node['haproxy']['source_checksum']
+  source_version node['haproxy']['source_version']
+  use_pcre '1'
+  use_openssl '1'
+  use_zlib '1'
+  use_linux_tproxy '1'
+  use_linux_splice '1'
+end
+```
+EOL
+
+introduced 'v4.0.0'
+
 action :create do
   node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
   node.run_state['haproxy']['conf_template_source'][new_resource.config_file] = new_resource.conf_template_source

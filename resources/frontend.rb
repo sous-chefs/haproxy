@@ -10,6 +10,27 @@ property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
+description <<-EOL
+Frontend describes a set of listening sockets accepting client connections.
+EOL
+
+examples <<-EOL
+```
+haproxy_frontend 'http-in' do
+  bind '*:80'
+  default_backend 'servers'
+end
+
+haproxy_frontend 'tcp-in' do
+  mode 'tcp'
+  bind '*:3307'
+  default_backend 'tcp-servers'
+end
+```
+EOL
+
+introduced 'v4.0.0'
+
 action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent

@@ -19,6 +19,38 @@ property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
+description <<-EOL
+Parameters in the "global" section are process-wide and often OS-specific.
+
+They are generally set once for all and do not need being changed once correct.
+EOL
+
+examples <<-EOL
+```
+haproxy_config_global '' do
+  chroot '/var/lib/haproxy'
+  daemon true
+  maxconn 256
+  log '/dev/log local0'
+  log_tag 'WARDEN'
+  pidfile '/var/run/haproxy.pid'
+  stats socket: '/var/lib/haproxy/stats level admin'
+  tuning 'bufsize' => '262144'
+end
+```
+```
+haproxy_config_global 'global' do
+  daemon false
+  maxconn 4097
+  chroot '/var/lib/haproxy'
+  stats socket: '/var/lib/haproxy/haproxy.stat mode 600 level admin',
+        timeout: '2m'
+end
+```
+EOL
+
+introduced 'v4.0.0'
+
 action :create do
   node.default['haproxy']['user'] = new_resource.haproxy_user
   node.default['haproxy']['group'] = new_resource.haproxy_group
