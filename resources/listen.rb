@@ -11,30 +11,6 @@ property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
-description <<-EOL
-Listen defines a complete proxy with its frontend and backend parts combined in one section.
-
-It is generally useful for TCP-only traffic.
-EOL
-
-examples <<-EOL
-```
-haproxy_listen 'admin' do
-  bind '0.0.0.0:1337'
-  mode 'http'
-  stats uri: '/',
-        realm: 'Haproxy-Statistics',
-        auth: 'user:pwd'
-  http_request 'add-header X-Proto http'
-  http_response 'set-header Expires %[date(3600),http_date]'
-  default_backend 'servers'
-  extra_options('bind-process' => 'odd')
-end
-```
-EOL
-
-introduced 'v4.0.0'
-
 action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent

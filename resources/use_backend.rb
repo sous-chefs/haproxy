@@ -4,31 +4,6 @@ property :section_name, String, required: true
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
-description <<-EOL
-Switch to a specific backend if/unless an ACL-based condition is matched.
-EOL
-
-examples <<-EOL
-```
-haproxy_use_backend 'gina if gina_host' do
-  section 'frontend'
-  section_name 'http'
-end
-```
-```
-haproxy_use_backend 'use_backends for frontend:http' do
-  section 'frontend'
-  section_name 'http'
-  use_backend [
-    'rrhost if rrhost_host',
-    'tiles_public if tile_host',
-  ]
-end
-```
-EOL
-
-introduced 'v4.2.0'
-
 action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent

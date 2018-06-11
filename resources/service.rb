@@ -7,24 +7,6 @@ property :service_name, String, default: 'haproxy'
 property :source_version, String, default: '1.7.8'
 property :use_systemd, String, equal_to: %w(0 1), default: lazy { node['init_package'] == 'systemd' ? '1' : '0' }
 
-description <<-EOL
-Installs HAProxy as a systemd or sysvinit service.
-EOL
-
-examples <<-EOL
-```
-haproxy_service 'haproxy'
-```
-```
-haproxy_service 'haproxy' do
-  source_version node['haproxy']['source_version']
-  action :create
-end
-```
-EOL
-
-introduced 'v4.0.0'
-
 action :create do
   Chef::Log.info 'Running haproxy_service Create'
   with_run_context :root do

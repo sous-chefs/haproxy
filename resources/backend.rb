@@ -7,37 +7,6 @@ property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
-description <<-EOL
-Backend describes a set of servers to which the proxy will connect to forward incoming connections.
-EOL
-
-examples <<-EOL
-```
-haproxy_backend 'servers' do
-  server ['server1 127.0.0.1:8000 maxconn 32']
-end
-```
-```
-haproxy_backend 'tiles_public' do
-  server ['tile0 10.0.0.10:80 check weight 1 maxconn 100',
-          'tile1 10.0.0.10:80 check weight 1 maxconn 100']
-  tcp_request ['content track-sc2 src',
-               'content reject if conn_rate_abuse mark_as_abuser']
-  option %w(httplog dontlognull forwardfor)
-  acl ['conn_rate_abuse sc2_conn_rate gt 3000',
-       'data_rate_abuse sc2_bytes_out_rate gt 20000000',
-       'mark_as_abuser sc1_inc_gpc0 gt 0',
-     ]
-  extra_options(
-    'stick-table' => 'type ip size 200k expire 2m store conn_rate(60s),bytes_out_rate(60s)',
-    'http-request' => 'set-header X-Public-User yes'
-  )
-end
-```
-EOL
-
-introduced 'v4.0.0'
-
 action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent

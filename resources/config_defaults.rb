@@ -10,34 +10,6 @@ property :haproxy_retries, Integer
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
-description <<-EOL
-Defaults sets default parameters for all other sections following its declaration. Those default parameters are reset by the next "defaults" section.
-EOL
-
-examples <<-EOL
-```
-haproxy_config_defaults 'defaults' do
-  mode 'http'
-  timeout connect: '5000ms',
-          client: '5000ms',
-          server: '5000ms'
-  haproxy_retries 5
-end
-```
-```
-haproxy_config_defaults 'defaults' do
-  mode 'http'
-  timeout connect: '5s',
-          client: '50s',
-          server: '50s'
-  log 'global'
-  retries 3
-end
-```
-EOL
-
-introduced 'v4.0.0'
-
 action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent
