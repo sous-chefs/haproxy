@@ -279,6 +279,7 @@ Introduced: v4.0.0
 - `source_target_cpu` -  (is: [String, nil])
 - `source_target_arch` -  (is: [String, nil])
 - `source_target_os` -  (is: String)
+- `use_libcrypt` -  (is: String)
 - `use_pcre` -  (is: String)
 - `use_openssl` -  (is: String)
 - `use_zlib` -  (is: String)

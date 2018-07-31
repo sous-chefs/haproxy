@@ -32,6 +32,7 @@ property :source_target_os, String, default: lazy {
     'generic'
   end
 }
+property :use_libcrypt,     String, equal_to: %w(0 1), default: '1'
 property :use_pcre,         String, equal_to: %w(0 1), default: '1'
 property :use_openssl,      String, equal_to: %w(0 1), default: '1'
 property :use_zlib,         String, equal_to: %w(0 1), default: '1'
@@ -78,6 +79,7 @@ action :create do
     make_cmd = "make TARGET=#{new_resource.source_target_os}"
     make_cmd << " CPU=#{new_resource.source_target_cpu}" unless new_resource.source_target_cpu.nil?
     make_cmd << " ARCH=#{new_resource.source_target_arch}" unless new_resource.source_target_arch.nil?
+    make_cmd << " USE_LIBCRYPT=#{new_resource.use_libcrypt}"
     make_cmd << " USE_PCRE=#{new_resource.use_pcre}"
     make_cmd << " USE_OPENSSL=#{new_resource.use_openssl}"
     make_cmd << " USE_ZLIB=#{new_resource.use_zlib}"
