@@ -19,7 +19,6 @@ services: docker
 stages:
   - unit
   - test
-  - danger
 
 # This list was generated using
 # kitchen list | awk {'print $1'} | grep -v Instance
@@ -86,7 +85,3 @@ jobs:
     - stage: unit
       script: chef exec delivery local all
       env: UNIT_AND_LINT=1
-
-    - stage: danger
-      script: chef exec danger
-      env: DANGER
