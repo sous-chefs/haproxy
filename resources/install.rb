@@ -17,8 +17,8 @@ property :package_version, [String, nil], default: nil
 
 # Source
 property :source_version, String, default: '1.7.8'
-property :source_url, String, default: 'http://www.haproxy.org/download/1.7/src/haproxy-1.7.8.tar.gz'
-property :source_checksum, String, default: 'ec90153ccedd20ad4015d3eaf76b502ff1f61b431d54c22b8457b5784a9ae142'
+property :source_url, String, default: lazy { "http://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version}.tar.gz" }
+property :source_checksum, [String, nil], default: nil
 property :source_target_cpu, [String, nil], default: lazy { node['kernel']['machine'] }
 property :source_target_arch, [String, nil], default: nil
 property :source_target_os, String, default: lazy {
@@ -72,7 +72,7 @@ action :create do
     remote_file 'haproxy source file' do
       path ::File.join(Chef::Config[:file_cache_path], "haproxy-#{new_resource.source_version}.tar.gz")
       source new_resource.source_url
-      checksum new_resource.source_checksum
+      checksum new_resource.source_checksum if new_resource.source_checksum
       action :create
     end
 
