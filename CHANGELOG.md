@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
+## [v6.2.2] (2018-08-03)
+
+- Made haproxy_install source_url property dynamic with source_version property and removed the need to specify checksum #307
+
 ## [v6.2.1] (2018-08-01)
 
 - Added compiling from source crypt support #305
