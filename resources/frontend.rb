@@ -34,11 +34,11 @@ action :create do
       end
       variables['frontend'][new_resource.name]['mode'] ||= '' unless new_resource.mode.nil?
       variables['frontend'][new_resource.name]['mode'] << new_resource.mode unless new_resource.mode.nil?
-      variables['frontend'][new_resource.name]['stats'] ||= {}
-      variables['frontend'][new_resource.name]['stats'].merge!(new_resource.stats)
+      variables['frontend'][new_resource.name]['stats'] ||= {} unless new_resource.stats.nil?
+      variables['frontend'][new_resource.name]['stats'].merge!(new_resource.stats) unless new_resource.stats.nil?
 
-      variables['frontend'][new_resource.name]['maxconn'] ||= ''
-      variables['frontend'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s
+      variables['frontend'][new_resource.name]['maxconn'] ||= '' unless new_resource.maxconn.nil?
+      variables['frontend'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
       variables['frontend'][new_resource.name]['use_backend'] ||= [] unless new_resource.use_backend.nil?
       variables['frontend'][new_resource.name]['use_backend'] << new_resource.use_backend unless new_resource.use_backend.nil?
       variables['frontend'][new_resource.name]['acl'] ||= [] unless new_resource.acl.nil?

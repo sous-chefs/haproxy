@@ -21,8 +21,8 @@ action :create do
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] ||= 'haproxy' }
       variables['listen'] ||= {}
       variables['listen'][new_resource.name] ||= {}
-      variables['listen'][new_resource.name]['mode'] ||= ''
-      variables['listen'][new_resource.name]['mode'] << new_resource.mode
+      variables['listen'][new_resource.name]['mode'] ||= '' unless new_resource.mode.nil?
+      variables['listen'][new_resource.name]['mode'] << new_resource.mode unless new_resource.mode.nil?
       variables['listen'][new_resource.name]['bind'] ||= []
       if new_resource.bind.is_a? Hash
         new_resource.bind.map do |addresses, ports|
@@ -33,8 +33,8 @@ action :create do
       else
         variables['listen'][new_resource.name]['bind'] << new_resource.bind
       end
-      variables['listen'][new_resource.name]['maxconn'] ||= ''
-      variables['listen'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s
+      variables['listen'][new_resource.name]['maxconn'] ||= '' unless new_resource.maxconn.nil?
+      variables['listen'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
       variables['listen'][new_resource.name]['stats'] ||= {} unless new_resource.stats.nil?
       variables['listen'][new_resource.name]['stats'].merge!(new_resource.stats) unless new_resource.stats.nil?
       variables['listen'][new_resource.name]['http_request'] ||= '' unless new_resource.http_request.nil?
