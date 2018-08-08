@@ -1,11 +1,11 @@
 property :bind, [String, Hash], default: '0.0.0.0:80'
 property :mode, String, equal_to: %w(http tcp)
-property :maxconn, Integer, default: 2000
+property :maxconn, Integer
 property :default_backend, String
 property :use_backend, Array
 property :acl, Array
 property :option, Array
-property :stats, Hash, default: {}
+property :stats, Hash
 property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }

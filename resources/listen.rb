@@ -1,6 +1,6 @@
-property :mode, String, default: 'http', equal_to: %w(http tcp)
+property :mode, String, equal_to: %w(http tcp)
 property :bind, [String, Hash], default: '0.0.0.0:80'
-property :maxconn, Integer, default: 2000
+property :maxconn, Integer
 property :stats, Hash
 property :http_request, String
 property :http_response, String
