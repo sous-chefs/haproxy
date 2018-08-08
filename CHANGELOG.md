@@ -6,7 +6,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [v6.2.3] (2018-08-03)
 
-- Removed a few resource default values so they can be specified it the haproxy.cfg default section and added service reload exmample to the readme for config changes
+- Removed a few resource default values so they can be specified in the haproxy.cfg default section and added service reload exmample to the readme for config changes
 
 ## [v6.2.2] (2018-08-03)
 
