@@ -139,7 +139,7 @@ frontend <%= frontend %>
 <% f['bind'].each do |binding| -%>
   bind <%= binding %>
 <% end -%>
-<% unless f['maxconn']&.empty? -%>
+<% unless f['maxconn'].nil? -%>
   maxconn <%= f['maxconn'] %>
 <% end -%>
 <% f['stats']&.each do |option, value| -%>
