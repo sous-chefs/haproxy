@@ -1,11 +1,11 @@
 property :bind, [String, Hash], default: '0.0.0.0:80'
 property :mode, String, equal_to: %w(http tcp)
-property :maxconn, Integer, default: 2000
+property :maxconn, Integer
 property :default_backend, String
 property :use_backend, Array
 property :acl, Array
 property :option, Array
-property :stats, Hash, default: {}
+property :stats, Hash
 property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
@@ -34,11 +34,11 @@ action :create do
       end
       variables['frontend'][new_resource.name]['mode'] ||= '' unless new_resource.mode.nil?
       variables['frontend'][new_resource.name]['mode'] << new_resource.mode unless new_resource.mode.nil?
-      variables['frontend'][new_resource.name]['stats'] ||= {}
-      variables['frontend'][new_resource.name]['stats'].merge!(new_resource.stats)
+      variables['frontend'][new_resource.name]['stats'] ||= {} unless new_resource.stats.nil?
+      variables['frontend'][new_resource.name]['stats'].merge!(new_resource.stats) unless new_resource.stats.nil?
 
-      variables['frontend'][new_resource.name]['maxconn'] ||= ''
-      variables['frontend'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s
+      variables['frontend'][new_resource.name]['maxconn'] ||= '' unless new_resource.maxconn.nil?
+      variables['frontend'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
       variables['frontend'][new_resource.name]['use_backend'] ||= [] unless new_resource.use_backend.nil?
       variables['frontend'][new_resource.name]['use_backend'] << new_resource.use_backend unless new_resource.use_backend.nil?
       variables['frontend'][new_resource.name]['acl'] ||= [] unless new_resource.acl.nil?

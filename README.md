@@ -377,6 +377,7 @@ end
 ### haproxy_service
 
 Installs HAProxy as a systemd or sysvinit service.
+To reload HAProxy service add a subscribes option to the resource block. See example below.
 
 Introduced: v4.0.0
 
@@ -409,6 +410,7 @@ haproxy_service 'haproxy'
 haproxy_service 'haproxy' do
   source_version node['haproxy']['source_version']
   action :create
+  subscribes :reload, 'template[/etc/haproxy/haproxy.cfg]', :immediately
 end
 ```
 ### haproxy_use_backend
