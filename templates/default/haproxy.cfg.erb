@@ -26,7 +26,7 @@ global
   daemon
 <% end -%>
   <%= @global['debug_option'] %>
-<% @global['stats'].each do |option, value| -%>
+<% @global['stats']&.each do |option, value| -%>
   stats <%= option %> <%= value %>
 <% end -%>
 <% unless @global['maxconn'].nil? -%>
@@ -96,7 +96,7 @@ defaults
 <% unless @defaults['retries'].nil? -%>
   retries <%= @defaults['retries'] %>
 <% end -%>
-<% @defaults['stats'].each do |option, value| -%>
+<% @defaults['stats']&.each do |option, value| -%>
   stats <%= option %> <%= value %>
 <% end -%>
 <% unless @defaults['extra_options'].nil? %>
@@ -139,10 +139,10 @@ frontend <%= frontend %>
 <% f['bind'].each do |binding| -%>
   bind <%= binding %>
 <% end -%>
-<% unless f['maxconn'].empty? -%>
+<% unless f['maxconn']&.empty? -%>
   maxconn <%= f['maxconn'] %>
 <% end -%>
-<% f['stats'].each do |option, value| -%>
+<% f['stats']&.each do |option, value| -%>
   stats <%= option %> <%= value %>
 <% end -%>
 <% unless f['acl'].nil? %>
@@ -227,12 +227,16 @@ backend <%= key %>
 <% @listen.each do | key, listen |%>
 
 listen <%= key %>
+<% unless listen['mode'].nil? -%>
   mode <%= listen['mode']%>
+<% end -%>
 <% listen['bind'].each do |binding| -%>
   bind <%= binding %>
 <% end -%>
+<% unless listen['maxconn'].nil? -%>
   maxconn <%= listen['maxconn']%>
-<% listen['stats'].each do |option, value| -%>
+<% end -%>
+<% listen['stats']&.each do |option, value| -%>
   stats <%= option %> <%= value %>
 <% end -%>
 <% if listen['http_request'] -%>
