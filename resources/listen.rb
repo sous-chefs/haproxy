@@ -8,6 +8,7 @@ property :default_backend, String
 property :use_backend, Array
 property :acl, Array
 property :extra_options, Hash
+property :server, Array
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
@@ -47,6 +48,8 @@ action :create do
       variables['listen'][new_resource.name]['acl'] << new_resource.acl unless new_resource.acl.nil?
       variables['listen'][new_resource.name]['default_backend'] ||= '' unless new_resource.default_backend.nil?
       variables['listen'][new_resource.name]['default_backend'] << new_resource.default_backend unless new_resource.default_backend.nil?
+      variables['listen'][new_resource.name]['server'] ||= [] unless new_resource.server.nil?
+      variables['listen'][new_resource.name]['server'] << new_resource.server unless new_resource.server.nil?
       variables['listen'][new_resource.name]['extra_options'] ||= {} unless new_resource.extra_options.nil?
       variables['listen'][new_resource.name]['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
 

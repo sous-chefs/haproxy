@@ -327,6 +327,7 @@ Introduced: v4.0.0
 - `use_backend` -  (is: Array)
 - `acl` -  (is: Array)
 - `extra_options` -  (is: Hash)
+- `server` -  (is: Array)
 - `config_dir` -  (is: String)
 - `config_file` -  (is: String)
 
@@ -343,6 +344,8 @@ haproxy_listen 'admin' do
   http_response 'set-header Expires %[date(3600),http_date]'
   default_backend 'servers'
   extra_options('bind-process' => 'odd')
+  server ['admin0 10.0.0.10:80 check weight 1 maxconn 100',
+          'admin1 10.0.0.10:80 check weight 1 maxconn 100']
 end
 ```
 ### haproxy_resolver

@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
+## [v6.2.4] (2018-08-22)
+
+- Added server property to listen resource and config template
+
 ## [v6.2.3] (2018-08-03)
 
 - Removed a few resource default values so they can be specified in the haproxy.cfg default section and added service reload exmample to the readme for config changes
