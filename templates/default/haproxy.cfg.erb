@@ -271,7 +271,7 @@ listen <%= key %>
 <% end -%>
 <% listen['server']&.each do | s |%>
 <% s.each  do |server|%>
-server <%= server %>
+  server <%= server %>
 <% end -%>
 <% end -%>
 <% end # listen loop -%>
