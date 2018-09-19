@@ -4,7 +4,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
-## [v6.2.4] (2018-08-22)
+## [v6.2.4] (2018-09-19)
 
 - Added server property to listen resource and config template
 
@@ -372,7 +372,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.2.2...HEAD
+[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.2.4...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
@@ -397,4 +397,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v6.0.0]: https://github.com/sous-chefs/haproxy/compare/v5.0.4...v6.0.0
 [v6.1.0]: https://github.com/sous-chefs/haproxy/compare/v6.0.0...v6.1.0
 [v6.2.0]: https://github.com/sous-chefs/haproxy/compare/v6.1.0...v6.2.0
-[v6.2.1]: https://github.com/sous-chefs/haproxy/compare/v6.2.1...v6.2.2
+[v6.2.1]: https://github.com/sous-chefs/haproxy/compare/v6.2.0...v6.2.1
+[v6.2.2]: https://github.com/sous-chefs/haproxy/compare/v6.2.1...v6.2.2
+[v6.2.3]: https://github.com/sous-chefs/haproxy/compare/v6.2.2...v6.2.3
+[v6.2.4]: https://github.com/sous-chefs/haproxy/compare/v6.2.3...v6.2.4
