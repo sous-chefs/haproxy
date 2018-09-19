@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
+## [v7.0.0] )2018-09-19
+
+- Deprecate Chef-12 support
+
 ## [v6.2.4] (2018-09-19)
 
 - Added server property to listen resource and config template
