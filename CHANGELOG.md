@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
+- Add rspec examples for resource usage
+
 ## [v6.2.4] (2018-09-19)
 
 - Added server property to listen resource and config template
