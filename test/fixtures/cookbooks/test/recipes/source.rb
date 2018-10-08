@@ -15,8 +15,4 @@ haproxy_config_global ''
 
 haproxy_config_defaults ''
 
-haproxy_service 'haproxy' do
-  source_version node['haproxy']['source_version']
-  systemd_wrapper true if node['haproxy']['source_version'].to_f < 1.8
-  action :create
-end
+haproxy_service 'haproxy'

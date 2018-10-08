@@ -4,7 +4,6 @@ property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 property :service_name, String, default: 'haproxy'
-property :systemd_wrapper, [true, false], default: false
 property :use_systemd, [true, false], default: lazy { node['init_package'] == 'systemd' }
 
 action :create do
@@ -26,7 +25,7 @@ action :create do
 
     case node['init_package']
     when 'systemd'
-      haproxy_systemd_command = if new_resource.systemd_wrapper
+      haproxy_systemd_command = if haproxy_version < 1.8
                                   ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy-systemd-wrapper')
                                 else
                                   ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy') + ' -Ws'
@@ -96,4 +95,8 @@ action :enable do
     find_resource(:poise_service, 'haproxy') do
     end.run_action(:enable)
   end
+end
+
+action_class do
+  include Chef::Haproxy::Helpers
 end

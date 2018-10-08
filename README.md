@@ -416,8 +416,6 @@ Introduced: v4.0.0
 - `haproxy_user` -  (is: String)
 - `haproxy_group` -  (is: String)
 - `service_name` -  (is: String)
-- `use_systemd` -  (is: String)
-- `systemd_wrapper` - (is: Boolean)
 
 #### Examples
 
@@ -426,8 +424,6 @@ haproxy_service 'haproxy'
 ```
 ```ruby
 haproxy_service 'haproxy' do
-  source_version node['haproxy']['source_version']
-  action :create
   subscribes :reload, 'template[/etc/haproxy/haproxy.cfg]', :immediately
 end
 ```

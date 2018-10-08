@@ -51,6 +51,4 @@ haproxy_backend 'servers' do
   server ['server1 127.0.0.1:8000 maxconn 32']
 end
 
-haproxy_service 'haproxy' do
-  action :create
-end
+haproxy_service 'haproxy'
