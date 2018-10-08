@@ -1,12 +1,12 @@
 # haproxy Cookbook
 
-[![Build Status](https://travis-ci.org/sous-chefs/haproxy.svg?branch=master)](https://travis-ci.org/sous-chefs/haproxy) [![Cookbook Version](https://img.shields.io/cookbook/v/haproxy.svg)](https://supermarket.chef.io/cookbooks/haproxy)
+[![CircleCI](https://circleci.com/gh/sous-chefs/haproxy/tree/master.svg?style=svg)](https://circleci.com/gh/sous-chefs/haproxy/tree/master) [![Cookbook Version](https://img.shields.io/cookbook/v/haproxy.svg)](https://supermarket.chef.io/cookbooks/haproxy)
 
 Installs and configures haproxy.
 
 ## Requirements
 
-- Chef 12.20+
+- Chef 13+
 
 ### Platforms
 
