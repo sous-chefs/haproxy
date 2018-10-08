@@ -21,12 +21,12 @@ platforms:
 - name: centos-7
 - name: debian-8
 - name: debian-9
-- name: fedora-27
+- name: fedora-latest
 - name: freebsd-10
 - name: freebsd-11
 - name: opensuse-leap-42
-- name: ubuntu-14.04
 - name: ubuntu-16.04
+- name: ubuntu-18.04
 
 suites:
   - name: package
@@ -59,7 +59,7 @@ suites:
     includes: centos-7
   - name: config_3_logs
     run_list:
-      - recipe[test::config_3_logs]
+      - recipe[test::config_3]
     includes: centos-7
   - name: config_4
     run_list:

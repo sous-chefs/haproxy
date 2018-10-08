@@ -24,29 +24,29 @@ stages:
 # kitchen list | awk {'print $1'} | grep -v Instance
 # We also add in a source install for a previous chef-client
 env:
-  - INSTANCE=package-debian-8
-  - INSTANCE=package-debian-9
-  - INSTANCE=package-centos-6
-  - INSTANCE=package-centos-7
-  - INSTANCE=package-fedora-26
-  - INSTANCE=package-fedora-27
-  - INSTANCE=package-ubuntu-1404
-  - INSTANCE=package-ubuntu-1604
-  - INSTANCE=package-opensuse-leap
+  # - INSTANCE=package-debian-8
+  # - INSTANCE=package-debian-9
+  # - INSTANCE=package-centos-6
+  # - INSTANCE=package-centos-7
+  # - INSTANCE=package-fedora-26
+  # - INSTANCE=package-fedora-27
+  # - INSTANCE=package-ubuntu-1404
+  # - INSTANCE=package-ubuntu-1604
+  # - INSTANCE=package-opensuse-leap
 #  - INSTANCE=package-amazonlinux
 
-  - INSTANCE=source-17-ubuntu-1604
+  # - INSTANCE=source-17-ubuntu-1604
 
-  - INSTANCE=source-18-debian-8
-  - INSTANCE=source-18-debian-9
-  - INSTANCE=source-18-centos-6
-  - INSTANCE=source-18-centos-7
+  # - INSTANCE=source-18-debian-8
+  # - INSTANCE=source-18-debian-9
+  # - INSTANCE=source-18-centos-6
+  # - INSTANCE=source-18-centos-7
   - INSTANCE=source-18-centos-7 CHEF_VERSION=13.8.5
-  - INSTANCE=source-18-fedora-26
-  - INSTANCE=source-18-fedora-27
-  - INSTANCE=source-18-ubuntu-1404
-  - INSTANCE=source-18-ubuntu-1604
-  - INSTANCE=source-18-opensuse-leap
+  # - INSTANCE=source-18-fedora-26
+  # - INSTANCE=source-18-fedora-27
+  # - INSTANCE=source-18-ubuntu-1404
+  # - INSTANCE=source-18-ubuntu-1604
+  # - INSTANCE=source-18-opensuse-leap
 #  - INSTANCE=source-18-amazonlinux
 
   - INSTANCE=config-1-centos-7

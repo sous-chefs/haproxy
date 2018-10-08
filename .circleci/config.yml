@@ -1,23 +1,73 @@
-version: 2
-jobs:
-  build:
-    docker:
-       - image: circleci/ruby:2.5.1-browsers
+version: 2.1
 
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-      - run:
-          name: Install Danger
-          command: gem install danger
-      - run:
-          name: Run Danger
-          command: danger
+orbs:
+  kitchen: sous-chefs/kitchen@1.0.0
 
 workflows:
-  version: 2
-  danger-flow:
+  kitchen:
     jobs:
-      - build:
+      - kitchen/danger:
+          name: danger
           context: Danger
+      - kitchen/lint:
+          name: lint
+      - kitchen/dokken:
+          suite: source-18
+          name: source
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: source-17
+          platform: ubuntu-1604
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: source-18
+          platform: ubuntu-1804
+          requires: [  danger, lint ]
+      - kitchen/dokken:
+          suite: package
+          name: package        
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: config-1
+          platform: centos-7
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: config-2
+          platform: centos-7
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: config-3
+          platform: centos-7
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: config-4
+          platform: centos-7
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: config-acl
+          platform: centos-7
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: config-backend-search
+          platform: centos-7
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: config-1-userlist
+          platform: centos-7
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: config-resolver
+          platform: centos-7
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: config-ssl-redirect
+          platform: centos-7
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: config-custom-template
+          platform: centos-7
+          requires: [  danger, lint ]
+      - kitchen/dokken-single:
+          suite: config-array
+          platform: centos-7
+          requires: [  danger, lint ]
