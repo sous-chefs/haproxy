@@ -20,11 +20,12 @@ workflows:
           suite: source-17
           platform: ubuntu-1604
           requires: [  danger, lint ]
-      - kitchen/dokken-single:
-          name: source-18
-          suite: source-18
-          platform: ubuntu-1804
-          requires: [  danger, lint ]
+      # - kitchen/dokken-single:
+      #     name: source-18
+      #     suite: source-18
+      #     chef_version: 13.8.5
+      #     platform: ubuntu-1804
+      #     requires: [  danger, lint ]
       - kitchen/dokken:
           name: package
           suite: package
