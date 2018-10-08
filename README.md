@@ -416,8 +416,8 @@ Introduced: v4.0.0
 - `haproxy_user` -  (is: String)
 - `haproxy_group` -  (is: String)
 - `service_name` -  (is: String)
-- `source_version` -  (is: String)
 - `use_systemd` -  (is: String)
+- `systemd_wrapper` - (is: Boolean)
 
 #### Examples
 
