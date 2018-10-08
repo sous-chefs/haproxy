@@ -47,8 +47,8 @@ suites:
     attributes:
       haproxy:
         source_version: '1.8.7'
-        source_url: 'http://www.haproxy.org/download/1.8/src/haproxy-1.8.7.tar.gz'
-        source_checksum: '0584a52c9a9095470be8d4216b31e7a312873752d5eb66be4eb3ce51b2875317'
+        source_url: 'http://www.haproxy.org/download/1.8/src/haproxy-1.8.14.tar.gz'
+        source_checksum: 'b17e402578be85e58af7a3eac99b1f675953bea9f67af2e964cf8bdbd1bd3fdf'
   - name: config_1
     run_list:
       - recipe[test::config_1]
