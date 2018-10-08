@@ -12,62 +12,75 @@ workflows:
       - kitchen/lint:
           name: lint
       - kitchen/dokken:
+          name: source-18
           suite: source-18
-          name: source
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: source-17
           suite: source-17
           platform: ubuntu-1604
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: source-18
           suite: source-18
           platform: ubuntu-1804
           requires: [  danger, lint ]
       - kitchen/dokken:
+          name: package
           suite: package
-          name: package        
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: config-1
           suite: config-1
           platform: centos-7
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: config-2
           suite: config-2
           platform: centos-7
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: config-3
           suite: config-3
           platform: centos-7
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: config-4
           suite: config-4
           platform: centos-7
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: acl
           suite: config-acl
           platform: centos-7
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: backend-search
           suite: config-backend-search
           platform: centos-7
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: userlist
           suite: config-1-userlist
           platform: centos-7
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: resolver
           suite: config-resolver
           platform: centos-7
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: ssl-redirect
           suite: config-ssl-redirect
           platform: centos-7
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: custom-template
           suite: config-custom-template
           platform: centos-7
           requires: [  danger, lint ]
       - kitchen/dokken-single:
+          name: config-array
           suite: config-array
           platform: centos-7
           requires: [  danger, lint ]
