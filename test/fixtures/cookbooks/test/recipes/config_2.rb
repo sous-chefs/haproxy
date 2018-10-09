@@ -59,7 +59,7 @@ haproxy_backend 'tiles_public' do
   acl ['conn_rate_abuse sc2_conn_rate gt 3000',
        'data_rate_abuse sc2_bytes_out_rate gt 20000000',
        'mark_as_abuser sc1_inc_gpc0 gt 0',
-     ]
+      ]
   extra_options(
     'stick-table' => 'type ip size 200k expire 2m store conn_rate(60s),bytes_out_rate(60s)',
     'http-request' => 'set-header X-Public-User yes'

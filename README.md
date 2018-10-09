@@ -1,23 +1,38 @@
 # haproxy Cookbook
 
-[![Build Status](https://travis-ci.org/sous-chefs/haproxy.svg?branch=master)](https://travis-ci.org/sous-chefs/haproxy) [![Cookbook Version](https://img.shields.io/cookbook/v/haproxy.svg)](https://supermarket.chef.io/cookbooks/haproxy)
+[![CircleCI](https://circleci.com/gh/sous-chefs/haproxy/tree/master.svg?style=svg)](https://circleci.com/gh/sous-chefs/haproxy/tree/master) [![Cookbook Version](https://img.shields.io/cookbook/v/haproxy.svg)](https://supermarket.chef.io/cookbooks/haproxy)
 
 Installs and configures haproxy.
 
 ## Requirements
 
-- Chef 12.20+
+- Chef 13+
 
 ### Platforms
 
-- Ubuntu Ubuntu 14.04+, Ubuntu 16.04
-- RHEL 6+, CentOS6+, OracleLinux6+
-- RHEL 7+, CentOS7+, OracleLinux7+
+- Ubuntu Ubuntu 16.04+
+- RedHat 6+ family
 - Debian 8+
 
 ### Examples
 
 Please check for working examples in [TEST](./test/fixtures/cookbooks/test/)
+
+## Common Resource Features
+
+HAProxy has many configurable options available, this cookbook makes the most popular options available as resource properties.
+
+If you wish to use a HAProxy property that is not listed the `extra_options` hash is available to take in any number of additional values.
+
+For example, the ability to disable listeners is not provided out of the box. Further examples can be found in either `test/fixtures/recipes` or `spec/test/recipes`. If you have questions on how this works or would like to add more examples so it is easier to understand, please come talk to us on the [Chef Community Slack](http://community-slack.chef.io/) on the #sous-chefs channel.
+
+```ruby
+haproxy_listen 'disabled' do
+  bind '0.0.0.0:1337'
+  mode 'http'
+  extra_options('disabled': '')
+end
+```
 
 ## Resources
 
@@ -43,13 +58,13 @@ Introduced: v4.2.0
 
 #### Examples
 
-```
+```ruby
 haproxy_acl 'gina_host hdr(host) -i foo.bar.com' do
   section 'frontend'
   section_name 'http'
 end
 ```
-```
+```ruby
 haproxy_acl 'acls for frontend:http' do
   section 'frontend'
   section_name 'http'
@@ -59,7 +74,7 @@ haproxy_acl 'acls for frontend:http' do
   ]
 end
 ```
-```
+```ruby
 haproxy_acl 'acls for listen' do
   section 'listen'
   section_name 'admin'
@@ -89,12 +104,12 @@ Introduced: v4.0.0
 
 #### Examples
 
-```
+```ruby
 haproxy_backend 'servers' do
   server ['server1 127.0.0.1:8000 maxconn 32']
 end
 ```
-```
+```ruby
 haproxy_backend 'tiles_public' do
   server ['tile0 10.0.0.10:80 check weight 1 maxconn 100',
           'tile1 10.0.0.10:80 check weight 1 maxconn 100']
@@ -137,7 +152,7 @@ Introduced: v4.0.0
 
 #### Examples
 
-```
+```ruby
 haproxy_config_defaults 'defaults' do
   mode 'http'
   timeout connect: '5000ms',
@@ -146,7 +161,7 @@ haproxy_config_defaults 'defaults' do
   haproxy_retries 5
 end
 ```
-```
+```ruby
 haproxy_config_defaults 'defaults' do
   mode 'http'
   timeout connect: '5s',
@@ -188,7 +203,7 @@ Introduced: v4.0.0
 
 #### Examples
 
-```
+```ruby
 haproxy_config_global '' do
   chroot '/var/lib/haproxy'
   daemon true
@@ -200,7 +215,7 @@ haproxy_config_global '' do
   tuning 'bufsize' => '262144'
 end
 ```
-```
+```ruby
 haproxy_config_global 'global' do
   daemon false
   maxconn 4097
@@ -235,7 +250,7 @@ Introduced: v4.0.0
 
 #### Examples
 
-```
+```ruby
 haproxy_frontend 'http-in' do
   bind '*:80'
   default_backend 'servers'
@@ -288,10 +303,10 @@ Introduced: v4.0.0
 
 #### Examples
 
-```
+```ruby
 haproxy_install 'package'
 ```
-```
+```ruby
 haproxy_install 'source' do
   source_url node['haproxy']['source_url']
   source_checksum node['haproxy']['source_checksum']
@@ -333,7 +348,7 @@ Introduced: v4.0.0
 
 #### Examples
 
-```
+```ruby
 haproxy_listen 'admin' do
   bind '0.0.0.0:1337'
   mode 'http'
@@ -369,7 +384,7 @@ Introduced: v4.5.0
 
 #### Examples
 
-```
+```ruby
 haproxy_resolver 'dns' do
   nameserver ['google 8.8.8.8:53']
   extra_options('resolve_retries' => 30,
@@ -401,18 +416,14 @@ Introduced: v4.0.0
 - `haproxy_user` -  (is: String)
 - `haproxy_group` -  (is: String)
 - `service_name` -  (is: String)
-- `source_version` -  (is: String)
-- `use_systemd` -  (is: String)
 
 #### Examples
 
-```
+```ruby
 haproxy_service 'haproxy'
 ```
-```
+```ruby
 haproxy_service 'haproxy' do
-  source_version node['haproxy']['source_version']
-  action :create
   subscribes :reload, 'template[/etc/haproxy/haproxy.cfg]', :immediately
 end
 ```
@@ -436,13 +447,13 @@ Introduced: v4.2.0
 
 #### Examples
 
-```
+```ruby
 haproxy_use_backend 'gina if gina_host' do
   section 'frontend'
   section_name 'http'
 end
 ```
-```
+```ruby
 haproxy_use_backend 'use_backends for frontend:http' do
   section 'frontend'
   section_name 'http'
@@ -471,7 +482,7 @@ Introduced: v4.1.0
 
 #### Examples
 
-```
+```ruby
 haproxy_userlist 'mylist' do
   group 'G1' => 'users tiger,scott',
         'G2' => 'users xdb,scott'

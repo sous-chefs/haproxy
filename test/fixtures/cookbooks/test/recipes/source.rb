@@ -15,7 +15,4 @@ haproxy_config_global ''
 
 haproxy_config_defaults ''
 
-haproxy_service 'haproxy' do
-  source_version node['haproxy']['source_version']
-  action :create
-end
+haproxy_service 'haproxy'

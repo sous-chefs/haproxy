@@ -21,12 +21,12 @@ platforms:
 - name: centos-7
 - name: debian-8
 - name: debian-9
-- name: fedora-27
+- name: fedora-latest
 - name: freebsd-10
 - name: freebsd-11
 - name: opensuse-leap-42
-- name: ubuntu-14.04
 - name: ubuntu-16.04
+- name: ubuntu-18.04
 
 suites:
   - name: package
@@ -46,9 +46,9 @@ suites:
       - recipe[test::source]
     attributes:
       haproxy:
-        source_version: '1.8.7'
-        source_url: 'http://www.haproxy.org/download/1.8/src/haproxy-1.8.7.tar.gz'
-        source_checksum: '0584a52c9a9095470be8d4216b31e7a312873752d5eb66be4eb3ce51b2875317'
+        source_version: '1.8.14'
+        source_url: 'http://www.haproxy.org/download/1.8/src/haproxy-1.8.14.tar.gz'
+        source_checksum: 'b17e402578be85e58af7a3eac99b1f675953bea9f67af2e964cf8bdbd1bd3fdf'
   - name: config_1
     run_list:
       - recipe[test::config_1]
@@ -57,9 +57,9 @@ suites:
     run_list:
       - recipe[test::config_2]
     includes: centos-7
-  - name: config_3_logs
+  - name: config_3
     run_list:
-      - recipe[test::config_3_logs]
+      - recipe[test::config_3]
     includes: centos-7
   - name: config_4
     run_list:

@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+title ''
+
 describe package('haproxy') do
   it { should be_installed }
 end
@@ -15,8 +17,9 @@ describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(/user haproxy/) }
   its('content') { should match(/group haproxy/) }
   its('content') { should match(/quiet/) }
-  its('content') { should match(%r{log \/dev\/log syslog info}) }
-  its('content') { should match(/listen http-in/) }
-  its('content') { should match(/maxconn 4106/) }
-  its('content') { should match(/bind 0.0.0.0:80/) }
+  its('content') { should match(%r{log \/dev\/log local0}) }
+  its('content') { should match(%r{log \/dev\/log local1 notice}) }
+  its('content') { should match(/frontend http-in/) }
+  its('content') { should match(/maxconn 256/) }
+  its('content') { should match(/bind \*:80/) }
 end
