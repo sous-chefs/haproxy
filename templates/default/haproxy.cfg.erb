@@ -150,11 +150,6 @@ frontend <%= frontend %>
   acl <%= acl %>
 <% end -%>
 <% end -%>
-<% unless f['use_backend'].nil? %>
-<% f['use_backend'].flatten.uniq.each do | backend |%>
-  use_backend <%= backend %>
-<% end -%>
-<% end -%>
 <% unless f['option'].nil? %>
 <% f['option'].each do | option |%>
 <% option.each do | option | %>
@@ -171,6 +166,11 @@ frontend <%= frontend %>
 <% else %>
   <%= key %> <%= value %>
 <% end -%>
+<% end -%>
+<% end -%>
+<% unless f['use_backend'].nil? %>
+<% f['use_backend'].flatten.uniq.each do | backend |%>
+  use_backend <%= backend %>
 <% end -%>
 <% end -%>
 <% end # frontend loop -%>
@@ -276,4 +276,3 @@ listen <%= key %>
 <% end -%>
 <% end # listen loop -%>
 <% end # listen -%>
-
