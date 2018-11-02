@@ -268,19 +268,34 @@ listen <%= key %>
   acl <%= acl %>
 <% end -%>
 <% end -%>
-<% unless listen['use_backend'].nil? %>
-<% listen['use_backend'].flatten.uniq.each do | backend |%>
-  use_backend <%= backend %>
-<% end -%>
-<% end -%>
 <% unless listen['extra_options'].nil? %>
-<% listen['extra_options'].each do | key, value |%>
+<% listen['extra_options'].each do | key, value | %>
+<% if key == 'http-request' %>
 <% if value.is_a?(Array) %>
 <% value.each do | array_element | %>
   <%= key %> <%= array_element %>
 <% end -%>
 <% else %>
   <%= key %> <%= value %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% end -%>
+<% unless listen['use_backend'].nil? %>
+<% listen['use_backend'].flatten.uniq.each do | backend |%>
+  use_backend <%= backend %>
+<% end -%>
+<% end -%>
+<% unless listen['extra_options'].nil? %>
+<% listen['extra_options'].each do | key, value | %>
+<% unless key == 'http-request' %>
+<% if value.is_a?(Array) %>
+<% value.each do | array_element | %>
+  <%= key %> <%= array_element %>
+<% end -%>
+<% else %>
+  <%= key %> <%= value %>
+<% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
