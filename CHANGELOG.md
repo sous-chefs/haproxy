@@ -6,7 +6,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [v6.2.6](2018-11-05)
 
-- Put use_backend rules before the http-request rules
+- Put `http_request` rules before the `use_backend`
 
 ## [v6.2.5](2018-10-09)
 
