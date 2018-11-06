@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
+## [v6.2.6](2018-11-05)
+
+- Put `http_request` rules before the `use_backend`
+
 ## [v6.2.5](2018-10-09)
 
 - Drop Chef-12 support
@@ -379,7 +383,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.2.5...HEAD
+[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.2.6...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
@@ -409,3 +413,4 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v6.2.3]: https://github.com/sous-chefs/haproxy/compare/v6.2.2...v6.2.3
 [v6.2.4]: https://github.com/sous-chefs/haproxy/compare/v6.2.3...v6.2.4
 [v6.2.5]: https://github.com/sous-chefs/haproxy/compare/v6.2.4...v6.2.5
+[v6.2.6]: https://github.com/sous-chefs/haproxy/compare/v6.2.5...v6.2.6

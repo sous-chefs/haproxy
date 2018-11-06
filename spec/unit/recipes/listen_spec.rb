@@ -57,8 +57,8 @@ describe 'haproxy_listen' do
 
     it('should render content with http-request rule before use_backend') do
       is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/listen use_backend/)
-      is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/http-request add-header Test Value.*use_backend admin0 if path_beg \/admin0/m)
-      is_expected.not_to render_file('/etc/haproxy/haproxy.cfg').with_content(/use_backend admin0 if path_beg \/admin0.*http-request add-header Test Value/m)
+      is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(%r{http-request add-header Test Value.*use_backend admin0 if path_beg /admin0}m)
+      is_expected.not_to render_file('/etc/haproxy/haproxy.cfg').with_content(%r{use_backend admin0 if path_beg /admin0.*http-request add-header Test Value}m)
     end
   end
 end
