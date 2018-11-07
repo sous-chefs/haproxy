@@ -13,18 +13,18 @@ describe file('/etc/haproxy/haproxy.cfg') do
   it { should exist }
   it { should be_owned_by 'haproxy' }
   it { should be_grouped_into 'haproxy' }
-  its('content') { should match(/daemon/) }
-  its('content') { should match(/timeout connect 5000ms/) }
-  its('content') { should match(/maxconn 256/) }
-  its('content') { should match(%r{stats socket /var/lib/haproxy/stats level admin}) }
-  its('content') { should match(%r{stats uri /haproxy-status}) }
-  its('content') { should match(/frontend http-in/) }
-  its('content') { should match(/bind \*:80/) }
-  its('content') { should match(/redirect scheme https code 301 if !{ ssl_fc }/) }
-  its('content') { should match(/frontend https/) }
-  its('content') { should match(%r{bind \*:443 ssl crt /etc/ssl/private/example.com.pem}) }
-  its('content') { should match(/backend servers/) }
-  its('content') { should match(/server server1 127.0.0.1:8000 maxconn 32/) }
+  its('content') { should match(/^  daemon$/) }
+  its('content') { should match(/^  timeout connect 5000ms$/) }
+  its('content') { should match(/^  maxconn 256$/) }
+  its('content') { should match(%r{^  stats socket /var/lib/haproxy/stats level admin$}) }
+  its('content') { should match(%r{^  stats uri /haproxy-status$}) }
+  its('content') { should match(/^frontend http-in$/) }
+  its('content') { should match(/^  bind \*:80$/) }
+  its('content') { should match(/^  redirect scheme https code 301 if !{ ssl_fc }$/) }
+  its('content') { should match(/^frontend https$/) }
+  its('content') { should match(%r{^  bind \*:443 ssl crt /etc/ssl/private/example.com.pem$}) }
+  its('content') { should match(/^backend servers$/) }
+  its('content') { should match(/^  server server1 127.0.0.1:8000 maxconn 32$/) }
 end
 
 describe service('haproxy') do

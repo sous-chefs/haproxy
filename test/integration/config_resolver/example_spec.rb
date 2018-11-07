@@ -10,7 +10,7 @@ describe file('/etc/haproxy/haproxy.cfg') do
   it { should be_grouped_into 'haproxy' }
 
   its('content') { should match(/^resolvers dns$/) }
-  its('content') { should match(/^\s\snameserver google 8.8.8.8:53$/) }
-  its('content') { should match(/^\s\sresolve_retries 30$/) }
-  its('content') { should match(/^\s\stimeout retry 1s$/) }
+  its('content') { should match(/^  nameserver google 8.8.8.8:53$/) }
+  its('content') { should match(/^  resolve_retries 30$/) }
+  its('content') { should match(/^  timeout retry 1s$/) }
 end
