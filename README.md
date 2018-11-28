@@ -424,9 +424,15 @@ haproxy_service 'haproxy'
 ```
 ```ruby
 haproxy_service 'haproxy' do
-  subscribes :reload, 'template[/etc/haproxy/haproxy.cfg]', :immediately
+  subscribes :reload, 'template[/etc/haproxy/haproxy.cfg]', :delayed
 end
 ```
+```ruby
+haproxy_service 'haproxy' do
+  subscribes :reload, ['template[/etc/haproxy/haproxy.cfg]', 'file[/etc/haproxy/ssl/haproxy.pem]'], :delayed
+end
+```
+
 ### haproxy_use_backend
 
 Switch to a specific backend if/unless an ACL-based condition is matched.
