@@ -151,8 +151,10 @@ frontend <%= frontend %>
 <% end -%>
 <% end -%>
 <% unless f['extra_options'].nil? %>
+<% ['tcp-request connection','tcp-request session','tcp-request content','monitor fail','block','http-request','reqxxx','reqadd','redirect'].each do | extra_option | %>
+<% if extra_option == 'reqxxx' %>
 <% f['extra_options'].each do | key, value | %>
-<% if key == 'http-request' %>
+<% if /^req(?!add)(.*)/.match?(key) %>
 <% if value.is_a?(Array) %>
 <% value.each do | array_element | %>
   <%= key %> <%= array_element %>
@@ -160,6 +162,15 @@ frontend <%= frontend %>
 <% else %>
   <%= key %> <%= value %>
 <% end -%>
+<% end -%>
+<% end -%>
+<% elsif !f['extra_options'][extra_option].nil? %>
+<% if f['extra_options'][extra_option].is_a?(Array) %>
+<% f['extra_options'][extra_option].each do | array_element | %>
+  <%= extra_option %> <%= array_element %>
+<% end -%>
+<% else %>
+  <%= extra_option %> <%= f['extra_options'][extra_option] %>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -177,13 +188,14 @@ frontend <%= frontend %>
 <% end -%>
 <% unless f['extra_options'].nil? %>
 <% f['extra_options'].each do | key, value | %>
-<% unless key == 'http-request' %>
+<% unless (['tcp-request connection','tcp-request session','tcp-request content','monitor fail','block','http-request','reqadd','redirect'].include? key) || /^req.*/.match?(key) %>
 <% if value.is_a?(Array) %>
 <% value.each do | array_element | %>
   <%= key %> <%= array_element %>
 <% end -%>
 <% else %>
   <%= key %> <%= value %>
+<% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -225,13 +237,27 @@ backend <%= key %>
 <% end -%>
 <% end -%>
 <% unless backend['extra_options'].nil? %>
-<% backend['extra_options'].each do | key, value |%>
+<% ['block','http-request','reqxxx','reqadd','redirect'].each do | extra_option | %>
+<% if extra_option == 'reqxxx' %>
+<% backend['extra_options'].each do | key, value | %>
+<% if /^req(?!add)(.*)/.match?(key) %>
 <% if value.is_a?(Array) %>
 <% value.each do | array_element | %>
   <%= key %> <%= array_element %>
 <% end -%>
 <% else %>
   <%= key %> <%= value %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% elsif !backend['extra_options'][extra_option].nil? %>
+<% if backend['extra_options'][extra_option].is_a?(Array) %>
+<% backend['extra_options'][extra_option].each do | array_element | %>
+  <%= extra_option %> <%= array_element %>
+<% end -%>
+<% else %>
+  <%= extra_option %> <%= backend['extra_options'][extra_option] %>
+<% end -%>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -254,6 +280,19 @@ listen <%= key %>
 <% listen['stats']&.each do |option, value| -%>
   stats <%= option %> <%= value %>
 <% end -%>
+<% unless listen['extra_options'].nil? %>
+<% ['tcp-request connection','tcp-request session','tcp-request content','monitor fail','block'].each do | extra_option |  %>
+<% unless listen['extra_options'][extra_option].nil? %>
+<% if listen['extra_options'][extra_option].is_a?(Array) %>
+<% listen['extra_options'][extra_option].each do | array_element | %>
+  <%= extra_option %> <%= array_element %>
+<% end -%>
+<% else %>
+  <%= extra_option %> <%= listen['extra_options'][extra_option] %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% end -%>
 <% if listen['http_request'] -%>
   http-request <%= listen['http_request'] %>
 <% end %>
@@ -269,14 +308,26 @@ listen <%= key %>
 <% end -%>
 <% end -%>
 <% unless listen['extra_options'].nil? %>
+<% ['reqxxx','reqadd','redirect'].each do | extra_option | %>
+<% if extra_option == 'reqxxx' %>
 <% listen['extra_options'].each do | key, value | %>
-<% if key == 'http-request' %>
+<% if /^req(?!add)(.*)/.match?(key) %>
 <% if value.is_a?(Array) %>
 <% value.each do | array_element | %>
   <%= key %> <%= array_element %>
 <% end -%>
 <% else %>
   <%= key %> <%= value %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% elsif !listen['extra_options'][extra_option].nil? %>
+<% if listen['extra_options'][extra_option].is_a?(Array) %>
+<% listen['extra_options'][extra_option].each do | array_element | %>
+  <%= extra_option %> <%= array_element %>
+<% end -%>
+<% else %>
+  <%= extra_option %> <%= listen['extra_options'][extra_option] %>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -288,7 +339,7 @@ listen <%= key %>
 <% end -%>
 <% unless listen['extra_options'].nil? %>
 <% listen['extra_options'].each do | key, value | %>
-<% unless key == 'http-request' %>
+<% unless (['tcp-request connection','tcp-request session','tcp-request content','monitor fail','block','http-request','reqadd','redirect'].include? key) || /^req.*/.match?(key) %>
 <% if value.is_a?(Array) %>
 <% value.each do | array_element | %>
   <%= key %> <%= array_element %>

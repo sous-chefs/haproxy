@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
+- Place haproxy rules in the approprite order per haproxy codebase 
 - Test for appropriate spacing from start of line and end of line
 
 ## [v6.2.6](2018-11-05)

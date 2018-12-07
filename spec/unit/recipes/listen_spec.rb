@@ -51,13 +51,35 @@ describe 'haproxy_listen' do
         bind '0.0.0.0:1337'
         mode 'http'
         use_backend ['admin0 if path_beg /admin0']
-        extra_options('http-request' => 'add-header Test Value')
+        http_request 'add-header Test Value'
+        extra_options(
+          'tcp-request content' => 'content value',
+          'monitor fail' => 'monitor value',
+          'block' => 'block value',
+          'reqdeny' => 'reqdeny value',
+          'reqadd' => 'reqadd value',
+          'redirect' => 'redirect value',
+          'tcp-request session' => 'session value',
+          'tcp-request connection' => 'connection value'
+        )
       end
     end
 
     it('should render content with http-request rule before use_backend') do
       is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/listen use_backend/)
-      is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(%r{http-request add-header Test Value.*use_backend admin0 if path_beg /admin0}m)
+
+      is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(%r{\
+^  tcp-request connection connection value$\n\
+^  tcp-request session session value$\n\
+^  tcp-request content content value$\n\
+^  monitor fail monitor value$\n\
+^  block block value$\n\
+^  http-request add-header Test Value$\n\
+^  reqdeny reqdeny value$\n\
+^  reqadd reqadd value$\n\
+^  redirect redirect value$\n\
+^  use_backend admin0 if path_beg /admin0}m)
+
       is_expected.not_to render_file('/etc/haproxy/haproxy.cfg').with_content(%r{use_backend admin0 if path_beg /admin0.*http-request add-header Test Value}m)
     end
   end
