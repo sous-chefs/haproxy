@@ -22,7 +22,7 @@ describe 'haproxy_' do
           'redirect' => 'redirect value',
           'tcp-request session' => 'session value',
           'tcp-request connection' => 'connection value'
-          )
+        )
       end
 
       haproxy_backend 'admin' do
@@ -34,7 +34,7 @@ describe 'haproxy_' do
           'reqadd' => 'reqadd backend',
           'redirect' => 'redirect backend',
           'reqdeny' => 'reqdeny backend'
-          )
+        )
       end
     end
 
@@ -55,13 +55,12 @@ describe 'haproxy_' do
 
       is_expected.not_to render_file('/etc/haproxy/haproxy.cfg').with_content(%r{use_backend admin0 if path_beg /admin0.*http-request add-header Test Value}m)
 
-      is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(%r{\
-^  tcp-request content content backend$\n\
+      is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/^  tcp-request content content backend$\n\
 ^  block block backend$\n\
 ^  http-request add-header Backend Value$\n\
 ^  reqdeny reqdeny backend$\n\
 ^  reqadd reqadd backend$\n\
-^  redirect redirect backend$}m)
+^  redirect redirect backend$/m)
     end
   end
 end
