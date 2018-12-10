@@ -498,6 +498,52 @@ haproxy_userlist 'mylist' do
 end
 ```
 
+## Configuration Validation
+
+The `haproxy.cfg` file has a few specific rule orderings that will generate validation errors if not loaded properly. If using any combination of the below rules, avoid the errors by loading the rules via `extra_options` to specify the top down order as noted below in config file.
+
+### frontend & listen
+
+```
+  tcp-request connection
+  tcp-request session
+  tcp-request content
+  monitor fail
+  block (deprecated)
+  http-request
+  reqxxx (any req excluding reqadd, e.g. reqdeny, reqallow)
+  reqadd
+  redirect
+  use_backend
+```
+
+```ruby
+  extra_options(
+    'tcp-request' => 'connection set-src src,ipmask(24)',
+    'reqdeny' => '^Host:\ .*\.local',
+    'reqallow' => '^Host:\ www\.',
+    'use_backend' => 'dynamic'
+  )
+```
+
+### backend
+
+```
+  http-request
+  reqxxx (any req excluding reqadd, e.g. reqdeny, reqallow)
+  reqadd
+  redirect
+```
+
+```ruby
+  extra_options(
+    'http-request' => 'set-path /%[hdr(host)]%[path]',
+    'reqdeny' => '^Host:\ .*\.local',
+    'reqallow' => '^Host:\ www\.',
+    'redirect' => 'dynamic'
+  )
+```
+
 ## License & Authors
 
 - Author:: Dan Webb (<https://github.com/damacus>)
