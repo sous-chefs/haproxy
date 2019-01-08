@@ -11,17 +11,20 @@ describe file('/etc/haproxy/haproxy.cfg') do
   it { should exist }
   it { should be_owned_by 'haproxy' }
   it { should be_grouped_into 'haproxy' }
-
-  its('content') { should match(/^listen admin$/) }
-  its('content') { should match(/^  bind 0.0.0.0:1337$/) }
-  its('content') { should match(/^  mode http$/) }
-  its('content') { should match(%r{^  stats uri /haproxy-status$}) }
-  its('content') { should match(/^  stats realm Haproxy-Statistics$/) }
-  its('content') { should match(/^  stats auth user:pwd$/) }
-  its('content') { should match(/^  http-request add-header X-Proto http$/) }
-  its('content') { should match(/^  http-response set-header Expires \%\[date\(3600\),http_date\]$/) }
-  its('content') { should match(/^  default_backend servers$/) }
-  its('content') { should match(/^  bind-process odd$/) }
+  listen_config = [
+    'listen admin',
+    '  mode http',
+    '  bind 0.0.0.0:1337',
+    '  stats uri /',
+    '  stats realm Haproxy-Statistics',
+    '  stats auth user:pwd',
+    '  http-request add-header X-Forwarded-Proto https if { ssl_fc }',
+    '  http-request add-header X-Proto http',
+    '  http-response set-header Expires %\[date\(3600\),http_date\]',
+    '  default_backend servers',
+    '  bind-process odd',
+  ]
+  its('content') { should match /#{listen_config.join('\n')}/ }
 end
 
 describe service('haproxy') do

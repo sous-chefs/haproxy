@@ -336,7 +336,7 @@ Introduced: v4.0.0
 - `bind` -  (is: [String, Hash])
 - `maxconn` -  (is: Integer)
 - `stats` -  (is: Hash)
-- `http_request` -  (is: String)
+- `http_request` -  (is: [Array, String])
 - `http_response` -  (is: String)
 - `default_backend` -  (is: String)
 - `use_backend` -  (is: Array)

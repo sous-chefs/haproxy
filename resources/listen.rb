@@ -2,7 +2,7 @@ property :mode, String, equal_to: %w(http tcp)
 property :bind, [String, Hash], default: '0.0.0.0:80'
 property :maxconn, Integer
 property :stats, Hash
-property :http_request, String
+property :http_request, [Array, String]
 property :http_response, String
 property :default_backend, String
 property :use_backend, Array
@@ -38,8 +38,7 @@ action :create do
       variables['listen'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
       variables['listen'][new_resource.name]['stats'] ||= {} unless new_resource.stats.nil?
       variables['listen'][new_resource.name]['stats'].merge!(new_resource.stats) unless new_resource.stats.nil?
-      variables['listen'][new_resource.name]['http_request'] ||= '' unless new_resource.http_request.nil?
-      variables['listen'][new_resource.name]['http_request'] << new_resource.http_request unless new_resource.http_request.nil?
+      variables['listen'][new_resource.name]['http_request'] = [new_resource.http_request].flatten unless new_resource.http_request.nil?
       variables['listen'][new_resource.name]['http_response'] ||= '' unless new_resource.http_response.nil?
       variables['listen'][new_resource.name]['http_response'] << new_resource.http_response unless new_resource.http_response.nil?
       variables['listen'][new_resource.name]['use_backend'] ||= [] unless new_resource.use_backend.nil?
