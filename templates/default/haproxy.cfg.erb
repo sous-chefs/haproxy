@@ -255,7 +255,9 @@ listen <%= key %>
   stats <%= option %> <%= value %>
 <% end -%>
 <% if listen['http_request'] -%>
-  http-request <%= listen['http_request'] %>
+<% listen['http_request'].each do |http_request| %>
+  http-request <%= http_request %>
+<% end -%>
 <% end %>
 <% if listen['http_response'] -%>
   http-response <%= listen['http_response'] %>
