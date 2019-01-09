@@ -6,6 +6,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Test for appropriate spacing from start of line and end of line
 - Allow passing an array to `haproxy_listen`'s `http_request` param
+- Fix ordering for `haproxy_listen`: `acl` directives should be applied before `http-request`
 
 ## [v6.2.6](2018-11-05)
 
