@@ -9,6 +9,7 @@ property :extra_options, Hash
 property :haproxy_retries, Integer
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :hash_type, [String, nil], default: nil, equal_to: ['consistent', 'map-based', nil]
 
 action :create do
   # As we're using the accumulator pattern we need to shove everything
@@ -35,6 +36,7 @@ action :create do
       variables['defaults']['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
       variables['defaults']['retries'] ||= '' unless new_resource.haproxy_retries.nil?
       variables['defaults']['retries'] << new_resource.haproxy_retries.to_s unless new_resource.haproxy_retries.nil?
+      variables['defaults']['hash_type'] = new_resource.hash_type unless new_resource.hash_type.nil?
       variables['defaults']['extra_options'] ||= {} unless new_resource.extra_options.nil?
       variables['defaults']['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
 

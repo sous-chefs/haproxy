@@ -99,6 +99,7 @@ Introduced: v4.0.0
 - `acl` -  (is: Array)
 - `option` -  (is: Array)
 - `extra_options` -  (is: Hash)
+- 'hash_type' -  (is: String, equal_to: ['consistent', 'map-based'])
 - `config_dir` -  (is: String)
 - `config_file` -  (is: String)
 
@@ -142,6 +143,7 @@ Introduced: v4.0.0
 - `log` -  (is: String)
 - `mode` -  (is: String)
 - `balance` -  (is: )
+- 'hash_type' -  (is: String, equal_to: ['consistent', 'map-based'])
 - `option` -  (is: Array)
 - `stats` -  (is: Hash)
 - `maxconn` -  (is: Integer)
@@ -343,6 +345,7 @@ Introduced: v4.0.0
 - `acl` -  (is: Array)
 - `extra_options` -  (is: Hash)
 - `server` -  (is: Array)
+- 'hash_type' -  (is: String, equal_to: ['consistent', 'map-based'])
 - `config_dir` -  (is: String)
 - `config_file` -  (is: String)
 

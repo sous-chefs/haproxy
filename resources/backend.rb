@@ -6,6 +6,7 @@ property :option, Array
 property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :hash_type, String, equal_to: %w(consistent map-based)
 
 action :create do
   # As we're using the accumulator pattern we need to shove everything
@@ -27,6 +28,7 @@ action :create do
       variables['backend'][new_resource.name]['acl'] << new_resource.acl unless new_resource.acl.nil?
       variables['backend'][new_resource.name]['option'] ||= [] unless new_resource.option.nil?
       variables['backend'][new_resource.name]['option'] << new_resource.option unless new_resource.option.nil?
+      variables['backend'][new_resource.name]['hash_type'] = new_resource.hash_type unless new_resource.hash_type.nil?
       variables['backend'][new_resource.name]['extra_options'] ||= {} unless new_resource.extra_options.nil?
       variables['backend'][new_resource.name]['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
 
