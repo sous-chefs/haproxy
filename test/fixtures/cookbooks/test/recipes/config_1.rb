@@ -31,6 +31,31 @@ haproxy_frontend 'tcp-in' do
   default_backend 'tcp-servers'
 end
 
+haproxy_frontend 'single-reqrep-reqirep' do
+  bind '*:80'
+  reqrep '^Host:\ ftp.mydomain.com   Host:\ ftp'
+  reqirep '^Host:\ www.mydomain.com   Host:\ www'
+  default_backend 'servers'
+end
+
+haproxy_frontend 'multi-reqrep' do
+  bind '*:80'
+  reqrep [
+    '^Host:\ ftp.mydomain.com   Host:\ ftp',
+    '^Host:\ www.mydomain.com   Host:\ www',
+  ]
+  default_backend 'servers'
+end
+
+haproxy_frontend 'multi-reqirep' do
+  bind '*:80'
+  reqirep [
+    '^Host:\ ftp.mydomain.com   Host:\ ftp',
+    '^Host:\ www.mydomain.com   Host:\ www',
+  ]
+  default_backend 'servers'
+end
+
 haproxy_frontend 'multiport' do
   bind '*' => '8080',
        '0.0.0.0' => %w(8081 8180)

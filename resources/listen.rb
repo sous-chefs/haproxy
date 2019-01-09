@@ -4,6 +4,8 @@ property :maxconn, Integer
 property :stats, Hash
 property :http_request, [Array, String]
 property :http_response, String
+property :reqrep, [Array, String]
+property :reqirep, [Array, String]
 property :default_backend, String
 property :use_backend, Array
 property :acl, Array
@@ -42,6 +44,8 @@ action :create do
       variables['listen'][new_resource.name]['http_request'] = [new_resource.http_request].flatten unless new_resource.http_request.nil?
       variables['listen'][new_resource.name]['http_response'] ||= '' unless new_resource.http_response.nil?
       variables['listen'][new_resource.name]['http_response'] << new_resource.http_response unless new_resource.http_response.nil?
+      variables['listen'][new_resource.name]['reqrep'] = [new_resource.reqrep].flatten unless new_resource.reqrep.nil?
+      variables['listen'][new_resource.name]['reqirep'] = [new_resource.reqirep].flatten unless new_resource.reqirep.nil?
       variables['listen'][new_resource.name]['use_backend'] ||= [] unless new_resource.use_backend.nil?
       variables['listen'][new_resource.name]['use_backend'] << new_resource.use_backend unless new_resource.use_backend.nil?
       variables['listen'][new_resource.name]['acl'] ||= [] unless new_resource.acl.nil?

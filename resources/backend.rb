@@ -1,6 +1,8 @@
 property :mode, String, equal_to: %w(http tcp)
 property :server, Array
 property :tcp_request, Array
+property :reqrep, [Array, String]
+property :reqirep, [Array, String]
 property :acl, Array
 property :option, Array
 property :extra_options, Hash
@@ -24,6 +26,8 @@ action :create do
       variables['backend'][new_resource.name]['server'] << new_resource.server unless new_resource.server.nil?
       variables['backend'][new_resource.name]['tcp_request'] ||= [] unless new_resource.tcp_request.nil?
       variables['backend'][new_resource.name]['tcp_request'] << new_resource.tcp_request unless new_resource.tcp_request.nil?
+      variables['backend'][new_resource.name]['reqrep'] = [new_resource.reqrep].flatten unless new_resource.reqrep.nil?
+      variables['backend'][new_resource.name]['reqirep'] = [new_resource.reqirep].flatten unless new_resource.reqirep.nil?
       variables['backend'][new_resource.name]['acl'] ||= [] unless new_resource.acl.nil?
       variables['backend'][new_resource.name]['acl'] << new_resource.acl unless new_resource.acl.nil?
       variables['backend'][new_resource.name]['option'] ||= [] unless new_resource.option.nil?
