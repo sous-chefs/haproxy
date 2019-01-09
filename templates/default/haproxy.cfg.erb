@@ -87,6 +87,9 @@ defaults
 <% unless @defaults['balance'].empty? -%>
   balance <%= @defaults['balance'] %>
 <% end -%>
+<% if @defaults['hash_type'] -%>
+  hash-type <%= @defaults['hash_type'] %>
+<% end -%>
 <% @defaults['option'].each do | option | -%>
   option <%= option %>
 <% end -%>
@@ -224,6 +227,9 @@ backend <%= key %>
 <% end -%>
 <% end -%>
 <% end -%>
+<% if backend['hash_type'] -%>
+  hash-type <%= backend['hash_type'] %>
+<% end -%>
 <% unless backend['extra_options'].nil? %>
 <% backend['extra_options'].each do | key, value |%>
 <% if value.is_a?(Array) %>
@@ -305,6 +311,9 @@ listen <%= key %>
 <% s.each  do |server|%>
   server <%= server %>
 <% end -%>
+<% end -%>
+<% if listen['hash_type'] -%>
+  hash-type <%= listen['hash_type'] %>
 <% end -%>
 <% end # listen loop -%>
 <% end # listen -%>
