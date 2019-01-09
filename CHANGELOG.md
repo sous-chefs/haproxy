@@ -7,7 +7,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Test for appropriate spacing from start of line and end of line
 - Allow passing an array to `haproxy_listen`'s `http_request` param
 - Fix ordering for `haproxy_listen`: `acl` directives should be applied before `http-request`
-- Add a hash_type param to haproxy_backend, haproxy_listen, and haproxy_config_defaults resources
+- Add `hash_type` param to `haproxy_backend`, `haproxy_listen`, and `haproxy_config_defaults` resources
+- Add `reqirep` and `reqrep` params to `haproxy_backend`, `haproxy_listen`, and `haproxy_listen` resources
 
 ## [v6.2.6](2018-11-05)
 

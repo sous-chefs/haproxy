@@ -1,6 +1,8 @@
 property :bind, [String, Hash], default: '0.0.0.0:80'
 property :mode, String, equal_to: %w(http tcp)
 property :maxconn, Integer
+property :reqrep, [Array, String]
+property :reqirep, [Array, String]
 property :default_backend, String
 property :use_backend, Array
 property :acl, Array
@@ -36,9 +38,10 @@ action :create do
       variables['frontend'][new_resource.name]['mode'] << new_resource.mode unless new_resource.mode.nil?
       variables['frontend'][new_resource.name]['stats'] ||= {} unless new_resource.stats.nil?
       variables['frontend'][new_resource.name]['stats'].merge!(new_resource.stats) unless new_resource.stats.nil?
-
       variables['frontend'][new_resource.name]['maxconn'] ||= '' unless new_resource.maxconn.nil?
       variables['frontend'][new_resource.name]['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
+      variables['frontend'][new_resource.name]['reqrep'] = [new_resource.reqrep].flatten unless new_resource.reqrep.nil?
+      variables['frontend'][new_resource.name]['reqirep'] = [new_resource.reqirep].flatten unless new_resource.reqirep.nil?
       variables['frontend'][new_resource.name]['use_backend'] ||= [] unless new_resource.use_backend.nil?
       variables['frontend'][new_resource.name]['use_backend'] << new_resource.use_backend unless new_resource.use_backend.nil?
       variables['frontend'][new_resource.name]['acl'] ||= [] unless new_resource.acl.nil?
