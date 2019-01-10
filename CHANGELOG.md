@@ -10,7 +10,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Allow passing an array to `haproxy_listen`'s `http_request` param
 - Fix ordering for `haproxy_listen`: `acl` directives should be applied before `http-request`
 - Add `hash_type` param to `haproxy_backend`, `haproxy_listen`, and `haproxy_config_defaults` resources
-- Add `reqirep` and `reqrep` params to `haproxy_backend`, `haproxy_listen`, and `haproxy_listen` resources
+- Add `reqirep` and `reqrep` params to `haproxy_backend`, `haproxy_frontend`, and `haproxy_listen` resources
 - Add `sensitive` param to `haproxy_install`; set to false to show diff output during Chef run
 
 ## [v6.2.6](2018-11-05)
