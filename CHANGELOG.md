@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
+## [v6.2.7](2019-01-10)
+
 - Test for appropriate spacing from start of line and end of line
 - Allow passing an array to `haproxy_listen`'s `http_request` param
 - Fix ordering for `haproxy_listen`: `acl` directives should be applied before `http-request`
@@ -390,7 +392,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.2.6...HEAD
+[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.2.7...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
@@ -421,3 +423,4 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v6.2.4]: https://github.com/sous-chefs/haproxy/compare/v6.2.3...v6.2.4
 [v6.2.5]: https://github.com/sous-chefs/haproxy/compare/v6.2.4...v6.2.5
 [v6.2.6]: https://github.com/sous-chefs/haproxy/compare/v6.2.5...v6.2.6
+[v6.2.7]: https://github.com/sous-chefs/haproxy/compare/v6.2.6...v6.2.7
