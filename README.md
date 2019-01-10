@@ -290,6 +290,7 @@ Introduced: v4.0.0
 - `haproxy_user` -  (is: String)
 - `haproxy_group` -  (is: String)
 - `install_only` -  (is: [true, false])
+- `sensitive` -  (is: [true, false], default: true)
 - `service_name` -  (is: String)
 - `use_systemd` -  (is: String)
 - `package_name` -  (is: String)
