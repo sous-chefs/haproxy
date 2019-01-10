@@ -9,6 +9,7 @@ property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 property :install_only, [true, false], default: false
 property :service_name, String, default: 'haproxy'
+property :sensitive, [true, false], default: true
 property :use_systemd, String, equal_to: %w(0 1), default: lazy { node['init_package'] == 'systemd' ? '1' : '0' }
 
 # Package
@@ -118,7 +119,7 @@ action :create do
       owner new_resource.haproxy_user
       group new_resource.haproxy_group
       mode new_resource.conf_file_mode
-      sensitive true
+      sensitive new_resource.sensitive
       source lazy { node.run_state['haproxy']['conf_template_source'][config_file] }
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
       variables()
