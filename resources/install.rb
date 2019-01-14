@@ -45,6 +45,8 @@ action :create do
   node.run_state['haproxy']['conf_template_source'][new_resource.config_file] = new_resource.conf_template_source
   node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] = new_resource.conf_cookbook
 
+  normalize_build_flag = ->(use_value) { use_value.to_s == '1' ? '1' : '' }
+
   case new_resource.install_type
   when 'package'
     package new_resource.package_name do
@@ -80,12 +82,12 @@ action :create do
     make_cmd = "make TARGET=#{new_resource.source_target_os}"
     make_cmd << " CPU=#{new_resource.source_target_cpu}" unless new_resource.source_target_cpu.nil?
     make_cmd << " ARCH=#{new_resource.source_target_arch}" unless new_resource.source_target_arch.nil?
-    make_cmd << " USE_LIBCRYPT=#{new_resource.use_libcrypt}"
-    make_cmd << " USE_PCRE=#{new_resource.use_pcre}"
-    make_cmd << " USE_OPENSSL=#{new_resource.use_openssl}"
-    make_cmd << " USE_ZLIB=#{new_resource.use_zlib}"
-    make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
-    make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
+    make_cmd << " USE_LIBCRYPT=#{normalize_build_flag[new_resource.use_libcrypt]}"
+    make_cmd << " USE_PCRE=#{normalize_build_flag[new_resource.use_pcre]}"
+    make_cmd << " USE_OPENSSL=#{normalize_build_flag[new_resource.use_openssl]}"
+    make_cmd << " USE_ZLIB=#{normalize_build_flag[new_resource.use_zlib]}"
+    make_cmd << " USE_LINUX_TPROXY=#{normalize_build_flag[new_resource.use_linux_tproxy]}"
+    make_cmd << " USE_LINUX_SPLICE=#{normalize_build_flag[new_resource.use_linux_splice]}"
     make_cmd << " USE_SYSTEMD=#{new_resource.use_systemd}" if new_resource.use_systemd == '1' && new_resource.source_version.to_f >= 1.8
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if new_resource.source_version.to_f < 1.8
 
