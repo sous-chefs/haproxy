@@ -6,6 +6,7 @@ Installs and configures haproxy.
 
 ## Requirements
 
+- HAProxy `stable` or `LTS`
 - Chef 13+
 
 ### Platforms
