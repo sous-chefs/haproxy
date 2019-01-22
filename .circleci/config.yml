@@ -11,10 +11,11 @@ workflows:
           context: Danger
       - kitchen/lint:
           name: lint
-      - kitchen/dokken:
+      - kitchen/dokken-single:
           name: source-16
           suite: source-16
           requires: [  danger, lint ]
+          platform: centos-7
       - kitchen/dokken:
           name: source-17
           suite: source-17
