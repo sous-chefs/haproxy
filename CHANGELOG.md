@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [unreleased]
 
+- Expand integration test coverage to all stable and LTS HAProxy versions
+
 ## [v6.2.7](2019-01-10)
 
 - Test for appropriate spacing from start of line and end of line
