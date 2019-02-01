@@ -35,6 +35,25 @@ haproxy_listen 'disabled' do
 end
 ```
 
+The `extra_options` hash is of `String => String` or `String => Array`. When an `Array` value is provided. The values are looped over mapping the key to each value in the config.
+
+For example:
+
+```ruby
+haproxy_listen 'default' do
+  extra_options(
+    'http-request' => [ 'set-header X-Public-User yes', 'del-header X-Bad-Header' ]
+    )
+end
+```
+Becomes:
+```
+listen default
+  ...
+  http-request set-header X-Public-User yes
+  http-request del-header X-Bad-Header
+```
+
 ## Resources
 
 ### haproxy_acl
