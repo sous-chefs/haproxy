@@ -40,7 +40,7 @@ describe 'haproxy_' do
       '',
       '',
       'backend admin',
-      '  server admin0 10.0.0.10:80 check weight 1 maxconn 100'
+      '  server admin0 10.0.0.10:80 check weight 1 maxconn 100',
     ]
 
     it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/#{cfg_content.join('\n')}/) }
