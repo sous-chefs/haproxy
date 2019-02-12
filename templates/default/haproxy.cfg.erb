@@ -114,6 +114,21 @@ defaults
 <% end -%>
 <% end -%>
 <% end -%>
+<% unless @cache.nil? %>
+<% @cache.each do |cache, c | %>
+
+cache <%= cache %>
+<% unless c['total_max_size'].nil? -%>
+  total-max-size <%= c['total_max_size'] %>
+<% end -%>
+<% unless c['max_object_size'].nil? %>
+  max-object-size <%= c['max_object_size'] %>
+<% end -%>
+<% unless c['max_age'].nil? %>
+  max-age <%= c['max_age'] %>
+<% end -%>
+<% end # cache loop -%>
+<% end # cache -%>
 <% unless @userlist.nil? %>
 
 <% @userlist.each do |userlist, u| %>
