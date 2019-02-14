@@ -12,7 +12,7 @@ chef_version      '>= 13.0'
 supports 'debian'
 supports 'ubuntu'
 supports 'centos'
-# supports 'amazon'
+supports 'amazon'
 supports 'opensuseleap'
 
 depends 'build-essential', '>= 8.0.1'
