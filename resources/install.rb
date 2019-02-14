@@ -58,7 +58,6 @@ action :create do
     pkg_list = value_for_platform_family(
       'debian' => %w(libpcre3-dev libssl-dev zlib1g-dev),
       'rhel' => %w(pcre-devel openssl-devel zlib-devel),
-      'fedora' => %w(pcre-devel openssl-devel zlib-devel systemd-devel),
       'amazon' => %w(pcre-devel openssl-devel zlib-devel),
       'suse' => %w(pcre-devel libopenssl-devel zlib-devel)
     )
