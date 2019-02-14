@@ -57,10 +57,10 @@ platforms:
     image: dokken/opensuse-leap-15
     pid_one_command: /bin/systemd
 
-- name: amazonlinux
-  driver:
-    image: dokken/amazonlinux
-    pid_one_command: /sbin/init
+# - name: amazonlinux
+#   driver:
+#     image: dokken/amazonlinux
+#     pid_one_command: /sbin/init
 
 # - name: amazonlinux-2
 #   driver:
