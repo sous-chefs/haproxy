@@ -10,80 +10,80 @@ workflows:
           name: danger
           context: Danger
       - kitchen/delivery:
-          name: lint
+          name: delivery
       - kitchen/dokken-single:
           name: source-16
           suite: source-16
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
           platform: centos-7
       - kitchen/dokken:
           name: source-17
           suite: source-17
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken:
           name: source-18
           suite: source-18
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken:
           name: source-19
           suite: source-19
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken:
           name: package
           suite: package
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken-single:
           name: config-1
           suite: config-1
           platform: centos-7
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken-single:
           name: config-2
           suite: config-2
           platform: centos-7
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken-single:
           name: config-3
           suite: config-3
           platform: centos-7
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken-single:
           name: config-4
           suite: config-4
           platform: centos-7
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken-single:
           name: acl
           suite: config-acl
           platform: centos-7
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken-single:
           name: backend-search
           suite: config-backend-search
           platform: centos-7
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken-single:
           name: userlist
           suite: config-1-userlist
           platform: centos-7
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken-single:
           name: resolver
           suite: config-resolver
           platform: centos-7
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken-single:
           name: ssl-redirect
           suite: config-ssl-redirect
           platform: centos-7
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken-single:
           name: custom-template
           suite: config-custom-template
           platform: centos-7
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]
       - kitchen/dokken-single:
           name: config-array
           suite: config-array
           platform: centos-7
-          requires: [  danger, lint ]
+          requires: [  danger, delivery ]

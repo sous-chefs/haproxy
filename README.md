@@ -16,8 +16,8 @@ This cookbook officially supports and is tested against the following platforms:
 * debian: 8 & 9
 * ubuntu: 16.04 & 18.04
 * centos: 6 & 7
-* amazon: 1 & 2
-* opensuseleap: 42
+* amazonlinux: 1 & 2
+* opensuseleap: 15
 
 PRs are welcome to add support for additional platforms.
 
