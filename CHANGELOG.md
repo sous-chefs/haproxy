@@ -7,6 +7,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Add haproxy_cache resource for caching small objects with HAProxy version >=1.8
 - Expand integration test coverage to all stable and LTS HAProxy versions
 - Documentation - clarify extra_options hash string => array option
+- Clarify the supported platforms - add AmazonLinux 2, remove fedora & freebsd
 
 ## [v6.2.7](2019-01-10)
 

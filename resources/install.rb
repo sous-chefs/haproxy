@@ -58,14 +58,13 @@ action :create do
     pkg_list = value_for_platform_family(
       'debian' => %w(libpcre3-dev libssl-dev zlib1g-dev),
       'rhel' => %w(pcre-devel openssl-devel zlib-devel),
-      'fedora' => %w(pcre-devel openssl-devel zlib-devel systemd-devel),
       'amazon' => %w(pcre-devel openssl-devel zlib-devel),
       'suse' => %w(pcre-devel libopenssl-devel zlib-devel)
     )
     if new_resource.use_systemd == '1'
       node.default['haproxy']['use_systemd'] = true
       pkg_list << 'libsystemd-dev' if (node['platform_family'] == 'ubuntu') || (node['platform_family'] == 'debian')
-      pkg_list << 'systemd-devel' if (node['platform_family'] == 'rhel') || (node['platform_family'] == 'suse')
+      pkg_list << 'systemd-devel' if (node['platform_family'] == 'rhel') || (node['platform_family'] == 'suse') || (node['platform_family'] == 'amazon')
     end
 
     package pkg_list

@@ -38,11 +38,6 @@ platforms:
     platform: rhel
     pid_one_command: /usr/lib/systemd/systemd
 
-- name: fedora-latest
-  driver:
-    image: dokken/fedora-latest
-    pid_one_command: /usr/lib/systemd/systemd
-
 - name: ubuntu-16.04
   driver:
     image: dokken/ubuntu-16.04
@@ -57,12 +52,17 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
 
-- name: opensuse-leap
+- name: opensuse-leap-15
   driver:
-    image: dokken/opensuse-leap
+    image: dokken/opensuse-leap-15
     pid_one_command: /bin/systemd
 
 - name: amazonlinux
   driver:
     image: dokken/amazonlinux
     pid_one_command: /sbin/init
+
+- name: amazonlinux-2
+  driver:
+    image: dokken/amazonlinux-2
+    pid_one_command: /usr/lib/systemd/systemd
