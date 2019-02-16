@@ -155,6 +155,34 @@ haproxy_backend 'tiles_public' do
   )
 end
 ```
+### haproxy_cache
+
+Cache describes a shared cache for small objects such as CSS, JS and icon files. Useful for web application acceleration. Available in HAProxy version 1.8 and later.
+
+Introduced: v6.3.0
+
+#### Actions
+
+- `:create`
+
+#### Properties
+
+- `name` -  (is: String)
+- `total_max_size` -  (is: Integer)
+- `max_object_size` -  (is: Integer)
+- `max_age` -  (is: Integer)
+- `config_dir` -  (is: String)
+- `config_file` -  (is: String)
+
+#### Examples
+
+```ruby
+haproxy_cache 'test' do
+  total_max_size 4
+  max_age 60
+  max_object_size 1000000
+end
+```
 ### haproxy_config_defaults
 
 Defaults sets default parameters for all other sections following its declaration. Those default parameters are reset by the next "defaults" section.
