@@ -1,6 +1,6 @@
 # haproxy Cookbook
 
-[![CircleCI](https://circleci.com/gh/sous-chefs/haproxy/tree/master.svg?style=shield)](https://circleci.com/gh/sous-chefs/haproxy/tree/master) [![Cookbook Version](https://img.shields.io/cookbook/v/haproxy.svg)](https://supermarket.chef.io/cookbooks/haproxy)
+[![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/haproxy/master.svg)](https://circleci.com/gh/sous-chefs/haproxy) [![Cookbook Version](https://img.shields.io/cookbook/v/haproxy.svg)](https://supermarket.chef.io/cookbooks/haproxy)
 
 Installs and configures haproxy.
 
