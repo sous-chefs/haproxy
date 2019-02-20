@@ -1,7 +1,7 @@
 property :timeout, Hash, default: { client: '10s', server: '10s', connect: '10s' }
 property :log, String, default: 'global'
 property :mode, String, default: 'http', equal_to: %w(http tcp)
-property :balance, default: 'roundrobin', equal_to: %w(roundrobin static-rr leastconn first source uri url_param header rdp-cookie)
+property :balance, String, default: 'roundrobin', equal_to: %w(roundrobin static-rr leastconn first source uri url_param header rdp-cookie)
 property :option, Array, default: %w(httplog dontlognull redispatch tcplog)
 property :stats, Hash, default: { 'uri' => '/haproxy-status' }
 property :maxconn, Integer
