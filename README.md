@@ -6,8 +6,8 @@ Installs and configures HAProxy.
 
 ## Requirements
 
-- HAProxy `stable` or `LTS`
-- Chef 13+
+* HAProxy `stable` or `LTS`
+* Chef 13+
 
 ### Platforms
 
@@ -52,7 +52,9 @@ haproxy_listen 'default' do
     )
 end
 ```
+
 Becomes:
+
 ```
 listen default
   ...
@@ -123,12 +125,12 @@ The `haproxy.cfg` file has a few specific rule orderings that will generate vali
 
 ## License & Authors
 
-- Author:: Dan Webb (<https://github.com/damacus>)
-- Author:: Will Fisher (<https://github.com/teknofire>)
-- Author:: Richard Shade (<https://github.com/rshade>)
-- Author:: Joshua Timberman ([joshua@chef.io](mailto:joshua@chef.io))
-- Author:: Aaron Baer ([aaron@hw-ops.com](mailto:aaron@hw-ops.com))
-- Author:: Justin Kolberg ([justin@hw-ops.com](mailto:justin@hw-ops.com))
+* Author:: Dan Webb (<https://github.com/damacus>)
+* Author:: Will Fisher (<https://github.com/teknofire>)
+* Author:: Richard Shade (<https://github.com/rshade>)
+* Author:: Joshua Timberman ([joshua@chef.io](mailto:joshua@chef.io))
+* Author:: Aaron Baer ([aaron@hw-ops.com](mailto:aaron@hw-ops.com))
+* Author:: Justin Kolberg ([justin@hw-ops.com](mailto:justin@hw-ops.com))
 
 ```text
 Copyright:: Heavy Water Operations, LLC.
