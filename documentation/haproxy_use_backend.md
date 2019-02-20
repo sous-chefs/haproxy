@@ -1,4 +1,5 @@
 [back to resource list](https://github.com/sous-chefs/haproxy#resources)
+
 ---
 
 # haproxy_use_backend
@@ -29,6 +30,7 @@ haproxy_use_backend 'gina if gina_host' do
   section_name 'http'
 end
 ```
+
 ```ruby
 haproxy_use_backend 'use_backends for frontend:http' do
   section 'frontend'

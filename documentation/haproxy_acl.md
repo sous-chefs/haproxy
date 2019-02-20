@@ -1,9 +1,10 @@
 [back to resource list](https://github.com/sous-chefs/haproxy#resources)
+
 ---
 
 # haproxy_acl
 
-Access Control Lists creates a new ACL <aclname> or completes an existing one with new tests.
+Access Control Lists creates a new ACL `<aclname>` or completes an existing one with new tests.
 
 The actions generally consist in blocking a request, selecting a backend, or adding a header.
 
@@ -24,12 +25,14 @@ Introduced: v4.2.0
 | `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
 
 ## Examples
+
 ```ruby
 haproxy_acl 'gina_host hdr(host) -i foo.bar.com' do
   section 'frontend'
   section_name 'http'
 end
 ```
+
 ```ruby
 haproxy_acl 'acls for frontend:http' do
   section 'frontend'
@@ -40,6 +43,7 @@ haproxy_acl 'acls for frontend:http' do
   ]
 end
 ```
+
 ```ruby
 haproxy_acl 'acls for listen' do
   section 'listen'

@@ -1,4 +1,5 @@
 [back to resource list](https://github.com/sous-chefs/haproxy#resources)
+
 ---
 
 # haproxy_listen

@@ -1,4 +1,5 @@
 [back to resource list](https://github.com/sous-chefs/haproxy#resources)
+
 ---
 
 # haproxy_config_global
@@ -47,6 +48,7 @@ haproxy_config_global '' do
   tuning 'bufsize' => '262144'
 end
 ```
+
 ```ruby
 haproxy_config_global 'global' do
   daemon false

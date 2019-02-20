@@ -1,4 +1,5 @@
 [back to resource list](https://github.com/sous-chefs/haproxy#resources)
+
 ---
 
 # haproxy_install
@@ -43,11 +44,12 @@ Introduced: v4.0.0
 | `use_linux_tproxy` | String | `1` |  | `0`, `1`
 | `use_linux_splice` | String | `1` |  | `0`, `1`
 
-
 ## Examples
+
 ```ruby
 haproxy_install 'package'
 ```
+
 ```ruby
 haproxy_install 'source' do
   source_url node['haproxy']['source_url']

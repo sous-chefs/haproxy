@@ -1,9 +1,10 @@
 [back to resource list](https://github.com/sous-chefs/haproxy#resources)
+
 ---
 
 # haproxy_resolver
 
-Configuration related to name resolution in HAProxy. There can be as many as resolvers section as needed.
+Configuration related to name resolution in HAProxy. There can be as many as resolver sections as needed.
 
 Each section can contain many name servers.
 

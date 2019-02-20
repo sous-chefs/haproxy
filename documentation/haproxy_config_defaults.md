@@ -1,4 +1,5 @@
 [back to resource list](https://github.com/sous-chefs/haproxy#resources)
+
 ---
 
 # haproxy_config_defaults
@@ -18,7 +19,7 @@ Introduced: v4.0.0
 | `timeout` | Hash | `{ client: '10s', server: '10s', connect: '10s' }` | Default HAProxy timeout values |
 | `log` | String | `global` | Enable per-instance logging of events and traffic |
 | `mode` |  String | `http` | Set the running mode or protocol of the instance | `http`, `tcp`
-| `balance` | String | `roundrobin` | Define the load balancing algorithm to be used in a backend | `roundrobin static-rr`, `leastconn`, `first`, ` source`, `uri`, `url_param`, `header`, `rdp-cookie`
+| `balance` | String | `roundrobin` | Define the load balancing algorithm to be used in a backend | `roundrobin static-rr`, `leastconn`, `first`, `source`, `uri`, `url_param`, `header`, `rdp-cookie`
 | `stats` | Hash | `{ 'uri' => '/haproxy-status' }` | Enable HAProxy statistics |
 | `maxconn` | Integer | none | Sets the maximum per-process number of concurrent connections |
 | `haproxy_retries` | Integer | none | Set the number of retries to perform on a server after a connection failure |
@@ -39,6 +40,7 @@ haproxy_config_defaults 'defaults' do
   haproxy_retries 5
 end
 ```
+
 ```ruby
 haproxy_config_defaults 'defaults' do
   mode 'http'

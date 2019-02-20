@@ -1,4 +1,5 @@
 [back to resource list](https://github.com/sous-chefs/haproxy#resources)
+
 ---
 
 # haproxy_service
@@ -30,14 +31,17 @@ Introduced: v4.0.0
 | `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
 
 ## Examples
+
 ```ruby
 haproxy_service 'haproxy'
 ```
+
 ```ruby
 haproxy_service 'haproxy' do
   subscribes :reload, 'template[/etc/haproxy/haproxy.cfg]', :delayed
 end
 ```
+
 ```ruby
 haproxy_service 'haproxy' do
   subscribes :reload, ['template[/etc/haproxy/haproxy.cfg]', 'file[/etc/haproxy/ssl/haproxy.pem]'], :delayed

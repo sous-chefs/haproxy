@@ -1,4 +1,5 @@
 [back to resource list](https://github.com/sous-chefs/haproxy#resources)
+
 ---
 
 # haproxy_backend
@@ -34,6 +35,7 @@ haproxy_backend 'servers' do
   server ['server1 127.0.0.1:8000 maxconn 32']
 end
 ```
+
 ```ruby
 haproxy_backend 'tiles_public' do
   server ['tile0 10.0.0.10:80 check weight 1 maxconn 100',
