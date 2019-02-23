@@ -39,21 +39,13 @@ workflows:
           suite: source-16-debian-8
           requires: [source-16-centos-7]
       - kitchen/dokken-single:
-          name: source-16-debian-9
-          suite: source-16-debian-9
-          requires: [source-16-debian-8]
-      - kitchen/dokken-single:
           name: source-16-ubuntu-1604
           suite: source-16-ubuntu-1604
-          requires: [source-16-debian-9]
-      - kitchen/dokken-single:
-          name: source-16-ubuntu-1804
-          suite: source-16-ubuntu-1804
-          requires: [source-16-ubuntu-1604]
+          requires: [source-16-debian-8]
       - kitchen/dokken-single:
           name: source-16-amazonlinux
           suite: source-16-amazonlinux
-          requires: [source-16-ubuntu-1804]
+          requires: [source-16-ubuntu-1604]
       - kitchen/dokken-single:
           name: source-16-amazonlinux-2
           suite: source-16-amazonlinux-2
