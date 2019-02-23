@@ -41,7 +41,13 @@ suites:
         source_version: '1.6.14'
         source_url: 'http://www.haproxy.org/download/1.6/src/haproxy-1.6.14.tar.gz'  # yamllint disable-line
         source_checksum: 'bac949838a3a497221d1a9e937d60cba32156783a216146a524ce40675b6b828'  # yamllint disable-line
-    includes: [amazonlinux, amazonlinux-2, centos-6, centos-7, debian-8, ubuntu-16.04]
+    includes:
+      - amazonlinux
+      - amazonlinux-2
+      - centos-6
+      - centos-7
+      - debian-8
+      - ubuntu-16.04
   - name: source-1.7
     run_list:
       - recipe[test::source]
