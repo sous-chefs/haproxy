@@ -64,18 +64,18 @@ listen default
 
 ## Resources
 
-* [haproxy_acl](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_acl)
-* [haproxy_backend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_backend)
-* [haproxy_cache](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_cache)
-* [haproxy_config_defaults](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_config_defaults)
-* [haproxy_config_global](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_config_global)
-* [haproxy_frontend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_frontend)
-* [haproxy_install](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_install)
-* [haproxy_listen](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_listen)
-* [haproxy_resolver](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_resolver)
-* [haproxy_service](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_service)
-* [haproxy_use_backend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_use_backend)
-* [haproxy_userlist](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_userlist)
+* [haproxy_acl](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_acl.md)
+* [haproxy_backend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_backend.md)
+* [haproxy_cache](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_cache.md)
+* [haproxy_config_defaults](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_config_defaults.md)
+* [haproxy_config_global](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_config_global.md)
+* [haproxy_frontend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_frontend.md)
+* [haproxy_install](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_install.md)
+* [haproxy_listen](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_listen.md)
+* [haproxy_resolver](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_resolver.md)
+* [haproxy_service](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_service.md)
+* [haproxy_use_backend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_use_backend.md)
+* [haproxy_userlist](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_userlist.md)
 
 ## Configuration Validation
 
