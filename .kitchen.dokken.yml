@@ -27,12 +27,6 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
-  - name: centos-6
-    driver:
-      image: dokken/centos-6
-      platform: rhel
-      pid_one_command: /sbin/init
-
   - name: centos-7
     driver:
       image: dokken/centos-7

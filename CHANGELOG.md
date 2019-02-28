@@ -10,6 +10,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Systemd unit configured and working
 - Add apt-update for debian platforms
 - Move system command to a helper
+- Remove `poise_service` dependency in favor of systemd_unit
+- Support only systemd init systems
 
 ## [v6.3.0] (2019-02-18)
 

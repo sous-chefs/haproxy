@@ -21,7 +21,6 @@ platforms:
   - name: amazonlinux-2
     driver_config:
       box: ywatase/amzn2
-  - name: centos-6
   - name: centos-7
   - name: debian-8
   - name: debian-9
