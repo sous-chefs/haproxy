@@ -16,4 +16,3 @@ supports 'amazon'
 supports 'opensuseleap'
 
 depends 'build-essential', '>= 8.0.1'
-depends 'poise-service',   '>= 1.5.1'

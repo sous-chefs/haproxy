@@ -104,7 +104,7 @@ action :create do
   end
 
   with_run_context :root do
-    find_resource(:poise_service_user, new_resource.haproxy_user) do
+    find_resource(:user, new_resource.haproxy_user) do
       home "/home/#{new_resource.haproxy_user}"
       group new_resource.haproxy_group
       action :create

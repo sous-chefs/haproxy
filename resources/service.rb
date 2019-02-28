@@ -7,29 +7,29 @@ property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 property :service_name, String, default: 'haproxy'
 property :use_systemd, [true, false], default: lazy { node['init_package'] == 'systemd' }
-property :systemd_unit, Hash,
+property :systemd_unit, [ String, Hash ],
          description: 'Set to change the SystemD Unit parameters',
          default: lazy {
            {
-           Unit: {
-             Description: service_name,
-             After: 'syslog.target network.target',
-           },
-           Service: {
-             Environment: "CONFIG=#{config_file} PIDFILE='/run/haproxy.pid'",
-             EnvironmentFile: "-/etc/default/haproxy",
-             ExecStartPre: "#{bin_prefix}/sbin/haproxy -f $CONFIG -c -q",
-             ExecStart: "#{systemd_command(bin_prefix)} -f #{config_file} -p /run/haproxy.pid $OPTIONS",
-             ExecReload: "#{bin_prefix}/sbin/haproxy -f $CONFIG -c -q",
-             ExecReload: '/bin/kill -USR2 $MAINPID',
-             KillMode: 'mixed',
-             Restart: 'always',
-             Type: 'notify'
-           },
-           Install: {
-             WantedBy: 'multi-user.target'
+             Unit: {
+               Description: service_name,
+               After: 'syslog.target network.target',
+             },
+             Service: {
+               Environment: "CONFIG=#{config_file} PIDFILE='/run/haproxy.pid'",
+               EnvironmentFile: '-/etc/default/haproxy',
+               ExecStartPre: "#{bin_prefix}/sbin/haproxy -f $CONFIG -c -q",
+               ExecStart: "#{systemd_command(bin_prefix)} -f #{config_file} -p /run/haproxy.pid $OPTIONS",
+               ExecReload: "#{bin_prefix}/sbin/haproxy -f $CONFIG -c -q",
+               ExecReload: '/bin/kill -USR2 $MAINPID',
+               KillMode: 'mixed',
+               Restart: 'always',
+               Type: 'notify',
+             },
+             Install: {
+               WantedBy: 'multi-user.target',
+             },
            }
-          }
          }
 
 action :create do
