@@ -9,6 +9,7 @@ describe 'haproxy_' do
       haproxy_install 'package'
 
       haproxy_cache 'test' do
+        cache_name 'test-cache'
         total_max_size 4
         max_age 60
       end
@@ -17,7 +18,7 @@ describe 'haproxy_' do
         bind '0.0.0.0:1337'
         mode 'http'
         use_backend ['admin0 if path_beg /admin0']
-        extra_options('http-request' => 'cache-use test', 'http-response' => 'cache-store test')
+        extra_options('http-request' => 'cache-use test-cache', 'http-response' => 'cache-store test-cache')
       end
 
       haproxy_backend 'admin' do
@@ -26,7 +27,7 @@ describe 'haproxy_' do
     end
 
     cfg_content = [
-      'cache test',
+      'cache test-cache',
       '  total-max-size 4',
       '  max-age 60',
       '',
@@ -34,9 +35,9 @@ describe 'haproxy_' do
       'frontend admin',
       '  mode http',
       '  bind 0.0.0.0:1337',
-      '  http-request cache-use test',
+      '  http-request cache-use test-cache',
       '  use_backend admin0 if path_beg /admin0',
-      '  http-response cache-store test',
+      '  http-response cache-store test-cache',
       '',
       '',
       'backend admin',
