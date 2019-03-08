@@ -63,8 +63,12 @@ action :create do
     )
     if new_resource.use_systemd == '1'
       node.default['haproxy']['use_systemd'] = true
-      pkg_list << 'libsystemd-dev' if (node['platform_family'] == 'ubuntu') || (node['platform_family'] == 'debian')
-      pkg_list << 'systemd-devel' if (node['platform_family'] == 'rhel') || (node['platform_family'] == 'suse') || (node['platform_family'] == 'amazon')
+      case node['platform_family']
+      when 'rhel', 'suse', 'amazon'
+        pkg_list << 'systemd-devel'
+      when 'ubuntu', 'debian'
+        pkg_list << 'libsystemd-dev'
+      end
     end
 
     package pkg_list
