@@ -15,9 +15,6 @@ verifier:
   name: inspec
 
 platforms:
-  - name: amazonlinux
-    driver_config:
-      box: mvbcoding/awslinux
   - name: amazonlinux-2
     driver_config:
       box: ywatase/amzn2
