@@ -1,5 +1,9 @@
 # frozen_string_literal: true
-haproxy_install 'package'
+apt_update
+
+haproxy_install 'package' do
+  sensitive false
+end
 
 haproxy_config_global '' do
   chroot '/var/lib/haproxy'

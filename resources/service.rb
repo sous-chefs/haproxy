@@ -20,26 +20,26 @@ action :create do
 
     systemd_unit "#{new_resource.service_name}.service" do
       content <<-EOU.gsub(/^\s+/, '')
-  [Unit]
-  Description=HAProxy Load Balancer
-  Documentation=man:haproxy(1)
-  Documentation=file:/usr/share/doc/haproxy/configuration.txt.gz
-  After=network.target rsyslog.service
+[Unit]
+Description=HAProxy Load Balancer
+Documentation=man:haproxy(1)
+Documentation=file:/usr/share/doc/haproxy/configuration.txt.gz
+After=network.target rsyslog.service
 
-  [Service]
-  EnvironmentFile=-/etc/default/haproxy
-  Environment="CONFIG=#{new_resource.config_file} PIDFILE=/run/haproxy.pid"
-  ExecStartPre=#{new_resource.bin_prefix}/sbin/haproxy -f #{new_resource.config_file} -c -q $EXTRAOPTS
-  ExecStart=#{systemd_command(new_resource.bin_prefix)} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS
-  ExecReload=#{new_resource.bin_prefix}/sbin/haproxy -f $CONFIG -c -q
-  ExecReload=/bin/kill -USR2 $MAINPID
-  KillMode=mixed
-  Restart=always
-  Type=notify
+[Service]
+EnvironmentFile=-/etc/default/haproxy
+Environment="CONFIG=#{new_resource.config_file} PIDFILE=/run/haproxy.pid"
+ExecStartPre=#{new_resource.bin_prefix}/sbin/haproxy -f #{new_resource.config_file} -c -q $EXTRAOPTS
+ExecStart=#{systemd_command(new_resource.bin_prefix)} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS
+ExecReload=#{new_resource.bin_prefix}/sbin/haproxy -f $CONFIG -c -q
+ExecReload=/bin/kill -USR2 $MAINPID
+KillMode=mixed
+Restart=always
+Type=notify
 
-  [Install]
-  WantedBy=multi-user.target
-  EOU
+[Install]
+WantedBy=multi-user.target
+EOU
       triggers_reload true
       action [:create, :enable]
       notifies :restart, "service[#{new_resource.service_name}]", :delayed

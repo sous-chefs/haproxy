@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+apt_update
+
 haproxy_install 'source' do
   source_url node['haproxy']['source_url']
   source_checksum node['haproxy']['source_checksum']
