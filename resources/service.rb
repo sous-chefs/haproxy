@@ -24,18 +24,20 @@ action :create do
 Description=HAProxy Load Balancer
 Documentation=man:haproxy(1)
 Documentation=file:/usr/share/doc/haproxy/configuration.txt.gz
-After=network.target rsyslog.service
+After=network.target syslog.service
 
 [Service]
 EnvironmentFile=-/etc/default/haproxy
-Environment="CONFIG=#{new_resource.config_file} PIDFILE=/run/haproxy.pid"
-ExecStartPre=#{new_resource.bin_prefix}/sbin/haproxy -f #{new_resource.config_file} -c -q $EXTRAOPTS
-ExecStart=#{systemd_command(new_resource.bin_prefix)} -f #{new_resource.config_file} -p /run/haproxy.pid $OPTIONS
+Environment="CONFIG=#{new_resource.config_file}" "PIDFILE=/run/haproxy.pid"
+ExecStartPre=#{new_resource.bin_prefix}/sbin/haproxy -f $CONFIG -c -q
+ExecStart=#{systemd_command(new_resource.bin_prefix)} -f $CONFIG -p $PIDFILE $OPTIONS
 ExecReload=#{new_resource.bin_prefix}/sbin/haproxy -f $CONFIG -c -q
 ExecReload=/bin/kill -USR2 $MAINPID
+KillSignal=TERM
+User=root
+WorkingDirectory=/
 KillMode=mixed
 Restart=always
-Type=notify
 
 [Install]
 WantedBy=multi-user.target
