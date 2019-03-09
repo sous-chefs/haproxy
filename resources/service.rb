@@ -6,7 +6,7 @@ property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 property :service_name, String, default: 'haproxy'
-property :use_systemd, [true, false], default: lazy { node['init_package'] == 'systemd' }
+property :use_systemd, [true, false], default: true
 property :systemd_unit, [ String, Hash ],
          description: 'Set to change the SystemD Unit parameters',
          default: lazy {
@@ -34,16 +34,6 @@ property :systemd_unit, [ String, Hash ],
 
 action :create do
   with_run_context :root do
-    find_resource(:user, new_resource.haproxy_user) do
-      home "/home/#{new_resource.haproxy_user}"
-      action :create
-    end
-
-    find_resource(:group, new_resource.haproxy_group) do
-      members new_resource.haproxy_user
-      action :create
-    end
-
     cookbook_file '/etc/default/haproxy' do
       cookbook 'haproxy'
       source 'haproxy-default'

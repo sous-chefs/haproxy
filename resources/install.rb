@@ -10,16 +10,16 @@ property :haproxy_group, String, default: 'haproxy'
 property :install_only, [true, false], default: false
 property :service_name, String, default: 'haproxy'
 property :sensitive, [true, false], default: true
-property :use_systemd, String, equal_to: %w(0 1), default: lazy { node['init_package'] == 'systemd' ? '1' : '0' }
+property :use_systemd, [true, false], default: true
 
 # Package
 property :package_name, String, default: 'haproxy'
 property :package_version, [String, nil], default: nil
 
 # Source
-property :source_version, String, default: '1.7.8'
-property :source_url, String, default: lazy { "http://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version}.tar.gz" }
-property :source_checksum, [String, nil], default: nil
+property :source_version, String, default: '1.9.4'
+property :source_url, String, default: lazy { "http://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version.to_f}.tar.gz" }
+property :source_checksum, [String, nil], default: '8483fe12b30256f83d542b3f699e165d8f71bf2dfac8b16bb53716abce4ba74f'
 property :source_target_cpu, [String, nil], default: lazy { node['kernel']['machine'] }
 property :source_target_arch, [String, nil], default: nil
 property :source_target_os, String, default: lazy {
@@ -47,6 +47,11 @@ action :create do
 
   case new_resource.install_type
   when 'package'
+    case node['platform_family']
+    when 'amazon', 'rhel'
+      include_recipe 'yum-epel'
+    end
+
     package new_resource.package_name do
       version new_resource.package_version if new_resource.package_version
       action :install
@@ -54,24 +59,7 @@ action :create do
 
   when 'source'
     build_essential 'compilation tools'
-
-    pkg_list = value_for_platform_family(
-      'debian' => %w(libpcre3-dev libssl-dev zlib1g-dev),
-      'rhel' => %w(pcre-devel openssl-devel zlib-devel),
-      'amazon' => %w(pcre-devel openssl-devel zlib-devel),
-      'suse' => %w(pcre-devel libopenssl-devel zlib-devel)
-    )
-    if new_resource.use_systemd == '1'
-      node.default['haproxy']['use_systemd'] = true
-      case node['platform_family']
-      when 'rhel', 'suse', 'amazon'
-        pkg_list << 'systemd-devel'
-      when 'ubuntu', 'debian'
-        pkg_list << 'libsystemd-dev'
-      end
-    end
-
-    package pkg_list
+    package source_package_list
 
     remote_file 'haproxy source file' do
       path ::File.join(Chef::Config[:file_cache_path], "haproxy-#{new_resource.source_version}.tar.gz")
@@ -90,10 +78,6 @@ action :create do
     make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
     make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
     make_cmd << " USE_SYSTEMD=#{new_resource.use_systemd}" if new_resource.use_systemd == '1' && new_resource.source_version.to_f >= 1.8
-    if node['platform_family'] == 'rhel' && node['platform_version'].to_i < 7
-      make_cmd << ' USE_RT=1'
-      make_cmd << ' USE_CRYPT_H=1'
-    end
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if new_resource.source_version.to_f < 1.8
 
     bash 'compile_haproxy' do
@@ -108,10 +92,11 @@ action :create do
   end
 
   with_run_context :root do
-    find_resource(:user, new_resource.haproxy_user) do
+    group new_resource.haproxy_group
+
+    user new_resource.haproxy_user do
       home "/home/#{new_resource.haproxy_user}"
       group new_resource.haproxy_group
-      action :create
     end
 
     directory new_resource.config_dir do
@@ -119,7 +104,6 @@ action :create do
       group new_resource.haproxy_group
       mode '0755'
       recursive true
-      action :create
     end
 
     template new_resource.config_file do
@@ -134,4 +118,8 @@ action :create do
       delayed_action :nothing
     end
   end
+end
+
+action_class do
+  include Chef::Haproxy::Helpers
 end
