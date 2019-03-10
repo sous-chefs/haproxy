@@ -22,7 +22,6 @@ action :create do
       content <<-EOU.gsub(/^\s+/, '')
 [Unit]
 Description=HAProxy Load Balancer
-Documentation=man:haproxy(1)
 Documentation=file:/usr/share/doc/haproxy/configuration.txt.gz
 After=network.target syslog.service
 
