@@ -24,43 +24,12 @@ workflows:
       - kitchen/delivery:
           name: delivery
 
-      # Source Install 1.6
-      - kitchen/dokken-single:
-          name: source-16-centos-6
-          suite: source-16-centos-6
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-16-centos-7
-          suite: source-16-centos-7
-          requires: [source-16-centos-6]
-      - kitchen/dokken-single:
-          name: source-16-debian-8
-          suite: source-16-debian-8
-          requires: [source-16-centos-7]
-      - kitchen/dokken-single:
-          name: source-16-ubuntu-1604
-          suite: source-16-ubuntu-1604
-          requires: [source-16-debian-8]
-      - kitchen/dokken-single:
-          name: source-16-amazonlinux
-          suite: source-16-amazonlinux
-          requires: [source-16-ubuntu-1604]
-      - kitchen/dokken-single:
-          name: source-16-amazonlinux-2
-          suite: source-16-amazonlinux-2
-          requires: [source-16-amazonlinux]
-
       # Source Install 1.7
-      - kitchen/dokken-single:
-          name: source-17-centos-6
-          suite: source-17-centos-6
-          requires:
-            *lint_and_unit
       - kitchen/dokken-single:
           name: source-17-centos-7
           suite: source-17-centos-7
-          requires: [source-17-centos-6]
+          requires:
+            *lint_and_unit
       - kitchen/dokken-single:
           name: source-17-debian-8
           suite: source-17-debian-8
@@ -78,24 +47,16 @@ workflows:
           suite: source-17-ubuntu-1804
           requires: [source-17-ubuntu-1604]
       - kitchen/dokken-single:
-          name: source-17-amazonlinux
-          suite: source-17-amazonlinux
-          requires: [source-17-ubuntu-1804]
-      - kitchen/dokken-single:
           name: source-17-amazonlinux-2
           suite: source-17-amazonlinux-2
-          requires: [source-17-amazonlinux]
+          requires: [source-17-ubuntu-1804]
 
       # Source Install 1.8
       - kitchen/dokken-single:
-          name: source-18-centos-6
-          suite: source-18-centos-6
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
           name: source-18-centos-7
           suite: source-18-centos-7
-          requires: [source-18-centos-6]
+          requires:
+            *lint_and_unit
       - kitchen/dokken-single:
           name: source-18-debian-8
           suite: source-18-debian-8
@@ -113,24 +74,16 @@ workflows:
           suite: source-18-ubuntu-1804
           requires: [source-18-ubuntu-1604]
       - kitchen/dokken-single:
-          name: source-18-amazonlinux
-          suite: source-18-amazonlinux
-          requires: [source-18-ubuntu-1804]
-      - kitchen/dokken-single:
           name: source-18-amazonlinux-2
           suite: source-18-amazonlinux-2
-          requires: [source-18-amazonlinux]
+          requires: [source-18-ubuntu-1804]
 
       # Source Install 1.9
       - kitchen/dokken-single:
-          name: source-19-centos-6
-          suite: source-19-centos-6
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
           name: source-19-centos-7
           suite: source-19-centos-7
-          requires: [source-19-centos-6]
+          requires:
+            *lint_and_unit
       - kitchen/dokken-single:
           name: source-19-debian-8
           suite: source-19-debian-8
@@ -148,24 +101,17 @@ workflows:
           suite: source-19-ubuntu-1804
           requires: [source-19-ubuntu-1604]
       - kitchen/dokken-single:
-          name: source-19-amazonlinux
-          suite: source-19-amazonlinux
-          requires: [source-19-ubuntu-1804]
-      - kitchen/dokken-single:
           name: source-19-amazonlinux-2
           suite: source-19-amazonlinux-2
-          requires: [source-19-amazonlinux]
+          requires: [source-19-ubuntu-1804]
+
 
       # Package Install
       - kitchen/dokken-single:
-          name: package-centos-6
-          suite: package-centos-6
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
           name: package-centos-7
           suite: package-centos-7
-          requires: [package-centos-6]
+          requires:
+            *lint_and_unit
       - kitchen/dokken-single:
           name: package-debian-8
           suite: package-debian-8
@@ -183,13 +129,9 @@ workflows:
           suite: package-ubuntu-1804
           requires: [package-ubuntu-1604]
       - kitchen/dokken-single:
-          name: package-amazonlinux
-          suite: package-amazonlinux
-          requires: [package-ubuntu-1804]
-      - kitchen/dokken-single:
           name: package-amazonlinux-2
           suite: package-amazonlinux-2
-          requires: [package-amazonlinux]
+          requires: [package-ubuntu-1804]
 
       # Configuration Tests
       - kitchen/dokken-single:
