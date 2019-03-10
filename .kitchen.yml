@@ -33,45 +33,30 @@ suites:
   - name: package
     run_list:
       - recipe[test::package]
-  - name: source-1.6
-    run_list:
-      - recipe[test::source]
-    attributes:
-      haproxy:
-        source_version: '1.6.14'
-        source_url: 'http://www.haproxy.org/download/1.6/src/haproxy-1.6.14.tar.gz'  # yamllint disable-line
-        source_checksum: 'bac949838a3a497221d1a9e937d60cba32156783a216146a524ce40675b6b828'  # yamllint disable-line
-    includes:
-      - amazonlinux
-      - amazonlinux-2
-      - centos-6
-      - centos-7
-      - debian-8
-      - ubuntu-16.04
   - name: source-1.7
     run_list:
       - recipe[test::source]
     attributes:
       haproxy:
         source_version: '1.7.11'
-        source_url: 'http://www.haproxy.org/download/1.7/src/haproxy-1.7.11.tar.gz'  # yamllint disable-line
-        source_checksum: 'd564b8e9429d1e8e13cb648bf4694926b472e36da1079df946bb732927b232ea'  # yamllint disable-line
+        source_url: 'http://www.haproxy.org/download/1.7/src/haproxy-1.7.11.tar.gz'
+        source_checksum: 'd564b8e9429d1e8e13cb648bf4694926b472e36da1079df946bb732927b232ea'
   - name: source-1.8
     run_list:
       - recipe[test::source]
     attributes:
       haproxy:
         source_version: '1.8.17'
-        source_url: 'http://www.haproxy.org/download/1.8/src/haproxy-1.8.17.tar.gz'  # yamllint disable-line
-        source_checksum: '7b789b177875afdd5ddeff058e7efde73aa895dc2dcf728b464358635ae3948e'  # yamllint disable-line
+        source_url: 'http://www.haproxy.org/download/1.8/src/haproxy-1.8.17.tar.gz'
+        source_checksum: '7b789b177875afdd5ddeff058e7efde73aa895dc2dcf728b464358635ae3948e'
   - name: source-1.9
     run_list:
       - recipe[test::source]
     attributes:
       haproxy:
         source_version: '1.9.2'
-        source_url: 'http://www.haproxy.org/download/1.9/src/haproxy-1.9.2.tar.gz'  # yamllint disable-line
-        source_checksum: '8dde83374e602a2892c41405f8b4b9ac2d0c76c7a2d103d3a03c7eff1a23a842'  # yamllint disable-line
+        source_url: 'http://www.haproxy.org/download/1.9/src/haproxy-1.9.2.tar.gz'
+        source_checksum: '8dde83374e602a2892c41405f8b4b9ac2d0c76c7a2d103d3a03c7eff1a23a842'
   - name: config_1
     run_list:
       - recipe[test::config_1]
