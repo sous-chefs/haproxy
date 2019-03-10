@@ -18,7 +18,7 @@ property :package_version, [String, nil], default: nil
 
 # Source
 property :source_version, String, default: '1.9.4'
-property :source_url, String, default: lazy { "http://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version.to_f}.tar.gz" }
+property :source_url, String, default: lazy { "https://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version}.tar.gz" }
 property :source_checksum, [String, nil], default: '8483fe12b30256f83d542b3f699e165d8f71bf2dfac8b16bb53716abce4ba74f'
 property :source_target_cpu, [String, nil], default: lazy { node['kernel']['machine'] }
 property :source_target_arch, [String, nil], default: nil
