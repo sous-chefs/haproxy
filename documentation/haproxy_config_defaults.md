@@ -23,7 +23,7 @@ Introduced: v4.0.0
 | `stats` | Hash | `{ 'uri' => '/haproxy-status' }` | Enable HAProxy statistics |
 | `maxconn` | Integer | none | Sets the maximum per-process number of concurrent connections |
 | `haproxy_retries` | Integer | none | Set the number of retries to perform on a server after a connection failure |
-| `option` |  Array | `['httplog', 'dontlognull', 'redispatch', 'tcplog']` | Array of HAProxy `option` directives |
+| `option` |  Array | `%w(httplog dontlognull redispatch tcplog)` | Array of HAProxy `option` directives |
 | `extra_options` |  Hash | none | Used for setting any HAProxy directives |
 | `hash_type` |  String, nil | none | Specify a method to use for mapping hashes to servers | `consistent`, `map-based`, `nil`
 | `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
