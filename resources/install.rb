@@ -79,6 +79,10 @@ action :create do
     make_cmd = "make TARGET=#{new_resource.source_target_os}"
     make_cmd << " CPU=#{new_resource.source_target_cpu}" unless new_resource.source_target_cpu.nil?
     make_cmd << " ARCH=#{new_resource.source_target_arch}" unless new_resource.source_target_arch.nil?
+    if node['platform_family'] == 'rhel' && node['platform_version'].to_i < 7
+      make_cmd << ' USE_RT=1'
+      make_cmd << ' USE_CRYPT_H=1'
+    end
     make_cmd << " USE_LIBCRYPT=#{new_resource.use_libcrypt}"
     make_cmd << " USE_PCRE=#{new_resource.use_pcre}"
     make_cmd << " USE_OPENSSL=#{new_resource.use_openssl}"
