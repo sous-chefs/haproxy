@@ -31,6 +31,9 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
+          name: source-17-centos-6
+          suite: source-17-centos-6
+      - kitchen/dokken-single:
           name: source-17-debian-8
           suite: source-17-debian-8
           requires: [source-17-centos-7]
@@ -57,6 +60,9 @@ workflows:
           suite: source-18-centos-7
           requires:
             *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-18-centos-6
+          suite: source-18-centos-6
       - kitchen/dokken-single:
           name: source-18-debian-8
           suite: source-18-debian-8
@@ -85,6 +91,9 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
+          name: source-19-centos-6
+          suite: source-19-centos-6
+      - kitchen/dokken-single:
           name: source-19-debian-8
           suite: source-19-debian-8
           requires: [source-19-centos-7]
@@ -105,13 +114,15 @@ workflows:
           suite: source-19-amazonlinux-2
           requires: [source-19-ubuntu-1804]
 
-
       # Package Install
       - kitchen/dokken-single:
           name: package-centos-7
           suite: package-centos-7
           requires:
             *lint_and_unit
+      - kitchen/dokken-single:
+          name: package-centos-6
+          suite: package-centos-6
       - kitchen/dokken-single:
           name: package-debian-8
           suite: package-debian-8
