@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 ## [unreleased]
 
 - Move resource documentation to dedicated folder with md per resource
+- Rename haproxy_cache `name` property as `cache_name`
 
 ## [v6.3.0](2019-02-18)
 
