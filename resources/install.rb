@@ -86,6 +86,10 @@ action :create do
     make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
     make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
     make_cmd << " USE_SYSTEMD=#{new_resource.use_systemd}" if new_resource.use_systemd == '1' && new_resource.source_version.to_f >= 1.8
+    if node['platform_family'] == 'rhel' && node['platform_version'].to_i < 7
+      make_cmd << ' USE_RT=1'
+      make_cmd << ' USE_CRYPT_H=1'
+    end
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if new_resource.source_version.to_f < 1.8
 
     bash 'compile_haproxy' do
