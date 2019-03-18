@@ -1,4 +1,4 @@
-property :name, String, name_property: true
+property :cache_name, String, name_property: true
 property :total_max_size, Integer
 property :max_object_size, Integer
 property :max_age, Integer
@@ -14,10 +14,10 @@ action :create do
       source lazy { node.run_state['haproxy']['conf_template_source'][new_resource.config_file] ||= 'haproxy.cfg.erb' }
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] ||= 'haproxy' }
       variables['cache'] ||= {}
-      variables['cache'][new_resource.name] ||= {}
-      variables['cache'][new_resource.name]['total_max_size'] ||= new_resource.total_max_size
-      variables['cache'][new_resource.name]['max_object_size'] ||= new_resource.max_object_size unless new_resource.max_object_size.nil?
-      variables['cache'][new_resource.name]['max_age'] ||= new_resource.max_age unless new_resource.max_age.nil?
+      variables['cache'][new_resource.cache_name] ||= {}
+      variables['cache'][new_resource.cache_name]['total_max_size'] ||= new_resource.total_max_size
+      variables['cache'][new_resource.cache_name]['max_object_size'] ||= new_resource.max_object_size unless new_resource.max_object_size.nil?
+      variables['cache'][new_resource.cache_name]['max_age'] ||= new_resource.max_age unless new_resource.max_age.nil?
 
       action :nothing
       delayed_action :create

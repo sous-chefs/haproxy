@@ -16,7 +16,7 @@ Introduced: v6.3.0
 
 | Name | Type |  Default | Description | Allowed Values
 | -- | -- | -- | -- | -- |
-| `name` | String | name_property | Name of the cache |
+| `cache_name` | String | name_property | Name of the cache |
 | `total_max_size` | Integer | none | Define the size in RAM of the cache in megabytes |
 | `max_object_size` |  Integer | none | Define the maximum size of the objects to be cached |
 | `max_age` | Integer | none | Define the maximum expiration duration in seconds |
