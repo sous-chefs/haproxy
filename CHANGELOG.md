@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## [unreleased]
+## [v6.4.0] (2019-03-20)
 
 - Move resource documentation to dedicated folder with md per resource
 - Fix source installs on CentOS 6
