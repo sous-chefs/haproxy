@@ -8,14 +8,14 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Fix source installs on CentOS 6
 - Rename haproxy_cache `name` property as `cache_name`
 
-## [v6.3.0](2019-02-18)
+## [v6.3.0] (2019-02-18)
 
 - Add haproxy_cache resource for caching small objects with HAProxy version >=1.8
 - Expand integration test coverage to all stable and LTS HAProxy versions
 - Documentation - clarify extra_options hash string => array option
 - Clarify the supported platforms - add AmazonLinux 2, remove fedora & freebsd
 
-## [v6.2.7](2019-01-10)
+## [v6.2.7] (2019-01-10)
 
 - Test for appropriate spacing from start of line and end of line
 - Allow passing an array to `haproxy_listen`'s `http_request` param
@@ -24,11 +24,11 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Add `reqirep` and `reqrep` params to `haproxy_backend`, `haproxy_frontend`, and `haproxy_listen` resources
 - Add `sensitive` param to `haproxy_install`; set to false to show diff output during Chef run
 
-## [v6.2.6](2018-11-05)
+## [v6.2.6] (2018-11-05)
 
 - Put `http_request` rules before the `use_backend`
 
-## [v6.2.5](2018-10-09)
+## [v6.2.5] (2018-10-09)
 
 - Drop Chef-12 support
 - Drop CPU cookbook dependency
