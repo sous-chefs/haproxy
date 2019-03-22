@@ -435,3 +435,5 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v6.2.5]: https://github.com/sous-chefs/haproxy/compare/v6.2.4...v6.2.5
 [v6.2.6]: https://github.com/sous-chefs/haproxy/compare/v6.2.5...v6.2.6
 [v6.2.7]: https://github.com/sous-chefs/haproxy/compare/v6.2.6...v6.2.7
+[v6.3.0]: https://github.com/sous-chefs/haproxy/compare/v6.2.7...v6.3.0
+[v6.4.0]: https://github.com/sous-chefs/haproxy/compare/v6.3.0...v6.4.0
