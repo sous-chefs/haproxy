@@ -91,12 +91,9 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: source-19-centos-6
-          suite: source-19-centos-6
-      - kitchen/dokken-single:
-          name: source-19-debian-8
-          suite: source-19-debian-8
-          requires: [source-19-centos-7]
+          name: source-default-debian-8
+          suite: source-default-debian-8
+          requires: [source-default-centos-7]
       - kitchen/dokken-single:
           name: source-default-debian-9
           suite: source-default-debian-9
@@ -110,9 +107,9 @@ workflows:
           suite: source-default-ubuntu-1804
           requires: [source-default-ubuntu-1604]
       - kitchen/dokken-single:
-          name: source-19-amazonlinux-2
-          suite: source-19-amazonlinux-2
-          requires: [source-19-ubuntu-1804]
+          name: source-default-amazonlinux-2
+          suite: source-default-amazonlinux-2
+          requires: [source-default-ubuntu-1804]
 
       # Package Install
       - kitchen/dokken-single:
