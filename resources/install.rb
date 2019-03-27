@@ -10,7 +10,6 @@ property :haproxy_group, String, default: 'haproxy'
 property :install_only, [true, false], default: false
 property :service_name, String, default: 'haproxy'
 property :sensitive, [true, false], default: true
-property :use_systemd, [true, false], default: true
 
 # Package
 property :package_name, String, default: 'haproxy'
@@ -39,6 +38,7 @@ property :use_openssl,      String, equal_to: %w(0 1), default: '1'
 property :use_zlib,         String, equal_to: %w(0 1), default: '1'
 property :use_linux_tproxy, String, equal_to: %w(0 1), default: '1'
 property :use_linux_splice, String, equal_to: %w(0 1), default: '1'
+property :use_systemd,      String, equal_to: %w(0 1), default: lazy { source_version.to_f >= 1.8 ? '1' : '0' }
 
 action :create do
   node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
@@ -77,7 +77,7 @@ action :create do
     make_cmd << " USE_ZLIB=#{new_resource.use_zlib}"
     make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
     make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
-    make_cmd << " USE_SYSTEMD=#{new_resource.use_systemd}" if new_resource.use_systemd == '1' && new_resource.source_version.to_f >= 1.8
+    make_cmd << " USE_SYSTEMD=#{new_resource.use_systemd}"
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if new_resource.source_version.to_f < 1.8
 
     bash 'compile_haproxy' do
