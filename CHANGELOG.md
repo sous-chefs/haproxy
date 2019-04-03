@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## Unreleased
+
+- Add `health` to allowed values for `mode` on `frontend`, `backend`, `listen`, `default`
+
 ## [v6.4.0] (2019-03-20)
 
 - Move resource documentation to dedicated folder with md per resource
