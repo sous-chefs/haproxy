@@ -1,5 +1,5 @@
 property :bind, [String, Hash], default: '0.0.0.0:80'
-property :mode, String, equal_to: %w(http tcp)
+property :mode, String, equal_to: %w(http tcp health)
 property :maxconn, Integer
 property :reqrep, [Array, String]
 property :reqirep, [Array, String]
