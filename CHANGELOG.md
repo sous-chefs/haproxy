@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 ## Unreleased
 
 - Add `health` to allowed values for `mode` on `frontend`, `backend`, `listen`, `default`
+- Fix cookbook default value in `config_global`
 
 ## [v6.4.0] (2019-03-20)
 

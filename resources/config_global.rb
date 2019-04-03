@@ -28,7 +28,7 @@ action :create do
     edit_resource(:template, new_resource.config_file) do |new_resource|
       node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
       source lazy { node.run_state['haproxy']['conf_template_source'][new_resource.config_file] ||= 'haproxy.cfg.erb' }
-      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] ||= 'haproxy' }
+      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_cookbook] ||= 'haproxy' }
       variables['global'] ||= {}
       variables['global']['user'] ||= ''
       variables['global']['user'] << new_resource.haproxy_user
