@@ -18,14 +18,14 @@ platforms:
       image: dokken/debian-8
       pid_one_command: /bin/systemd
       intermediate_instructions:
-        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get update -y
 
   - name: debian-9
     driver:
       image: dokken/debian-9
       pid_one_command: /bin/systemd
       intermediate_instructions:
-        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get update -y
 
   - name: centos-6
     driver:

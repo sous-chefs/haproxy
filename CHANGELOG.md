@@ -7,6 +7,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Add `health` to allowed values for `mode` on `frontend`, `backend`, `listen`, `default`
 - Fix cookbook default value in `config_global`
 - Clean up unit and integration test content regular expressions
+- Fix failing Debian integration tests, missing `-y` on `apt-get update`
 
 ## [v6.4.0] (2019-03-20)
 
