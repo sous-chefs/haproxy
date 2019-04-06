@@ -9,17 +9,65 @@ describe directory '/etc/haproxy' do
   it { should exist }
 end
 
+cfg_content = [
+  'global',
+  '  user haproxy',
+  '  group haproxy',
+  '  log /dev/log local0',
+  '  log /dev/log local1 notice',
+  '  log-tag WARDEN',
+  '  chroot /var/lib/haproxy',
+  '  daemon',
+  '  quiet',
+  '  stats socket /var/lib/haproxy/stats level admin',
+  '  maxconn 256',
+  '  pidfile /var/run/haproxy\.pid',
+  '  tune\.bufsize 262144',
+  '',
+  '',
+  'defaults',
+  '  timeout connect 5000ms',
+  '  timeout client 5000ms',
+  '  timeout server 5000ms',
+  '  log global',
+  '  mode http',
+  '  balance roundrobin',
+  '  option httplog',
+  '  option dontlognull',
+  '  option redispatch',
+  '  option tcplog',
+  '  retries 5',
+  '  stats uri /haproxy-status',
+  '',
+  '',
+  'frontend http-in',
+  '  default_backend servers',
+  '  bind \*:80',
+  '',
+  'frontend tcp-in',
+  '  mode tcp',
+  '  default_backend tcp-servers',
+  '  bind \*:3307',
+  '',
+  'frontend multiport',
+  '  default_backend servers',
+  '  bind \*:8080',
+  '  bind 0\.0\.0\.0:8081',
+  '  bind 0\.0\.0\.0:8180',
+  '',
+  '',
+  'backend servers',
+  '  server server1 127\.0\.0\.1:8000 maxconn 32',
+  '',
+  'backend tcp-servers',
+  '  mode tcp',
+  '  server server2 127\.0\.0\.1:3306 maxconn 32',
+]
+
 describe file('/etc/haproxy/haproxy.cfg') do
   it { should exist }
   it { should be_owned_by 'haproxy' }
   it { should be_grouped_into 'haproxy' }
 
-  its('content') { should match(/  user haproxy/) }
-  its('content') { should match(/group haproxy/) }
-  its('content') { should match(/quiet/) }
-  its('content') { should match(%r{log \/dev\/log local0}) }
-  its('content') { should match(%r{log \/dev\/log local1 notice}) }
-  its('content') { should match(/frontend http-in/) }
-  its('content') { should match(/maxconn 256/) }
-  its('content') { should match(/bind \*:80/) }
+  its('content') { should match(/#{cfg_content.join('\n')}/) }
 end

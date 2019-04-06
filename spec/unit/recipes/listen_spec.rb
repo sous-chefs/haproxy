@@ -23,8 +23,22 @@ describe 'haproxy_listen' do
       end
     end
 
-    it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/listen/) }
-    it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/bind-process odd/) }
+    cfg_content = [
+      'listen admin',
+      '  mode http',
+      '  bind 0.0.0.0:1337',
+      '  stats uri /',
+      '  stats realm Haproxy-Statistics',
+      '  stats auth user:pwd',
+      '  http-request add-header X-Proto http',
+      '  http-response set-header Expires %\[date\(3600\),http_date]',
+      '  default_backend servers',
+      '  bind-process odd',
+      '  server admin0 10.0.0.10:80 check weight 1 maxconn 100',
+      '  server admin1 10.0.0.10:80 check weight 1 maxconn 100',
+    ]
+
+    it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/#{cfg_content.join('\n')}/) }
   end
 
   context 'extra options hash with disabled option' do
@@ -38,9 +52,14 @@ describe 'haproxy_listen' do
       end
     end
 
-    it('should render content with disabled') do
-      is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/disabled/)
-    end
+    cfg_content = [
+      'listen disabled',
+      '  mode http',
+      '  bind 0.0.0.0:1337',
+      '  disabled',
+    ]
+
+    it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/#{cfg_content.join('\n')}/) }
   end
 
   context 'extra options http-request rule should be placed before use_backend rule' do
@@ -55,10 +74,15 @@ describe 'haproxy_listen' do
       end
     end
 
-    it('should render content with http-request rule before use_backend') do
-      is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/listen use_backend/)
-      is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(%r{http-request add-header Test Value.*use_backend admin0 if path_beg /admin0}m)
-      is_expected.not_to render_file('/etc/haproxy/haproxy.cfg').with_content(%r{use_backend admin0 if path_beg /admin0.*http-request add-header Test Value}m)
-    end
+    cfg_content = [
+      'listen use_backend',
+      '  mode http',
+      '  bind 0.0.0.0:1337',
+      '  http-request add-header Test Value',
+      '  use_backend admin0 if path_beg /admin0',
+    ]
+
+    it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/#{cfg_content.join('\n')}/) }
+    it { is_expected.not_to render_file('/etc/haproxy/haproxy.cfg').with_content(%r{use_backend admin0 if path_beg /admin0.*http-request add-header Test Value}m) }
   end
 end
