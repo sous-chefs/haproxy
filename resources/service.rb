@@ -40,7 +40,7 @@ Restart=always
 
 [Install]
 WantedBy=multi-user.target
-EOU
+      EOU
     end
 
     systemd_unit "#{new_resource.service_name}.service" do
