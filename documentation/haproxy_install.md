@@ -18,9 +18,7 @@ Introduced: v4.0.0
 | ---------------------- | ----------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------- |
 | `install_type`         | String      | none                                                             | Set the installation type                                                      | `package`, `source` |
 | `bin_prefix`           | String      | `/usr`                                                           | Set the source compile prefix                                                  |
-| `install_only`         | true, false | `false`                                                          |                                                                                |
 | `sensitive`            | true, false | `true`                                                           | Ensure that sensitive resource data is not logged by the chef-client           |
-| `service_name`         | String      | `haproxy`                                                        |                                                                                |
 | `use_systemd`          | true, false | `true`                                                           | Evalues whether to use systemd based on the nodes init package                 |
 | `haproxy_user`         | String      | `haproxy`                                                        | Similar to "uid" but uses the UID of user name `<user name>` from /etc/passwd  |
 | `haproxy_group`        | String      | `haproxy`                                                        | Similar to "gid" but uses the GID of group name `<group name>` from /etc/group |
@@ -43,6 +41,7 @@ Introduced: v4.0.0
 | `use_zlib`             | String      | `1`                                                              |                                                                                | `0`, `1`            |
 | `use_linux_tproxy`     | String      | `1`                                                              |                                                                                | `0`, `1`            |
 | `use_linux_splice`     | String      | `1`                                                              |                                                                                | `0`, `1`            |
+| `use_systemd`     | String      | `1`                                                              |                                                                                | `0`, `1`            |
 
 ## Examples
 
