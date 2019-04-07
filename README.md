@@ -13,7 +13,7 @@ Installs and configures HAProxy.
 
 This cookbook officially supports and is tested against the following platforms:
 
-* debian: 8 & 9
+* debian: 9 & 10
 * ubuntu: 16.04 & 18.04
 * centos: 7
 * amazonlinux: 2
