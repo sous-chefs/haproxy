@@ -58,17 +58,17 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: source-default-debian-8
-          suite: source-default-debian-8
-          requires: [source-default-centos-7]
-      - kitchen/dokken-single:
           name: source-default-debian-9
           suite: source-default-debian-9
-          requires: [source-default-debian-8]
+          requires: [source-default-centos-7]
+      - kitchen/dokken-single:
+          name: source-default-debian-10
+          suite: source-default-debian-10
+          requires: [source-default-debian-9]
       - kitchen/dokken-single:
           name: source-default-ubuntu-1604
           suite: source-default-ubuntu-1604
-          requires: [source-default-debian-9]
+          requires: [source-default-debian-10]
       - kitchen/dokken-single:
           name: source-default-ubuntu-1804
           suite: source-default-ubuntu-1804
