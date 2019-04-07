@@ -85,17 +85,17 @@ workflows:
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
-          name: package-debian-8
-          suite: package-debian-8
-          requires: [package-centos-7]
-      - kitchen/dokken-single:
           name: package-debian-9
           suite: package-debian-9
-          requires: [package-debian-8]
+          requires: [package-centos-7]
+      - kitchen/dokken-single:
+          name: package-debian-10
+          suite: package-debian-10
+          requires: [package-debian-9]
       - kitchen/dokken-single:
           name: package-ubuntu-1604
           suite: package-ubuntu-1604
-          requires: [package-debian-9]
+          requires: [package-debian-10]
       - kitchen/dokken-single:
           name: package-ubuntu-1804
           suite: package-ubuntu-1804

@@ -4,8 +4,8 @@
 
 # haproxy_service
 
-Installs HAProxy as a systemd or sysvinit service.
-To reload HAProxy service add a subscribes option to the resource block. See example below.
+Configures HAProxy as a systemd service.
+To reload the HAProxy service add a subscribes option to the resource block. See example below.
 
 Introduced: v4.0.0
 
@@ -23,12 +23,10 @@ Introduced: v4.0.0
 | Name | Type |  Default | Description | Allowed Values
 | -- | -- | -- | -- | -- |
 | `bin_prefix` | String | `/usr` | Set the source compile prefix |
-| `haproxy_user` | String | `haproxy` | Owner of the service |
-| `haproxy_group` | String | `haproxy` | Owner group of the service |
 | `service_name` | String | `haproxy` |  |
-| `use_systemd` | true, false | `node['init_package'] == 'systemd'` | Evalues whether to use systemd based on the nodes init package |
 | `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
 | `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+| `systemd_unit` |  String, Hash | See the service resource | A string or hash that contains a systemd unit file definition |
 
 ## Examples
 
