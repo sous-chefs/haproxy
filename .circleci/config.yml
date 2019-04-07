@@ -80,14 +80,9 @@ workflows:
 
       # Package Install
       - kitchen/dokken-single:
-          name: package-centos-7
-          suite: package-centos-7
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
           name: package-debian-9
           suite: package-debian-9
-          requires: [package-centos-7]
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: package-debian-10
           suite: package-debian-10

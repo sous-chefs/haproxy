@@ -13,6 +13,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Remove `poise_service` dependency in favor of systemd_unit
 - Support only systemd init systems
 - Add debian 10 and remove debian 8
+- Remove package-centos-7 test
 
 ## [v6.4.0] (2019-03-20)
 
