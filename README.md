@@ -9,6 +9,12 @@ Installs and configures HAProxy.
 * HAProxy `stable` or `LTS`
 * Chef 13+
 
+## Contributors
+
+This project is made possible by our backers on [OpenCollective](https://opencollective.com/sous-chefs)
+
+[![OpenCollective](https://opencollective.com/sous-chefs/tiers/regular-backer.svg?avatarHeight=36&width=600)](https://opencollective.com/sous-chefs)
+
 ### Platforms
 
 This cookbook officially supports and is tested against the following platforms:
