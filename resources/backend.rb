@@ -1,4 +1,4 @@
-property :mode, String, equal_to: %w(http tcp)
+property :mode, String, equal_to: %w(http tcp health)
 property :server, Array
 property :tcp_request, Array
 property :reqrep, [Array, String]

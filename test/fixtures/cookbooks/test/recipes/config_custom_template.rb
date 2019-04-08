@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+apt_update
 
 haproxy_install 'package' do
   conf_template_source 'custom-template.cfg.erb'

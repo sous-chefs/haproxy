@@ -2,11 +2,22 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## Unreleased
+
+- Add `health` to allowed values for `mode` on `frontend`, `backend`, `listen`, `default`
+- Fix cookbook default value in `config_global`
+- Clean up unit and integration test content regular expressions
+
 ## [v6.4.0] (2019-03-20)
 
 - Move resource documentation to dedicated folder with md per resource
 - Fix source installs on CentOS 6
 - Rename haproxy_cache `name` property as `cache_name`
+- Systemd unit configured and working
+- Add apt-update for debian platforms
+- Move system command to a helper
+- Remove `poise_service` dependency in favor of systemd_unit
+- Support only systemd init systems
 
 ## [v6.3.0] (2019-02-18)
 
