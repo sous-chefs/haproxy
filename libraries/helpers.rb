@@ -24,6 +24,13 @@ class Chef
           %w(pcre-devel libopenssl-devel zlib-devel systemd-devel)
         end
       end
+
+      def uis_package
+        {
+          name: 'uis-release.rpm',
+          url: "https://#{node['platform']}#{node['platform_version'].to_i}.iuscommunity.org/ius-release.rpm",
+        }
+      end
     end
   end
 end
