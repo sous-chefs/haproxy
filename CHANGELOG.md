@@ -7,7 +7,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Add `health` to allowed values for `mode` on `frontend`, `backend`, `listen`, `default`
 - Fix cookbook default value in `config_global`
 - Clean up unit and integration test content regular expressions
-- Adds UIS repo for CentOS and Redhat package installations (resolves #348)
+- Adds ius repo for CentOS and Redhat package installations (resolves #348)
 
 ## [v6.4.0] (2019-03-20)
 

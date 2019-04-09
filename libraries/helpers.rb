@@ -25,9 +25,9 @@ class Chef
         end
       end
 
-      def uis_package
+      def ius_package
         {
-          name: 'uis-release.rpm',
+          name: 'ius-release.rpm',
           url: "https://#{node['platform']}#{node['platform_version'].to_i}.iuscommunity.org/ius-release.rpm",
         }
       end
