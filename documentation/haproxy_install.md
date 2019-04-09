@@ -31,6 +31,7 @@ Introduced: v4.0.0
 | `config_file`          | String      | `/etc/haproxy/haproxy.cfg`                                       | The HAProxy configuration file                                                 | Valid file name     |
 | `package_name`         | String      | `haproxy`                                                        |                                                                                |
 | `package_version`      | String, nil | `nil`                                                            |                                                                                |
+| `enable_ius_repo`      | true, false | `false`                                                          | Enables the IUS package repo for Centos to install versions >1.5               |
 | `source_version`       | String      | `1.7.8`                                                          |                                                                                |
 | `source_url`           | String      | `http://www.haproxy.org/download/1.7.8/src/haproxy-1.7.8.tar.gz` |                                                                                |
 | `source_checksum`      | String, nil | `nil`                                                            |                                                                                |
