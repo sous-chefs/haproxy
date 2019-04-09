@@ -14,6 +14,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Support only systemd init systems
 - Add debian 10 and remove debian 8
 - Remove package-centos-7 test
+- Adds UIS repo for CentOS and Redhat package installations (resolves #348)
 
 ## [v6.4.0] (2019-03-20)
 
