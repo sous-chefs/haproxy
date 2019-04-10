@@ -14,7 +14,7 @@ property :sensitive, [true, false], default: true
 # Package
 property :package_name, String, default: 'haproxy'
 property :package_version, [String, nil], default: nil
-property :enable_uis_repo, [true, false], default: false
+property :enable_ius_repo, [true, false], default: false
 
 # Source
 property :source_version, String, default: '1.9.4'
@@ -53,16 +53,16 @@ action :create do
       include_recipe 'yum-epel'
     when 'rhel'
       include_recipe 'yum-epel'
-      puts uis_package[:url]
+      puts ius_package[:url]
 
-      remote_file ::File.join(Chef::Config[:file_cache_path], uis_package[:name]) do
-        source uis_package[:url]
-        only_if { new_resource.enable_uis_repo }
+      remote_file ::File.join(Chef::Config[:file_cache_path], ius_package[:name]) do
+        source ius_package[:url]
+        only_if { new_resource.enable_ius_repo }
       end
 
-      package uis_package[:name] do
-        source ::File.join(Chef::Config[:file_cache_path], uis_package[:name])
-        only_if { new_resource.enable_uis_repo }
+      package ius_package[:name] do
+        source ::File.join(Chef::Config[:file_cache_path], ius_package[:name])
+        only_if { new_resource.enable_ius_repo }
       end
     end
 
