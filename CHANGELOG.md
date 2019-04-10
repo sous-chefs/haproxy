@@ -8,7 +8,6 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Fix cookbook default value in `config_global`
 - Clean up unit and integration test content regular expressions
 - Adds ius repo for CentOS and Redhat package installations (resolves #348)
-- Systemd unit configured and working
 - Add apt-update for debian platforms
 - Move system command to a helper
 - Remove `poise_service` dependency in favor of systemd_unit
