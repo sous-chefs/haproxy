@@ -1,6 +1,7 @@
 # haproxy Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the haproxy cookbook.
+
 ## Unreleased
 
 ## [v7.0.0] (2019-04-10)
