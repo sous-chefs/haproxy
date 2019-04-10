@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 apt_update
 
-case node['platform_family']
-when 'amazon', 'rhel'
-  enable_uis = true
-else
-  enable_uis = false
-end
+enable_ius = case node['platform_family']
+             when 'rhel'
+               true
+             else
+               false
+             end
 
 haproxy_install 'package' do
-  package_name enable_uis ? 'haproxy18u' : 'haproxy'
-  enable_uis_repo true
+  package_name enable_ius ? 'haproxy18u' : 'haproxy'
+  enable_ius_repo true
 end
 
 haproxy_config_global ''

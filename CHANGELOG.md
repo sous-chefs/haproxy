@@ -7,7 +7,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Add `health` to allowed values for `mode` on `frontend`, `backend`, `listen`, `default`
 - Fix cookbook default value in `config_global`
 - Clean up unit and integration test content regular expressions
-- Adds UIS repo for CentOS and Redhat package installations (resolves #348)
+- Adds ius repo for CentOS and Redhat package installations (resolves #348)
 - Systemd unit configured and working
 - Add apt-update for debian platforms
 - Move system command to a helper
@@ -415,7 +415,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.2.7...HEAD
+[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.4.0...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
