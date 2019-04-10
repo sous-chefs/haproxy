@@ -8,17 +8,16 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Fix cookbook default value in `config_global`
 - Clean up unit and integration test content regular expressions
 - Adds ius repo for CentOS and Redhat package installations (resolves #348)
+- Add apt-update for debian platforms
+- Move system command to a helper
+- Remove `poise_service` dependency in favor of systemd_unit
+- Support only systemd init systems
 
 ## [v6.4.0] (2019-03-20)
 
 - Move resource documentation to dedicated folder with md per resource
 - Fix source installs on CentOS 6
 - Rename haproxy_cache `name` property as `cache_name`
-- Systemd unit configured and working
-- Add apt-update for debian platforms
-- Move system command to a helper
-- Remove `poise_service` dependency in favor of systemd_unit
-- Support only systemd init systems
 
 ## [v6.3.0] (2019-02-18)
 
@@ -415,7 +414,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`
 
-[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.2.7...HEAD
+[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.4.0...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
