@@ -1,8 +1,9 @@
 # haproxy Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the haproxy cookbook.
-
 ## Unreleased
+
+## [v7.0.0] (2019-04-10)
 
 - Add `health` to allowed values for `mode` on `frontend`, `backend`, `listen`, `default`
 - Fix cookbook default value in `config_global`
@@ -448,3 +449,4 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v6.2.7]: https://github.com/sous-chefs/haproxy/compare/v6.2.6...v6.2.7
 [v6.3.0]: https://github.com/sous-chefs/haproxy/compare/v6.2.7...v6.3.0
 [v6.4.0]: https://github.com/sous-chefs/haproxy/compare/v6.3.0...v6.4.0
+[v7.0.0]: https://github.com/sous-chefs/haproxy/compare/v6.4.0...v7.0.0
