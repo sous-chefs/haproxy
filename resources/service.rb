@@ -3,8 +3,6 @@ include Chef::Haproxy::Helpers
 property :bin_prefix, String, default: '/usr'
 property :config_dir,  String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
 property :service_name, String, default: 'haproxy'
 property :systemd_unit, [String, Hash], default: ''
 
