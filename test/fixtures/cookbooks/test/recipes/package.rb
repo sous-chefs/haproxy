@@ -2,7 +2,7 @@
 apt_update
 
 case node['platform_family']
-when 'amazon', 'rhel'
+when 'rhel'
   enable_ius = true
 else
   enable_ius = false
