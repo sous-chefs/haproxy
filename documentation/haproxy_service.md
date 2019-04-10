@@ -5,7 +5,7 @@
 # haproxy_service
 
 Configures HAProxy as a systemd service.
-To reload HAProxy service add a subscribes option to the resource block. See example below.	To reload the HAProxy service add a subscribes option to the resource block. See example below.
+To reload HAProxy service add a subscribes option to the resource block. See example below. To reload the HAProxy service add a subscribes option to the resource block. See example below.
 
 Introduced: v4.0.0
 
