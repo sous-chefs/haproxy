@@ -93,3 +93,23 @@ end
 action_class do
   include Chef::Haproxy::Helpers
 end
+
+provides :haproxy_service, platform: 'centos' do |node|
+  node['platform_version'].to_i >= 7
+end
+
+provides :haproxy_service, platform: 'debian' do |node|
+  node['platform_version'].to_i >= 8
+end
+
+provides :haproxy_service, platform: 'ubuntu' do |node|
+  node['platform_version'].to_f >= 16.04
+end
+
+provides :haproxy_service, platform: 'amazon' do |node|
+  node['platform_version'].to_i >= 2
+end
+
+provides :haproxy_service, platform: 'suse' do |node|
+  node['platform_version'].to_i >= 15
+end
