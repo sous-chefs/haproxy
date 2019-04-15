@@ -4,7 +4,7 @@ property :bin_prefix, String, default: '/usr'
 property :config_dir,  String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 property :service_name, String, default: 'haproxy'
-property :systemd_unit, [String, Hash], default: ''
+property :systemd_unit_content, [String, Hash], default: ''
 
 action :create do
   with_run_context :root do
@@ -16,8 +16,8 @@ action :create do
       mode '0644'
     end
 
-    if new_resource.systemd_unit == ''
-      new_resource.systemd_unit <<-EOU.gsub(/^\s+/, '')
+    if new_resource.systemd_unit_content == ''
+      new_resource.systemd_unit_content <<-EOU.gsub(/^\s+/, '')
 [Unit]
 Description=HAProxy Load Balancer
 Documentation=file:/usr/share/doc/haproxy/configuration.txt.gz
@@ -42,7 +42,7 @@ WantedBy=multi-user.target
     end
 
     systemd_unit "#{new_resource.service_name}.service" do
-      content new_resource.systemd_unit
+      content new_resource.systemd_unit_content
       triggers_reload true
       action [:create, :enable]
       notifies :restart, "service[#{new_resource.service_name}]", :delayed

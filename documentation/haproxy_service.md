@@ -26,7 +26,7 @@ Introduced: v4.0.0
 | `service_name` | String | `haproxy` |  |
 | `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
 | `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
-| `systemd_unit` |  String, Hash | See the service resource | A string or hash that contains a systemd unit file definition |
+| `systemd_unit_content` |  String, Hash | See the service resource | A string or hash that contains a systemd unit file definition |
 
 ## Examples
 
