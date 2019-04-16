@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## Unreleased
+## [v7.1.0] (2019-04-16)
 
 - Clean up unused templates and files
 - Fix name conflict with systemd_unit in service resource
