@@ -25,7 +25,6 @@ This cookbook officially supports and is tested against the following platforms:
 * ubuntu: 16.04 & 18.04
 * centos: 7
 * amazonlinux: 2
-* opensuseleap: 15
 
 PRs are welcome to add support for additional platforms.
 
