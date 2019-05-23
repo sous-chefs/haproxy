@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 ## Unreleased
 
 - Add the peer resource
+- Add the mailer resource
 
 ## [v7.1.0] (2019-04-16)
 
