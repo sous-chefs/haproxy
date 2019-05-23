@@ -143,6 +143,53 @@ userlist <%= userlist %>
 <% end -%>
 <% end -%>
 <% end -%>
+<% unless @peer.nil? %>
+<% @peer.each do |peer, pv | %>
+
+peers <%= peer %>
+<% if pv['bind'].is_a?(Hash) -%>
+<% pv['bind'].each do |k, v| -%>
+  bind <%= "#{k} #{v}".strip %>
+<% end -%>
+<% else -%>
+  bind <%= pv['bind'] %>
+<% end -%>
+<% unless pv['state'].nil? %>
+  <%= pv['state'] %>
+<% end -%>
+<% unless pv['server'].nil? %>
+<% pv['server'].each do | s |%>
+<% s.each  do |server|%>
+  server <%= server %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% unless pv['default_bind'].nil? %>
+  default-bind <%= pv['default_bind'] %>
+<% end -%>
+<% unless pv['default_server'].nil? %>
+  default-server <%= pv['default_server'] %>
+<% end -%>
+<% unless pv['table'].nil? %>
+<% pv['table'].each do | t |%>
+<% t.each  do |table|%>
+  table <%= table %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% unless pv['extra_options'].nil? %>
+<% pv['extra_options'].each do | key, value |%>
+<% if value.is_a?(Array) %>
+<% value.each do | array_element | %>
+  <%= key %> <%= array_element %>
+<% end -%>
+<% else %>
+  <%= key %> <%= value %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% end # peers loop -%>
+<% end # peers -%>
 <% unless @frontend.nil? %>
 
 <% @frontend.each do |frontend, f | %>
