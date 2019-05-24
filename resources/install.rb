@@ -1,10 +1,10 @@
 property :install_type, String, name_property: true, equal_to: %w(package source)
 property :conf_template_source, String, default: 'haproxy.cfg.erb'
-property :conf_cookbook, String, default: 'haproxy'
 property :conf_file_mode, String, default: '0644'
 property :bin_prefix, String, default: '/usr'
 property :config_dir,  String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :config_cookbook, String, default: 'haproxy'
 property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 property :sensitive, [true, false], default: true
@@ -42,7 +42,7 @@ property :use_systemd,      String, equal_to: %w(0 1), default: lazy { source_ve
 action :create do
   node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
   node.run_state['haproxy']['conf_template_source'][new_resource.config_file] = new_resource.conf_template_source
-  node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] = new_resource.conf_cookbook
+  node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] = new_resource.config_cookbook
 
   case new_resource.install_type
   when 'package'

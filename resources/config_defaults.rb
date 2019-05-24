@@ -5,11 +5,12 @@ property :balance, String, default: 'roundrobin', equal_to: %w(roundrobin static
 property :option, Array, default: %w(httplog dontlognull redispatch tcplog)
 property :stats, Hash, default: { 'uri' => '/haproxy-status' }
 property :maxconn, Integer
+property :hash_type, [String, nil], default: nil, equal_to: ['consistent', 'map-based', nil]
 property :extra_options, Hash
 property :haproxy_retries, Integer
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :hash_type, [String, nil], default: nil, equal_to: ['consistent', 'map-based', nil]
+property :config_cookbook, String, default: 'haproxy'
 
 action :create do
   # As we're using the accumulator pattern we need to shove everything
@@ -18,7 +19,7 @@ action :create do
     edit_resource(:template, new_resource.config_file) do |new_resource|
       node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
       source lazy { node.run_state['haproxy']['conf_template_source'][new_resource.config_file] ||= 'haproxy.cfg.erb' }
-      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] ||= 'haproxy' }
+      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_cookbook] ||= 'haproxy' }
       variables['defaults'] ||= {}
       variables['defaults']['timeout'] ||= {}
       variables['defaults']['timeout'] = new_resource.timeout unless new_resource.timeout.nil?

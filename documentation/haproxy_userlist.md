@@ -20,6 +20,7 @@ Introduced: v4.1.0
 | `user` |  Hash | none | Adds user `<username>` to the current userlist |
 | `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
 | `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+| `config_cookbook` |  String | `haproxy` | Used to configure loading config from another cookbook
 
 ## Examples
 

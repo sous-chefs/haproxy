@@ -28,6 +28,7 @@ Introduced: v4.0.0
 | `hash_type` |  String, nil | none | Specify a method to use for mapping hashes to servers | `consistent`, `map-based`, `nil`
 | `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
 | `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+| `config_cookbook` |  String | `haproxy` | Used to configure loading config from another cookbook
 
 ## Examples
 

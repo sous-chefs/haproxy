@@ -11,6 +11,7 @@ property :stats, Hash
 property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :config_cookbook, String, default: 'haproxy'
 
 action :create do
   # As we're using the accumulator pattern we need to shove everything
@@ -19,7 +20,7 @@ action :create do
     edit_resource(:template, new_resource.config_file) do |new_resource|
       node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
       source lazy { node.run_state['haproxy']['conf_template_source'][new_resource.config_file] ||= 'haproxy.cfg.erb' }
-      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] ||= 'haproxy' }
+      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_cookbook] ||= 'haproxy' }
       variables['frontend'] ||= {}
       variables['frontend'][new_resource.name] ||= {}
       variables['frontend'][new_resource.name]['default_backend'] ||= '' unless new_resource.default_backend.nil?
@@ -28,7 +29,7 @@ action :create do
       if new_resource.bind.is_a? Hash
         new_resource.bind.map do |addresses, ports|
           (Array(addresses).product Array(ports)).each do |combo|
-            variables['frontend'][new_resource.name]['bind'] << combo.join(':')
+            variables['frontend'][new_resource.name]['bind'] << combo.join(' ').strip
           end
         end
       else

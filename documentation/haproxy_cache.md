@@ -22,6 +22,7 @@ Introduced: v6.3.0
 | `max_age` | Integer | none | Define the maximum expiration duration in seconds |
 | `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
 | `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+| `config_cookbook` |  String | `haproxy` | Used to configure loading config from another cookbook
 
 ## Examples
 

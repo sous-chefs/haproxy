@@ -23,6 +23,7 @@ Introduced: v4.2.0
 | `section_name` |  String | none | The name of the specific frontend, listen or backend section |
 | `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
 | `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+| `config_cookbook` |  String | `haproxy` | Used to configure loading config from another cookbook
 
 ## Examples
 

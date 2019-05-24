@@ -11,13 +11,13 @@ property :stats, Hash, default: lazy {
   }
 }
 property :maxconn, Integer, default: 4096
-property :config_cookbook, String, default: 'haproxy'
 property :chroot, String
 property :log_tag, String, default: 'haproxy'
 property :tuning, Hash
 property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :config_cookbook, String, default: 'haproxy'
 
 action :create do
   node.default['haproxy']['user'] = new_resource.haproxy_user

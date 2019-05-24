@@ -2,6 +2,7 @@ property :group, Hash
 property :user, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :config_cookbook, String, default: 'haproxy'
 
 action :create do
   # As we're using the accumulator pattern we need to shove everything
@@ -10,7 +11,7 @@ action :create do
     edit_resource(:template, new_resource.config_file) do |new_resource|
       node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
       source lazy { node.run_state['haproxy']['conf_template_source'][new_resource.config_file] ||= 'haproxy.cfg.erb' }
-      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] ||= 'haproxy' }
+      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_cookbook] ||= 'haproxy' }
       variables['userlist'] ||= {}
       variables['userlist'][new_resource.name] ||= {}
       variables['userlist'][new_resource.name]['group'] ||= []

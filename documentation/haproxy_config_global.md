@@ -30,9 +30,9 @@ Introduced: v4.0.0
 | `log_tag` | String | `haproxy` | Specifies the log tag to use for all outgoing logs |
 | `tuning` | Hash | none | A hash of `tune.<options>` |
 | `extra_options` |  Hash | none | Used for setting any HAProxy directives |
-| `config_cookbook` | String | `haproxy` | Used to configure loading config from another cookbook |
 | `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
 | `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+| `config_cookbook` |  String | `haproxy` | Used to configure loading config from another cookbook
 
 ## Examples
 
