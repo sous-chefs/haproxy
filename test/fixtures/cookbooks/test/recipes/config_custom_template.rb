@@ -3,7 +3,7 @@ apt_update
 
 haproxy_install 'package' do
   conf_template_source 'custom-template.cfg.erb'
-  conf_cookbook 'test'
+  config_cookbook 'test'
 end
 
 directory '/var/lib/haproxy' do
