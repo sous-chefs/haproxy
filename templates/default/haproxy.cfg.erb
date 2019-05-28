@@ -190,6 +190,20 @@ peers <%= peer %>
 <% end -%>
 <% end # peers loop -%>
 <% end # peers -%>
+<% unless @mailer.nil? %>
+<% @mailer.each do |mailer, m | %>
+
+mailers <%= mailer %>
+<% unless m['mailer'].nil? -%>
+<% m['mailer'].each do |mail| -%>
+  mailer <%= mail %>
+<% end -%>
+<% end -%>
+<% unless m['timeout'].nil? %>
+  timeout mail <%= m['timeout'] %>
+<% end -%>
+<% end # mailers loop -%>
+<% end # mailers -%>
 <% unless @frontend.nil? %>
 
 <% @frontend.each do |frontend, f | %>

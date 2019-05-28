@@ -6,6 +6,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - The bind config hash joins with a space instead of a colon
 - Add the peer resource
+- Add the mailer resource
 
 ## [v7.1.0] (2019-04-16)
 
