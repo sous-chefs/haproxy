@@ -61,7 +61,7 @@ haproxy_frontend 'multi-reqirep' do
 end
 
 haproxy_frontend 'multiport' do
-  bind '*' => '8080',
+  bind '*:8080' => '',
        '0.0.0.0:8081' => '',
        '0.0.0.0:8180' => ''
   default_backend 'servers'
