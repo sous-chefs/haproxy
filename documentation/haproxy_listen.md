@@ -18,7 +18,7 @@ Introduced: v4.0.0
 
 | Name | Type |  Default | Description | Allowed Values
 | -- | -- | -- | -- | -- |
-| `bind` | String, Hash | `0.0.0.0:80` | |
+| `bind` | String, Hash | `0.0.0.0:80` | String - sets as given. Hash joins with a space |
 | `mode` | String | none | Set the running mode or protocol of the instance | `http`, `tcp`
 | `maxconn` | Integer | none | Sets the maximum per-process number of concurrent connections |
 | `reqrep` | String, Array | none | Replace a regular expression with a string in an HTTP request line |

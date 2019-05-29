@@ -9,7 +9,7 @@ describe 'haproxy_' do
       haproxy_install 'package'
 
       haproxy_frontend 'admin' do
-        bind '0.0.0.0:1337'
+        bind '0.0.0.0:1337' => ''
         mode 'http'
         use_backend ['admin0 if path_beg /admin0']
         extra_options('http-request' => 'add-header Test Value')

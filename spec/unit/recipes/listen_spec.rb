@@ -9,7 +9,7 @@ describe 'haproxy_listen' do
       haproxy_install 'package'
 
       haproxy_listen 'admin' do
-        bind '0.0.0.0:1337'
+        bind '0.0.0.0:1337' => ''
         mode 'http'
         stats uri: '/',
               realm: 'Haproxy-Statistics',
