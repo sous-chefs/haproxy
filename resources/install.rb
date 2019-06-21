@@ -22,9 +22,9 @@ property :source_target_cpu, [String, nil], default: lazy { node['kernel']['mach
 property :source_target_arch, [String, nil], default: nil
 property :source_target_os, String, default: lazy {
   if node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6
-    source_version.chars.first == '1' ? @target_os = 'linux2628' : @target_os = 'linux-glibc'
+    @target_os = source_version.chars.first == '1' ? 'linux2628' : 'linux-glibc'
   elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i > 28)
-    source_version.chars.first == '1' ? @target_os = 'linux2628' : @target_os = 'linux-glibc'
+    @target_os = source_version.chars.first == '1' ? 'linux2628' : 'linux-glibc'
   elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i < 28)
     @target_os = 'linux26'
   else

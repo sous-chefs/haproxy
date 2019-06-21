@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 ## UNRELEASED
 
 - Updated build target to linux-glibc for haproxy 2.0 compatibility
+- Update integration tests to cover haproxy 2.0
 
 ## [v8.0.0] (2019-05-29)
 
