@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## UNRELEASED
+
+- Updated build target to linux-glibc for haproxy 2.0 compatibility
+
 ## [v8.0.0] (2019-05-29)
 
 - The bind config hash joins with a space instead of a colon
