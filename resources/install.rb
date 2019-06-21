@@ -15,16 +15,16 @@ property :package_version, [String, nil], default: nil
 property :enable_ius_repo, [true, false], default: false
 
 # Source
-property :source_version, String, default: '1.9.4'
+property :source_version, String, default: '2.0.0'
 property :source_url, String, default: lazy { "https://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version}.tar.gz" }
-property :source_checksum, [String, nil], default: '8483fe12b30256f83d542b3f699e165d8f71bf2dfac8b16bb53716abce4ba74f'
+property :source_checksum, [String, nil], default: 'fe0a0d69e1091066a91b8d39199c19af8748e0e872961c6fc43c91ec7a28ff20'
 property :source_target_cpu, [String, nil], default: lazy { node['kernel']['machine'] }
 property :source_target_arch, [String, nil], default: nil
 property :source_target_os, String, default: lazy {
   if node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6
-    @target_os = 'linux-glibc'
+    source_version.chars.first == '1' ? @target_os = 'linux2628' : @target_os = 'linux-glibc'
   elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i > 28)
-    @target_os = 'linux-glibc'
+    source_version.chars.first == '1' ? @target_os = 'linux2628' : @target_os = 'linux-glibc'
   elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i < 28)
     @target_os = 'linux26'
   else
