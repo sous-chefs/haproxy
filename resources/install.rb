@@ -20,7 +20,7 @@ property :source_url,         String, default: lazy { "https://www.haproxy.org/d
 property :source_checksum,    [String, nil], default: 'fe0a0d69e1091066a91b8d39199c19af8748e0e872961c6fc43c91ec7a28ff20'
 property :source_target_cpu,  [String, nil], default: lazy { node['kernel']['machine'] }
 property :source_target_arch, [String, nil], default: nil
-property :source_target_os,   [String, nil], default: nil
+property :source_target_os,   String, default: lazy { target_os(source_version) }
 property :use_libcrypt,       String, equal_to: %w(0 1), default: '1'
 property :use_pcre,           String, equal_to: %w(0 1), default: '1'
 property :use_openssl,        String, equal_to: %w(0 1), default: '1'
@@ -68,8 +68,6 @@ action :create do
       checksum new_resource.source_checksum if new_resource.source_checksum
       action :create
     end
-
-    new_resource.source_target_os ||= target_os(new_resource.source_version)
 
     make_cmd = "make TARGET=#{new_resource.source_target_os}"
     make_cmd << " CPU=#{new_resource.source_target_cpu}" unless new_resource.source_target_cpu.nil?
