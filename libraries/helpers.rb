@@ -31,6 +31,17 @@ class Chef
           url: "https://#{node['platform']}#{node['platform_version'].to_i}.iuscommunity.org/ius-release.rpm",
         }
       end
+
+      def target_os(source_version)
+        if node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6
+          return source_version.chars.first == '1' ? 'linux2628' : 'linux-glibc'
+        elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i > 28)
+          return source_version.chars.first == '1' ? 'linux2628' : 'linux-glibc'
+        elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i < 28)
+          return 'linux26'
+        end
+        'generic'
+      end
     end
   end
 end
