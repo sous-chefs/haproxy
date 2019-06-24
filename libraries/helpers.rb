@@ -33,13 +33,20 @@ class Chef
       end
 
       def target_os(source_version)
-        if (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i > 28)
-          return source_version.chars.first == '1' ? 'linux2628' : 'linux-glibc'
-        elsif (node['kernel']['release'].split('.')[0..1].join('.').to_f > 2.6) && (node['kernel']['release'].split('.')[2].split('-').first.to_i < 28)
-          return 'linux26'
+        major_release = node['kernel']['release'].split('.')[0..1].join('.').to_f
+        minor_release = node['kernel']['release'].split('.')[2].split('-').first.to_i > 28
+
+        if major_release >= 2.6
+          if minor_release >= 28
+            return source_version.chars.first == '1' ? 'linux2628' : 'linux-glibc'
+          else
+            return 'linux26'
+          end
+        else
+          'generic'
         end
-        'generic'
       end
+
     end
   end
 end
