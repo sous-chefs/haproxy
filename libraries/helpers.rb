@@ -36,7 +36,7 @@ class Chef
         major_release = node['kernel']['release'].split('.')[0..1].join('.').to_f
         minor_release = node['kernel']['release'].split('.')[2].split('-').first.to_i > 28
 
-        if major_release >= 2.6
+        if (major_release && minor_release) && major_release >= 2.6
           if minor_release >= 28
             return source_version.chars.first == '1' ? 'linux2628' : 'linux-glibc'
           else

@@ -1,3 +1,5 @@
+include Chef::Haproxy::Helpers
+
 property :install_type, String, name_property: true, equal_to: %w(package source)
 property :conf_template_source, String, default: 'haproxy.cfg.erb'
 property :conf_cookbook, String, default: 'haproxy'
