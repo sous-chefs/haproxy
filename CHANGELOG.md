@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## [v8.0.1] (2019-06-24)
+## [v8.1.0] (2019-06-24)
 
 - Updated build target to linux-glibc for haproxy 2.0 compatibility
 - Update integration tests to cover haproxy 2.0
@@ -468,3 +468,4 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v7.0.0]: https://github.com/sous-chefs/haproxy/compare/v6.4.0...v7.0.0
 [v7.1.0]: https://github.com/sous-chefs/haproxy/compare/v7.0.0...v7.1.0
 [v8.0.0]: https://github.com/sous-chefs/haproxy/compare/v7.1.0...v8.0.0
+[v8.1.0]: https://github.com/sous-chefs/haproxy/compare/v8.0.0...v8.1.0
