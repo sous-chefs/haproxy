@@ -46,7 +46,6 @@ class Chef
           'generic'
         end
       end
-
     end
   end
 end
