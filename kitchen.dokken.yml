@@ -2,6 +2,7 @@
 driver:
   name: dokken
   privileged: true  # because Docker and SystemD/Upstart
+  env: [CHEF_LICENSE=accept]
 
 transport:
   name: dokken
@@ -46,11 +47,6 @@ platforms:
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
-
-  - name: opensuse-leap-15
-    driver:
-      image: dokken/opensuse-leap-15
-      pid_one_command: /bin/systemd
 
   - name: amazonlinux-2
     driver:

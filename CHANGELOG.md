@@ -2,6 +2,18 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## [v8.1.0] (2019-06-24)
+
+- Updated build target to linux-glibc for haproxy 2.0 compatibility
+- Update integration tests to cover haproxy 2.0
+- Move install resource target_os check to libraries
+
+## [v8.0.0] (2019-05-29)
+
+- The bind config hash joins with a space instead of a colon
+- Add the peer resource
+- Add the mailer resource
+
 ## [v7.1.0] (2019-04-16)
 
 - Clean up unused templates and files
@@ -454,4 +466,6 @@ This file is used to list changes made in each version of the haproxy cookbook.
 [v6.3.0]: https://github.com/sous-chefs/haproxy/compare/v6.2.7...v6.3.0
 [v6.4.0]: https://github.com/sous-chefs/haproxy/compare/v6.3.0...v6.4.0
 [v7.0.0]: https://github.com/sous-chefs/haproxy/compare/v6.4.0...v7.0.0
-[v7.0.1]: https://github.com/sous-chefs/haproxy/compare/v7.0.0...v7.0.1
+[v7.1.0]: https://github.com/sous-chefs/haproxy/compare/v7.0.0...v7.1.0
+[v8.0.0]: https://github.com/sous-chefs/haproxy/compare/v7.1.0...v8.0.0
+[v8.1.0]: https://github.com/sous-chefs/haproxy/compare/v8.0.0...v8.1.0

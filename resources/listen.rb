@@ -31,7 +31,7 @@ action :create do
       if new_resource.bind.is_a? Hash
         new_resource.bind.map do |addresses, ports|
           (Array(addresses).product Array(ports)).each do |combo|
-            variables['listen'][new_resource.name]['bind'] << combo.join(':')
+            variables['listen'][new_resource.name]['bind'] << combo.join(' ').strip
           end
         end
       else

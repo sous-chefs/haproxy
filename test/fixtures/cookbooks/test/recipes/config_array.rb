@@ -38,7 +38,7 @@ haproxy_frontend 'tcp-in' do
   default_backend 'tcp-servers'
 end
 
-bind_hash = { '*' => '8080', '0.0.0.0' => %w(8081 8180) }
+bind_hash = { '*:8080' => '', '0.0.0.0:8081' => '', '0.0.0.0:8180' => '' }
 
 haproxy_frontend 'multiport' do
   bind bind_hash
