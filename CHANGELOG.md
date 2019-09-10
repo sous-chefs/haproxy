@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## Unreleased
+
+- Update metadata.rb chef_version to >=13.9 due to resource `description`
+
 ## [v8.1.0] (2019-06-24)
 
 - Updated build target to linux-glibc for haproxy 2.0 compatibility
