@@ -7,7 +7,7 @@ long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version           '8.1.0'
 source_url        'https://github.com/sous-chefs/haproxy'
 issues_url        'https://github.com/sous-chefs/haproxy/issues'
-chef_version      '>= 13.0'
+chef_version      '>= 13.9'
 
 supports 'debian'
 supports 'ubuntu'
