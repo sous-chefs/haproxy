@@ -32,7 +32,6 @@ cfg_content = [
   '  option dontlognull',
   '  option redispatch',
   '  option tcplog',
-  '  stats uri /haproxy-status',
   '',
   '',
   'frontend http',

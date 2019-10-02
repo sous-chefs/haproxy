@@ -2,8 +2,9 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## Unreleased
+## [v8.1.1] (2019-10-02)
 
+- Update `config_defaults` resource `stats` property default value to empty hash
 - Update metadata.rb chef_version to >=13.9 due to resource `description`
 
 ## [v8.1.0] (2019-06-24)

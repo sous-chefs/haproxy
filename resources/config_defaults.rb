@@ -3,7 +3,7 @@ property :log, String, default: 'global'
 property :mode, String, default: 'http', equal_to: %w(http tcp health)
 property :balance, String, default: 'roundrobin', equal_to: %w(roundrobin static-rr leastconn first source uri url_param header rdp-cookie)
 property :option, Array, default: %w(httplog dontlognull redispatch tcplog)
-property :stats, Hash, default: { 'uri' => '/haproxy-status' }
+property :stats, Hash, default: {}
 property :maxconn, Integer
 property :extra_options, Hash
 property :haproxy_retries, Integer

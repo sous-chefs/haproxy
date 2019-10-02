@@ -40,7 +40,6 @@ describe file('/etc/haproxy/haproxy.cfg') do
     '  option redispatch',
     '  option tcplog',
     '  retries 5',
-    '  stats uri /haproxy-status',
     '',
     '',
     'frontend http-in',

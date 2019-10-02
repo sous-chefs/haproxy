@@ -25,7 +25,6 @@ describe file('/etc/haproxy/haproxy.cfg') do
     '  option dontlognull',
     '  option redispatch',
     '  option tcplog',
-    '  stats uri /haproxy-status',
   ]
   its('content') { should match(/#{defaults.join('\n')}/) }
   # Frontend http
