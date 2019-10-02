@@ -37,7 +37,6 @@ cfg_content = [
   '  option redispatch',
   '  option tcplog',
   '  retries 5',
-  '  stats uri /haproxy-status',
   '',
   '',
   'frontend http-in',
