@@ -2,9 +2,9 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## [v8.1.2] (2019-10-10)
+## Unreleased
 
- - Removed `.rubocop.yml` as no longer required
+- Removed `.rubocop.yml` as no longer required
 
 ## [v8.1.1] (2019-10-02)
 
