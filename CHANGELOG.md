@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## [v8.1.2] (2019-10-10)
+
+ - Removed `.rubocop.yml` as no longer required
+
 ## [v8.1.1] (2019-10-02)
 
 - Update `config_defaults` resource `stats` property default value to empty hash
