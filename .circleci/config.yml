@@ -4,16 +4,12 @@ lint_and_unit: &lint_and_unit
   - danger
   - lint-yaml
   - lint-markdown
-
 version: 2.1
-
 orbs:
   kitchen: sous-chefs/kitchen@2
-
 workflows:
   kitchen:
     jobs:
-      # Lint and Unit Test
       - kitchen/yamllint:
           name: lint-yaml
       - kitchen/mdlint:
@@ -23,131 +19,143 @@ workflows:
           context: Danger
       - kitchen/delivery:
           name: delivery
-
-      # Source Install 1.9
-      - kitchen/dokken-single:
-          name: source-19-centos-7
-          suite: source-19-centos-7
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-19-debian-8
-          suite: source-19-debian-8
-          requires: [source-19-centos-7]
-      - kitchen/dokken-single:
-          name: source-19-debian-9
-          suite: source-19-debian-9
-          requires: [source-19-debian-8]
-      - kitchen/dokken-single:
-          name: source-19-ubuntu-1604
-          suite: source-19-ubuntu-1604
-          requires: [source-19-debian-9]
-      - kitchen/dokken-single:
-          name: source-19-ubuntu-1804
-          suite: source-19-ubuntu-1804
-          requires: [source-19-ubuntu-1604]
-      - kitchen/dokken-single:
-          name: source-19-amazonlinux-2
-          suite: source-19-amazonlinux-2
-          requires: [source-19-ubuntu-1804]
-
-      # Source Install 2.0
-      - kitchen/dokken-single:
-          name: source-default-centos-7
-          suite: source-default-centos-7
-          requires:
-            *lint_and_unit
-      - kitchen/dokken-single:
-          name: source-default-debian-8
-          suite: source-default-debian-8
-          requires: [source-default-centos-7]
-      - kitchen/dokken-single:
-          name: source-default-debian-9
-          suite: source-default-debian-9
-          requires: [source-default-debian-8]
-      - kitchen/dokken-single:
-          name: source-default-ubuntu-1604
-          suite: source-default-ubuntu-1604
-          requires: [source-default-debian-9]
-      - kitchen/dokken-single:
-          name: source-default-ubuntu-1804
-          suite: source-default-ubuntu-1804
-          requires: [source-default-ubuntu-1604]
-      - kitchen/dokken-single:
-          name: source-default-amazonlinux-2
-          suite: source-default-amazonlinux-2
-          requires: [source-default-ubuntu-1804]
-
-      # Package Install
-      - kitchen/dokken-single:
-          name: package-centos-7
-          suite: package-centos-7
-          requires:
-            *lint_and_unit
       - kitchen/dokken-single:
           name: package-debian-8
           suite: package-debian-8
-          requires: [package-centos-7]
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: package-debian-9
           suite: package-debian-9
-          requires: [package-debian-8]
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: package-centos-7
+          suite: package-centos-7
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: package-ubuntu-1604
           suite: package-ubuntu-1604
-          requires: [package-debian-9]
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: package-ubuntu-1804
           suite: package-ubuntu-1804
-          requires: [package-ubuntu-1604]
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: package-amazonlinux-2
           suite: package-amazonlinux-2
-          requires: [package-ubuntu-1804]
-
-      # Configuration Tests
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-18-debian-8
+          suite: source-18-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-18-debian-9
+          suite: source-18-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-18-centos-7
+          suite: source-18-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-18-ubuntu-1604
+          suite: source-18-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-18-ubuntu-1804
+          suite: source-18-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-18-amazonlinux-2
+          suite: source-18-amazonlinux-2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-19-debian-8
+          suite: source-19-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-19-debian-9
+          suite: source-19-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-19-centos-7
+          suite: source-19-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-19-ubuntu-1604
+          suite: source-19-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-19-ubuntu-1804
+          suite: source-19-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-19-amazonlinux-2
+          suite: source-19-amazonlinux-2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-default-debian-8
+          suite: source-default-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-default-debian-9
+          suite: source-default-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-default-centos-7
+          suite: source-default-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-default-ubuntu-1604
+          suite: source-default-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-default-ubuntu-1804
+          suite: source-default-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-default-amazonlinux-2
+          suite: source-default-amazonlinux-2
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: config-1-centos-7
           suite: config-1-centos-7
-          requires:
-            *lint_and_unit
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: config-2-centos-7
           suite: config-2-centos-7
-          requires: [config-1-centos-7]
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: config-3-centos-7
           suite: config-3-centos-7
-          requires: [config-2-centos-7]
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: config-4-centos-7
           suite: config-4-centos-7
-          requires: [config-3-centos-7]
-      - kitchen/dokken-single:
-          name: config-acl-centos-7
-          suite: config-acl-centos-7
-          requires: [config-4-centos-7]
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: config-backend-search-centos-7
           suite: config-backend-search-centos-7
-          requires: [config-acl-centos-7]
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: config-1-userlist-centos-7
           suite: config-1-userlist-centos-7
-          requires: [config-backend-search-centos-7]
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: config-acl-centos-7
+          suite: config-acl-centos-7
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: config-resolver-centos-7
           suite: config-resolver-centos-7
-          requires: [config-1-userlist-centos-7]
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: config-ssl-redirect-centos-7
           suite: config-ssl-redirect-centos-7
-          requires: [config-resolver-centos-7]
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: config-custom-template-centos-7
           suite: config-custom-template-centos-7
-          requires: [config-ssl-redirect-centos-7]
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: config-array-centos-7
           suite: config-array-centos-7
-          requires: [config-custom-template-centos-7]
+          requires: *lint_and_unit

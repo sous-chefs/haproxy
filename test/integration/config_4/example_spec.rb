@@ -37,7 +37,6 @@ describe file('/etc/haproxy/haproxy.cfg') do
     '  option dontlognull',
     '  option redispatch',
     '  option tcplog',
-    '  stats uri /haproxy-status',
     '',
     '',
     'backend servers',

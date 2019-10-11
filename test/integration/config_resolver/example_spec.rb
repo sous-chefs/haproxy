@@ -35,7 +35,6 @@ cfg_content = [
   '  option dontlognull',
   '  option redispatch',
   '  option tcplog',
-  '  stats uri /haproxy-status',
 ]
 
 describe file('/etc/haproxy/haproxy.cfg') do

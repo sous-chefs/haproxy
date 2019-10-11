@@ -15,7 +15,7 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 ## Requirements
 
 * HAProxy `stable` or `LTS`
-* Chef 13+
+* Chef 13.9+
 
 ### Platforms
 
