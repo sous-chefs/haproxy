@@ -1,7 +1,0 @@
----
-AllCops:
-  Exclude:
-    - 'Dangerfile'
-Lint/DuplicatedKey:
-  Exclude:
-    - 'resources/service.rb'
