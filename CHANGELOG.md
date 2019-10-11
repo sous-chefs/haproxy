@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+- Remove `.foodcritic` as it is no longer run by deliver local
 - Removed `.rubocop.yml` as no longer required
 
 ## [v8.1.1] (2019-10-02)
