@@ -129,7 +129,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Use dokken docker images
 - Update tests for haproxy service
 - tcplog is now a valid input for the `haproxy_config_defaults` resourcce (#284)
-- bin prefix is now reflexted in the service config. (#288, #289)
+- bin prefix is now reflected in the service config. (#288, #289)
 
 ## [v5.0.3] (2018-02-02)
 
