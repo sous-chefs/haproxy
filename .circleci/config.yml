@@ -1,4 +1,13 @@
 ---
+jobs:
+  final:
+    docker:
+      - image: bash:latest
+    steps:
+      - run:
+          name: Finish cooking
+          command: echo "Finished cooking"
+
 lint_and_unit: &lint_and_unit
   - delivery
   - danger
@@ -159,3 +168,40 @@ workflows:
           name: config-array-centos-7
           suite: config-array-centos-7
           requires: *lint_and_unit
+      - final:
+          requires:
+            - package-debian-8
+            - package-debian-9
+            - package-centos-7
+            - package-ubuntu-1604
+            - package-ubuntu-1804
+            - package-amazonlinux-2
+            - source-18-debian-8
+            - source-18-debian-9
+            - source-18-centos-7
+            - source-18-ubuntu-1604
+            - source-18-ubuntu-1804
+            - source-18-amazonlinux-2
+            - source-19-debian-8
+            - source-19-debian-9
+            - source-19-centos-7
+            - source-19-ubuntu-1604
+            - source-19-ubuntu-1804
+            - source-19-amazonlinux-2
+            - source-default-debian-8
+            - source-default-debian-9
+            - source-default-centos-7
+            - source-default-ubuntu-1604
+            - source-default-ubuntu-1804
+            - source-default-amazonlinux-2
+            - config-1-centos-7
+            - config-2-centos-7
+            - config-3-centos-7
+            - config-4-centos-7
+            - config-backend-search-centos-7
+            - config-1-userlist-centos-7
+            - config-acl-centos-7
+            - config-resolver-centos-7
+            - config-ssl-redirect-centos-7
+            - config-custom-template-centos-7
+            - config-array-centos-7
