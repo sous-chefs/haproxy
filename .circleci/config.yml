@@ -7,7 +7,6 @@ jobs:
       - run:
           name: Finish cooking
           command: echo "Finished cooking"
-
 lint_and_unit: &lint_and_unit
   - delivery
   - danger
