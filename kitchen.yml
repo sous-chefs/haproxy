@@ -34,6 +34,9 @@ suites:
   - name: source-1.9
     run_list:
       - recipe[test::source-19]
+  - name: source-2.0
+    run_list:
+      - recipe[test::source-20]
   - name: source-default
     run_list:
       - recipe[test::source]
@@ -80,4 +83,8 @@ suites:
   - name: config_array
     run_list:
       - recipe[test::config_array]
+    includes: centos-7
+  - name: config_fastcgi
+    run_list:
+      - recipe[test::config_fastcgi]
     includes: centos-7

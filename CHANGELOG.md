@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `fastcgi` resource to support FastCGI applications
 
+### Changed
+
+- Default source install version is haproxy 2.1
+
+### Fixed
+
+- Bug with single newline between resources when multiple of the same type are defined
+
 ### Removed
 
 - `.foodcritic` as it is no longer run by deliver local.

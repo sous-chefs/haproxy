@@ -53,8 +53,8 @@ global
 <% end -%>
 <% end -%>
 <% unless @resolvers.nil? %>
-
 <% @resolvers.each do |resolver, r | %>
+
 
 resolvers <%= resolver %>
 <% unless r['nameserver'].nil? %>
@@ -117,6 +117,7 @@ defaults
 <% unless @cache.nil? %>
 <% @cache.each do |cache, c | %>
 
+
 cache <%= cache %>
 <% unless c['total_max_size'].nil? -%>
   total-max-size <%= c['total_max_size'] %>
@@ -130,8 +131,8 @@ cache <%= cache %>
 <% end # cache loop -%>
 <% end # cache -%>
 <% unless @userlist.nil? %>
-
 <% @userlist.each do |userlist, u| %>
+
 
 userlist <%= userlist %>
 <% u.each do |type,i| -%>
@@ -207,6 +208,7 @@ mailers <%= mailer %>
 <% unless @fastcgi.nil? %>
 <% @fastcgi.each do |fastcgi, f | %>
 
+
 fcgi-app <%= fastcgi %>
 <% unless f['docroot'].nil? %>
   docroot <%= f['docroot'] %>
@@ -240,8 +242,8 @@ fcgi-app <%= fastcgi %>
 <% end # fastcgi loop -%>
 <% end # fastcgi -%>
 <% unless @frontend.nil? %>
-
 <% @frontend.each do |frontend, f | %>
+
 
 frontend <%= frontend %>
 <% unless f['mode'].nil? -%>
@@ -315,8 +317,8 @@ frontend <%= frontend %>
 <% end # frontend loop -%>
 <% end # frontend -%>
 <% unless @backend.nil? %>
-
 <% @backend.each do | key, backend | %>
+
 
 backend <%= key %>
 <% unless backend['mode'].nil? -%>
@@ -375,8 +377,8 @@ backend <%= key %>
 <% end # backend loop -%>
 <% end # backend -%>
 <% unless @listen.nil? %>
-
 <% @listen.each do | key, listen |%>
+
 
 listen <%= key %>
 <% unless listen['mode'].nil? -%>
