@@ -44,6 +44,7 @@ cfg_content = [
   '  bind \*:80',
   '  redirect scheme https code 301 if !\{ ssl_fc \}',
   '',
+  '',
   'frontend https',
   '  mode http',
   '  default_backend servers',
