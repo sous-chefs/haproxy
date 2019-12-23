@@ -76,6 +76,7 @@ listen default
 * [haproxy_cache](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_cache.md)
 * [haproxy_config_defaults](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_config_defaults.md)
 * [haproxy_config_global](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_config_global.md)
+* [haproxy_fastcgi](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_fastcgi.md)
 * [haproxy_frontend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_frontend.md)
 * [haproxy_install](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_install.md)
 * [haproxy_listen](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_listen.md)

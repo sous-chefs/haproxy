@@ -4,7 +4,7 @@
 
 # haproxy_peer
 
-Peer describes a peers resource for haproxy to propogate entries of any data-types in stick-tables between several haproxy instances over TCP connections in a multi-master fashion.
+Peer describes a peers resource for haproxy to propagate entries of any data-types in stick-tables between several haproxy instances over TCP connections in a multi-master fashion.
 
 Most of the properties are available only when using HAProxy version >= 2.0. To set properties for versions < 2.0, use the `extra_options` hash. See examples below.
 

@@ -204,6 +204,41 @@ mailers <%= mailer %>
 <% end -%>
 <% end # mailers loop -%>
 <% end # mailers -%>
+<% unless @fastcgi.nil? %>
+<% @fastcgi.each do |fastcgi, f | %>
+
+fcgi-app <%= fastcgi %>
+<% unless f['docroot'].nil? %>
+  docroot <%= f['docroot'] %>
+<% end -%>
+<% unless f['index'].nil? %>
+  index <%= f['index'] %>
+<% end -%>
+<% unless f['log_stderr'].nil? %>
+  log-stderr <%= f['log_stderr'] %>
+<% end -%>
+<% unless f['option'].nil? %>
+<% f['option'].each do | option |%>
+<% option.each do | option | %>
+  option <%= option %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% unless f['extra_options'].nil? %>
+<% f['extra_options'].each do | key, value | %>
+<% unless key == 'http-request' %>
+<% if value.is_a?(Array) %>
+<% value.each do | array_element | %>
+  <%= key %> <%= array_element %>
+<% end -%>
+<% else %>
+  <%= key %> <%= value %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% end -%>
+<% end # fastcgi loop -%>
+<% end # fastcgi -%>
 <% unless @frontend.nil? %>
 
 <% @frontend.each do |frontend, f | %>
