@@ -59,7 +59,7 @@ describe 'haproxy_' do
       'backend back-dynamic',
       '  mode http',
       '  server php-fpm A.B.C.D:9000 proto fcgi',
-      '  use-fcgi-app php-fpm'
+      '  use-fcgi-app php-fpm',
     ]
 
     it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/#{cfg_content.join('\n')}/) }
