@@ -17,7 +17,7 @@ describe 'haproxy_' do
       end
 
       haproxy_frontend 'front-http' do
-        bind('*:80' => '', '*:' => '')
+        bind('*:80' => '')
         mode 'http'
         use_backend ['back-dynamic if { path_reg ^/.+\.php(/.*)?$ }']
         default_backend 'back-static'
@@ -48,13 +48,13 @@ describe 'haproxy_' do
       '  mode http',
       '  default_backend back-static',
       '  bind \*:80',
-      '  bind \*:',
       '  use_backend back-dynamic if \{ path_reg \^\/\.\+\\\.php\(\/\.\*\)\?\$ \}',
       '',
       '',
       'backend back-static',
       '  mode http',
       '  server www A.B.C.D:80',
+      '',
       '',
       'backend back-dynamic',
       '  mode http',

@@ -17,9 +17,9 @@ property :package_version, [String, nil], default: nil
 property :enable_ius_repo, [true, false], default: false
 
 # Source
-property :source_version,     String, default: '2.0.0'
+property :source_version,     String, default: '2.1.2'
 property :source_url,         String, default: lazy { "https://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version}.tar.gz" }
-property :source_checksum,    [String, nil], default: 'fe0a0d69e1091066a91b8d39199c19af8748e0e872961c6fc43c91ec7a28ff20'
+property :source_checksum,    [String, nil], default: '6079b08a8905ade5a9a2835ead8963ee10a855d8508a85efb7181eea2d310b77'
 property :source_target_cpu,  [String, nil], default: lazy { node['kernel']['machine'] }
 property :source_target_arch, [String, nil], default: nil
 property :source_target_os,   String, default: lazy { target_os(source_version) }

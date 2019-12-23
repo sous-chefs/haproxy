@@ -100,6 +100,30 @@ workflows:
           suite: source-19-amazonlinux-2
           requires: *lint_and_unit
       - kitchen/dokken-single:
+          name: source-20-debian-8
+          suite: source-20-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-20-debian-9
+          suite: source-20-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-20-centos-7
+          suite: source-20-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-20-ubuntu-1604
+          suite: source-20-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-20-ubuntu-1804
+          suite: source-20-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: source-20-amazonlinux-2
+          suite: source-20-amazonlinux-2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
           name: source-default-debian-8
           suite: source-default-debian-8
           requires: *lint_and_unit
@@ -167,6 +191,10 @@ workflows:
           name: config-array-centos-7
           suite: config-array-centos-7
           requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: config-fastcgi-centos-7
+          suite: config-fastcgi-centos-7
+          requires: *lint_and_unit
       - final:
           requires:
             - package-debian-8
@@ -187,6 +215,12 @@ workflows:
             - source-19-ubuntu-1604
             - source-19-ubuntu-1804
             - source-19-amazonlinux-2
+            - source-20-debian-8
+            - source-20-debian-9
+            - source-20-centos-7
+            - source-20-ubuntu-1604
+            - source-20-ubuntu-1804
+            - source-20-amazonlinux-2
             - source-default-debian-8
             - source-default-debian-9
             - source-default-centos-7
@@ -204,3 +238,4 @@ workflows:
             - config-ssl-redirect-centos-7
             - config-custom-template-centos-7
             - config-array-centos-7
+            - config-fastcgi-centos-7
