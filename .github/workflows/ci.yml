@@ -106,7 +106,7 @@ jobs:
           os: ${{ matrix.os }}
 
   final:
-    needs: [dokken, configtest ]
+    needs: [dokken, configtest]
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
