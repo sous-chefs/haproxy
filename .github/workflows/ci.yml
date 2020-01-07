@@ -68,7 +68,7 @@ jobs:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
 
-  dokken-config:
+  configtest:
     needs: [mdl, yamllint, delivery]
     runs-on: ubuntu-latest
     strategy:
@@ -105,9 +105,8 @@ jobs:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
 
-
   final:
-    needs: [dokken, dokken-config]
+    needs: [dokken, configtest ]
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
