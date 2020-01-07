@@ -76,19 +76,19 @@ jobs:
         os:
           - 'centos-7'
         suite:
-          - 'config_1'
-          - 'config_1_userlist'
-          - 'config_2'
-          - 'config_3'
-          - 'config_4'
-          - 'config_backend_search'
-          - 'config_acl'
-          - 'config_resolver'
-          - 'config_ssl_redirect'
-          - 'config_custom_template'
-          - 'config_custom_template'
-          - 'config_array'
-          - 'config_fastcgi'
+          - 'config-1'
+          - 'config-1-userlist'
+          - 'config-2'
+          - 'config-3'
+          - 'config-4'
+          - 'config-backend-search'
+          - 'config-acl'
+          - 'config-resolver'
+          - 'config-ssl-redirect'
+          - 'config-custom-template'
+          - 'config-custom-template'
+          - 'config-array'
+          - 'config-fastcgi'
       fail-fast: false
 
     steps:
