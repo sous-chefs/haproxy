@@ -48,9 +48,9 @@ jobs:
           - 'centos-7'
         suite:
           - 'package'
-          - 'source-1.8'
-          - 'source-1.9'
-          - 'source-2.0'
+          - 'source-18'
+          - 'source-19'
+          - 'source-20'
           - 'source-default'
       fail-fast: false
 
