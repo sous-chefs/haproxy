@@ -52,7 +52,7 @@ jobs:
           - 'source-1.9'
           - 'source-2.0'
           - 'source-default'
-        fail-fast: false
+      fail-fast: false
 
     steps:
       - name: Check out code
@@ -89,7 +89,7 @@ jobs:
           - 'config_custom_template'
           - 'config_array'
           - 'config_fastcgi'
-        fail-fast: false
+      fail-fast: false
 
     steps:
       - name: Check out code
