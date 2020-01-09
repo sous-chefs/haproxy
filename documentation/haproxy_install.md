@@ -30,6 +30,7 @@ Introduced: v4.0.0
 | `package_name`         | String      | `haproxy`                                                        |                                                                                |
 | `package_version`      | String, nil | `nil`                                                            |                                                                                |
 | `enable_ius_repo`      | true, false | `false`                                                          | Enables the IUS package repo for Centos to install versions >1.5               |
+| `enable_yum_epel_repo`      | true, false | `true`                                                          | Enables the epel repo for RHEL based operating systems|
 | `source_version`       | String      | `1.7.8`                                                          |                                                                                |
 | `source_url`           | String      | `http://www.haproxy.org/download/1.7.8/src/haproxy-1.7.8.tar.gz` |                                                                                |
 | `source_checksum`      | String, nil | `nil`                                                            |                                                                                |
