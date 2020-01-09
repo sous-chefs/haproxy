@@ -1,0 +1,113 @@
+---
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  delivery:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Run Chef Delivery
+        uses: actionshub/chef-delivery@master
+        env:
+          CHEF_LICENSE: accept-no-persist
+
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Run yaml Lint
+        uses: actionshub/yamllint@master
+
+  mdl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Run Markdown Lint
+        uses: actionshub/markdownlint@master
+
+  dokken:
+    needs: [mdl, yamllint, delivery]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - 'debian-8'
+          - 'debian-9'
+          - 'ubuntu-1604'
+          - 'ubuntu-1804'
+          - 'amazonlinux-2'
+          - 'centos-7'
+        suite:
+          - 'package'
+          - 'source-18'
+          - 'source-19'
+          - 'source-20'
+          - 'source-default'
+      fail-fast: false
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Install Chef
+        uses: actionshub/chef-install@master
+      - name: Dokken
+        uses: actionshub/kitchen-dokken@master
+        env:
+          CHEF_LICENSE: accept-no-persist
+          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
+
+  configtest:
+    needs: [mdl, yamllint, delivery]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - 'centos-7'
+        suite:
+          - 'config-1'
+          - 'config-1-userlist'
+          - 'config-2'
+          - 'config-3'
+          - 'config-4'
+          - 'config-backend-search'
+          - 'config-acl'
+          - 'config-resolver'
+          - 'config-ssl-redirect'
+          - 'config-custom-template'
+          - 'config-custom-template'
+          - 'config-array'
+          - 'config-fastcgi'
+      fail-fast: false
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Install Chef
+        uses: actionshub/chef-install@master
+      - name: Dokken
+        uses: actionshub/kitchen-dokken@master
+        env:
+          CHEF_LICENSE: accept-no-persist
+          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
+
+  final:
+    needs: [dokken, configtest]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
