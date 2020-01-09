@@ -15,6 +15,7 @@ property :sensitive, [true, false], default: true
 property :package_name, String, default: 'haproxy'
 property :package_version, [String, nil], default: nil
 property :enable_ius_repo, [true, false], default: false
+property :enable_epel_repo, [true, false], default: true
 
 # Source
 property :source_version,     String, default: '2.1.2'
@@ -40,10 +41,10 @@ action :create do
   when 'package'
     case node['platform_family']
     when 'amazon'
-      include_recipe 'yum-epel'
+      include_recipe 'yum-epel' if new_resource.enable_ius_repo
     when 'rhel'
-      include_recipe 'yum-epel'
-      puts ius_package[:url]
+      include_recipe 'yum-epel' if new_resource.enable_epel_repo
+      puts ius_package[:url] if new_resource.enable_ius_repo
 
       remote_file ::File.join(Chef::Config[:file_cache_path], ius_package[:name]) do
         source ius_package[:url]

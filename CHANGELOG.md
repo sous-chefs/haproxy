@@ -5,9 +5,19 @@ This file is used to list changes made in each version of the haproxy cookbook.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [v8.3.0]
+
+### Added
+
+- on `haproxy_install` epel is now a configurable options
+
+### Changed
 
 - Migrated testing to github actions
+
+### Fixed
+
+- ius repo will only echo out if enabled
 
 ## [v8.2.0] (2019-12-23)
 
