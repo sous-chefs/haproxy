@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- on `haproxy_install` epel is now a configurable options
+- on `haproxy_install` epel is now a configurable option
 
 ### Changed
 
