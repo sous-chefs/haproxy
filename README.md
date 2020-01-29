@@ -1,6 +1,6 @@
 # haproxy Cookbook
 
-[![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/haproxy/master.svg)](https://circleci.com/gh/sous-chefs/haproxy)
+[![CI State](https://github.com/sous-chefs/haproxy/workflows/ci/badge.svg)](https://github.com/sous-chefs/haproxy/actions?query=workflow%3Aci)
 [![Cookbook Version](https://img.shields.io/cookbook/v/haproxy.svg)](https://supermarket.chef.io/cookbooks/haproxy)
 [![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
