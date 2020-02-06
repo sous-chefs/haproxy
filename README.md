@@ -62,7 +62,7 @@ end
 
 Becomes:
 
-```
+```haproxy
 listen default
   ...
   http-request set-header X-Public-User yes
@@ -93,7 +93,7 @@ The `haproxy.cfg` file has a few specific rule orderings that will generate vali
 
 ### frontend & listen
 
-```
+```haproxy
   tcp-request connection
   tcp-request session
   tcp-request content
@@ -117,7 +117,7 @@ The `haproxy.cfg` file has a few specific rule orderings that will generate vali
 
 ### backend
 
-```
+```haproxy
   http-request
   reqxxx (any req excluding reqadd, e.g. reqdeny, reqallow)
   reqadd
