@@ -13,6 +13,4 @@ supports 'ubuntu'
 supports 'centos'
 supports 'amazon'
 supports 'opensuseleap'
-
-depends 'build-essential', '>= 8.0.1'
 depends 'yum-epel'
