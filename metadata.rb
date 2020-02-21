@@ -6,7 +6,7 @@ description       'Installs and configures haproxy'
 version           '8.3.0'
 source_url        'https://github.com/sous-chefs/haproxy'
 issues_url        'https://github.com/sous-chefs/haproxy/issues'
-chef_version      '>= 13.9'
+chef_version      '>= 14'
 
 supports 'debian'
 supports 'ubuntu'

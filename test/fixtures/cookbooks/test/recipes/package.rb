@@ -6,9 +6,9 @@ haproxy_install 'package' do
   enable_ius_repo true
 end
 
-haproxy_config_global
+haproxy_config_global ''
 
-haproxy_config_defaults
+haproxy_config_defaults ''
 
 haproxy_frontend 'http-in' do
   default_backend 'servers'
