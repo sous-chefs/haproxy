@@ -1,15 +1,8 @@
 # frozen_string_literal: true
 apt_update
 
-enable_ius = case node['platform_family']
-             when 'rhel'
-               true
-             else
-               false
-             end
-
 haproxy_install 'package' do
-  package_name enable_ius ? 'haproxy18u' : 'haproxy'
+  package_name platform_family?('rhel') ? 'haproxy18u' : 'haproxy'
   enable_ius_repo true
 end
 

@@ -2,7 +2,7 @@ property :haproxy_user, String, default: 'haproxy'
 property :haproxy_group, String, default: 'haproxy'
 property :pidfile, String, default: '/var/run/haproxy.pid'
 property :log, [String, Array], default: '/dev/log syslog info'
-property :daemon, [TrueClass, FalseClass], default: true
+property :daemon, [true, false], default: true
 property :debug_option, String, default: 'quiet', equal_to: %w(quiet debug)
 property :stats, Hash, default: lazy {
   {
