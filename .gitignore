@@ -10,7 +10,6 @@ test/tmp
 test/version_tmp
 tmp
 _Store
-.DS_Store
 *~
 *#
 .#*
