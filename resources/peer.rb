@@ -1,5 +1,5 @@
 property :bind, [ String, Hash ]
-property :state, [ String, nil ], default: nil, equal_to: [ 'enabled', 'disabled', nil ]
+property :state, [ String, nil ], equal_to: [ 'enabled', 'disabled', nil ]
 property :server, Array
 property :default_bind, String
 property :default_server, String

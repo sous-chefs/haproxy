@@ -9,7 +9,7 @@ property :extra_options, Hash
 property :haproxy_retries, Integer
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :hash_type, [String, nil], default: nil, equal_to: ['consistent', 'map-based', nil]
+property :hash_type, [String, nil], equal_to: ['consistent', 'map-based', nil]
 
 action :create do
   # As we're using the accumulator pattern we need to shove everything
