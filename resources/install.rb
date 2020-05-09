@@ -32,6 +32,8 @@ property :use_linux_tproxy,   String, equal_to: %w(0 1), default: '1'
 property :use_linux_splice,   String, equal_to: %w(0 1), default: '1'
 property :use_systemd,        String, equal_to: %w(0 1), default: lazy { source_version.to_f >= 1.8 ? '1' : '0' }
 
+unified_mode true
+
 action :create do
   node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
   node.run_state['haproxy']['conf_template_source'][new_resource.config_file] = new_resource.conf_template_source
