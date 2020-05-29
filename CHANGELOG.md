@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - resolved cookstyle error: libraries/helpers.rb:19:24 refactor: `ChefCorrectness/InvalidPlatformFamilyInCase`
 
+- Turn on unified_mode for all resources
+
 ## [v9.0.0] (2020-02-21)
 
 ### Changed

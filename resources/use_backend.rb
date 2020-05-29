@@ -4,6 +4,8 @@ property :section_name, String, required: true
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
+unified_mode true
+
 action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent

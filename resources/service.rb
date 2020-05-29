@@ -6,6 +6,8 @@ property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.
 property :service_name, String, default: 'haproxy'
 property :systemd_unit_content, [String, Hash], default: ''
 
+unified_mode true
+
 action :create do
   with_run_context :root do
     cookbook_file '/etc/default/haproxy' do
