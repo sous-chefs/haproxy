@@ -16,7 +16,7 @@ class Chef
 
       def source_package_list
         case node['platform_family']
-        when 'debian', 'ubuntu'
+        when 'debian'
           %w(libpcre3-dev libssl-dev zlib1g-dev libsystemd-dev)
         when 'rhel', 'amazon'
           %w(pcre-devel openssl-devel zlib-devel systemd-devel)
