@@ -12,6 +12,8 @@ property :config_cookbook, String,
          default: 'haproxy',
          description: 'Used to configure loading config from another cookbook'
 
+unified_mode true
+
 action :create do
   # As we're using the accumulator pattern we need to shove everything
   # into the root run context so each of the sections can find the parent

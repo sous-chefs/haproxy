@@ -19,6 +19,8 @@ property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 
+unified_mode true
+
 action :create do
   node.default['haproxy']['user'] = new_resource.haproxy_user
   node.default['haproxy']['group'] = new_resource.haproxy_group
