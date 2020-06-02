@@ -28,7 +28,7 @@ class Chef
       def ius_package
         {
           name: 'ius-release.rpm',
-          url: "https://#{node['platform']}#{node['platform_version'].to_i}.iuscommunity.org/ius-release.rpm",
+          url: 'https://repo.ius.io/ius-release-el7.rpm',
         }
       end
 
