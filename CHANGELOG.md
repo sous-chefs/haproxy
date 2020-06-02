@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 - resolved cookstyle error: libraries/helpers.rb:19:24 refactor: `ChefCorrectness/InvalidPlatformFamilyInCase`
-
+- Updated IUS repo url to `https://repo.ius.io/ius-release-el7.rpm`
 - Turn on unified_mode for all resources
 
 ## [v9.0.0] (2020-02-21)
