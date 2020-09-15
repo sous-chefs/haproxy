@@ -76,7 +76,7 @@ jobs:
         os:
           - 'centos-7'
         suite:
-          - 'source_lua'
+          - 'source-lua'
       fail-fast: false
 
     steps:
