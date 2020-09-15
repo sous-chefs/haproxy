@@ -48,7 +48,6 @@ Introduced: v4.0.0
 | `lua_lib`              | String, nil | `nil`                                   | |
 | `lua_inc`              | String, nil | `nil`                                   | |
 
-
 ## Examples
 
 ```ruby
