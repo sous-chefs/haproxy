@@ -30,6 +30,9 @@ property :use_openssl,        String, equal_to: %w(0 1), default: '1'
 property :use_zlib,           String, equal_to: %w(0 1), default: '1'
 property :use_linux_tproxy,   String, equal_to: %w(0 1), default: '1'
 property :use_linux_splice,   String, equal_to: %w(0 1), default: '1'
+property :use_lua,            String, equal_to: %w(0 1), default: '0'
+property :lua_lib,            [String, nil]
+property :lua_inc,            [String, nil]
 property :use_systemd,        String, equal_to: %w(0 1), default: lazy { source_version.to_f >= 1.8 ? '1' : '0' }
 
 unified_mode true
@@ -84,6 +87,9 @@ action :create do
     make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
     make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
     make_cmd << " USE_SYSTEMD=#{new_resource.use_systemd}"
+    make_cmd << " USE_LUA=#{new_resource.use_lua}" unless new_resource.use_lua == '0'
+    make_cmd << " LUA_LIB=#{new_resource.lua_lib}" unless new_resource.lua_lib.nil?
+    make_cmd << " LUA_INC=#{new_resource.lua_inc}" unless new_resource.lua_inc.nil?
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if new_resource.source_version.to_f < 1.8
 
     bash 'compile_haproxy' do

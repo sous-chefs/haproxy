@@ -44,6 +44,9 @@ Introduced: v4.0.0
 | `use_linux_tproxy`     | String      | `1`                                                              |                                                                                | `0`, `1`            |
 | `use_linux_splice`     | String      | `1`                                                              |                                                                                | `0`, `1`            |
 | `use_systemd`     | String      | `1`                                                              |                                                                                | `0`, `1`            |
+| `use_lua`              | String      | `0`                                     | `0`, `1`            |
+| `lua_lib`              | String, nil | `nil`                                   | |
+| `lua_inc`              | String, nil | `nil`                                   | |
 
 ## Examples
 
