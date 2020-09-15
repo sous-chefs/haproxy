@@ -87,7 +87,7 @@ action :create do
     make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
     make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
     make_cmd << " USE_SYSTEMD=#{new_resource.use_systemd}"
-    make_cmd << " USE_LUA=#{new_resource.use_lua}"
+    make_cmd << " USE_LUA=#{new_resource.use_lua}" unless new_resource.use_lua == '0'
     make_cmd << " LUA_LIB=#{new_resource.lua_lib}" unless new_resource.lua_lib.nil?
     make_cmd << " LUA_INC=#{new_resource.lua_inc}" unless new_resource.lua_inc.nil?
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if new_resource.source_version.to_f < 1.8
