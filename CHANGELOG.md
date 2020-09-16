@@ -5,17 +5,20 @@ This file is used to list changes made in each version of the haproxy cookbook.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
-
-- resolved cookstyle error: libraries/helpers.rb:19:24 refactor: `ChefCorrectness/InvalidPlatformFamilyInCase`
-- Updated IUS repo url to `https://repo.ius.io/ius-release-el7.rpm`
-- Turn on unified_mode for all resources
-
 ## [v9.0.1] (2020-09-15)
 
 ### Added
 
-added lua compilation flags to `haproxy_install` resource
+- added lua compilation flags to `haproxy_install` resource
+
+### Fixed
+
+- resolved cookstyle error: libraries/helpers.rb:19:24 refactor: `ChefCorrectness/InvalidPlatformFamilyInCase`
+- Updated IUS repo url to `https://repo.ius.io/ius-release-el7.rpm`
+
+### Changed
+
+- Turn on unified_mode for all resources
 
 ## [v9.0.0] (2020-02-21)
 
