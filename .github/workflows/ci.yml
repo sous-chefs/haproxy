@@ -50,7 +50,6 @@ jobs:
           - 'package'
           - 'source-18'
           - 'source-20'
-          - 'source-22'
           - 'source-default'
       fail-fast: false
 
