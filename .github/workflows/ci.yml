@@ -49,7 +49,6 @@ jobs:
         suite:
           - 'package'
           - 'source-18'
-          - 'source-19'
           - 'source-20'
           - 'source-default'
       fail-fast: false

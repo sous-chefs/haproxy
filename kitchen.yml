@@ -31,9 +31,6 @@ suites:
   - name: source-1.8
     run_list:
       - recipe[test::source-18]
-  - name: source-1.9
-    run_list:
-      - recipe[test::source-19]
   - name: source-2.0
     run_list:
       - recipe[test::source-20]
