@@ -8,6 +8,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Fix generating multiple actions from the service resource - [@bmhughes](https://github.com/bmhughes)
 - Kitchen test with CentOS 8/8 stream - [@bmhughes](https://github.com/bmhughes)
 - Fix IUS repo causing a run failure on an unsupported platform - [@bmhughes](https://github.com/bmhughes)
+- Move configuration resource creation into resource helper module - [@bmhughes](https://github.com/bmhughes)
 
 ## [v9.1.0] (2020-10-07)
 

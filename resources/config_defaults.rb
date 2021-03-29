@@ -9,41 +9,38 @@ property :extra_options, Hash
 property :haproxy_retries, Integer
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :conf_template_source, String, default: 'haproxy.cfg.erb'
+property :conf_cookbook, String, default: 'haproxy'
+property :conf_file_mode, String, default: '0644'
 property :hash_type, [String, nil], equal_to: ['consistent', 'map-based', nil]
 
 unified_mode true
 
-action :create do
-  # As we're using the accumulator pattern we need to shove everything
-  # into the root run context so each of the sections can find the parent
-  with_run_context :root do
-    edit_resource(:template, new_resource.config_file) do |new_resource|
-      node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-      source lazy { node.run_state['haproxy']['conf_template_source'][new_resource.config_file] ||= 'haproxy.cfg.erb' }
-      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] ||= 'haproxy' }
-      variables['defaults'] ||= {}
-      variables['defaults']['timeout'] ||= {}
-      variables['defaults']['timeout'] = new_resource.timeout unless new_resource.timeout.nil?
-      variables['defaults']['log'] ||= ''
-      variables['defaults']['log'] << new_resource.log
-      variables['defaults']['mode'] ||= ''
-      variables['defaults']['mode'] << new_resource.mode
-      variables['defaults']['balance'] ||= '' unless new_resource.balance.nil?
-      variables['defaults']['balance'] << new_resource.balance unless new_resource.balance.nil?
-      variables['defaults']['option'] ||= []
-      (variables['defaults']['option'] << new_resource.option).flatten!
-      variables['defaults']['stats'] ||= {}
-      variables['defaults']['stats'].merge!(new_resource.stats)
-      variables['defaults']['maxconn'] ||= '' unless new_resource.maxconn.nil?
-      variables['defaults']['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
-      variables['defaults']['retries'] ||= '' unless new_resource.haproxy_retries.nil?
-      variables['defaults']['retries'] << new_resource.haproxy_retries.to_s unless new_resource.haproxy_retries.nil?
-      variables['defaults']['hash_type'] = new_resource.hash_type unless new_resource.hash_type.nil?
-      variables['defaults']['extra_options'] ||= {} unless new_resource.extra_options.nil?
-      variables['defaults']['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
+action_class do
+  include Haproxy::Cookbook::ResourceHelpers
+end
 
-      action :nothing
-      delayed_action :create
-    end
-  end
+action :create do
+  haproxy_config_resource_init
+
+  haproxy_config_resource.variables['defaults'] ||= {}
+  haproxy_config_resource.variables['defaults']['timeout'] ||= {}
+  haproxy_config_resource.variables['defaults']['timeout'] = new_resource.timeout unless new_resource.timeout.nil?
+  haproxy_config_resource.variables['defaults']['log'] ||= ''
+  haproxy_config_resource.variables['defaults']['log'] << new_resource.log
+  haproxy_config_resource.variables['defaults']['mode'] ||= ''
+  haproxy_config_resource.variables['defaults']['mode'] << new_resource.mode
+  haproxy_config_resource.variables['defaults']['balance'] ||= '' unless new_resource.balance.nil?
+  haproxy_config_resource.variables['defaults']['balance'] << new_resource.balance unless new_resource.balance.nil?
+  haproxy_config_resource.variables['defaults']['option'] ||= []
+  (haproxy_config_resource.variables['defaults']['option'] << new_resource.option).flatten!
+  haproxy_config_resource.variables['defaults']['stats'] ||= {}
+  haproxy_config_resource.variables['defaults']['stats'].merge!(new_resource.stats)
+  haproxy_config_resource.variables['defaults']['maxconn'] ||= '' unless new_resource.maxconn.nil?
+  haproxy_config_resource.variables['defaults']['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
+  haproxy_config_resource.variables['defaults']['retries'] ||= '' unless new_resource.haproxy_retries.nil?
+  haproxy_config_resource.variables['defaults']['retries'] << new_resource.haproxy_retries.to_s unless new_resource.haproxy_retries.nil?
+  haproxy_config_resource.variables['defaults']['hash_type'] = new_resource.hash_type unless new_resource.hash_type.nil?
+  haproxy_config_resource.variables['defaults']['extra_options'] ||= {} unless new_resource.extra_options.nil?
+  haproxy_config_resource.variables['defaults']['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
 end
