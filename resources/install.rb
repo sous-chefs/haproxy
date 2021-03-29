@@ -1,4 +1,4 @@
-include Chef::Haproxy::Helpers
+include Haproxy::Cookbook::Helpers
 
 property :install_type, String, name_property: true, equal_to: %w(package source)
 property :conf_template_source, String, default: 'haproxy.cfg.erb'
@@ -140,5 +140,5 @@ action :create do
 end
 
 action_class do
-  include Chef::Haproxy::Helpers
+  include Haproxy::Cookbook::Helpers
 end

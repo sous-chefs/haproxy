@@ -1,5 +1,5 @@
-class Chef
-  module Haproxy
+module Haproxy
+  module Cookbook
     module Helpers
       def haproxy_version
         v = Mixlib::ShellOut.new("haproxy -v | grep version | awk '{ print $3 }'")

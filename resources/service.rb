@@ -1,4 +1,4 @@
-include Chef::Haproxy::Helpers
+include Haproxy::Cookbook::Helpers
 
 property :bin_prefix, String, default: '/usr'
 property :config_dir,  String, default: '/etc/haproxy'
@@ -11,7 +11,7 @@ property :config_test_fail_action, Symbol, equal_to: %i(raise log), default: :ra
 unified_mode true
 
 action_class do
-  include Chef::Haproxy::Helpers
+  include Haproxy::Cookbook::Helpers
 
   def do_service_action(resource_action)
     with_run_context(:root) do
