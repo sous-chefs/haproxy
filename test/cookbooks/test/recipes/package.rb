@@ -1,7 +1,9 @@
 apt_update
 
+pkg_name = (platform_family?('rhel') && platform_version.to_i == 7) ? 'haproxy22' : 'haproxy'
+
 haproxy_install 'package' do
-  package_name (platform_family?('rhel') && platform_version.to_i == 7) ? 'haproxy22' : 'haproxy'
+  package_name pkg_name
   enable_ius_repo true
 end
 

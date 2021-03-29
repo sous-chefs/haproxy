@@ -21,9 +21,9 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
-  - name: debian-9
+  - name: debian-10
     driver:
-      image: dokken/debian-9
+      image: dokken/debian-10
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
@@ -32,6 +32,21 @@ platforms:
     driver:
       image: dokken/centos-7
       platform: rhel
+      pid_one_command: /usr/lib/systemd/systemd
+
+  - name: centos-8
+    driver:
+      image: dokken/centos-8
+      pid_one_command: /usr/lib/systemd/systemd
+
+  - name: centos-stream-8
+    driver:
+      image: dokken/centos-stream-8
+      pid_one_command: /usr/lib/systemd/systemd
+
+  - name: fedora-latest
+    driver:
+      image: dokken/fedora-latest
       pid_one_command: /usr/lib/systemd/systemd
 
   - name: ubuntu-16.04
@@ -44,6 +59,13 @@ platforms:
   - name: ubuntu-18.04
     driver:
       image: dokken/ubuntu-18.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+
+  - name: ubuntu-20.04
+    driver:
+      image: dokken/ubuntu-20.04
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update

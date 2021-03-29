@@ -2,8 +2,12 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## Unreleased
+
+- Add configuration test function to the service resource - [@bmhughes](https://github.com/bmhughes)
+- Fix generating multiple actions from the service resource - [@bmhughes](https://github.com/bmhughes)
+- Kitchen test with CentOS 8/8 stream - [@bmhughes](https://github.com/bmhughes)
+- Fix IUS repo causing a run failure on an unsupported platform - [@bmhughes](https://github.com/bmhughes)
 
 ## [v9.1.0] (2020-10-07)
 
