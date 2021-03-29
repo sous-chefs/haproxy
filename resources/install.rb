@@ -46,19 +46,26 @@ action :create do
   when 'package'
     case node['platform_family']
     when 'amazon'
-      include_recipe 'yum-epel' if new_resource.enable_ius_repo
+      include_recipe 'yum-epel' if new_resource.enable_epel_repo
     when 'rhel'
       include_recipe 'yum-epel' if new_resource.enable_epel_repo
-      puts ius_package[:url] if new_resource.enable_ius_repo
 
-      remote_file ::File.join(Chef::Config[:file_cache_path], ius_package[:name]) do
-        source ius_package[:url]
-        only_if { new_resource.enable_ius_repo }
-      end
+      if new_resource.enable_ius_repo && ius_platform_valid?
+        puts ius_package[:url]
 
-      package ius_package[:name] do
-        source ::File.join(Chef::Config[:file_cache_path], ius_package[:name])
-        only_if { new_resource.enable_ius_repo }
+        remote_file ::File.join(Chef::Config[:file_cache_path], ius_package[:name]) do
+          source ius_package[:url]
+          only_if { new_resource.enable_ius_repo }
+        end
+
+        package ius_package[:name] do
+          source ::File.join(Chef::Config[:file_cache_path], ius_package[:name])
+          only_if { new_resource.enable_ius_repo }
+        end
+      else
+        log 'This platform is not supported by IUS, ignoring enable_ius_repo property' do
+          level :warn
+        end
       end
     end
 
@@ -127,7 +134,7 @@ action :create do
       cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
       variables()
       action :nothing
-      delayed_action :nothing
+      delayed_action :create
     end
   end
 end
