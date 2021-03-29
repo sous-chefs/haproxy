@@ -1,8 +1,7 @@
-# frozen_string_literal: true
 apt_update
 
 haproxy_install 'package' do
-  package_name platform_family?('rhel') ? 'haproxy18u' : 'haproxy'
+  package_name (platform_family?('rhel') && platform_version.to_i == 7) ? 'haproxy22' : 'haproxy'
   enable_ius_repo true
 end
 
@@ -19,4 +18,6 @@ haproxy_backend 'servers' do
   notifies :restart, 'haproxy_service[haproxy]', :immediately
 end
 
-haproxy_service 'haproxy'
+haproxy_service 'haproxy' do
+  action %i(create enable start)
+end

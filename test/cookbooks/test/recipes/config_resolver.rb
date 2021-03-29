@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 apt_update
 
 haproxy_install 'source'
@@ -14,4 +13,6 @@ haproxy_resolver 'dns' do
   notifies :restart, 'haproxy_service[haproxy]', :delayed
 end
 
-haproxy_service 'haproxy'
+haproxy_service 'haproxy' do
+  action %i(create enable start)
+end

@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 apt_update
 
 haproxy_install 'package' do
@@ -28,4 +27,6 @@ haproxy_listen 'admin' do
         auth: 'user:pwd'
 end
 
-haproxy_service 'haproxy'
+haproxy_service 'haproxy' do
+  action %i(create enable start)
+end
