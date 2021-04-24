@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## Unreleased
+
 ## 10.0.0 - *2021-04-24*
 
 - Add configuration test function to the service resource - [@bmhughes](https://github.com/bmhughes)
