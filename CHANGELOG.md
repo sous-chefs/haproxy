@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## Unreleased
+## 10.0.0 - *2021-04-24*
 
 - Add configuration test function to the service resource - [@bmhughes](https://github.com/bmhughes)
 - Fix generating multiple actions from the service resource - [@bmhughes](https://github.com/bmhughes)
@@ -680,7 +680,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Use `node.chef_environment` instead of `node['app_environment']`.
 
-[unreleased]: https://github.com/sous-chefs/haproxy/compare/v6.4.0...HEAD
+[10.0.0 - *2021-04-24*]: https://github.com/sous-chefs/haproxy/compare/v6.4.0...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
