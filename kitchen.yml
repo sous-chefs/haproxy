@@ -40,52 +40,79 @@ suites:
   - name: source_lua
     run_list:
       - recipe[test::source_lua]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
   - name: config_1
     run_list:
       - recipe[test::config_1]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
+      - centos-stream-8
   - name: config_2
     run_list:
       - recipe[test::config_2]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
   - name: config_3
     run_list:
       - recipe[test::config_3]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
   - name: config_4
     run_list:
       - recipe[test::config_4]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
   - name: config_backend_search
     run_list:
       - recipe[test::config_backend_search]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
   - name: config_1_userlist
     run_list:
       - recipe[test::config_1_userlist]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
   - name: config_acl
     run_list:
       - recipe[test::config_acl]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
   - name: config_resolver
     run_list:
       - recipe[test::config_resolver]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
   - name: config_ssl_redirect
     run_list:
       - recipe[test::config_ssl_redirect]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
   - name: config_custom_template
     run_list:
       - recipe[test::config_custom_template]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
   - name: config_array
     run_list:
       - recipe[test::config_array]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8
   - name: config_fastcgi
     run_list:
       - recipe[test::config_fastcgi]
-    includes: centos-7
+    includes:
+      - centos-7
+      - centos-stream-8

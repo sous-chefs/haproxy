@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 title 'FastCGI should be configurable'
 
 describe directory '/etc/haproxy' do

@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 apt_update
 
 haproxy_install 'package' do
@@ -76,4 +75,6 @@ haproxy_backend 'tcp-servers' do
   server ['server2 127.0.0.1:3306 maxconn 32']
 end
 
-haproxy_service 'haproxy'
+haproxy_service 'haproxy' do
+  action %i(create enable start)
+end

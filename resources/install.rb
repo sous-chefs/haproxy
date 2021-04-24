@@ -1,4 +1,4 @@
-include Chef::Haproxy::Helpers
+include Haproxy::Cookbook::Helpers
 
 property :install_type, String, name_property: true, equal_to: %w(package source)
 property :conf_template_source, String, default: 'haproxy.cfg.erb'
@@ -37,28 +37,40 @@ property :use_systemd,        String, equal_to: %w(0 1), default: lazy { source_
 
 unified_mode true
 
-action :create do
-  node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-  node.run_state['haproxy']['conf_template_source'][new_resource.config_file] = new_resource.conf_template_source
-  node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] = new_resource.conf_cookbook
+action_class do
+  include Haproxy::Cookbook::ResourceHelpers
+end
 
+action_class do
+  include Haproxy::Cookbook::Helpers
+  include Haproxy::Cookbook::ResourceHelpers
+end
+
+action :create do
   case new_resource.install_type
   when 'package'
     case node['platform_family']
     when 'amazon'
-      include_recipe 'yum-epel' if new_resource.enable_ius_repo
+      include_recipe 'yum-epel' if new_resource.enable_epel_repo
     when 'rhel'
       include_recipe 'yum-epel' if new_resource.enable_epel_repo
-      puts ius_package[:url] if new_resource.enable_ius_repo
 
-      remote_file ::File.join(Chef::Config[:file_cache_path], ius_package[:name]) do
-        source ius_package[:url]
-        only_if { new_resource.enable_ius_repo }
-      end
+      if new_resource.enable_ius_repo && ius_platform_valid?
+        puts ius_package[:url]
 
-      package ius_package[:name] do
-        source ::File.join(Chef::Config[:file_cache_path], ius_package[:name])
-        only_if { new_resource.enable_ius_repo }
+        remote_file ::File.join(Chef::Config[:file_cache_path], ius_package[:name]) do
+          source ius_package[:url]
+          only_if { new_resource.enable_ius_repo }
+        end
+
+        package ius_package[:name] do
+          source ::File.join(Chef::Config[:file_cache_path], ius_package[:name])
+          only_if { new_resource.enable_ius_repo }
+        end
+      else
+        log 'This platform is not supported by IUS, ignoring enable_ius_repo property' do
+          level :warn
+        end
       end
     end
 
@@ -111,27 +123,6 @@ action :create do
       group new_resource.haproxy_group
     end
 
-    directory new_resource.config_dir do
-      owner new_resource.haproxy_user
-      group new_resource.haproxy_group
-      mode '0755'
-      recursive true
-    end
-
-    template new_resource.config_file do
-      owner new_resource.haproxy_user
-      group new_resource.haproxy_group
-      mode new_resource.conf_file_mode
-      sensitive new_resource.sensitive
-      source lazy { node.run_state['haproxy']['conf_template_source'][config_file] }
-      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][config_file] }
-      variables()
-      action :nothing
-      delayed_action :nothing
-    end
+    haproxy_config_resource_init
   end
-end
-
-action_class do
-  include Chef::Haproxy::Helpers
 end

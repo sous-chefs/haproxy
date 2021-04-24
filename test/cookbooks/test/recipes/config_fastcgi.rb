@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 apt_update
 
 haproxy_install 'source'
@@ -29,4 +28,6 @@ haproxy_backend 'back-dynamic' do
   server ['php-fpm 127.0.0.1:9000 proto fcgi']
 end
 
-haproxy_service 'haproxy'
+haproxy_service 'haproxy' do
+  action %i(create enable start)
+end

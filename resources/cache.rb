@@ -4,25 +4,22 @@ property :max_object_size, Integer
 property :max_age, Integer
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :conf_template_source, String, default: 'haproxy.cfg.erb'
+property :conf_cookbook, String, default: 'haproxy'
+property :conf_file_mode, String, default: '0644'
 
 unified_mode true
 
-action :create do
-  # As we're using the accumulator pattern we need to shove everything
-  # into the root run context so each of the sections can find the parent
-  with_run_context :root do
-    edit_resource(:template, new_resource.config_file) do |new_resource|
-      node.run_state['haproxy'] ||= { 'conf_template_source' => {}, 'conf_cookbook' => {} }
-      source lazy { node.run_state['haproxy']['conf_template_source'][new_resource.config_file] ||= 'haproxy.cfg.erb' }
-      cookbook lazy { node.run_state['haproxy']['conf_cookbook'][new_resource.config_file] ||= 'haproxy' }
-      variables['cache'] ||= {}
-      variables['cache'][new_resource.cache_name] ||= {}
-      variables['cache'][new_resource.cache_name]['total_max_size'] ||= new_resource.total_max_size
-      variables['cache'][new_resource.cache_name]['max_object_size'] ||= new_resource.max_object_size unless new_resource.max_object_size.nil?
-      variables['cache'][new_resource.cache_name]['max_age'] ||= new_resource.max_age unless new_resource.max_age.nil?
+action_class do
+  include Haproxy::Cookbook::ResourceHelpers
+end
 
-      action :nothing
-      delayed_action :create
-    end
-  end
+action :create do
+  haproxy_config_resource_init
+
+  haproxy_config_resource.variables['cache'] ||= {}
+  haproxy_config_resource.variables['cache'][new_resource.cache_name] ||= {}
+  haproxy_config_resource.variables['cache'][new_resource.cache_name]['total_max_size'] ||= new_resource.total_max_size
+  haproxy_config_resource.variables['cache'][new_resource.cache_name]['max_object_size'] ||= new_resource.max_object_size unless new_resource.max_object_size.nil?
+  haproxy_config_resource.variables['cache'][new_resource.cache_name]['max_age'] ||= new_resource.max_age unless new_resource.max_age.nil?
 end

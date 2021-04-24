@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 apt_update
 
 haproxy_install 'source' do
@@ -17,4 +16,7 @@ haproxy_config_global ''
 
 haproxy_config_defaults ''
 
-haproxy_service 'haproxy'
+haproxy_service 'haproxy' do
+  action :create
+  delayed_action %i(enable start)
+end

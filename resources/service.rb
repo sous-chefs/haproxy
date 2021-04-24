@@ -1,16 +1,55 @@
-include Chef::Haproxy::Helpers
+include Haproxy::Cookbook::Helpers
 
 property :bin_prefix, String, default: '/usr'
 property :config_dir,  String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
 property :service_name, String, default: 'haproxy'
-property :systemd_unit_content, [String, Hash], default: ''
+property :systemd_unit_content, [String, Hash], default: lazy { default_systemd_unit_content }
+property :config_test, [true, false], default: true, description: 'Perform configuration file test before performing service action'
+property :config_test_fail_action, Symbol, equal_to: %i(raise log), default: :raise, description: 'Action to perform upon configuration test failure.'
 
 unified_mode true
 
+action_class do
+  include Haproxy::Cookbook::Helpers
+
+  def do_service_action(resource_action)
+    with_run_context(:root) do
+      if %i(start restart reload).include?(resource_action)
+        begin
+          if new_resource.config_test && ::File.exist?(new_resource.config_file)
+            log 'Running configuration test'
+            cmd = Mixlib::ShellOut.new("#{systemd_command(new_resource.bin_prefix)} -c -V -f #{new_resource.config_file}")
+            cmd.run_command.error!
+            Chef::Log.info("Configuration test passed, creating #{new_resource.service_name} #{new_resource.declared_type} resource with action #{resource_action}")
+          elsif new_resource.config_test && !::File.exist?(new_resource.config_file)
+            log 'Configuration test is enabled but configuration file does not exist, skipping test' do
+              level :warn
+            end
+          else
+            Chef::Log.info("Configuration test disabled, creating #{new_resource.service_name} #{new_resource.declared_type} resource with action #{resource_action}")
+          end
+
+          declare_resource(:service, new_resource.service_name).delayed_action(resource_action)
+        rescue Mixlib::ShellOut::ShellCommandFailed
+          if new_resource.config_test_fail_action.eql?(:log)
+            Chef::Log.error("Configuration test failed, #{new_resource.service_name} #{resource_action} action aborted!\n\n"\
+                            "Error\n-----\n#{cmd.stderr}")
+          else
+            raise "Configuration test failed, #{new_resource.service_name} #{resource_action} action aborted!\n\n"\
+                  "Error\n-----\nAction: #{resource_action}\n#{cmd.stderr}"
+          end
+        end
+      else
+        declare_resource(:service, new_resource.service_name).delayed_action(resource_action)
+      end
+    end
+  end
+end
+
 action :create do
   with_run_context :root do
-    cookbook_file '/etc/default/haproxy' do
+    declare_resource(:cookbook_file, '/etc/default/haproxy') do
       cookbook 'haproxy'
       source 'haproxy-default'
       owner 'root'
@@ -18,80 +57,14 @@ action :create do
       mode '0644'
     end
 
-    if new_resource.systemd_unit_content == ''
-      new_resource.systemd_unit_content <<-EOU.gsub(/^\s+/, '')
-[Unit]
-Description=HAProxy Load Balancer
-Documentation=file:/usr/share/doc/haproxy/configuration.txt.gz
-After=network.target syslog.service
-
-[Service]
-EnvironmentFile=-/etc/default/haproxy
-Environment="CONFIG=#{new_resource.config_file}" "PIDFILE=/run/haproxy.pid"
-ExecStartPre=#{new_resource.bin_prefix}/sbin/haproxy -f $CONFIG -c -q
-ExecStart=#{systemd_command(new_resource.bin_prefix)} -f $CONFIG -p $PIDFILE $OPTIONS
-ExecReload=#{new_resource.bin_prefix}/sbin/haproxy -f $CONFIG -c -q
-ExecReload=/bin/kill -USR2 $MAINPID
-KillSignal=TERM
-User=root
-WorkingDirectory=/
-KillMode=mixed
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-      EOU
-    end
-
-    systemd_unit "#{new_resource.service_name}.service" do
+    declare_resource(:systemd_unit, "#{new_resource.service_name}.service") do
       content new_resource.systemd_unit_content
       triggers_reload true
-      action [:create, :enable]
-      notifies :restart, "service[#{new_resource.service_name}]", :delayed
-    end
-
-    service new_resource.service_name do
-      supports status: true, restart: true
-      delayed_action [:enable, :start]
+      action :create
     end
   end
 end
 
-action :start do
-  with_run_context :root do
-    find_resource(:service, new_resource.service_name) do
-    end.run_action(:start)
-  end
-end
-
-action :stop do
-  with_run_context :root do
-    find_resource(:service, new_resource.service_name) do
-    end.run_action(:stop)
-  end
-end
-
-action :restart do
-  with_run_context :root do
-    find_resource(:service, new_resource.service_name) do
-    end.run_action(:restart)
-  end
-end
-
-action :reload do
-  with_run_context :root do
-    find_resource(:service, new_resource.service_name) do
-    end.run_action(:reload)
-  end
-end
-
-action :enable do
-  with_run_context :root do
-    find_resource(:service, new_resource.service_name) do
-    end.run_action(:enable)
-  end
-end
-
-action_class do
-  include Chef::Haproxy::Helpers
+%i(start stop restart reload enable disable).each do |action_type|
+  send(:action, action_type) { do_service_action(action) }
 end
