@@ -6,8 +6,6 @@ describe 'haproxy_listen' do
 
   context 'create template with a listen resource' do
     recipe do
-      haproxy_install 'package'
-
       haproxy_listen 'admin' do
         bind '0.0.0.0:1337' => ''
         mode 'http'
