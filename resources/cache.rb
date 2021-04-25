@@ -1,3 +1,5 @@
+property :haproxy_user, String, default: 'haproxy'
+property :haproxy_group, String, default: 'haproxy'
 property :cache_name, String, name_property: true
 property :total_max_size, Integer
 property :max_object_size, Integer

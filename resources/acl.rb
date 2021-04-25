@@ -1,3 +1,5 @@
+property :haproxy_user, String, default: 'haproxy'
+property :haproxy_group, String, default: 'haproxy'
 property :acl, [String, Array], name_property: true
 property :section, String, required: true, equal_to: %w(frontend listen backend)
 property :section_name, String, required: true
@@ -6,8 +8,6 @@ property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.
 property :conf_template_source, String, default: 'haproxy.cfg.erb'
 property :conf_cookbook, String, default: 'haproxy'
 property :conf_file_mode, String, default: '0644'
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
 
 unified_mode true
 
