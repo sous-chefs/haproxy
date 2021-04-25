@@ -1,12 +1,8 @@
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
-property :nameserver, Array
-property :extra_options, Hash
-property :config_dir, String, default: '/etc/haproxy'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :conf_template_source, String, default: 'haproxy.cfg.erb'
-property :conf_cookbook, String, default: 'haproxy'
-property :conf_file_mode, String, default: '0644'
+use 'partial/_config_file'
+use 'partial/_extra_options'
+
+property :nameserver, Array,
+          description: 'DNS server description'
 
 unified_mode true
 

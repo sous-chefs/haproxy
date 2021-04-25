@@ -1,17 +1,24 @@
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
-property :bind, [ String, Hash ]
-property :state, [ String, nil ], equal_to: [ 'enabled', 'disabled', nil ]
-property :server, Array
-property :default_bind, String
-property :default_server, String
-property :table, Array
-property :extra_options, Hash
-property :config_dir, String, default: '/etc/haproxy'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :conf_template_source, String, default: 'haproxy.cfg.erb'
-property :conf_cookbook, String, default: 'haproxy'
-property :conf_file_mode, String, default: '0644'
+use 'partial/_config_file'
+use 'partial/_extra_options'
+
+property :bind, [String, Hash],
+          description: 'String - sets as given. Hash - joins with a space. HAProxy version >= 2.0'
+
+property :state, String,
+          equal_to: %w(enabled disabled),
+          description: 'Set the state of the peers'
+
+property :server, Array,
+          description: 'Servers in the peer'
+
+property :default_bind, String,
+          description: 'Defines the binding parameters for the local peer, excepted its address'
+
+property :default_server, String,
+          description: 'Change default options for a server'
+
+property :table, Array,
+          description: 'Configure a stickiness table'
 
 unified_mode true
 

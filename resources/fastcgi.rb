@@ -1,16 +1,23 @@
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
-property :fastcgi, String, name_property: true
-property :docroot, String
-property :index, String
-property :log_stderr, String
-property :option, Array
-property :extra_options, Hash
-property :config_dir, String, default: '/etc/haproxy'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :conf_template_source, String, default: 'haproxy.cfg.erb'
-property :conf_cookbook, String, default: 'haproxy'
-property :conf_file_mode, String, default: '0644'
+use 'partial/_config_file'
+
+property :fastcgi, String,
+          name_property: true,
+          description: 'Name property - sets the fcgi-app name'
+
+property :docroot, String,
+          description: 'Define the document root on the remote host'
+
+property :index, String,
+          description: 'Define the script name that will be appended after an URI that ends with a slash'
+
+property :log_stderr, String,
+          description: 'Enable logging of STDERR messages reported by the FastCGI application'
+
+property :option, Array,
+          description: 'Array of HAProxy option directives'
+
+property :extra_options, Hash,
+          description: 'Used for setting any HAProxy directives'
 
 unified_mode true
 

@@ -1,13 +1,17 @@
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
-property :use_backend, [String, Array], name_property: true
-property :section, String, required: true, equal_to: %w(frontend listen backend)
-property :section_name, String, required: true
-property :config_dir, String, default: '/etc/haproxy'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :conf_template_source, String, default: 'haproxy.cfg.erb'
-property :conf_cookbook, String, default: 'haproxy'
-property :conf_file_mode, String, default: '0644'
+use 'partial/_config_file'
+
+property :use_backend, [String, Array],
+          name_property: true,
+          description: 'Switch to a specific backend if/unless an ACL-based condition is matched'
+
+property :section, String,
+          required: true,
+          equal_to: %w(frontend listen backend),
+          description: 'The section where the acl(s) should be applied'
+
+property :section_name, String,
+          required: true,
+          description: 'The name of the specific frontend, listen or backend section'
 
 unified_mode true
 

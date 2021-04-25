@@ -1,39 +1,75 @@
 include Haproxy::Cookbook::Helpers
 
-property :install_type, String, name_property: true, equal_to: %w(package source)
-property :conf_template_source, String, default: 'haproxy.cfg.erb'
-property :conf_cookbook, String, default: 'haproxy'
-property :conf_file_mode, String, default: '0644'
-property :bin_prefix, String, default: '/usr'
-property :config_dir,  String, default: '/etc/haproxy'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
-property :sensitive, [true, false], default: true
+use 'partial/_config_file'
+
+property :install_type, String,
+          name_property: true,
+          equal_to: %w(package source)
+
+property :bin_prefix, String,
+          default: '/usr'
+
+property :sensitive, [true, false],
+          default: true
 
 # Package
-property :package_name, String, default: 'haproxy'
+property :package_name, String,
+          default: 'haproxy'
+
 property :package_version, [String, nil]
-property :enable_ius_repo, [true, false], default: false
-property :enable_epel_repo, [true, false], default: true
+
+property :enable_ius_repo, [true, false],
+          default: false
+
+property :enable_epel_repo, [true, false],
+          default: true
 
 # Source
-property :source_version,     String, default: '2.2.4'
-property :source_url,         String, default: lazy { "https://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version}.tar.gz" }
-property :source_checksum,    [String, nil], default: '87a4d9d4ff8dc3094cb61bbed4a8eed2c40b5ac47b9604daebaf036d7b541be2'
-property :source_target_cpu,  [String, nil], default: lazy { node['kernel']['machine'] }
+property :source_version, String,
+          default: '2.2.4'
+
+property :source_url, String,
+          default: lazy { "https://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version}.tar.gz" }
+
+property :source_checksum, [String, nil],
+          default: '87a4d9d4ff8dc3094cb61bbed4a8eed2c40b5ac47b9604daebaf036d7b541be2'
+
+property :source_target_cpu, [String, nil],
+          default: lazy { node['kernel']['machine'] }
+
 property :source_target_arch, [String, nil]
-property :source_target_os,   String, default: lazy { target_os(source_version) }
-property :use_libcrypt,       String, equal_to: %w(0 1), default: '1'
-property :use_pcre,           String, equal_to: %w(0 1), default: '1'
-property :use_openssl,        String, equal_to: %w(0 1), default: '1'
-property :use_zlib,           String, equal_to: %w(0 1), default: '1'
-property :use_linux_tproxy,   String, equal_to: %w(0 1), default: '1'
-property :use_linux_splice,   String, equal_to: %w(0 1), default: '1'
-property :use_lua,            String, equal_to: %w(0 1), default: '0'
-property :lua_lib,            [String, nil]
-property :lua_inc,            [String, nil]
-property :use_systemd,        String, equal_to: %w(0 1), default: lazy { source_version.to_f >= 1.8 ? '1' : '0' }
+
+property :source_target_os, String,
+          default: lazy { target_os(source_version) }
+
+property :use_libcrypt, String,
+          equal_to: %w(0 1), default: '1'
+
+property :use_pcre, String,
+          equal_to: %w(0 1), default: '1'
+
+property :use_openssl, String,
+          equal_to: %w(0 1), default: '1'
+
+property :use_zlib, String,
+          equal_to: %w(0 1), default: '1'
+
+property :use_linux_tproxy, String,
+          equal_to: %w(0 1), default: '1'
+
+property :use_linux_splice, String,
+          equal_to: %w(0 1), default: '1'
+
+property :use_lua, String,
+          equal_to: %w(0 1), default: '0'
+
+property :lua_lib, [String, nil]
+
+property :lua_inc, [String, nil]
+
+property :use_systemd, String,
+          equal_to: %w(0 1),
+          default: lazy { source_version.to_f >= 1.8 ? '1' : '0' }
 
 unified_mode true
 
@@ -77,7 +113,6 @@ action :create do
     package new_resource.package_name do
       version new_resource.package_version if new_resource.package_version
     end
-
   when 'source'
     build_essential 'compilation tools'
     package source_package_list
@@ -116,13 +151,11 @@ action :create do
   end
 
   with_run_context :root do
-    group new_resource.haproxy_group
+    group new_resource.group
 
-    user new_resource.haproxy_user do
-      home "/home/#{new_resource.haproxy_user}"
-      group new_resource.haproxy_group
+    user new_resource.user do
+      home "/home/#{new_resource.user}"
+      group new_resource.group
     end
-
-    haproxy_config_resource_init
   end
 end

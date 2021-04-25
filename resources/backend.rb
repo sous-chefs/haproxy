@@ -1,19 +1,33 @@
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
-property :mode, String, equal_to: %w(http tcp health)
-property :server, Array
-property :tcp_request, Array
-property :reqrep, [Array, String]
-property :reqirep, [Array, String]
-property :acl, Array
-property :option, Array
-property :extra_options, Hash
-property :config_dir, String, default: '/etc/haproxy'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :conf_template_source, String, default: 'haproxy.cfg.erb'
-property :conf_cookbook, String, default: 'haproxy'
-property :conf_file_mode, String, default: '0644'
-property :hash_type, String, equal_to: %w(consistent map-based)
+use 'partial/_config_file'
+use 'partial/_extra_options'
+
+property :mode, String,
+          equal_to: %w(http tcp health),
+          description: 'Set the running mode or protocol of the instance'
+
+property :server, [String, Array],
+          coerce: proc { |p| Array(p) },
+          description: 'Servers the backend routes to'
+
+property :tcp_request, [String, Array],
+          coerce: proc { |p| Array(p) },
+          description: 'HAProxy tcp-request settings'
+
+property :reqrep, [Array, String],
+          description: 'Replace a regular expression with a string in an HTTP request line'
+
+property :reqirep, [Array, String],
+          description: 'reqrep ignoring case'
+
+property :acl, Array,
+          description: 'Access control list items'
+
+property :option, Array,
+          description: 'Array of HAProxy option directives'
+
+property :hash_type, String,
+          equal_to: %w(consistent map-based),
+          description: 'Specify a method to use for mapping hashes to servers'
 
 unified_mode true
 

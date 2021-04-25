@@ -1,24 +1,47 @@
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
-property :mode, String, equal_to: %w(http tcp health)
-property :bind, [String, Hash], default: '0.0.0.0:80'
-property :maxconn, Integer
-property :stats, Hash
-property :http_request, [Array, String]
-property :http_response, String
-property :reqrep, [Array, String]
-property :reqirep, [Array, String]
-property :default_backend, String
-property :use_backend, Array
-property :acl, Array
-property :extra_options, Hash
-property :server, Array
-property :config_dir, String, default: '/etc/haproxy'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :conf_template_source, String, default: 'haproxy.cfg.erb'
-property :conf_cookbook, String, default: 'haproxy'
-property :conf_file_mode, String, default: '0644'
-property :hash_type, String, equal_to: %w(consistent map-based)
+use 'partial/_config_file'
+use 'partial/_extra_options'
+
+property :bind, [String, Hash],
+          default: '0.0.0.0:80',
+          description: 'String - sets as given. Hash - joins with a space'
+
+property :mode, String,
+          equal_to: %w(http tcp health),
+          description: 'Set the running mode or protocol of the instance'
+
+property :maxconn, Integer,
+          description: 'Sets the maximum per-process number of concurrent connections'
+
+property :stats, Hash,
+          description: 'Enable stats with various options'
+
+property :http_request, [Array, String],
+          description: 'Switch to a specific backend if/unless an ACL-based condition is matched'
+
+property :http_response, String,
+          description: 'Switch to a specific backend if/unless an ACL-based condition is matched'
+
+property :reqrep, [Array, String],
+          description: 'Replace a regular expression with a string in an HTTP request line'
+
+property :reqirep, [Array, String],
+          description: 'reqrep ignoring case'
+
+property :default_backend, String,
+          description: 'Specify the backend to use when no "use_backend" rule has been matched'
+
+property :use_backend, Array,
+          description: 'Switch to a specific backend if/unless an ACL-based condition is matched'
+
+property :acl, Array,
+          description: 'Access control list items'
+
+property :server, Array,
+          description: 'Servers the listen section routes to'
+
+property :hash_type, String,
+          equal_to: %w(consistent map-based),
+          description: 'Specify a method to use for mapping hashes to servers'
 
 unified_mode true
 

@@ -1,26 +1,45 @@
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
-property :pidfile, String, default: '/var/run/haproxy.pid'
-property :log, [String, Array], default: '/dev/log syslog info'
-property :daemon, [true, false], default: true
-property :debug_option, String, default: 'quiet', equal_to: %w(quiet debug)
-property :stats, Hash, default: lazy {
-  {
-    socket: "/var/run/haproxy.sock user #{haproxy_user} group #{haproxy_group}",
-    timeout: '2m',
-  }
-}
-property :maxconn, Integer, default: 4096
-property :config_cookbook, String, default: 'haproxy'
-property :chroot, String
-property :log_tag, String, default: 'haproxy'
-property :tuning, Hash
-property :extra_options, Hash
-property :config_dir, String, default: '/etc/haproxy'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :conf_template_source, String, default: 'haproxy.cfg.erb'
-property :conf_cookbook, String, default: 'haproxy'
-property :conf_file_mode, String, default: '0644'
+use 'partial/_config_file'
+use 'partial/_extra_options'
+
+property :pidfile, String,
+          default: '/var/run/haproxy.pid',
+          description: 'Writes PIDs of all daemons into file <pidfile>'
+
+property :log, [String, Array],
+          default: '/dev/log syslog info',
+          description: 'Adds a global syslog server'
+
+property :daemon, [true, false],
+          default: true,
+          description: 'Makes the process fork into background'
+
+property :debug_option, String,
+          default: 'quiet',
+          equal_to: %w(quiet debug),
+          description: 'Sets the debugging mode'
+
+property :stats, Hash,
+          default: lazy {
+                          {
+                            socket: "/var/run/haproxy.sock user #{user} group #{group}",
+                            timeout: '2m',
+                          }
+                        },
+          description: 'Enable stats with various options'
+
+property :maxconn, Integer,
+          default: 4096,
+          description: 'Sets the maximum per-process number of concurrent connections'
+
+property :chroot, String,
+          description: 'Changes current directory to <jail dir> and performs a chroot() there before dropping privileges'
+
+property :log_tag, String,
+          default: 'haproxy',
+          description: 'Specifies the log tag to use for all outgoing logs'
+
+property :tuning, Hash,
+          description: 'A hash of tune.<options>'
 
 unified_mode true
 
@@ -33,9 +52,9 @@ action :create do
 
   haproxy_config_resource.variables['global'] ||= {}
   haproxy_config_resource.variables['global']['user'] ||= ''
-  haproxy_config_resource.variables['global']['user'] << new_resource.haproxy_user
+  haproxy_config_resource.variables['global']['user'] << new_resource.user
   haproxy_config_resource.variables['global']['group'] ||= ''
-  haproxy_config_resource.variables['global']['group'] = new_resource.haproxy_group
+  haproxy_config_resource.variables['global']['group'] = new_resource.group
   haproxy_config_resource.variables['global']['pidfile'] ||= ''
   haproxy_config_resource.variables['global']['pidfile'] << new_resource.pidfile
   haproxy_config_resource.variables['global']['log'] ||= []

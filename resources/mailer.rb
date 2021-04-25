@@ -1,10 +1,10 @@
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
-property :mailer, [String, Array], description: 'Defines a mailer inside a mailers section'
-property :timeout, String, description: 'Defines the time available for a mail/connection to be made and send to the mail-server'
-property :config_dir, String, default: '/etc/haproxy', description: 'The directory where the HAProxy configuration resides'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }, description: 'The HAProxy configuration file'
-property :config_cookbook, String, default: 'haproxy', description: 'Used to configure loading config from another cookbook'
+use 'partial/_config_file'
+
+property :mailer, [String, Array],
+          description: 'Defines a mailer inside a mailers section'
+
+property :timeout, String,
+          description: 'Defines the time available for a mail/connection to be made and send to the mail-server'
 
 unified_mode true
 
