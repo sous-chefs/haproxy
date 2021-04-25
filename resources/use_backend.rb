@@ -2,6 +2,7 @@ use 'partial/_config_file'
 
 property :use_backend, [String, Array],
           name_property: true,
+          coerce: proc { |p| Array(p) },
           description: 'Switch to a specific backend if/unless an ACL-based condition is matched'
 
 property :section, String,
@@ -23,6 +24,20 @@ action :create do
   haproxy_config_resource_init
 
   haproxy_config_resource.variables[new_resource.section] ||= {}
+
+  haproxy_config_resource.variables[new_resource.section][new_resource.section_name] ||= {}
+
   haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['use_backend'] ||= []
-  haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['use_backend'] += Array(new_resource.use_backend)
+  haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['use_backend'].push(new_resource.use_backend)
+end
+
+action :delete do
+  haproxy_config_resource_init
+
+  haproxy_config_resource.variables[new_resource.section] ||= {}
+
+  haproxy_config_resource.variables[new_resource.section][new_resource.section_name] ||= {}
+
+  haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['use_backend'] ||= []
+  haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['use_backend'].delete(new_resource.use_backend)
 end

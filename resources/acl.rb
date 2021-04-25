@@ -2,6 +2,7 @@ use 'partial/_config_file'
 
 property :acl, [String, Array],
           name_property: true,
+          coerce: proc { |p| Array(p) },
           description: 'The access control list items'
 
 property :section, String,
@@ -24,5 +25,13 @@ action :create do
 
   haproxy_config_resource.variables[new_resource.section] ||= {}
   haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['acl'] ||= []
-  haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['acl'] += Array(new_resource.acl)
+  haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['acl'].push(new_resource.acl)
+end
+
+action :delete do
+  haproxy_config_resource_init
+
+  haproxy_config_resource.variables[new_resource.section] ||= {}
+  haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['acl'] ||= []
+  haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['acl'].delete(new_resource.acl)
 end

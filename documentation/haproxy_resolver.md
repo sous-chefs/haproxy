@@ -12,7 +12,8 @@ Introduced: v4.5.0
 
 ## Actions
 
-`:create`
+* `:create`
+* `:delete`
 
 ## Properties
 

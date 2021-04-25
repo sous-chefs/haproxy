@@ -47,23 +47,18 @@ action :create do
   haproxy_config_resource_init
 
   haproxy_config_resource.variables['defaults'] ||= {}
-  haproxy_config_resource.variables['defaults']['timeout'] ||= {}
-  haproxy_config_resource.variables['defaults']['timeout'] = new_resource.timeout unless new_resource.timeout.nil?
-  haproxy_config_resource.variables['defaults']['log'] ||= ''
-  haproxy_config_resource.variables['defaults']['log'] << new_resource.log
-  haproxy_config_resource.variables['defaults']['mode'] ||= ''
-  haproxy_config_resource.variables['defaults']['mode'] << new_resource.mode
-  haproxy_config_resource.variables['defaults']['balance'] ||= '' unless new_resource.balance.nil?
-  haproxy_config_resource.variables['defaults']['balance'] << new_resource.balance unless new_resource.balance.nil?
+
+  haproxy_config_resource.variables['defaults']['timeout'] = new_resource.timeout
+  haproxy_config_resource.variables['defaults']['log'] = new_resource.log
+  haproxy_config_resource.variables['defaults']['mode'] = new_resource.mode
+  haproxy_config_resource.variables['defaults']['balance'] = new_resource.balance
+
   haproxy_config_resource.variables['defaults']['option'] ||= []
-  (haproxy_config_resource.variables['defaults']['option'] << new_resource.option).flatten!
-  haproxy_config_resource.variables['defaults']['stats'] ||= {}
-  haproxy_config_resource.variables['defaults']['stats'].merge!(new_resource.stats)
-  haproxy_config_resource.variables['defaults']['maxconn'] ||= '' unless new_resource.maxconn.nil?
-  haproxy_config_resource.variables['defaults']['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
-  haproxy_config_resource.variables['defaults']['retries'] ||= '' unless new_resource.haproxy_retries.nil?
-  haproxy_config_resource.variables['defaults']['retries'] << new_resource.haproxy_retries.to_s unless new_resource.haproxy_retries.nil?
-  haproxy_config_resource.variables['defaults']['hash_type'] = new_resource.hash_type unless new_resource.hash_type.nil?
-  haproxy_config_resource.variables['defaults']['extra_options'] ||= {} unless new_resource.extra_options.nil?
-  haproxy_config_resource.variables['defaults']['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
+  haproxy_config_resource.variables['defaults']['option'].push(new_resource.option).flatten!
+
+  haproxy_config_resource.variables['defaults']['stats'] = new_resource.stats
+  haproxy_config_resource.variables['defaults']['maxconn'] = new_resource.maxconn.to_s if property_is_set?(:maxconn)
+  haproxy_config_resource.variables['defaults']['retries'] = new_resource.haproxy_retries.to_s if property_is_set?(:haproxy_retries)
+  haproxy_config_resource.variables['defaults']['hash_type'] = new_resource.hash_type if property_is_set?(:hash_type)
+  haproxy_config_resource.variables['defaults']['extra_options'] = new_resource.extra_options if property_is_set?(:extra_options)
 end

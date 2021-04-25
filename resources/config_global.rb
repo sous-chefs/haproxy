@@ -20,14 +20,14 @@ property :debug_option, String,
 
 property :stats, Hash,
           default: lazy {
-                          {
-                            socket: "/var/run/haproxy.sock user #{user} group #{group}",
-                            timeout: '2m',
-                          }
-                        },
+                     {
+                       socket: "/var/run/haproxy.sock user #{user} group #{group}",
+                       timeout: '2m',
+                     }
+                   },
           description: 'Enable stats with various options'
 
-property :maxconn, Integer,
+property :maxconn, [Integer, String],
           default: 4096,
           description: 'Sets the maximum per-process number of concurrent connections'
 
@@ -51,28 +51,20 @@ action :create do
   haproxy_config_resource_init
 
   haproxy_config_resource.variables['global'] ||= {}
-  haproxy_config_resource.variables['global']['user'] ||= ''
-  haproxy_config_resource.variables['global']['user'] << new_resource.user
-  haproxy_config_resource.variables['global']['group'] ||= ''
+
+  haproxy_config_resource.variables['global']['user'] = new_resource.user
   haproxy_config_resource.variables['global']['group'] = new_resource.group
-  haproxy_config_resource.variables['global']['pidfile'] ||= ''
-  haproxy_config_resource.variables['global']['pidfile'] << new_resource.pidfile
+  haproxy_config_resource.variables['global']['pidfile'] = new_resource.pidfile
+
   haproxy_config_resource.variables['global']['log'] ||= []
-  haproxy_config_resource.variables['global']['log'] << new_resource.log
-  haproxy_config_resource.variables['global']['log_tag'] ||= ''
-  haproxy_config_resource.variables['global']['log_tag'] << new_resource.log_tag
-  haproxy_config_resource.variables['global']['chroot'] ||= '' unless new_resource.chroot.nil?
-  haproxy_config_resource.variables['global']['chroot'] << new_resource.chroot unless new_resource.chroot.nil?
-  haproxy_config_resource.variables['global']['daemon'] ||= ''
-  haproxy_config_resource.variables['global']['daemon'] << new_resource.daemon.to_s
-  haproxy_config_resource.variables['global']['debug_option'] ||= ''
-  haproxy_config_resource.variables['global']['debug_option'] << new_resource.debug_option
-  haproxy_config_resource.variables['global']['maxconn'] ||= '' unless new_resource.maxconn.nil?
-  haproxy_config_resource.variables['global']['maxconn'] << new_resource.maxconn.to_s unless new_resource.maxconn.nil?
-  haproxy_config_resource.variables['global']['stats'] ||= {}
-  haproxy_config_resource.variables['global']['stats'].merge!(new_resource.stats)
-  haproxy_config_resource.variables['global']['tuning'] ||= {} unless new_resource.tuning.nil?
-  haproxy_config_resource.variables['global']['tuning'] = new_resource.tuning unless new_resource.tuning.nil?
-  haproxy_config_resource.variables['global']['extra_options'] ||= {} unless new_resource.extra_options.nil?
-  haproxy_config_resource.variables['global']['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
+  haproxy_config_resource.variables['global']['log'].push(new_resource.log)
+
+  haproxy_config_resource.variables['global']['log_tag'] = new_resource.log_tag
+  haproxy_config_resource.variables['global']['chroot'] = new_resource.chroot if property_is_set?(:chroot)
+  haproxy_config_resource.variables['global']['daemon'] = new_resource.daemon.to_s
+  haproxy_config_resource.variables['global']['debug_option'] = new_resource.debug_option
+  haproxy_config_resource.variables['global']['maxconn'] = new_resource.maxconn
+  haproxy_config_resource.variables['global']['stats'] = new_resource.stats
+  haproxy_config_resource.variables['global']['tuning'] = new_resource.tuning if property_is_set?(:tuning)
+  haproxy_config_resource.variables['global']['extra_options'] = new_resource.extra_options if property_is_set?(:extra_options)
 end

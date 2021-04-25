@@ -29,12 +29,25 @@ action :create do
   haproxy_config_resource_init
 
   haproxy_config_resource.variables['fastcgi'] ||= {}
-  haproxy_config_resource.variables['fastcgi'][new_resource.fastcgi] ||= {}
-  haproxy_config_resource.variables['fastcgi'][new_resource.fastcgi]['docroot'] ||= new_resource.docroot unless new_resource.docroot.nil?
-  haproxy_config_resource.variables['fastcgi'][new_resource.fastcgi]['index'] ||= new_resource.index unless new_resource.index.nil?
-  haproxy_config_resource.variables['fastcgi'][new_resource.fastcgi]['log_stderr'] ||= new_resource.log_stderr unless new_resource.log_stderr.nil?
-  haproxy_config_resource.variables['fastcgi'][new_resource.name]['option'] ||= [] unless new_resource.option.nil?
-  haproxy_config_resource.variables['fastcgi'][new_resource.name]['option'] << new_resource.option unless new_resource.option.nil?
-  haproxy_config_resource.variables['fastcgi'][new_resource.name]['extra_options'] ||= {} unless new_resource.extra_options.nil?
-  haproxy_config_resource.variables['fastcgi'][new_resource.name]['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
+
+  haproxy_config_resource.variables['fastcgi'][new_resource.name] ||= {}
+  haproxy_config_resource.variables['fastcgi'][new_resource.name]['docroot'] = new_resource.docroot if property_is_set?(:docroot)
+  haproxy_config_resource.variables['fastcgi'][new_resource.name]['index'] = new_resource.index if property_is_set?(:index)
+  haproxy_config_resource.variables['fastcgi'][new_resource.name]['log_stderr'] = new_resource.log_stderr if property_is_set?(:log_stderr)
+
+  if property_is_set?(:option)
+    haproxy_config_resource.variables['fastcgi'][new_resource.name]['option'] ||= []
+    haproxy_config_resource.variables['fastcgi'][new_resource.name]['option'].push(new_resource.option)
+  end
+
+  haproxy_config_resource.variables['fastcgi'][new_resource.name]['extra_options'] = new_resource.extra_options if property_is_set?(:extra_options)
+end
+
+action :delete do
+  haproxy_config_resource_init
+
+  haproxy_config_resource.variables['fastcgi'] ||= {}
+
+  haproxy_config_resource.variables['fastcgi'][new_resource.name] ||= {}
+  haproxy_config_resource.variables['fastcgi'].delete(new_resource.name) if haproxy_config_resource.variables['fastcgi'].key?(new_resource.name)
 end

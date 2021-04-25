@@ -40,6 +40,8 @@ module Haproxy
             mode new_resource.config_file_mode
             sensitive new_resource.sensitive
 
+            helpers(Haproxy::Cookbook::TemplateHelpers)
+
             action :nothing
             delayed_action :create
           end

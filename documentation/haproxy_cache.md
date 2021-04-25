@@ -10,7 +10,8 @@ Introduced: v6.3.0
 
 ## Actions
 
-`:create`
+* `:create`
+* `:delete`
 
 ## Properties
 

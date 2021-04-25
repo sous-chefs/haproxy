@@ -12,7 +12,7 @@ Introduced: v4.0.0
 
 ## Actions
 
-`:create`
+* `:create`
 
 ## Properties
 

@@ -11,12 +11,13 @@ Introduced: v4.0.0
 
 ## Actions
 
-- `:create`
-- `:start`
-- `:stop`
-- `:restart`
-- `:reload`
-- `:enable`
+* `:create`
+* `:delete`
+* `:start`
+* `:stop`
+* `:restart`
+* `:reload`
+* `:enable`
 
 ## Properties
 

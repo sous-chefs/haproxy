@@ -79,6 +79,13 @@ action :create do
   end
 end
 
+action :delete do
+  with_run_context :root do
+    declare_resource(:cookbook_file, '/etc/default/haproxy').action(:delete)
+    declare_resource(:systemd_unit, "#{new_resource.service_name}.service").action(:delete)
+  end
+end
+
 %i(start stop restart reload enable disable).each do |action_type|
   send(:action, action_type) { do_service_action(action) }
 end
