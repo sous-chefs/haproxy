@@ -1,4 +1,4 @@
-[back to resource list](https://github.com/sous-chefs/haproxy#resources)
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 ---
 
@@ -14,13 +14,15 @@ Introduced: v4.2.0
 
 ## Properties
 
-| Name | Type |  Default | Description | Allowed Values
-| -- | -- | -- | -- | -- |
-| `use_backend` | String, Array | none | Switch to a specific backend if/unless an ACL-based condition is matched |
-| `section` |  String | none | The section where the acl(s) should be applied | `frontend`, `listen`, `backend`
-| `section_name` |  String | none | The name of the specific frontend, listen or backend section |
-| `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
-| `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+This resource also uses the following partial resources:
+
+* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+
+| Name           | Type          | Default                    | Description                                                              | Allowed Values                  |
+| -------------- | ------------- | -------------------------- | ------------------------------------------------------------------------ | ------------------------------- |
+| `use_backend`  | String, Array | None                       | Switch to a specific backend if/unless an ACL-based condition is matched |
+| `section`      | String        | None                       | The section where the acl(s) should be applied                           | `frontend`, `listen`, `backend` |
+| `section_name` | String        | None                       | The name of the specific frontend, listen or backend section             |
 
 ## Examples
 

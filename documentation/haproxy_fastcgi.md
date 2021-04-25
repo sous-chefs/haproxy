@@ -1,4 +1,4 @@
-[back to resource list](https://github.com/sous-chefs/haproxy#resources)
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 ---
 
@@ -16,16 +16,18 @@ Introduced: v8.2.0
 
 ## Properties
 
-| Name | Type |  Default | Description | Allowed Values
-| -- | -- | -- | -- | -- |
-| `fastcgi` | String | none | Name property - sets the fcgi-app name |
-| `docroot` | String | none | Define the document root on the remote host |
-| `index` | String | none | Define the script name that will be appended after an URI that ends with a slash |
-| `log_stderr` | String | none | Enable logging of STDERR messages reported by the FastCGI application |
-| `option` |  Array | none | Array of HAProxy `option` directives |
-| `extra_options` | Hash | none | Used for setting any HAProxy directives |
-| `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
-| `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+This resource also uses the following partial resources:
+
+* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+* [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
+
+| Name            | Type   | Default                    | Description                                                                      | Allowed Values  |
+| --------------- | ------ | -------------------------- | -------------------------------------------------------------------------------- | --------------- |
+| `fastcgi`       | String | None                       | Name property - sets the fcgi-app name                                           |
+| `docroot`       | String | None                       | Define the document root on the remote host                                      |
+| `index`         | String | None                       | Define the script name that will be appended after an URI that ends with a slash |
+| `log_stderr`    | String | None                       | Enable logging of STDERR messages reported by the FastCGI application            |
+| `option`        | Array  | None                       | Array of HAProxy `option` directives                                             |
 
 ## Examples
 

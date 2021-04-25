@@ -1,4 +1,4 @@
-[back to resource list](https://github.com/sous-chefs/haproxy#resources)
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 ---
 
@@ -16,23 +16,23 @@ Introduced: v4.0.0
 
 ## Properties
 
-| Name | Type |  Default | Description | Allowed Values
-| -- | -- | -- | -- | -- |
-| `haproxy_user` | String | `haproxy` | Similar to "uid" but uses the UID of user name `<user name>` from /etc/passwd |
-| `haproxy_group` | String | `haproxy` | Similar to "gid" but uses the GID of group name `<group name>` from /etc/group |
-| `pidfile` | String | `/var/run/haproxy.pid` | Writes PIDs of all daemons into file `<pidfile>` |
-| `log` | String, Array | `/dev/log syslog info` | Adds a global syslog server |
-| `daemon` | TrueClass, FalseClass | `true` | Makes the process fork into background |
-| `debug_option` | String | `quiet` | Sets the debugging mode | `quiet`, `debug`
-| `stats` | Hash | `{socket: "/var/run/haproxy.sock user #{haproxy_user} group #{haproxy_group}",timeout: '2m'}` | Enable stats with various options |
-| `maxconn` | Integer | `4096` | Sets the maximum per-process number of concurrent connections |
-| `chroot` | String | none | Changes current directory to `<jail dir>` and performs a chroot() there before dropping privileges |
-| `log_tag` | String | `haproxy` | Specifies the log tag to use for all outgoing logs |
-| `tuning` | Hash | none | A hash of `tune.<options>` |
-| `extra_options` |  Hash | none | Used for setting any HAProxy directives |
-| `config_cookbook` | String | `haproxy` | Used to configure loading config from another cookbook |
-| `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
-| `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+This resource also uses the following partial resources:
+
+* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+* [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
+
+| Name            | Type                  | Default                                                                                       | Description                                                                                        | Allowed Values   |
+| --------------- | --------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ---------------- |
+| `pidfile`       | String                | `/var/run/haproxy.pid`                                                                        | Writes PIDs of all daemons into file `<pidfile>`                                                   |
+| `log`           | String, Array         | `/dev/log syslog info`                                                                        | Adds a global syslog server                                                                        |
+| `daemon`        | TrueClass, FalseClass | `true`                                                                                        | Makes the process fork into background                                                             |
+| `debug_option`  | String                | `quiet`                                                                                       | Sets the debugging mode                                                                            | `quiet`, `debug` |
+| `stats`         | Hash                  | `{socket: "/var/run/haproxy.sock user #{haproxy_user} group #{haproxy_group}",timeout: '2m'}` | Enable stats with various options                                                                  |
+| `maxconn`       | Integer               | `4096`                                                                                        | Sets the maximum per-process number of concurrent connections                                      |
+| `chroot`        | String                | None                                                                                          | Changes current directory to `<jail dir>` and performs a chroot() there before dropping privileges |
+| `log_tag`       | String                | `haproxy`                                                                                     | Specifies the log tag to use for all outgoing logs                                                 |
+| `tuning`        | Hash                  | None                                                                                          | A hash of `tune.<options>`                                                                         |
+| `extra_options` | Hash                  | None                                                                                          | Used for setting any HAProxy directives                                                            |
 
 ## Examples
 

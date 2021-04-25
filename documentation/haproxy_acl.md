@@ -1,4 +1,4 @@
-[back to resource list](https://github.com/sous-chefs/haproxy#resources)
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 ---
 
@@ -16,13 +16,11 @@ Introduced: v4.2.0
 
 ## Properties
 
-| Name | Type |  Default | Description | Allowed Values
-| -- | -- | -- | -- | -- |
-| `acl` |  String, Array | none | The access control list items | Allowed HAProxy acl values
-| `section` |  String | none | The section where the acl(s) should be applied | `frontend`, `listen`, `backend`
-| `section_name` |  String | none | The name of the specific frontend, listen or backend section |
-| `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
-| `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+| Name           | Type          | Default                    | Description                                                  | Allowed Values                  |
+| -------------- | ------------- | -------------------------- | ------------------------------------------------------------ | ------------------------------- |
+| `acl`          | String, Array | None                       | The access control list items                                | Allowed HAProxy acl values      |
+| `section`      | String        | None                       | The section where the acl(s) should be applied               | `frontend`, `listen`, `backend` |
+| `section_name` | String        | None                       | The name of the specific frontend, listen or backend section |
 
 ## Examples
 

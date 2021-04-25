@@ -1,4 +1,4 @@
-[back to resource list](https://github.com/sous-chefs/haproxy#resources)
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 ---
 
@@ -14,9 +14,13 @@ Introduced: v4.0.0
 
 ## Properties
 
+This resource also uses the following partial resources:
+
+* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+
 | Name                   | Type        | Default                                                          | Description                                                                    | Allowed Values      |
 | ---------------------- | ----------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------- |
-| `install_type`         | String      | none                                                             | Set the installation type                                                      | `package`, `source` |
+| `install_type`         | String      | None                                                             | Set the installation type                                                      | `package`, `source` |
 | `bin_prefix`           | String      | `/usr`                                                           | Set the source compile prefix                                                  |
 | `sensitive`            | true, false | `true`                                                           | Ensure that sensitive resource data is not logged by the chef-client           |
 | `use_systemd`          | true, false | `true`                                                           | Evalues whether to use systemd based on the nodes init package                 |
@@ -30,7 +34,7 @@ Introduced: v4.0.0
 | `package_name`         | String      | `haproxy`                                                        |                                                                                |
 | `package_version`      | String, nil | `nil`                                                            |                                                                                |
 | `enable_ius_repo`      | true, false | `false`                                                          | Enables the IUS package repo for Centos to install versions >1.5               |
-| `enable_yum_epel_repo`      | true, false | `true`                                                          | Enables the epel repo for RHEL based operating systems|
+| `enable_yum_epel_repo` | true, false | `true`                                                           | Enables the epel repo for RHEL based operating systems                         |
 | `source_version`       | String      | `1.7.8`                                                          |                                                                                |
 | `source_url`           | String      | `http://www.haproxy.org/download/1.7.8/src/haproxy-1.7.8.tar.gz` |                                                                                |
 | `source_checksum`      | String, nil | `nil`                                                            |                                                                                |
@@ -43,10 +47,10 @@ Introduced: v4.0.0
 | `use_zlib`             | String      | `1`                                                              |                                                                                | `0`, `1`            |
 | `use_linux_tproxy`     | String      | `1`                                                              |                                                                                | `0`, `1`            |
 | `use_linux_splice`     | String      | `1`                                                              |                                                                                | `0`, `1`            |
-| `use_systemd`     | String      | `1`                                                              |                                                                                | `0`, `1`            |
-| `use_lua`              | String      | `0`                                     | `0`, `1`            |
-| `lua_lib`              | String, nil | `nil`                                   | |
-| `lua_inc`              | String, nil | `nil`                                   | |
+| `use_systemd`          | String      | `1`                                                              |                                                                                | `0`, `1`            |
+| `use_lua`              | String      | `0`                                                              | `0`, `1`                                                                       |
+| `lua_lib`              | String, nil | `nil`                                                            |                                                                                |
+| `lua_inc`              | String, nil | `nil`                                                            |                                                                                |
 
 ## Examples
 
