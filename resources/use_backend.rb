@@ -1,3 +1,5 @@
+property :haproxy_user, String, default: 'haproxy'
+property :haproxy_group, String, default: 'haproxy'
 property :use_backend, [String, Array], name_property: true
 property :section, String, required: true, equal_to: %w(frontend listen backend)
 property :section_name, String, required: true

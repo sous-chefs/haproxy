@@ -1,3 +1,5 @@
+property :haproxy_user, String, default: 'haproxy'
+property :haproxy_group, String, default: 'haproxy'
 property :bind, [ String, Hash ]
 property :state, [ String, nil ], equal_to: [ 'enabled', 'disabled', nil ]
 property :server, Array

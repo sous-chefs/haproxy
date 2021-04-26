@@ -1,3 +1,5 @@
+property :haproxy_user, String, default: 'haproxy'
+property :haproxy_group, String, default: 'haproxy'
 property :nameserver, Array
 property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'

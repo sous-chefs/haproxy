@@ -1,3 +1,5 @@
+property :haproxy_user, String, default: 'haproxy'
+property :haproxy_group, String, default: 'haproxy'
 property :mode, String, equal_to: %w(http tcp health)
 property :bind, [String, Hash], default: '0.0.0.0:80'
 property :maxconn, Integer

@@ -18,6 +18,9 @@ property :tuning, Hash
 property :extra_options, Hash
 property :config_dir, String, default: '/etc/haproxy'
 property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
+property :conf_template_source, String, default: 'haproxy.cfg.erb'
+property :conf_cookbook, String, default: 'haproxy'
+property :conf_file_mode, String, default: '0644'
 
 unified_mode true
 
@@ -26,6 +29,8 @@ action_class do
 end
 
 action :create do
+  haproxy_config_resource_init
+
   haproxy_config_resource.variables['global'] ||= {}
   haproxy_config_resource.variables['global']['user'] ||= ''
   haproxy_config_resource.variables['global']['user'] << new_resource.haproxy_user

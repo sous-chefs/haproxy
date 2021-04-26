@@ -1,3 +1,5 @@
+property :haproxy_user, String, default: 'haproxy'
+property :haproxy_group, String, default: 'haproxy'
 property :timeout, Hash, default: { client: '10s', server: '10s', connect: '10s' }
 property :log, String, default: 'global'
 property :mode, String, default: 'http', equal_to: %w(http tcp health)

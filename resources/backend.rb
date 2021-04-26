@@ -1,3 +1,5 @@
+property :haproxy_user, String, default: 'haproxy'
+property :haproxy_group, String, default: 'haproxy'
 property :mode, String, equal_to: %w(http tcp health)
 property :server, Array
 property :tcp_request, Array
