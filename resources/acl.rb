@@ -24,6 +24,9 @@ action :create do
   haproxy_config_resource_init
 
   haproxy_config_resource.variables[new_resource.section] ||= {}
+
+  haproxy_config_resource.variables[new_resource.section][new_resource.section_name] ||= {}
+
   haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['acl'] ||= []
   haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['acl'].push(new_resource.acl)
 end
