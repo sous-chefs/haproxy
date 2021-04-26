@@ -31,45 +31,44 @@ property :source_version, String,
 property :source_url, String,
           default: lazy { "https://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version}.tar.gz" }
 
-property :source_checksum, [String, nil],
+property :source_checksum, String,
           default: '87a4d9d4ff8dc3094cb61bbed4a8eed2c40b5ac47b9604daebaf036d7b541be2'
 
-property :source_target_cpu, [String, nil],
+property :source_target_cpu, String,
           default: lazy { node['kernel']['machine'] }
 
-property :source_target_arch, [String, nil]
+property :source_target_arch, String
 
 property :source_target_os, String,
           default: lazy { target_os(source_version) }
 
-property :use_libcrypt, String,
-          equal_to: %w(0 1), default: '1'
+property :use_libcrypt, [true, false],
+          default: true
 
-property :use_pcre, String,
-          equal_to: %w(0 1), default: '1'
+property :use_pcre, [true, false],
+          default: true
 
-property :use_openssl, String,
-          equal_to: %w(0 1), default: '1'
+property :use_openssl, [true, false],
+          default: true
 
-property :use_zlib, String,
-          equal_to: %w(0 1), default: '1'
+property :use_zlib, [true, false],
+          default: true
 
-property :use_linux_tproxy, String,
-          equal_to: %w(0 1), default: '1'
+property :use_linux_tproxy, [true, false],
+          default: true
 
-property :use_linux_splice, String,
-          equal_to: %w(0 1), default: '1'
+property :use_linux_splice, [true, false],
+          default: true
 
-property :use_lua, String,
-          equal_to: %w(0 1), default: '0'
+property :use_lua, [true, false],
+          default: false
 
-property :lua_lib, [String, nil]
+property :lua_lib, String
 
-property :lua_inc, [String, nil]
+property :lua_inc, String
 
-property :use_systemd, String,
-          equal_to: %w(0 1),
-          default: lazy { source_version.to_f >= 1.8 ? '1' : '0' }
+property :use_systemd, [true, false],
+          default: lazy { source_version.to_f >= 1.8 }
 
 unified_mode true
 
@@ -80,6 +79,10 @@ end
 action_class do
   include Haproxy::Cookbook::Helpers
   include Haproxy::Cookbook::ResourceHelpers
+
+  def compile_make_boolean(bool)
+    bool ? '1' : '0'
+  end
 end
 
 action :create do
@@ -125,18 +128,18 @@ action :create do
     end
 
     make_cmd = "make TARGET=#{new_resource.source_target_os}"
-    make_cmd << " CPU=#{new_resource.source_target_cpu}" unless new_resource.source_target_cpu.nil?
-    make_cmd << " ARCH=#{new_resource.source_target_arch}" unless new_resource.source_target_arch.nil?
-    make_cmd << " USE_LIBCRYPT=#{new_resource.use_libcrypt}"
-    make_cmd << " USE_PCRE=#{new_resource.use_pcre}"
-    make_cmd << " USE_OPENSSL=#{new_resource.use_openssl}"
-    make_cmd << " USE_ZLIB=#{new_resource.use_zlib}"
-    make_cmd << " USE_LINUX_TPROXY=#{new_resource.use_linux_tproxy}"
-    make_cmd << " USE_LINUX_SPLICE=#{new_resource.use_linux_splice}"
-    make_cmd << " USE_SYSTEMD=#{new_resource.use_systemd}"
-    make_cmd << " USE_LUA=#{new_resource.use_lua}" unless new_resource.use_lua == '0'
-    make_cmd << " LUA_LIB=#{new_resource.lua_lib}" unless new_resource.lua_lib.nil?
-    make_cmd << " LUA_INC=#{new_resource.lua_inc}" unless new_resource.lua_inc.nil?
+    make_cmd << " CPU=#{new_resource.source_target_cpu}" if property_is_set?(:source_target_cpu)
+    make_cmd << " ARCH=#{new_resource.source_target_arch}" if property_is_set?(:source_target_arch)
+    make_cmd << " USE_LIBCRYPT=#{compile_make_boolean(new_resource.use_libcrypt)}"
+    make_cmd << " USE_PCRE=#{compile_make_boolean(new_resource.use_pcre)}"
+    make_cmd << " USE_OPENSSL=#{compile_make_boolean(new_resource.use_openssl)}"
+    make_cmd << " USE_ZLIB=#{compile_make_boolean(new_resource.use_zlib)}"
+    make_cmd << " USE_LINUX_TPROXY=#{compile_make_boolean(new_resource.use_linux_tproxy)}"
+    make_cmd << " USE_LINUX_SPLICE=#{compile_make_boolean(new_resource.use_linux_splice)}"
+    make_cmd << " USE_SYSTEMD=#{compile_make_boolean(new_resource.use_systemd)}"
+    make_cmd << " USE_LUA=#{compile_make_boolean(new_resource.use_lua)}" if new_resource.use_lua
+    make_cmd << " LUA_LIB=#{new_resource.lua_lib}" if property_is_set?(:lua_lib)
+    make_cmd << " LUA_INC=#{new_resource.lua_inc}" if property_is_set?(:lua_inc)
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if new_resource.source_version.to_f < 1.8
 
     bash 'compile_haproxy' do

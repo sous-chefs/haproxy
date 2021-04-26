@@ -39,12 +39,12 @@ haproxy_install 'source' do
   source_url 'http://www.haproxy.org/download/2.0/src/haproxy-2.0.5.tar.gz'
   source_checksum '3f2e0d40af66dd6df1dc2f6055d3de106ba62836d77b4c2e497a82a4bdbc5422'
   source_version '2.0.5'
-  use_pcre '1'
-  use_openssl '1'
-  use_zlib '1'
-  use_linux_tproxy '1'
-  use_linux_splice '1'
-  use_lua '1'
+  use_pcre true
+  use_openssl true
+  use_zlib true
+  use_linux_tproxy true
+  use_linux_splice true
+  use_lua true
   lua_lib '/opt/lua-5.3.1/lib'
   lua_inc '/opt/lua-5.3.1/include'
 end
