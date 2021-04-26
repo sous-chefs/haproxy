@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## Unreleased
+## 10.0.1 - *2021-04-26*
 
 - Add missing configuration file properties to all resources
 
