@@ -48,10 +48,12 @@ jobs:
           - "centos-7"
           - "centos-8"
           - "centos-stream-8"
+          - "fedora-latest"
         suite:
           - "package"
           - "source-18"
           - "source-20"
+          - "source-22"
           - "source-default"
       fail-fast: false
 
