@@ -9,6 +9,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Fix the minimum Chef version to 15.3
   unified_mode was introduced in 15.3
 - Change kitchen to use the Bento provided Amazonlinux2 image
+- Fix test suite
 
 ## 10.0.1 - *2021-04-26*
 
