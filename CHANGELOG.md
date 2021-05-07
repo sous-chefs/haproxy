@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## Unreleased
+## 11.0.0 - *2021-05-07*
 
 - Drop testing for Debian 8, Ubuntu 16.04 & Ubuntu 18.04
 - Add testing for Debian 9 Ubuntu 20.04 & Ubuntu 21.04
