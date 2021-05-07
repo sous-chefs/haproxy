@@ -85,7 +85,7 @@ action_class do
   end
 end
 
-action :create do
+action :install do
   case new_resource.install_type
   when 'package'
     case node['platform_family']
