@@ -50,8 +50,8 @@ jobs:
           - "centos-stream-8"
         suite:
           - "package"
+          - "source-18"
           - "source-20"
-          - "source-21"
           - "source-default"
       fail-fast: false
 
