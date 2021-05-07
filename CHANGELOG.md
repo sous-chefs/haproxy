@@ -4,6 +4,12 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+- Drop testing for Debian 8, Ubuntu 16.04 & Ubuntu 18.04
+- Add testing for Debian 9 Ubuntu 20.04 & Ubuntu 21.04
+- Fix the minimum Chef version to 15.3
+  unified_mode was introduced in 15.3
+- Change kitchen to use the Bento provided Amazonlinux2 image
+
 ## 10.0.1 - *2021-04-26*
 
 - Add missing configuration file properties to all resources
