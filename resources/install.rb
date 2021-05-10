@@ -4,13 +4,16 @@ use 'partial/_config_file'
 
 property :install_type, String,
           name_property: true,
-          equal_to: %w(package source)
+          equal_to: %w(package source),
+          description: 'Set the installation type'
 
 property :bin_prefix, String,
-          default: '/usr'
+          default: '/usr',
+          description: 'Set the source compile prefix'
 
 property :sensitive, [true, false],
-          default: true
+          default: true,
+          description: 'Ensure that sensitive resource data is not logged by the chef-client'
 
 # Package
 property :package_name, String,
@@ -19,10 +22,12 @@ property :package_name, String,
 property :package_version, [String, nil]
 
 property :enable_ius_repo, [true, false],
-          default: false
+          default: false,
+          description: 'Enables the IUS package repo for Centos to install versions >1.5'
 
 property :enable_epel_repo, [true, false],
-          default: true
+          default: true,
+          description: 'Enables the epel repo for RHEL based operating systems'
 
 # Source
 property :source_version, String,
@@ -68,7 +73,8 @@ property :lua_lib, String
 property :lua_inc, String
 
 property :use_systemd, [true, false],
-          default: lazy { source_version.to_f >= 1.8 }
+          default: lazy { source_version.to_f >= 1.8 },
+          description: 'Evalues whether to use systemd based on the nodes init package'
 
 unified_mode true
 
@@ -94,21 +100,23 @@ action :install do
     when 'rhel'
       include_recipe 'yum-epel' if new_resource.enable_epel_repo
 
-      if new_resource.enable_ius_repo && ius_platform_valid?
-        puts ius_package[:url]
+      if new_resource.enable_ius_repo
+        if ius_platform_valid?
+          puts ius_package[:url]
 
-        remote_file ::File.join(Chef::Config[:file_cache_path], ius_package[:name]) do
-          source ius_package[:url]
-          only_if { new_resource.enable_ius_repo }
-        end
+          remote_file ::File.join(Chef::Config[:file_cache_path], ius_package[:name]) do
+            source ius_package[:url]
+            only_if { new_resource.enable_ius_repo }
+          end
 
-        package ius_package[:name] do
-          source ::File.join(Chef::Config[:file_cache_path], ius_package[:name])
-          only_if { new_resource.enable_ius_repo }
-        end
-      else
-        log 'This platform is not supported by IUS, ignoring enable_ius_repo property' do
-          level :warn
+          package ius_package[:name] do
+            source ::File.join(Chef::Config[:file_cache_path], ius_package[:name])
+            only_if { new_resource.enable_ius_repo }
+          end
+        else
+          log 'This platform is not supported by IUS, ignoring enable_ius_repo property' do
+            level :warn
+          end
         end
       end
     end
