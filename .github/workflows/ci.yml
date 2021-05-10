@@ -55,6 +55,11 @@ jobs:
           - "source-20"
           - "source-22"
           - "source-default"
+        exclude:
+          - os: 'fedora-latest'
+            suite: 'source-18'
+          - os: 'ubuntu-2104'
+            suite: 'source-18'
       fail-fast: false
 
     steps:
