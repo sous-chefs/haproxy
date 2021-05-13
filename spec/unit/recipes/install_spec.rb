@@ -15,12 +15,12 @@ describe 'haproxy_install' do
   context 'compile HAProxy' do
     recipe do
       haproxy_install 'source' do
-        use_libcrypt '1'
-        use_pcre '1'
-        use_openssl '1'
-        use_zlib '1'
-        use_linux_tproxy '1'
-        use_linux_splice '1'
+        use_libcrypt true
+        use_pcre true
+        use_openssl true
+        use_zlib true
+        use_linux_tproxy true
+        use_linux_splice true
       end
     end
     before(:each) do

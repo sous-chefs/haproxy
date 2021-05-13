@@ -1,4 +1,4 @@
-[back to resource list](https://github.com/sous-chefs/haproxy#resources)
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 ---
 
@@ -10,17 +10,19 @@ Introduced: v8.0.0
 
 ## Actions
 
-`:create`
+* `:create`
+* `:delete`
 
 ## Properties
 
-| Name | Type |  Default | Description | Allowed Values
-| -- | -- | -- | -- | -- |
-| `mailer` | String, Array | none | Defines a mailer inside a mailers section |
-| `timeout` | String | none | Defines the time available for a mail/connection to be made and send to the mail-server |
-| `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
-| `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
-| `config_cookbook` |  String | `haproxy` | Used to configure loading config from another cookbook
+This resource also uses the following partial resources:
+
+* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+
+| Name      | Type          | Default | Description                                                                             | Allowed Values |
+| --------- | ------------- | ------- | --------------------------------------------------------------------------------------- | -------------- |
+| `mailer`  | String, Array | None    | Defines a mailer inside a mailers section                                               |
+| `timeout` | String        | None    | Defines the time available for a mail/connection to be made and send to the mail-server |
 
 ## Examples
 

@@ -1,12 +1,8 @@
-property :haproxy_user, String, default: 'haproxy'
-property :haproxy_group, String, default: 'haproxy'
-property :nameserver, Array
-property :extra_options, Hash
-property :config_dir, String, default: '/etc/haproxy'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :conf_template_source, String, default: 'haproxy.cfg.erb'
-property :conf_cookbook, String, default: 'haproxy'
-property :conf_file_mode, String, default: '0644'
+use 'partial/_config_file'
+use 'partial/_extra_options'
+
+property :nameserver, Array,
+          description: 'DNS server description'
 
 unified_mode true
 
@@ -18,9 +14,22 @@ action :create do
   haproxy_config_resource_init
 
   haproxy_config_resource.variables['resolvers'] ||= {}
+
   haproxy_config_resource.variables['resolvers'][new_resource.name] ||= {}
-  haproxy_config_resource.variables['resolvers'][new_resource.name]['nameserver'] ||= [] unless new_resource.nameserver.nil?
-  haproxy_config_resource.variables['resolvers'][new_resource.name]['nameserver'] << new_resource.nameserver unless new_resource.nameserver.nil?
-  haproxy_config_resource.variables['resolvers'][new_resource.name]['extra_options'] ||= {} unless new_resource.extra_options.nil?
-  haproxy_config_resource.variables['resolvers'][new_resource.name]['extra_options'] = new_resource.extra_options unless new_resource.extra_options.nil?
+
+  if property_is_set?(:nameserver)
+    haproxy_config_resource.variables['resolvers'][new_resource.name]['nameserver'] ||= []
+    haproxy_config_resource.variables['resolvers'][new_resource.name]['nameserver'].push(new_resource.nameserver)
+  end
+
+  haproxy_config_resource.variables['resolvers'][new_resource.name]['extra_options'] = new_resource.extra_options if property_is_set?(:extra_options)
+end
+
+action :delete do
+  haproxy_config_resource_init
+
+  haproxy_config_resource.variables['resolvers'] ||= {}
+
+  haproxy_config_resource.variables['resolvers'][new_resource.name] ||= {}
+  haproxy_config_resource.variables['resolvers'].delete(new_resource.name) if haproxy_config_resource.variables['resolvers'].key?(new_resource.name)
 end

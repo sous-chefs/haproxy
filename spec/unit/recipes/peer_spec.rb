@@ -1,13 +1,11 @@
 require 'spec_helper'
 
-describe 'haproxy_' do
+describe 'haproxy_peer' do
   step_into :haproxy_peer, :haproxy_frontend, :haproxy_install, :haproxy_backend
   platform 'ubuntu'
 
   context 'create a peers section, frontend and backend and verify config is created properly' do
     recipe do
-      haproxy_install 'package'
-
       haproxy_peer 'mypeers' do
         bind('0.0.0.0:1336' => '')
         default_server 'ssl verify none'

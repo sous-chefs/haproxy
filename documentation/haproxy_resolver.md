@@ -1,4 +1,4 @@
-[back to resource list](https://github.com/sous-chefs/haproxy#resources)
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 ---
 
@@ -12,16 +12,19 @@ Introduced: v4.5.0
 
 ## Actions
 
-`:create`
+* `:create`
+* `:delete`
 
 ## Properties
 
-| Name | Type |  Default | Description | Allowed Values
-| -- | -- | -- | -- | -- |
-| `nameserver` | Array | none | DNS server description |
-| `extra_options` | Hash | none | Used for setting any HAProxy directives |
-| `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
-| `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+This resource also uses the following partial resources:
+
+* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+* [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
+
+| Name            | Type   | Default                    | Description                                           | Allowed Values  |
+| --------------- | ------ | -------------------------- | ----------------------------------------------------- | --------------- |
+| `nameserver`    | Array  | None                       | DNS server description                                |
 
 ## Examples
 

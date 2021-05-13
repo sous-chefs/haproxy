@@ -10,7 +10,7 @@ module Haproxy
         case node['platform_family']
         when 'debian'
           %w(libpcre3-dev libssl-dev zlib1g-dev libsystemd-dev)
-        when 'rhel', 'amazon'
+        when 'rhel', 'amazon', 'fedora'
           %w(pcre-devel openssl-devel zlib-devel systemd-devel)
         when 'suse'
           %w(pcre-devel libopenssl-devel zlib-devel systemd-devel)

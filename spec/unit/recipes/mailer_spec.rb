@@ -1,13 +1,11 @@
 require 'spec_helper'
 
-describe 'haproxy_' do
+describe 'haproxy_mailer' do
   step_into :haproxy_mailer, :haproxy_frontend, :haproxy_install, :haproxy_backend
   platform 'ubuntu'
 
   context 'create a mailer, frontend and backend and verify config is created properly' do
     recipe do
-      haproxy_install 'package'
-
       haproxy_mailer 'mymailer' do
         mailer ['smtp1 192.168.0.1:587', 'smtp2 192.168.0.2:587']
         timeout '20s'

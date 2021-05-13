@@ -1,4 +1,4 @@
-[back to resource list](https://github.com/sous-chefs/haproxy#resources)
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 ---
 
@@ -12,28 +12,31 @@ Introduced: v4.0.0
 
 ## Actions
 
-`:create`
+* `:create`
+* `:delete`
 
 ## Properties
 
-| Name | Type |  Default | Description | Allowed Values
-| -- | -- | -- | -- | -- |
-| `bind` | String, Hash | `0.0.0.0:80` | String - sets as given. Hash joins with a space |
-| `mode` | String | none | Set the running mode or protocol of the instance | `http`, `tcp`
-| `maxconn` | Integer | none | Sets the maximum per-process number of concurrent connections |
-| `reqrep` | String, Array | none | Replace a regular expression with a string in an HTTP request line |
-| `reqirep` | String, Array | none | `reqrep` ignoring case |
-| `default_backend` | String | none | Specify the backend to use when no "use_backend" rule has been matched |
-| `use_backend` | Array | none | Switch to a specific backend if/unless an ACL-based condition is matched |
-| `http_request` | Array | none | Switch to a specific backend if/unless an ACL-based condition is matched |
-| `http_response` | Array | none | Switch to a specific backend if/unless an ACL-based condition is matched |
-| `acl` | Array | none | Access control list items | Allowed HAProxy acl values
-| `server` | Array | none | Servers the listen section routes to |
-| `stats` | Hash | none | Enable stats with various options |
-| `hash_type` |  String | none | Specify a method to use for mapping hashes to servers | `consistent`, `map-based`
-| `extra_options` |  Hash | none | Used for setting any HAProxy directives |
-| `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
-| `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+This resource also uses the following partial resources:
+
+* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+* [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
+
+| Name              | Type          | Default      | Description                                                              | Allowed Values             |
+| ----------------- | ------------- | ------------ | ------------------------------------------------------------------------ | -------------------------- |
+| `bind`            | String, Hash  | `0.0.0.0:80` | String - sets as given. Hash - joins with a space                        |
+| `mode`            | String        | None         | Set the running mode or protocol of the instance                         | `http`, `tcp`              |
+| `maxconn`         | Integer       | None         | Sets the maximum per-process number of concurrent connections            |
+| `reqrep`          | String, Array | None         | Replace a regular expression with a string in an HTTP request line       |
+| `reqirep`         | String, Array | None         | `reqrep` ignoring case                                                   |
+| `default_backend` | String        | None         | Specify the backend to use when no "use_backend" rule has been matched   |
+| `use_backend`     | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |
+| `http_request`    | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |
+| `http_response`   | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |
+| `acl`             | Array         | None         | Access control list items                                                | Allowed HAProxy acl values |
+| `server`          | Array         | None         | Servers the listen section routes to                                     |
+| `stats`           | Hash          | None         | Enable stats with various options                                        |
+| `hash_type`       | String        | None         | Specify a method to use for mapping hashes to servers                    | `consistent`, `map-based`  |
 
 ## Examples
 

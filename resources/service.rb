@@ -1,12 +1,26 @@
 include Haproxy::Cookbook::Helpers
 
-property :bin_prefix, String, default: '/usr'
-property :config_dir,  String, default: '/etc/haproxy'
-property :config_file, String, default: lazy { ::File.join(config_dir, 'haproxy.cfg') }
-property :service_name, String, default: 'haproxy'
-property :systemd_unit_content, [String, Hash], default: lazy { default_systemd_unit_content }
-property :config_test, [true, false], default: true, description: 'Perform configuration file test before performing service action'
-property :config_test_fail_action, Symbol, equal_to: %i(raise log), default: :raise, description: 'Action to perform upon configuration test failure.'
+use 'partial/_config_file'
+
+property :bin_prefix, String,
+          default: '/usr',
+          description: 'Bin location of the haproxy binary, defaults to /usr'
+
+property :service_name, String,
+          default: 'haproxy'
+
+property :systemd_unit_content, [String, Hash],
+          default: lazy { default_systemd_unit_content },
+          description: 'HAProxy systemd unit contents'
+
+property :config_test, [true, false],
+          default: true,
+          description: 'Perform configuration file test before performing service action'
+
+property :config_test_fail_action, Symbol,
+          equal_to: %i(raise log),
+          default: :raise,
+          description: 'Action to perform upon configuration test failure.'
 
 unified_mode true
 
@@ -62,6 +76,13 @@ action :create do
       triggers_reload true
       action :create
     end
+  end
+end
+
+action :delete do
+  with_run_context :root do
+    declare_resource(:cookbook_file, '/etc/default/haproxy').action(:delete)
+    declare_resource(:systemd_unit, "#{new_resource.service_name}.service").action(:delete)
   end
 end
 

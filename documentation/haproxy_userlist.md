@@ -1,4 +1,4 @@
-[back to resource list](https://github.com/sous-chefs/haproxy#resources)
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 ---
 
@@ -10,16 +10,19 @@ Introduced: v4.1.0
 
 ## Actions
 
-`:create`
+* `:create`
+* `:delete`
 
 ## Properties
 
-| Name | Type |  Default | Description | Allowed Values
-| -- | -- | -- | -- | -- |
-| `group` | Hash | none | Adds group `<groupname>` to the current userlist |
-| `user` |  Hash | none | Adds user `<username>` to the current userlist |
-| `config_dir` |  String | `/etc/haproxy` | The directory where the HAProxy configuration resides | Valid directory
-| `config_file` |  String | `/etc/haproxy/haproxy.cfg` | The HAProxy configuration file | Valid file name
+This resource also uses the following partial resources:
+
+* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+
+| Name          | Type   | Default                    | Description                                           | Allowed Values  |
+| ------------- | ------ | -------------------------- | ----------------------------------------------------- | --------------- |
+| `group`       | Hash   | None                       | Adds group `<groupname>` to the current userlist      |
+| `user`        | Hash   | None                       | Adds user `<username>` to the current userlist        |
 
 ## Examples
 

@@ -1,13 +1,11 @@
 require 'spec_helper'
 
-describe 'haproxy_' do
+describe 'haproxy_cache' do
   step_into :haproxy_cache, :haproxy_frontend, :haproxy_install, :haproxy_backend
   platform 'ubuntu'
 
   context 'create a cache, frontend and backend and verify config is created properly' do
     recipe do
-      haproxy_install 'package'
-
       haproxy_cache 'test' do
         cache_name 'test-cache'
         total_max_size 4

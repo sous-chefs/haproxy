@@ -1,13 +1,11 @@
 require 'spec_helper'
 
-describe 'haproxy_' do
+describe 'haproxy_fastcgi' do
   step_into :haproxy_fastcgi, :haproxy_frontend, :haproxy_install, :haproxy_backend
   platform 'ubuntu'
 
   context 'create a fastcgi resource, frontend and backend and verify config is created properly' do
     recipe do
-      haproxy_install 'package'
-
       haproxy_fastcgi 'php-fpm' do
         log_stderr 'global'
         docroot '/var/www/my-app'

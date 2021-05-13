@@ -1,13 +1,11 @@
 require 'spec_helper'
 
-describe 'haproxy_' do
+describe 'haproxy_frontend' do
   step_into :haproxy_frontend, :haproxy_install, :haproxy_backend
   platform 'ubuntu'
 
   context 'create frontend and backend with http-request rule placed before use_backend' do
     recipe do
-      haproxy_install 'package'
-
       haproxy_frontend 'admin' do
         bind '0.0.0.0:1337' => ''
         mode 'http'

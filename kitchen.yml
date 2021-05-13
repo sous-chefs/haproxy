@@ -4,12 +4,12 @@ driver:
 
 provisioner:
   name: chef_zero
+  deprecations_as_errors: true
+  chef_license: accept
   product_name: chef
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
-  install_strategy: once
-
-client_rb:
-  treat_deprecation_warnings_as_errors: true
+  install_strategy: always
+  log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
 
 verifier:
   name: inspec
@@ -32,6 +32,9 @@ suites:
   - name: source-2.0
     run_list:
       - recipe[test::source-20]
+  - name: source-2.2
+    run_list:
+      - recipe[test::source-22]
   - name: source-default
     run_list:
       - recipe[test::source]

@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## Unreleased
+
+- Refactor to use resource partials
+- Add delete action to most resources
+- Convert `install` resource boolean strings to true/false
+- Ensure section is created before adding an ACL
+
 ## 11.0.0 - *2021-05-07*
 
 - Drop testing for Debian 8, Ubuntu 16.04 & Ubuntu 18.04

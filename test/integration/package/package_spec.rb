@@ -3,7 +3,7 @@ describe directory '/etc/haproxy' do
 end
 
 describe file '/etc/haproxy/haproxy.cfg' do
-  its(:mode) { should cmp '0644' }
+  its(:mode) { should cmp '0640' }
 end
 
 if os.debian? && os.release.start_with?('14')

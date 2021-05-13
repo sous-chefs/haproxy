@@ -1,9 +1,6 @@
 apt_update
 
-haproxy_install 'package' do
-  conf_template_source 'custom-template.cfg.erb'
-  conf_cookbook 'test'
-end
+haproxy_install 'package'
 
 directory '/var/lib/haproxy' do
   owner 'haproxy'
@@ -11,6 +8,8 @@ directory '/var/lib/haproxy' do
 end
 
 haproxy_config_global '' do
+  template 'custom-template.cfg.erb'
+  cookbook 'test'
   chroot '/var/lib/haproxy'
   daemon true
   pidfile '/run/haproxy.pid'
