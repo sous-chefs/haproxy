@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## Unreleased
+## 12.0.0 - *2021-05-13*
 
 - Refactor to use resource partials
 - Add delete action to most resources
