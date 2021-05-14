@@ -27,26 +27,26 @@ This resource also uses the following partial resources:
 | `use_systemd`        | true, false | `true`                                                           | Evalues whether to use systemd based on the nodes init package                 |
 | `user`               | String      | `haproxy`                                                        | Similar to "uid" but uses the UID of user name `<user name>` from /etc/passwd  |
 | `group`              | String      | `haproxy`                                                        | Similar to "gid" but uses the GID of group name `<group name>` from /etc/group |
-| `package_name`       | String      | `haproxy`                                                        |                                                                                |
-| `package_version`    | String, nil | `nil`                                                            |                                                                                |
-| `enable_ius_repo`    | true, false | `false`                                                          | Enables the IUS package repo for Centos to install versions >1.5               |
-| `enable_epel_repo`   | true, false | `true`                                                           | Enables the epel repo for RHEL based operating systems                         |
-| `source_version`     | String      | `2.2.4`                                                          |                                                                                |
-| `source_url`         | String      | `http://www.haproxy.org/download/2.2.4/src/haproxy-2.2.4.tar.gz` |                                                                                |
-| `source_checksum`    | String, nil | `nil`                                                            |                                                                                |
-| `source_target_cpu`  | String, nil | `node['kernel']['machine']`                                      |                                                                                |
-| `source_target_arch` | String, nil | `nil`                                                            |                                                                                |
-| `source_target_os`   | String      | See resource                                                     |                                                                                |
-| `use_libcrypt`       | String      | `1`                                                              |                                                                                | `0`, `1`            |
-| `use_pcre`           | String      | `1`                                                              |                                                                                | `0`, `1`            |
-| `use_openssl`        | String      | `1`                                                              |                                                                                | `0`, `1`            |
-| `use_zlib`           | String      | `1`                                                              |                                                                                | `0`, `1`            |
-| `use_linux_tproxy`   | String      | `1`                                                              |                                                                                | `0`, `1`            |
-| `use_linux_splice`   | String      | `1`                                                              |                                                                                | `0`, `1`            |
-| `use_systemd`        | String      | `1`                                                              |                                                                                | `0`, `1`            |
-| `use_lua`            | String      | `0`                                                              | `0`, `1`                                                                       |
-| `lua_lib`            | String, nil | `nil`                                                            |                                                                                |
-| `lua_inc`            | String, nil | `nil`                                                            |                                                                                |
+| `package_name`       | String      | `haproxy`                                                        |                                                                                |                        |
+| `package_version`    | String      |                                                                  |                                                                                |                        |
+| `enable_ius_repo`    | true, false | `false`                                                          | Enables the IUS package repo for Centos to install versions >1.5              |                        |
+| `enable_epel_repo`   | true, false | `true`                                                           | Enables the epel repo for RHEL based operating systems                        |                        |
+| `source_version`     | String      | `2.2.4`                                                          |                                                                                |                        |
+| `source_url`         | String      | `http://www.haproxy.org/download/2.2.4/src/haproxy-2.2.4.tar.gz` |                                                                                |                        |
+| `source_checksum`    | String      |                                                                  |                                                                                |                        |
+| `source_target_cpu`  | String      | `node['kernel']['machine']`                                      |                                                                                |                        |
+| `source_target_arch` | String      |                                                                  |                                                                                |                        |
+| `source_target_os`   | String      | See resource                                                     |                                                                                |                        |
+| `use_libcrypt`       | String      | `true`                                                           |                                                                                | true, false            |
+| `use_pcre`           | String      | `true`                                                           |                                                                                | true, false            |
+| `use_openssl`        | String      | `true`                                                           |                                                                                | true, false            |
+| `use_zlib`           | String      | `true`                                                           |                                                                                | true, false            |
+| `use_linux_tproxy`   | String      | `true`                                                           |                                                                                | true, false            |
+| `use_linux_splice`   | String      | `true`                                                           |                                                                                | true, false            |
+| `use_systemd`        | String      | `true`                                                           |                                                                                | true, false            |
+| `use_lua`            | String      | `false`                                                          |                                                                                | true, false            |
+| `lua_lib`            | String      |                                                                  |                                                                                |
+| `lua_inc`            | String      |                                                                  |                                                                                |
 
 ## Examples
 
