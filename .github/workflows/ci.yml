@@ -55,6 +55,7 @@ jobs:
           - "source-20"
           - "source-22"
           - "source-default"
+          - "source-openssl"
         exclude:
           - os: 'fedora-latest'
             suite: 'source-18'
@@ -85,37 +86,6 @@ jobs:
           - "centos-7"
         suite:
           - "source-lua"
-      fail-fast: false
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@main
-      - name: Install Chef
-        uses: actionshub/chef-install@main
-      - name: Dokken
-        uses: actionshub/kitchen-dokken@main
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
-
-  openssl_test:
-    needs: [mdl, yamllint, delivery]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - "debian-9"
-          - "debian-10"
-          - "ubuntu-2004"
-          - "ubuntu-2104"
-          - "amazonlinux-2"
-          - "centos-7"
-          - "centos-stream-8"
-        suite:
-          - "source-openssl"
       fail-fast: false
 
     steps:
