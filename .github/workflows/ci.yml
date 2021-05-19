@@ -107,7 +107,13 @@ jobs:
     strategy:
       matrix:
         os:
+          - "debian-9"
+          - "debian-10"
+          - "ubuntu-2004"
+          - "ubuntu-2104"
+          - "amazonlinux-2"
           - "centos-7"
+          - "centos-stream-8"
         suite:
           - "source-openssl"
       fail-fast: false
