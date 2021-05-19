@@ -37,14 +37,14 @@ This resource also uses the following partial resources:
 | `source_target_cpu`  | String      | `node['kernel']['machine']`                                      |                                                                                |
 | `source_target_arch` | String      |                                                                  |                                                                                |
 | `source_target_os`   | String      | See resource                                                     |                                                                                |
-| `use_libcrypt`       | String      | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_pcre`           | String      | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_openssl`        | String      | `true`                                                           | Include openssl support (https://openssl.org)                                  | `true`, `false`     |
-| `use_zlib`           | String      | `true`                                                           | Include ZLIB support                                                           | `true`, `false`     |
-| `use_linux_tproxy`   | String      | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_linux_splice`   | String      | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_systemd`        | String      | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_lua`            | String      | `false`                                                          | Include Lua support                                                            | `true`, `false`     |
+| `use_libcrypt`       | true, false | `true`                                                           |                                                                                | `true`, `false`     |
+| `use_pcre`           | true, false | `true`                                                           |                                                                                | `true`, `false`     |
+| `use_openssl`        | true, false | `true`                                                           | Include openssl support (https://openssl.org)                                  | `true`, `false`     |
+| `use_zlib`           | true, false | `true`                                                           | Include ZLIB support                                                           | `true`, `false`     |
+| `use_linux_tproxy`   | true, false | `true`                                                           |                                                                                | `true`, `false`     |
+| `use_linux_splice`   | true, false | `true`                                                           |                                                                                | `true`, `false`     |
+| `use_systemd`        | true, false | `true`                                                           |                                                                                | `true`, `false`     |
+| `use_lua`            | true, false | `false`                                                          | Include Lua support                                                            | `true`, `false`     |
 | `lua_lib`            | String      |                                                                  | Path for lua library files ex: `/opt/lib-5.3.5/lib`                            |
 | `lua_inc`            | String      |                                                                  | Path for lua library files ex: `/opt/lib-5.3.5/include`                        |
 | `ssl_lib`            | String      |                                                                  | Path for openssl library files ex: `/usr/local/openssl/lib`                    |
