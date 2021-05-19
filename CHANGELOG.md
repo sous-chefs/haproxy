@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+- Add `ssl_lib` and `ssl_inc` properties to `haproxy_install` to support openssl - [@derekgroh](https://github.com/derekgroh)
+
 ## 12.0.0 - *2021-05-13*
 
 - Refactor to use resource partials
