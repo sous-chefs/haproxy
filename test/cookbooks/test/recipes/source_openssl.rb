@@ -1,5 +1,9 @@
 if platform_family?('debian')
-  package %w(build-essential checkinstall zlib1g-dev)
+  if platform_version < 10
+    package %w(build-essential checkinstall zlib1g-dev)
+  else
+    package %w(build-essential zlib1g-dev)
+  end
 end
 if platform_family?('rhel')
   package %w(make gcc perl pcre-devel zlib-devel)
