@@ -5,12 +5,9 @@ if platform_family?('debian')
     package %w(build-essential zlib1g-dev)
   end
 end
+
 if platform_family?('rhel')
   package %w(make gcc perl pcre-devel zlib-devel)
-  execute 'backup openssl' do
-    command 'mv /bin/openssl /bin/openssl.backup'
-    not_if { Dir['/bin/openssl/*'].empty? }
-  end
 end
 
 # override environment variable
