@@ -23,28 +23,28 @@ This resource also uses the following partial resources:
 | -------------------- | ----------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------- |
 | `install_type`       | String      | None                                                             | Set the installation type                                                      | `package`, `source` |
 | `bin_prefix`         | String      | `/usr`                                                           | Set the source compile prefix                                                  |
-| `sensitive`          | true, false | `true`                                                           | Ensure that sensitive resource data is not logged by the chef-client           |
-| `use_systemd`        | true, false | `true`                                                           | Evalues whether to use systemd based on the nodes init package                 |
+| `sensitive`          | Boolean     | `true`                                                           | Ensure that sensitive resource data is not logged by the chef-client           |
+| `use_systemd`        | Boolean     | `true`                                                           | Evalues whether to use systemd based on the nodes init package                 |
 | `user`               | String      | `haproxy`                                                        | Similar to "uid" but uses the UID of user name `<user name>` from /etc/passwd  |
 | `group`              | String      | `haproxy`                                                        | Similar to "gid" but uses the GID of group name `<group name>` from /etc/group |
 | `package_name`       | String      | `haproxy`                                                        |                                                                                |
 | `package_version`    | String      |                                                                  |                                                                                |
-| `enable_ius_repo`    | true, false | `false`                                                          | Enables the IUS package repo for Centos to install versions >1.5               |
-| `enable_epel_repo`   | true, false | `true`                                                           | Enables the epel repo for RHEL based operating systems                         |
+| `enable_ius_repo`    | Boolean     | `false`                                                          | Enables the IUS package repo for Centos to install versions >1.5               |
+| `enable_epel_repo`   | Boolean     | `true`                                                           | Enables the epel repo for RHEL based operating systems                         |
 | `source_version`     | String      | `2.2.4`                                                          |                                                                                |
 | `source_url`         | String      | `http://www.haproxy.org/download/2.2.4/src/haproxy-2.2.4.tar.gz` |                                                                                |
 | `source_checksum`    | String      |                                                                  |                                                                                |
 | `source_target_cpu`  | String      | `node['kernel']['machine']`                                      |                                                                                |
 | `source_target_arch` | String      |                                                                  |                                                                                |
 | `source_target_os`   | String      | See resource                                                     |                                                                                |
-| `use_libcrypt`       | true, false | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_pcre`           | true, false | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_openssl`        | true, false | `true`                                                           | Include openssl support (https://openssl.org)                                  | `true`, `false`     |
-| `use_zlib`           | true, false | `true`                                                           | Include ZLIB support                                                           | `true`, `false`     |
-| `use_linux_tproxy`   | true, false | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_linux_splice`   | true, false | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_systemd`        | true, false | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_lua`            | true, false | `false`                                                          | Include Lua support                                                            | `true`, `false`     |
+| `use_libcrypt`       | Boolean     | `true`                                                           |                                                                                | `true`, `false`     |
+| `use_pcre`           | Boolean     | `true`                                                           |                                                                                | `true`, `false`     |
+| `use_openssl`        | Boolean     | `true`                                                           | Include openssl support (https://openssl.org)                                  | `true`, `false`     |
+| `use_zlib`           | Boolean     | `true`                                                           | Include ZLIB support                                                           | `true`, `false`     |
+| `use_linux_tproxy`   | Boolean     | `true`                                                           |                                                                                | `true`, `false`     |
+| `use_linux_splice`   | Boolean     | `true`                                                           |                                                                                | `true`, `false`     |
+| `use_systemd`        | Boolean     | `true`                                                           |                                                                                | `true`, `false`     |
+| `use_lua`            | Boolean     | `false`                                                          | Include Lua support                                                            | `true`, `false`     |
 | `lua_lib`            | String      |                                                                  | Path for lua library files ex: `/opt/lib-5.3.5/lib`                            |
 | `lua_inc`            | String      |                                                                  | Path for lua library files ex: `/opt/lib-5.3.5/include`                        |
 | `ssl_lib`            | String      |                                                                  | Path for openssl library files ex: `/usr/local/openssl/lib`                    |
