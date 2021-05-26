@@ -43,7 +43,7 @@ execute 'package_openssl-1.1.1h' do
 end
 
 # Legacy OpenSSL replacement
-if rhel? && platform_version < 8
+if (rhel? && (platform_version < 8)) || (debian? && (platform_version < 10))
   # Shared libraries
   file '/etc/ld.so.conf.d/openssl-1.1.1h.conf' do
     content '/usr/local/openssl/lib'
