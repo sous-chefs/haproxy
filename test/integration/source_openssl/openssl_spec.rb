@@ -7,5 +7,5 @@ describe directory '/usr/local/openssl/bin/' do
 end
 
 describe command('haproxy -vv | grep "OpenSSL 1.1.1h"') do
-  its('stdout') { should match /Running on OpenSSL version : OpenSSL 1.1.1h  22 Sep 2020/ }
+  its('stdout') { should match /OpenSSL version : OpenSSL 1.1.1h  22 Sep 2020/ }
 end

@@ -1,3 +1,5 @@
+apt_update
+
 if platform_family?('debian')
   if platform_version < 10
     package %w(build-essential checkinstall zlib1g-dev)
@@ -40,26 +42,29 @@ execute 'package_openssl-1.1.1h' do
   not_if { ::File.exist?('/usr/local/openssl/') }
 end
 
-# shared libraries
-file '/etc/ld.so.conf.d/openssl-1.1.1h.conf' do
-  content '/usr/local/openssl/lib'
-  notifies :run, 'execute[reload ldconfig]'
-end
+# Legacy OpenSSL replacement
+if rhel? && platform_version < 8
+   # Shared libraries
+  file '/etc/ld.so.conf.d/openssl-1.1.1h.conf' do
+    content '/usr/local/openssl/lib'
+    notifies :run, 'execute[reload ldconfig]'
+  end
 
-execute 'reload ldconfig' do
-  command 'ldconfig -v'
-  action :nothing
-end
+  execute 'reload ldconfig' do
+    command 'ldconfig -v'
+    action :nothing
+  end
 
-# Remove old binary, link to new
-file '/usr/bin/openssl' do
-  action :nothing
-end
+  # Remove old binary, link to new
+  file '/usr/bin/openssl' do
+    action :nothing
+  end
 
-link '/usr/bin/openssl' do
-  to '/usr/local/openssl/bin/openssl'
-  link_type :symbolic
-  notifies :delete, 'file[/usr/bin/openssl]', :before
+  link '/usr/bin/openssl' do
+    to '/usr/local/openssl/bin/openssl'
+    link_type :symbolic
+    notifies :delete, 'file[/usr/bin/openssl]', :before
+  end
 end
 
 # install haproxy with openssl
