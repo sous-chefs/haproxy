@@ -44,7 +44,7 @@ end
 
 # Legacy OpenSSL replacement
 if rhel? && platform_version < 8
-   # Shared libraries
+  # Shared libraries
   file '/etc/ld.so.conf.d/openssl-1.1.1h.conf' do
     content '/usr/local/openssl/lib'
     notifies :run, 'execute[reload ldconfig]'
