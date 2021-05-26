@@ -58,15 +58,13 @@ jobs:
           - "source-openssl"
         exclude:
           - os: 'amazonlinux-2'
-            suite:
-              - 'source-openssl'
+            suite: 'source-openssl'
           - os: 'fedora-latest'
             suite:
               - 'source-18'
               - 'source-openssl'
           - os: 'ubuntu-2104'
-            suite:
-              - 'source-18'
+            suite: 'source-18'
       fail-fast: false
 
     steps:
