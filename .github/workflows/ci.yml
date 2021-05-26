@@ -67,7 +67,6 @@ jobs:
           - os: 'ubuntu-2104'
             suite:
               - 'source-18'
-              - 'source-openssl'
       fail-fast: false
 
     steps:
