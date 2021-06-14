@@ -17,10 +17,13 @@ verifier:
 platforms:
   - name: amazonlinux-2
   - name: centos-7
-  - name: debian-8
+  - name: centos-8
+  - name: centos-stream-8
   - name: debian-9
+  - name: debian-10
   - name: ubuntu-20.04
   - name: ubuntu-21.04
+  - name: fedora-latest
 
 suites:
   - name: package
@@ -44,12 +47,14 @@ suites:
     includes:
       - centos-7
       - centos-stream-8
+  - name: source_openssl
+    run_list:
+      - recipe[test::source_openssl]
   - name: config_1
     run_list:
       - recipe[test::config_1]
     includes:
       - centos-7
-      - centos-stream-8
       - centos-stream-8
   - name: config_2
     run_list:

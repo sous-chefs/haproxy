@@ -72,6 +72,10 @@ property :lua_lib, String
 
 property :lua_inc, String
 
+property :ssl_lib, String
+
+property :ssl_inc, String
+
 property :use_systemd, [true, false],
           default: lazy { source_version.to_f >= 1.8 },
           description: 'Evalues whether to use systemd based on the nodes init package'
@@ -148,6 +152,8 @@ action :install do
     make_cmd << " USE_LUA=#{compile_make_boolean(new_resource.use_lua)}" if new_resource.use_lua
     make_cmd << " LUA_LIB=#{new_resource.lua_lib}" if property_is_set?(:lua_lib)
     make_cmd << " LUA_INC=#{new_resource.lua_inc}" if property_is_set?(:lua_inc)
+    make_cmd << " SSL_LIB=#{new_resource.ssl_lib}" if property_is_set?(:ssl_lib)
+    make_cmd << " SSL_INC=#{new_resource.ssl_inc}" if property_is_set?(:ssl_inc)
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if new_resource.source_version.to_f < 1.8
 
     bash 'compile_haproxy' do
