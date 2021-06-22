@@ -17,7 +17,7 @@ Introduced: v4.0.0
 
 This resource also uses the following partial resources:
 
-* [\_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
 
 | Name                 | Type    | Default                                                          | Description                                                                    | Allowed Values      |
 | -------------------- | ------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------- |
@@ -43,7 +43,7 @@ This resource also uses the following partial resources:
 | `use_zlib`           | Boolean | `true`                                                           | Include ZLIB support                                                           | `true`, `false`     |
 | `use_linux_tproxy`   | Boolean | `true`                                                           |                                                                                | `true`, `false`     |
 | `use_linux_splice`   | Boolean | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_promex`         | Boolean | `false`                                                          | Enable the included Prometheus exporter (HAProxy v2.4+)                             | `true`, `false`     |
+| `use_promex`         | Boolean | `false`                                                          | Enable the included Prometheus exporter (HAProxy v2.4+)                        | `true`, `false`     |
 | `use_systemd`        | Boolean | `true`                                                           |                                                                                | `true`, `false`     |
 | `use_lua`            | Boolean | `false`                                                          | Include Lua support                                                            | `true`, `false`     |
 | `lua_lib`            | String  |                                                                  | Path for lua library files ex: `/opt/lib-5.3.5/lib`                            |
