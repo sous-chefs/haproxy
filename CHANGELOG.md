@@ -4,26 +4,22 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
-## 12.2.0 - _2021-06-21_
-
 - Add `use_promex` property to install.rb to support compiling with Prometheus Exporter support - [@Wicaeed](https://github.com/wicaeed)
 
-#
-
-## 12.1.0 - _2021-06-14_
+## 12.1.0 - *2021-06-14*
 
 - Add `ssl_lib` and `ssl_inc` properties to `haproxy_install` to support openssl - [@derekgroh](https://github.com/derekgroh)
 
-## 12.0.1 - _2021-06-01_
+## 12.0.1 - *2021-06-01*
 
-## 12.0.0 - _2021-05-13_
+## 12.0.0 - *2021-05-13*
 
 - Refactor to use resource partials
 - Add delete action to most resources
 - Convert `install` resource boolean strings to true/false
 - Ensure section is created before adding an ACL
 
-## 11.0.0 - _2021-05-07_
+## 11.0.0 - *2021-05-07*
 
 - Drop testing for Debian 8, Ubuntu 16.04 & Ubuntu 18.04
 - Add testing for Debian 9 Ubuntu 20.04 & Ubuntu 21.04
@@ -32,11 +28,11 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Change kitchen to use the Bento provided Amazonlinux2 image
 - Fix test suite
 
-## 10.0.1 - _2021-04-26_
+## 10.0.1 - *2021-04-26*
 
 - Add missing configuration file properties to all resources
 
-## 10.0.0 - _2021-04-24_
+## 10.0.0 - *2021-04-24*
 
 - Add configuration test function to the service resource - [@bmhughes](https://github.com/bmhughes)
 - Fix generating multiple actions from the service resource - [@bmhughes](https://github.com/bmhughes)
@@ -448,7 +444,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ### COMPATIBILIY WARNING
 
-- This version removes the existing recipes, attributes, and instance provider in favor of the new haproxy*install and haproxy* configuration resources. Why not just leave them in place? Well unfortunately they were utterly broken for anything other than the most trivial usage. Rather than continue the user pain we've opted to remove them and point users to a more modern installation method. If you need the legacy installation methods simply pin to the 3.0.4 release.
+- This version removes the existing recipes, attributes, and instance provider in favor of the new haproxy_install and haproxy_ configuration resources. Why not just leave them in place? Well unfortunately they were utterly broken for anything other than the most trivial usage. Rather than continue the user pain we've opted to remove them and point users to a more modern installation method. If you need the legacy installation methods simply pin to the 3.0.4 release.
 - THIS IS GOING TO BREAK EVERYTHING YOU KNOW AND LOVE
 - 12.5 or greater rewrite
 - Custom Resource Only, no recipes
