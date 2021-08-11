@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## Unreleased
+
 ## 12.2.0 - *2021-08-11*
 
 - Add `use_promex` property to install.rb to support compiling with Prometheus Exporter support - [@Wicaeed](https://github.com/wicaeed)
