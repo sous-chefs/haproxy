@@ -21,9 +21,11 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 This cookbook officially supports and is tested against the following platforms:
 
-* debian: 8 & 9
-* ubuntu: 16.04 & 18.04
-* centos: 7
+* debian: 9 & 10
+* ubuntu: 20.04 & 21.04
+* centos: 7 & 8
+* centos-stream: 8
+* fedora: latest
 * amazonlinux: 2
 
 PRs are welcome to add support for additional platforms.
