@@ -1,6 +1,7 @@
 name 'haproxy'
 
 default_source :supermarket, 'https://supermarket.chef.io'
+
 metadata
 cookbook 'test', path: 'test/cookbooks/test'
 

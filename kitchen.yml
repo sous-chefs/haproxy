@@ -5,7 +5,6 @@ driver:
 provisioner:
   name: chef_zero
   deprecations_as_errors: true
-  always_update_cookbooks: true
   chef_license: accept
   product_name: chef
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>

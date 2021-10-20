@@ -13,4 +13,4 @@ supports 'ubuntu'
 supports 'centos'
 supports 'amazon'
 supports 'opensuseleap'
-depends 'yum-epel'
+
