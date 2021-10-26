@@ -33,7 +33,11 @@ suites:
   - name: source-2.0
     named_run_list: source-20
   - name: source-2.2
-    named_run_list: source-22
+    run_list:
+      - recipe[test::source-22]
+  - name: source-2.4
+    run_list:
+      - recipe[test::source-24]
   - name: source-default
     named_run_list: source
   - name: source_lua

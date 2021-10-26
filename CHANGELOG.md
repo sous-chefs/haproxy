@@ -4,11 +4,23 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+## 12.2.2 - *2021-10-05*
+
+## 12.2.1 - *2021-08-30*
+
+- Standardise files with files in sous-chefs/repo-management
+
+## 12.2.0 - *2021-08-11*
+
+- Add `use_promex` property to install.rb to support compiling with Prometheus Exporter support - [@Wicaeed](https://github.com/wicaeed)
+
 ## 12.1.0 - *2021-06-14*
 
 - Add `ssl_lib` and `ssl_inc` properties to `haproxy_install` to support openssl - [@derekgroh](https://github.com/derekgroh)
 
 ## 12.0.1 - *2021-06-01*
+
+- Standardise files with files in sous-chefs/repo-management
 
 ## 12.0.0 - *2021-05-13*
 
