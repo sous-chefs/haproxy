@@ -71,6 +71,7 @@ describe file('/etc/haproxy/haproxy.cfg') do
     '  http-request add-header X-Proto http',
     '  http-response set-header Expires %\[date\(3600\),http_date\]',
     '  default_backend servers',
+    '  option dontlog-normal',
     '  bind-process odd',
     '  hash-type consistent',
     '',

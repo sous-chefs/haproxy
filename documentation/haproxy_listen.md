@@ -37,6 +37,7 @@ This resource also uses the following partial resources:
 | `server`          | Array         | None         | Servers the listen section routes to                                     |
 | `stats`           | Hash          | None         | Enable stats with various options                                        |
 | `hash_type`       | String        | None         | Specify a method to use for mapping hashes to servers                    | `consistent`, `map-based`  |
+| `option`          | Array         | None         | Array of HAProxy `option` directives                                     |
 
 ## Examples
 

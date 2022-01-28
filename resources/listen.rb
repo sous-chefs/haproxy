@@ -39,6 +39,9 @@ property :use_backend, Array,
 property :acl, Array,
           description: 'Access control list items'
 
+property :option, Array,
+          description: 'Array of HAProxy option directives'
+
 property :server, Array,
           description: 'Servers the listen section routes to'
 
@@ -93,6 +96,11 @@ action :create do
   if property_is_set?(:server)
     haproxy_config_resource.variables['listen'][new_resource.name]['server'] ||= []
     haproxy_config_resource.variables['listen'][new_resource.name]['server'].push(new_resource.server)
+  end
+
+  if property_is_set?(:option)
+    haproxy_config_resource.variables['listen'][new_resource.name]['option'] ||= []
+    haproxy_config_resource.variables['listen'][new_resource.name]['option'].push(new_resource.option)
   end
 
   haproxy_config_resource.variables['listen'][new_resource.name]['hash_type'] = new_resource.hash_type if property_is_set?(:hash_type)
