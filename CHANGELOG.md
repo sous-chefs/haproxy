@@ -5,8 +5,12 @@ This file is used to list changes made in each version of the haproxy cookbook.
 ## Unreleased
 
 - Remove delivery folder
+- Standardise files with files in sous-chefs/repo-management
+- Migrate to new workflow pipelines
 
 ## 12.2.2 - *2021-10-05*
+
+- Update supported platforms in README.md
 
 ## 12.2.1 - *2021-08-30*
 
