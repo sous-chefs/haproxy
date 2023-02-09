@@ -21,8 +21,9 @@ platforms:
   - name: centos-stream-8
   - name: debian-9
   - name: debian-10
+  - name: debian-11
   - name: ubuntu-20.04
-  - name: ubuntu-21.04
+  - name: ubuntu-22.04
   - name: fedora-latest
 
 suites:

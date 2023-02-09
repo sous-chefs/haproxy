@@ -4,9 +4,12 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+- Debian 11 & Chef 18 compatibility
+- Fix CI
+
 ## 12.2.4 - *2022-12-06*
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
 ## 12.2.3 - *2022-04-21*
 
