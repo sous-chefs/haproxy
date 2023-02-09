@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## Unreleased
+## 12.2.5 - *2023-02-09*
 
 - Debian 11 & Chef 18 compatibility
 - Fix CI
