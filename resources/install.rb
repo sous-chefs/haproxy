@@ -177,6 +177,9 @@ action :install do
     user new_resource.user do
       home "/home/#{new_resource.user}"
       group new_resource.group
+      expire_date '2050-12-31' if Chef::VERSION.to_f >= 18.0
+      # rubocop:disable Lint/AmbiguousOperator
+      inactive -1 if Chef::VERSION.to_f >= 18.0
     end
   end
 end
