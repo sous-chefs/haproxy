@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 12.2.8 - *2023-02-14*
 
 ## 12.2.7 - *2023-02-14*
