@@ -9,7 +9,7 @@ name: ci
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@0.0.3
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@2.0.1
     permissions:
       actions: write
       checks: write
@@ -40,28 +40,28 @@ jobs:
           - "source-openssl"
         exclude:
           # Excluded due to https://github.com/sous-chefs/haproxy/issues/475
-          - os: 'fedora-latest'
-            suite: 'source-18'
-          - os: 'fedora-latest'
-            suite: 'source-20'
-          - os: 'fedora-latest'
-            suite: 'source-22'
-          - os: 'fedora-latest'
-            suite: 'source-default'
-          - os: 'fedora-latest'
-            suite: 'source-openssl'
-          - os: 'ubuntu-2204'
-            suite: 'source-18'
-          - os: 'ubuntu-2204'
-            suite: 'source-20'
-          - os: 'ubuntu-2204'
-            suite: 'source-22'
-          - os: 'ubuntu-2204'
-            suite: 'source-24'
-          - os: 'ubuntu-2204'
-            suite: 'source-default'
-          - os: 'ubuntu-2204'
-            suite: 'source-openssl'
+          - os: "fedora-latest"
+            suite: "source-18"
+          - os: "fedora-latest"
+            suite: "source-20"
+          - os: "fedora-latest"
+            suite: "source-22"
+          - os: "fedora-latest"
+            suite: "source-default"
+          - os: "fedora-latest"
+            suite: "source-openssl"
+          - os: "ubuntu-2204"
+            suite: "source-18"
+          - os: "ubuntu-2204"
+            suite: "source-20"
+          - os: "ubuntu-2204"
+            suite: "source-22"
+          - os: "ubuntu-2204"
+            suite: "source-24"
+          - os: "ubuntu-2204"
+            suite: "source-default"
+          - os: "ubuntu-2204"
+            suite: "source-openssl"
       fail-fast: false
 
     steps:
