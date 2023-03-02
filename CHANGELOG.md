@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 12.2.10 - *2023-03-01*
 
 Standardise files with files in sous-chefs/repo-management
@@ -16,7 +18,11 @@ Standardise files with files in sous-chefs/repo-management
 
 ## 12.2.8 - *2023-02-14*
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 12.2.7 - *2023-02-14*
+
+Standardise files with files in sous-chefs/repo-management
 
 ## 12.2.6 - *2023-02-14*
 
@@ -755,7 +761,6 @@ Standardise files with files in sous-chefs/repo-management
 
 - Use `node.chef_environment` instead of `node['app_environment']`.
 
-[10.0.0 - *2021-04-24*]: https://github.com/sous-chefs/haproxy/compare/v6.4.0...HEAD
 [v3.0.0]: https://github.com/sous-chefs/haproxy/compare/v2.0.2...v3.0.0
 [v3.0.1]: https://github.com/sous-chefs/haproxy/compare/v3.0.0...v3.0.1
 [v3.0.2]: https://github.com/sous-chefs/haproxy/compare/v3.0.1...v3.0.2
