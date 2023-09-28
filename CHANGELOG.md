@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## Unreleased
+## 12.2.22 - *2023-09-28*
 
 ## 12.2.21 - *2023-09-04*
 
