@@ -23,45 +23,32 @@ jobs:
     strategy:
       matrix:
         os:
-          - "debian-9"
-          - "debian-10"
+          - "debian-11"
+          - "debian-12"
           - "ubuntu-2004"
           - "ubuntu-2204"
-          - "centos-7"
-          - "centos-8"
           - "centos-stream-8"
+          - "centos-stream-9"
           - "fedora-latest"
         suite:
+          - config-2
+          - config-3
+          - config-4
+          - config-acl
+          - config-array
+          - config-backend-search
+          - config-custom-template
+          - config-fastcgi
+          - config-resolver
+          - config-ssl-redirect
           - "package"
-          - "source-18"
-          - "source-20"
-          - "source-22"
-          - "source-default"
+          - "source-24"
+          - "source-26"
+          - "source-28"
+          - "source-29"
+          - "source-lua"
           - "source-openssl"
-        exclude:
-          # Excluded due to https://github.com/sous-chefs/haproxy/issues/475
-          - os: "fedora-latest"
-            suite: "source-18"
-          - os: "fedora-latest"
-            suite: "source-20"
-          - os: "fedora-latest"
-            suite: "source-22"
-          - os: "fedora-latest"
-            suite: "source-default"
-          - os: "fedora-latest"
-            suite: "source-openssl"
-          - os: "ubuntu-2204"
-            suite: "source-18"
-          - os: "ubuntu-2204"
-            suite: "source-20"
-          - os: "ubuntu-2204"
-            suite: "source-22"
-          - os: "ubuntu-2204"
-            suite: "source-24"
-          - os: "ubuntu-2204"
-            suite: "source-default"
-          - os: "ubuntu-2204"
-            suite: "source-openssl"
+          - "source-default"
       fail-fast: false
 
     steps:
@@ -84,12 +71,13 @@ jobs:
     strategy:
       matrix:
         os:
-          - "amazonlinux-2"
+          - "amazonlinux-2023"
         suite:
           - "package"
-          - "source-18"
-          - "source-20"
-          - "source-22"
+          - "source-24"
+          - "source-26"
+          - "source-28"
+          - "source-29"
           - "source-default"
       fail-fast: false
 

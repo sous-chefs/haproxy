@@ -1,9 +1,9 @@
-apt_update
+version = '2.6.16'
 
 haproxy_install 'source' do
-  source_url 'http://www.haproxy.org/download/1.8/src/haproxy-1.8.17.tar.gz'
-  source_checksum '7b789b177875afdd5ddeff058e7efde73aa895dc2dcf728b464358635ae3948e'
-  source_version '1.8.17'
+  source_url "https://www.haproxy.org/download/#{version.to_f}/src/haproxy-#{version}.tar.gz"
+  source_checksum 'faac6f9564caf6e106fe22c77a1fb35406afc8cd484c35c2c844aaf0d7a097fb'
+  source_version version
   use_libcrypt true
   use_pcre true
   use_openssl true

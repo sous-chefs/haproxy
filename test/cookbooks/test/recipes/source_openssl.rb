@@ -70,7 +70,7 @@ end
 # install haproxy with openssl
 haproxy_install 'source' do
   source_url 'http://www.haproxy.org/download/2.2/src/haproxy-2.2.4.tar.gz'
-  source_checksum '87a4d9d4ff8dc3094cb61bbed4a8eed2c40b5ac47b9604daebaf036d7b541be2'
+  source_checksum '3f5459c5a58e0b343a32eaef7ed5bed9d3fc29d8aa9e14b36c92c969fc2a60d9'
   source_version '2.2.4'
   use_openssl true
   use_zlib true

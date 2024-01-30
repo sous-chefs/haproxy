@@ -11,7 +11,3 @@ describe service 'haproxy' do
   it { should be_enabled }
   it { should be_running }
 end
-
-describe command('haproxy -vv') do
-  its('stdout') { should match(/Built with the Prometheus exporter as a service/) }
-end

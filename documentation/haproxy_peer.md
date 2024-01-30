@@ -1,8 +1,6 @@
-[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
-
----
-
 # haproxy_peer
+
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 Peer describes a peers resource for haproxy to propagate entries of any data-types in stick-tables between several haproxy instances over TCP connections in a multi-master fashion.
 
@@ -23,13 +21,13 @@ This resource also uses the following partial resources:
 * [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
 
 | Name             | Type         | Default | Description                                                             | Allowed Values             |
-| ---------------- | ------------ | ------- | ----------------------------------------------------------------------- | -------------------------- |
-| `bind`           | String, Hash | None    | String - sets as given. Hash joins with a space. HAProxy version >= 2.0 |
+|------------------|--------------|---------|-------------------------------------------------------------------------|----------------------------|
+| `bind`           | String, Hash | None    | String - sets as given. Hash joins with a space. HAProxy version >= 2.0 |                            |
 | `state`          | String, nil  | nil     | Set the state of the peers                                              | `enabled`, `disabled`, nil |
-| `server`         | Array        | None    | Servers in the peer                                                     |
-| `default_bind`   | String       | None    | Defines the binding parameters for the local peer, excepted its address |
-| `default_server` | String       | None    | Change default options for a server                                     |
-| `table`          | Array        | None    | Configure a stickiness table                                            |
+| `server`         | Array        | None    | Servers in the peer                                                     |                            |
+| `default_bind`   | String       | None    | Defines the binding parameters for the local peer, excepted its address |                            |
+| `default_server` | String       | None    | Change default options for a server                                     |                            |
+| `table`          | Array        | None    | Configure a stickiness table                                            |                            |
 
 ## Examples
 

@@ -20,11 +20,11 @@ property :debug_option, String,
 
 property :stats, Hash,
           default: lazy {
-                     {
-                       socket: "/var/run/haproxy.sock user #{user} group #{group}",
-                       timeout: '2m',
-                     }
-                   },
+            {
+              socket: "/var/run/haproxy.sock user #{user} group #{group}",
+              timeout: '2m',
+            }
+          },
           description: 'Enable stats with various options'
 
 property :maxconn, [Integer, String],

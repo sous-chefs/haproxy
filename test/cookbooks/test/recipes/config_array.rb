@@ -27,7 +27,8 @@ haproxy_frontend 'http-in' do
     'redirect' => [
       'prefix http://www.bar.com code 301 if { hdr(host) -i foo.com }',
       'prefix http://www.bar.com code 301 if { hdr(host) -i www.foo.com }',
-    ])
+    ]
+  )
   default_backend 'servers'
 end
 

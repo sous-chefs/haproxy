@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+- Update default HAProxy source install verision to 2.8.5
+- Update source install tests to include versions 2.4, 2.6, 2.8, 2.9
+- Remove config-1 example & test as this config is no longer supported since HAProxy 2.1
+
 ## 12.2.23 - *2023-10-26*
 
 ## 12.2.22 - *2023-09-28*
@@ -392,18 +396,6 @@ Standardise files with files in sous-chefs/repo-management
 
 - `foodcritic` warning for not defining `name_property`.
 
-## [v5.0.2] (2017-11-29)
-
-### Fixed
-
-- Typo in listen section, makes previously unprintable expressions, printable in http-request, http-response and `default_backend`.
-
-## [v5.0.1] (2017-08-10)
-
-### Removed
-
-- useless blank space in generated config file haproxy.cfg
-
 ## [v5.0.0] (2017-08-07)
 
 ### Added
@@ -633,7 +625,7 @@ Standardise files with files in sous-chefs/repo-management
 - New haproxy_config resource
 - Guardfile
 - Testing in Travis CI with a Rakefile that runs cookstyle, foodcritic, and ChefSpec as well as a Kitchen Dokken config that does integration testing of the package install
-- New node['haproxy']['pool_members'] and node['haproxy']['pool_members_option'] attributes
+- New `node['haproxy']['pool_members']` and `node['haproxy']['pool_members_option']` attributes
 
 ### Changed
 
@@ -682,11 +674,11 @@ Standardise files with files in sous-chefs/repo-management
 
 ### Added
 
-- [COOK-3135](https://tickets.chef.io/browse/COOK-3135) - Allow setting of members with default recipe without changing the template.
+- Allow setting of members with default recipe without changing the template.
 
 ### Fixed
 
-- [COOK-3424](https://tickets.chef.io/browse/COOK-3424) - Haproxy cookbook attempts to alter an immutable attribute.
+- Haproxy cookbook attempts to alter an immutable attribute.
 
 ## v1.6.0
 
@@ -698,18 +690,18 @@ Standardise files with files in sous-chefs/repo-management
 
 ### Added
 
-- [COOK-3660](https://tickets.chef.io/browse/COOK-3660) - Make haproxy socket default user group configurable
-- [COOK-3537](https://tickets.chef.io/browse/COOK-3537) - Add OpenSSL and zlib source configurations
-- [COOK-2384](https://tickets.chef.io/browse/COOK-2384) - Add LWRP for multiple haproxy sites/configs
+- Make haproxy socket default user group configurable
+- Add OpenSSL and zlib source configurations
+- Add LWRP for multiple haproxy sites/configs
 
 ## v1.4.0
 
 ### Added
 
-- [COOK-3237](https://tickets.chef.io/browse/COOK-3237) - Enable cookie-based persistence in a backend
-- [COOK-3216](https://tickets.chef.io/browse/COOK-3216) - Metadata attributes
-- [COOK-3211](https://tickets.chef.io/browse/COOK-3211) - Support RHEL
-- [COOK-3133](https://tickets.chef.io/browse/COOK-3133) - Allow configuration of a global stats socket
+- Enable cookie-based persistence in a backend
+- Metadata attributes
+- Support RHEL
+- Allow configuration of a global stats socket
 
 ## v1.3.2
 
@@ -812,8 +804,6 @@ Standardise files with files in sous-chefs/repo-management
 [v4.6.0]: https://github.com/sous-chefs/haproxy/compare/v4.5.0...v4.6.0
 [v4.6.1]: https://github.com/sous-chefs/haproxy/compare/v4.6.0...v4.6.1
 [v5.0.0]: https://github.com/sous-chefs/haproxy/compare/v4.6.1...v5.0.0
-[v5.0.1]: https://github.com/sous-chefs/haproxy/compare/v5.0.0...v5.0.1
-[v5.0.2]: https://github.com/sous-chefs/haproxy/compare/v5.0.1...v5.0.2
 [v5.0.3]: https://github.com/sous-chefs/haproxy/compare/v5.0.2...v5.0.3
 [v5.0.4]: https://github.com/sous-chefs/haproxy/compare/v5.0.3...v5.0.4
 [v6.0.0]: https://github.com/sous-chefs/haproxy/compare/v5.0.4...v6.0.0

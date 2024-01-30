@@ -95,7 +95,7 @@ describe file('/etc/haproxy/haproxy.cfg') do
     '  reqirep \^Host:\\\ www.mydomain.com   Host:\\\ www',
     '  default_backend servers',
   ]
-  its('content') { should match /#{cfg_content.join('\n')}/ }
+  its('content') { should match(/#{cfg_content.join('\n')}/) }
 end
 
 describe service('haproxy') do

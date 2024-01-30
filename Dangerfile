@@ -37,7 +37,7 @@ if !git.modified_files.include?('CHANGELOG.md') && code_changes?
 end
 
 # Require Major Minor Patch version labels
-unless github.pr_labels.grep /minor|major|patch/i
+unless github.pr_labels.grep(/minor|major|patch/i)
   warn 'Please add a release label to this pull request'
 end
 

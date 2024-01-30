@@ -11,7 +11,7 @@ module Haproxy
         when 'debian'
           %w(libpcre3-dev libssl-dev zlib1g-dev libsystemd-dev)
         when 'rhel', 'amazon', 'fedora'
-          %w(pcre-devel openssl-devel zlib-devel systemd-devel)
+          %w(pcre-devel openssl-devel zlib-devel systemd-devel tar)
         when 'suse'
           %w(pcre-devel libopenssl-devel zlib-devel systemd-devel)
         end
