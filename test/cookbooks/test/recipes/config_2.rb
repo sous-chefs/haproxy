@@ -7,8 +7,24 @@ directory '/etc/haproxy/errors' do
   group 'haproxy'
 end
 
-file '/etc/haproxy/errors/403.http' do
-  content '<h1>Error: 403</h1>'
+error_file = '/etc/haproxy/errors/403.http'
+
+file '403' do
+  path error_file
+  content <<-FILE
+HTTP/1.1 403 Forbidden
+Cache-Control: no-cache
+Connection: close
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html>
+   <body>
+      <h1>403 Forbidden</h1>
+      <p>Sorry, but you are not authorized to view this page.</p>
+   </body>
+</html>
+  FILE
 end
 
 haproxy_config_global 'global' do
@@ -20,7 +36,7 @@ haproxy_config_global 'global' do
 end
 
 haproxy_config_defaults 'defaults' do
-  mode 'http'
+  # mode 'http' # Default mode
   timeout connect: '5s',
           client: '50s',
           server: '50s'
@@ -36,7 +52,7 @@ haproxy_frontend 'http' do
                'rrhost if rrhost_host',
                'abuser if source_is_abuser',
                'tiles_public if tile_host']
-  option %w(httplog dontlognull forwardfor)
+  option %w(dontlognull forwardfor)
   acl ['kml_request path_reg -i /kml/',
        'bbox_request path_reg -i /bbox/',
        'gina_host hdr(host) -i foo.bar.com',
@@ -68,7 +84,7 @@ haproxy_backend 'tiles_public' do
 end
 
 haproxy_backend 'abuser' do
-  extra_options 'errorfile' => '403 /etc/haproxy/errors/403.http'
+  extra_options 'errorfile' => "403 #{error_file}"
 end
 
 haproxy_backend 'rrhost' do

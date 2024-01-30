@@ -23,8 +23,6 @@ This resource also uses the following partial resources:
 | `mode`          | String        | None    | Set the running mode or protocol of the instance                   | `http`, `tcp`              |
 | `server`        | String, Array | None    | Servers the backend routes to                                      |                            |
 | `tcp_request`   | String, Array | None    | HAProxy `tcp-request` settings                                     |                            |
-| `reqrep`        | String, Array | None    | Replace a regular expression with a string in an HTTP request line |                            |
-| `reqirep`       | String, Array | None    | `reqrep` ignoring case                                             |                            |
 | `acl`           | Array         | None    | Access control list items                                          | Allowed HAProxy acl values |
 | `option`        | Array         | None    | Array of HAProxy `option` directives                               |                            |
 | `extra_options` | Hash          | None    | Used for setting any HAProxy directives                            |                            |

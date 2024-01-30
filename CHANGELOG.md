@@ -6,7 +6,9 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Update default HAProxy source install verision to 2.8.5
 - Update source install tests to include versions 2.4, 2.6, 2.8, 2.9
-- Remove config-1 example & test as this config is no longer supported since HAProxy 2.1
+- Remove config-1 & config-4 examples from integration tests
+- Remove `reqirep` and `reqrep` params to `haproxy_backend`, `haproxy_frontend`, and `haproxy_listen` resources.
+  - These params are no longer supported since HAProxy 2.1
 
 ## 12.2.23 - *2023-10-26*
 

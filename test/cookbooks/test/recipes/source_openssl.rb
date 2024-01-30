@@ -1,16 +1,8 @@
 apt_update
 
-if platform_family?('debian')
-  if platform_version < 10
-    package %w(build-essential checkinstall zlib1g-dev)
-  else
-    package %w(build-essential zlib1g-dev)
-  end
-end
+package %w(build-essential zlib1g-dev) if platform_family?('debian')
 
-if platform_family?('rhel')
-  package %w(make gcc perl pcre-devel zlib-devel)
-end
+package %w(make gcc perl pcre-devel zlib-devel) if platform_family?('rhel')
 
 # override environment variable
 ruby_block 'Pre-load OpenSSL path' do
@@ -19,33 +11,40 @@ ruby_block 'Pre-load OpenSSL path' do
   end
 end
 
+package 'openssl' do
+  action :remove
+end
+
+
+openssl_version = '3.2.1'
+
 # download openssl
-remote_file "#{Chef::Config[:file_cache_path]}/openssl-1.1.1h.tar.gz" do
-  source 'https://www.openssl.org/source/openssl-1.1.1h.tar.gz'
-  checksum '5c9ca8774bd7b03e5784f26ae9e9e6d749c9da2438545077e6b3d755a06595d9'
+remote_file "#{Chef::Config[:file_cache_path]}/openssl-#{openssl_version}.tar.gz" do
+  source "https://www.openssl.org/source/openssl-#{openssl_version}.tar.gz"
+  checksum '83c7329fe52c850677d75e5d0b0ca245309b97e8ecbcfdc1dfdc4ab9fac35b39'
 end
 
 # extract openssl
-execute 'extract_openssl-1.1.1h.tar.gz' do
-  command "tar -zxf #{Chef::Config[:file_cache_path]}/openssl-1.1.1h.tar.gz -C /tmp"
-  not_if { ::File.exist?('/tmp/openssl-1.1.1h/') }
+execute "extract_openssl-#{openssl_version}.tar.gz" do
+  command "tar -zxf #{Chef::Config[:file_cache_path]}/openssl-#{openssl_version}.tar.gz -C /tmp"
+  not_if { ::File.exist?("/tmp/openssl-#{openssl_version}/") }
 end
 
-# complie openssl
-execute 'package_openssl-1.1.1h' do
+# compile openssl
+execute "package_openssl-#{openssl_version}" do
   command <<-COMPILE
     ./config --prefix=/usr/local/openssl/ --openssldir=/usr/local/openssl/ shared zlib
     make
     make install
   COMPILE
-  cwd '/tmp/openssl-1.1.1h'
+  cwd "/tmp/openssl-#{openssl_version}"
   not_if { ::File.exist?('/usr/local/openssl/') }
 end
 
 # Legacy OpenSSL replacement
-if (rhel? && (platform_version < 8)) || (debian? && (platform_version < 10))
+if rhel? && (platform_version < 8)
   # Shared libraries
-  file '/etc/ld.so.conf.d/openssl-1.1.1h.conf' do
+  file "/etc/ld.so.conf.d/openssl-#{openssl_version}.conf" do
     content '/usr/local/openssl/lib'
     notifies :run, 'execute[reload ldconfig]'
   end
@@ -68,10 +67,12 @@ if (rhel? && (platform_version < 8)) || (debian? && (platform_version < 10))
 end
 
 # install haproxy with openssl
+version = '2.9.3'
+
 haproxy_install 'source' do
-  source_url 'http://www.haproxy.org/download/2.2/src/haproxy-2.2.4.tar.gz'
-  source_checksum '3f5459c5a58e0b343a32eaef7ed5bed9d3fc29d8aa9e14b36c92c969fc2a60d9'
-  source_version '2.2.4'
+  source_url "https://www.haproxy.org/download/#{version.to_f}/src/haproxy-#{version}.tar.gz"
+  source_checksum 'ed517c65abd86945411f6bcb18c7ec657a706931cb781ea283063ba0a75858c0'
+  source_version version
   use_openssl true
   use_zlib true
   use_linux_tproxy true

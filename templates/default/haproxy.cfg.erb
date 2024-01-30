@@ -266,16 +266,6 @@ frontend <%= frontend %>
   acl <%= acl %>
 <% end -%>
 <% end -%>
-<% if f['reqrep'] -%>
-<% f['reqrep'].each do |reqrep| %>
-  reqrep <%= reqrep %>
-<% end -%>
-<% end %>
-<% if f['reqirep'] -%>
-<% f['reqirep'].each do |reqirep| %>
-  reqirep <%= reqirep %>
-<% end -%>
-<% end %>
 <% unless nil_or_empty?(f['extra_options']) %>
 <% f['extra_options'].each do | key, value | %>
 <% if key == 'http-request' %>
@@ -353,16 +343,6 @@ backend <%= key %>
 <% if backend['hash_type'] -%>
   hash-type <%= backend['hash_type'] %>
 <% end -%>
-<% if backend['reqrep'] -%>
-<% backend['reqrep'].each do |reqrep| %>
-  reqrep <%= reqrep %>
-<% end -%>
-<% end %>
-<% if backend['reqirep'] -%>
-<% backend['reqirep'].each do |reqirep| %>
-  reqirep <%= reqirep %>
-<% end -%>
-<% end %>
 <% unless nil_or_empty?(backend['extra_options']) %>
 <% backend['extra_options'].each do | key, value |%>
 <% if value.is_a?(Array) %>
@@ -405,16 +385,6 @@ listen <%= key %>
 <% end %>
 <% if listen['http_response'] -%>
   http-response <%= listen['http_response'] %>
-<% end %>
-<% if listen['reqrep'] -%>
-<% listen['reqrep'].each do |reqrep| %>
-  reqrep <%= reqrep %>
-<% end -%>
-<% end %>
-<% if listen['reqirep'] -%>
-<% listen['reqirep'].each do |reqirep| %>
-  reqirep <%= reqirep %>
-<% end -%>
 <% end %>
 <% if listen['default_backend'] -%>
   default_backend <%= listen['default_backend'] %>

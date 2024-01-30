@@ -13,14 +13,6 @@ property :tcp_request, [String, Array],
           coerce: proc { |p| Array(p) },
           description: 'HAProxy tcp-request settings'
 
-property :reqrep, [String, Array],
-          coerce: proc { |p| Array(p) },
-          description: 'Replace a regular expression with a string in an HTTP request line'
-
-property :reqirep, [String, Array],
-          coerce: proc { |p| Array(p) },
-          description: 'reqrep ignoring case'
-
 property :acl, Array,
           description: 'Access control list items'
 
@@ -54,9 +46,6 @@ action :create do
     haproxy_config_resource.variables['backend'][new_resource.name]['tcp_request'] ||= []
     haproxy_config_resource.variables['backend'][new_resource.name]['tcp_request'].push(new_resource.tcp_request)
   end
-
-  haproxy_config_resource.variables['backend'][new_resource.name]['reqrep'] = new_resource.reqrep.flatten if property_is_set?(:reqrep)
-  haproxy_config_resource.variables['backend'][new_resource.name]['reqirep'] = new_resource.reqirep.flatten if property_is_set?(:reqirep)
 
   if property_is_set?(:acl)
     haproxy_config_resource.variables['backend'][new_resource.name]['acl'] ||= []
