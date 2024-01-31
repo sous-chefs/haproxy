@@ -1,7 +1,4 @@
-
-describe directory '/etc/haproxy' do
-  it { should exist }
-end
+include_controls 'haproxy-common'
 
 cfg_content = [
   'global',
@@ -19,13 +16,5 @@ cfg_content = [
 ]
 
 describe file('/etc/haproxy/haproxy.cfg') do
-  it { should exist }
-  it { should be_owned_by 'haproxy' }
-  it { should be_grouped_into 'haproxy' }
-
   its('content') { should match(/#{cfg_content.join('\n')}/) }
-end
-
-describe service('haproxy') do
-  it { should be_running }
 end

@@ -1,4 +1,7 @@
-apt_update
+# Remove old OpenSSL so we don't conflict
+package 'openssl' do
+  action :remove
+end
 
 package %w(build-essential zlib1g-dev) if platform_family?('debian')
 
@@ -10,11 +13,6 @@ ruby_block 'Pre-load OpenSSL path' do
     ENV['PATH'] = "/usr/local/openssl/bin:#{ENV['PATH']}"
   end
 end
-
-package 'openssl' do
-  action :remove
-end
-
 
 openssl_version = '3.2.1'
 

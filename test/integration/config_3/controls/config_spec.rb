@@ -1,11 +1,7 @@
-title 'Frontend & Backend should be configurable'
+include_controls 'haproxy-common'
 
 describe package('haproxy') do
   it { should be_installed }
-end
-
-describe directory '/etc/haproxy' do
-  it { should exist }
 end
 
 cfg_content = [
@@ -13,6 +9,7 @@ cfg_content = [
   '  user haproxy',
   '  group haproxy',
   '  log /dev/log local0',
+  '  log /dev/log local1 notice',
   '  log-tag WARDEN',
   '  chroot /var/lib/haproxy',
   '  daemon',
@@ -34,6 +31,7 @@ cfg_content = [
   '  option dontlognull',
   '  option redispatch',
   '  option tcplog',
+  '  retries 5',
   '',
   '',
   'frontend http-in',
@@ -41,19 +39,28 @@ cfg_content = [
   '  bind \*:80',
   '',
   '',
+  'frontend tcp-in',
+  '  mode tcp',
+  '  default_backend tcp-servers',
+  '  bind \*:3307',
+  '',
+  '',
+  'frontend multiport',
+  '  default_backend servers',
+  '  bind \*:8080',
+  '  bind 0\.0\.0\.0:8081',
+  '  bind 0\.0\.0\.0:8180',
+  '',
+  '',
   'backend servers',
-  '  server disabled-server 127\.0\.0\.1:1 disabled',
-  '  server be-1 10\.0\.0\.75:8000 maxconn 32',
-  '  server be-2 10\.0\.0\.76:8000 maxconn 32',
+  '  server server1 127\.0\.0\.1:8000 maxconn 32',
+  '',
+  '',
+  'backend tcp-servers',
+  '  mode tcp',
+  '  server server2 127\.0\.0\.1:3306 maxconn 32',
 ]
 
 describe file('/etc/haproxy/haproxy.cfg') do
-  it { should exist }
-  it { should be_owned_by 'haproxy' }
-  it { should be_grouped_into 'haproxy' }
   its('content') { should match(/#{cfg_content.join('\n')}/) }
-end
-
-describe service('haproxy') do
-  it { should be_running }
 end

@@ -1,15 +1,10 @@
+include_controls 'haproxy-common'
+
 describe package('haproxy') do
   it { should be_installed }
 end
 
-describe directory '/etc/haproxy' do
-  it { should exist }
-end
-
 describe file('/etc/haproxy/haproxy.cfg') do
-  it { should exist }
-  it { should be_owned_by 'haproxy' }
-  it { should be_grouped_into 'haproxy' }
   its('content') { should_not match(/^  daemon$/) }
   # Defaults
   defaults = [
@@ -76,8 +71,4 @@ describe file('/etc/haproxy/haproxy.cfg') do
     '  block if restricted_page !network_allowed',
   ]
   its('content') { should match(/#{listen_admin.join('\n')}/) }
-end
-
-describe service('haproxy') do
-  it { should be_running }
 end
