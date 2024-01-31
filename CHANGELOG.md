@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## Unreleased
+## 12.3.0 - *2024-01-31*
 
 - Update default HAProxy source install verision to 2.8.5
 - Update source install tests to include versions 2.4, 2.6, 2.8, 2.9
