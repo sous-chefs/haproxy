@@ -1,7 +1,8 @@
 build_essential 'compilation tools'
 
 # install lua dependencies
-if platform_family?('rhel')
+case node['platform_family']
+when 'rhel', 'fedora'
   package %w(
     readline-devel
     ncurses-devel
@@ -9,9 +10,7 @@ if platform_family?('rhel')
     openssl-devel
     zlib-devel
   )
-end
-
-if platform_family?('debian')
+when 'debian'
   package %w(
     libreadline-dev
     libncurses5-dev
