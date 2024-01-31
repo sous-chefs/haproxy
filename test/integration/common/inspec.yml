@@ -1,0 +1,7 @@
+---
+name: haproxy-common
+title: HAProxy Common Suite
+summary: HAProxy common tests
+supports:
+  - os-family: linux
+  - os-family: bsd

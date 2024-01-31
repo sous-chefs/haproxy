@@ -1,8 +1,6 @@
-[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
-
----
-
 # haproxy_mailer
+
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 Mailer describes a mailers resource for sending email alerts on server state changes.
 
@@ -21,8 +19,8 @@ This resource also uses the following partial resources:
 
 | Name      | Type          | Default | Description                                                                             | Allowed Values |
 | --------- | ------------- | ------- | --------------------------------------------------------------------------------------- | -------------- |
-| `mailer`  | String, Array | None    | Defines a mailer inside a mailers section                                               |
-| `timeout` | String        | None    | Defines the time available for a mail/connection to be made and send to the mail-server |
+| `mailer`  | String, Array | None    | Defines a mailer inside a mailers section                                               ||
+| `timeout` | String        | None    | Defines the time available for a mail/connection to be made and send to the mail-server ||
 
 ## Examples
 

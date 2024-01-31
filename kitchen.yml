@@ -15,13 +15,11 @@ verifier:
   name: inspec
 
 platforms:
-  - name: amazonlinux-2
-  - name: centos-7
-  - name: centos-8
+  - name: amazonlinux-2023
   - name: centos-stream-8
-  - name: debian-9
-  - name: debian-10
+  - name: centos-stream-9
   - name: debian-11
+  - name: debian-12
   - name: ubuntu-20.04
   - name: ubuntu-22.04
   - name: fedora-latest
@@ -30,99 +28,54 @@ suites:
   - name: package
     run_list:
       - recipe[test::package]
-  - name: source-1.8
-    run_list:
-      - recipe[test::source-18]
-  - name: source-2.0
-    run_list:
-      - recipe[test::source-20]
-  - name: source-2.2
-    run_list:
-      - recipe[test::source-22]
   - name: source-2.4
     run_list:
-      - recipe[test::source-24]
-  - name: source-default
+      - recipe[test::source_24]
+  - name: source_2.6
+    run_list:
+      - recipe[test::source_26]
+  - name: source_2.8
+    run_list:
+      - recipe[test::source_28]
+  - name: source_2.9
+    run_list:
+      - recipe[test::source_29]
+  - name: source_default
     run_list:
       - recipe[test::source]
   - name: source_lua
     run_list:
       - recipe[test::source_lua]
-    includes:
-      - centos-7
-      - centos-stream-8
   - name: source_openssl
     run_list:
       - recipe[test::source_openssl]
-  - name: config_1
-    run_list:
-      - recipe[test::config_1]
-    includes:
-      - centos-7
-      - centos-stream-8
   - name: config_2
     run_list:
       - recipe[test::config_2]
-    includes:
-      - centos-7
-      - centos-stream-8
   - name: config_3
     run_list:
       - recipe[test::config_3]
-    includes:
-      - centos-7
-      - centos-stream-8
   - name: config_4
     run_list:
       - recipe[test::config_4]
-    includes:
-      - centos-7
-      - centos-stream-8
   - name: config_backend_search
     run_list:
       - recipe[test::config_backend_search]
-    includes:
-      - centos-7
-      - centos-stream-8
-  - name: config_1_userlist
-    run_list:
-      - recipe[test::config_1_userlist]
-    includes:
-      - centos-7
-      - centos-stream-8
   - name: config_acl
     run_list:
       - recipe[test::config_acl]
-    includes:
-      - centos-7
-      - centos-stream-8
   - name: config_resolver
     run_list:
       - recipe[test::config_resolver]
-    includes:
-      - centos-7
-      - centos-stream-8
   - name: config_ssl_redirect
     run_list:
       - recipe[test::config_ssl_redirect]
-    includes:
-      - centos-7
-      - centos-stream-8
   - name: config_custom_template
     run_list:
       - recipe[test::config_custom_template]
-    includes:
-      - centos-7
-      - centos-stream-8
   - name: config_array
     run_list:
       - recipe[test::config_array]
-    includes:
-      - centos-7
-      - centos-stream-8
   - name: config_fastcgi
     run_list:
       - recipe[test::config_fastcgi]
-    includes:
-      - centos-7
-      - centos-stream-8

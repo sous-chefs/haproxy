@@ -1,8 +1,6 @@
-[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
-
----
-
 # haproxy_config_global
+
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 Parameters in the "global" section are process-wide and often OS-specific.
 
@@ -22,17 +20,17 @@ This resource also uses the following partial resources:
 * [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
 
 | Name            | Type                  | Default                                                                                       | Description                                                                                        | Allowed Values   |
-| --------------- | --------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ---------------- |
-| `pidfile`       | String                | `/var/run/haproxy.pid`                                                                        | Writes PIDs of all daemons into file `<pidfile>`                                                   |
-| `log`           | String, Array         | `/dev/log syslog info`                                                                        | Adds a global syslog server                                                                        |
-| `daemon`        | TrueClass, FalseClass | `true`                                                                                        | Makes the process fork into background                                                             |
+|-----------------|-----------------------|-----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|------------------|
+| `pidfile`       | String                | `/var/run/haproxy.pid`                                                                        | Writes PIDs of all daemons into file `<pidfile>`                                                   |                  |
+| `log`           | String, Array         | `/dev/log syslog info`                                                                        | Adds a global syslog server                                                                        |                  |
+| `daemon`        | TrueClass, FalseClass | `true`                                                                                        | Makes the process fork into background                                                             |                  |
 | `debug_option`  | String                | `quiet`                                                                                       | Sets the debugging mode                                                                            | `quiet`, `debug` |
-| `stats`         | Hash                  | `{socket: "/var/run/haproxy.sock user #{haproxy_user} group #{haproxy_group}",timeout: '2m'}` | Enable stats with various options                                                                  |
-| `maxconn`       | Integer               | `4096`                                                                                        | Sets the maximum per-process number of concurrent connections                                      |
-| `chroot`        | String                | None                                                                                          | Changes current directory to `<jail dir>` and performs a chroot() there before dropping privileges |
-| `log_tag`       | String                | `haproxy`                                                                                     | Specifies the log tag to use for all outgoing logs                                                 |
-| `tuning`        | Hash                  | None                                                                                          | A hash of `tune.<options>`                                                                         |
-| `extra_options` | Hash                  | None                                                                                          | Used for setting any HAProxy directives                                                            |
+| `stats`         | Hash                  | `{socket: "/var/run/haproxy.sock user #{haproxy_user} group #{haproxy_group}",timeout: '2m'}` | Enable stats with various options                                                                  |                  |
+| `maxconn`       | Integer               | `4096`                                                                                        | Sets the maximum per-process number of concurrent connections                                      |                  |
+| `chroot`        | String                | None                                                                                          | Changes current directory to `<jail dir>` and performs a chroot() there before dropping privileges |                  |
+| `log_tag`       | String                | `haproxy`                                                                                     | Specifies the log tag to use for all outgoing logs                                                 |                  |
+| `tuning`        | Hash                  | None                                                                                          | A hash of `tune.<options>`                                                                         |                  |
+| `extra_options` | Hash                  | None                                                                                          | Used for setting any HAProxy directives                                                            |                  |
 
 ## Examples
 

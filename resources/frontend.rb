@@ -13,12 +13,6 @@ property :maxconn, [Integer, String],
           coerce: proc { |p| p.to_s },
           description: 'Sets the maximum per-process number of concurrent connections'
 
-property :reqrep, [Array, String],
-          description: 'Replace a regular expression with a string in an HTTP request line'
-
-property :reqirep, [Array, String],
-          description: 'reqrep ignoring case'
-
 property :default_backend, String,
           description: 'Specify the backend to use when no "use_backend" rule has been matched'
 
@@ -62,8 +56,6 @@ action :create do
   haproxy_config_resource.variables['frontend'][new_resource.name]['mode'] = new_resource.mode if property_is_set?(:mode)
   haproxy_config_resource.variables['frontend'][new_resource.name]['stats'] = new_resource.stats if property_is_set?(:stats)
   haproxy_config_resource.variables['frontend'][new_resource.name]['maxconn'] = new_resource.maxconn if property_is_set?(:maxconn)
-  haproxy_config_resource.variables['frontend'][new_resource.name]['reqrep'] = [new_resource.reqrep].flatten if property_is_set?(:reqrep)
-  haproxy_config_resource.variables['frontend'][new_resource.name]['reqirep'] = [new_resource.reqirep].flatten if property_is_set?(:reqirep)
   haproxy_config_resource.variables['frontend'][new_resource.name]['use_backend'] = new_resource.use_backend if property_is_set?(:use_backend)
 
   if property_is_set?(:acl)

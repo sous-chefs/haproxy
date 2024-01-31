@@ -1,8 +1,6 @@
-[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
-
----
-
 # haproxy_listen
+
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 Listen defines a complete proxy with its frontend and backend parts combined in one section.
 
@@ -23,19 +21,17 @@ This resource also uses the following partial resources:
 * [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
 
 | Name              | Type          | Default      | Description                                                              | Allowed Values             |
-| ----------------- | ------------- | ------------ | ------------------------------------------------------------------------ | -------------------------- |
-| `bind`            | String, Hash  | `0.0.0.0:80` | String - sets as given. Hash - joins with a space                        |
+|-------------------|---------------|--------------|--------------------------------------------------------------------------|----------------------------|
+| `bind`            | String, Hash  | `0.0.0.0:80` | String - sets as given. Hash - joins with a space                        |                            |
 | `mode`            | String        | None         | Set the running mode or protocol of the instance                         | `http`, `tcp`              |
-| `maxconn`         | Integer       | None         | Sets the maximum per-process number of concurrent connections            |
-| `reqrep`          | String, Array | None         | Replace a regular expression with a string in an HTTP request line       |
-| `reqirep`         | String, Array | None         | `reqrep` ignoring case                                                   |
-| `default_backend` | String        | None         | Specify the backend to use when no "use_backend" rule has been matched   |
-| `use_backend`     | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |
-| `http_request`    | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |
-| `http_response`   | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |
+| `maxconn`         | Integer       | None         | Sets the maximum per-process number of concurrent connections            |                            |
+| `default_backend` | String        | None         | Specify the backend to use when no "use_backend" rule has been matched   |                            |
+| `use_backend`     | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |                            |
+| `http_request`    | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |                            |
+| `http_response`   | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |                            |
 | `acl`             | Array         | None         | Access control list items                                                | Allowed HAProxy acl values |
-| `server`          | Array         | None         | Servers the listen section routes to                                     |
-| `stats`           | Hash          | None         | Enable stats with various options                                        |
+| `server`          | Array         | None         | Servers the listen section routes to                                     |                            |
+| `stats`           | Hash          | None         | Enable stats with various options                                        |                            |
 | `hash_type`       | String        | None         | Specify a method to use for mapping hashes to servers                    | `consistent`, `map-based`  |
 
 ## Examples

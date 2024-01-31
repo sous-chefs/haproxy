@@ -1,0 +1,10 @@
+---
+name: haproxy-config-backend-search
+title: HAProxy Config Backend Search Suite
+summary: HAProxy tests using example configuration
+supports:
+  - os-family: linux
+  - os-family: bsd
+depends:
+  - name: haproxy-common
+    path: test/integration/common

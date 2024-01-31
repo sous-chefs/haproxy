@@ -1,8 +1,6 @@
-[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
-
----
-
 # haproxy_fastcgi
+
+[Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
 Fastcgi describes a FastCGI applications resource for haproxy to send HTTP requests to Responder FastCGI applications
 
@@ -22,13 +20,13 @@ This resource also uses the following partial resources:
 * [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
 * [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
 
-| Name            | Type   | Default                    | Description                                                                      | Allowed Values  |
-| --------------- | ------ | -------------------------- | -------------------------------------------------------------------------------- | --------------- |
-| `fastcgi`       | String | None                       | Name property - sets the fcgi-app name                                           |
-| `docroot`       | String | None                       | Define the document root on the remote host                                      |
-| `index`         | String | None                       | Define the script name that will be appended after an URI that ends with a slash |
-| `log_stderr`    | String | None                       | Enable logging of STDERR messages reported by the FastCGI application            |
-| `option`        | Array  | None                       | Array of HAProxy `option` directives                                             |
+| Name         | Type   | Default | Description                                                                      | Allowed Values |
+|--------------|--------|---------|----------------------------------------------------------------------------------|----------------|
+| `fastcgi`    | String | None    | Name property - sets the fcgi-app name                                           |                |
+| `docroot`    | String | None    | Define the document root on the remote host                                      |                |
+| `index`      | String | None    | Define the script name that will be appended after an URI that ends with a slash |                |
+| `log_stderr` | String | None    | Enable logging of STDERR messages reported by the FastCGI application            |                |
+| `option`     | Array  | None    | Array of HAProxy `option` directives                                             |                |
 
 ## Examples
 
@@ -44,7 +42,7 @@ end
 
 Generates
 
-```
+```ruby
 fcgi-app php-fpm
   docroot /var/www/my-app
   index index.php

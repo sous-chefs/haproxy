@@ -22,14 +22,6 @@ property :http_request, [Array, String],
 property :http_response, String,
           description: 'Switch to a specific backend if/unless an ACL-based condition is matched'
 
-property :reqrep, [Array, String],
-          coerce: proc { |p| Array(p).flatten },
-          description: 'Replace a regular expression with a string in an HTTP request line'
-
-property :reqirep, [Array, String],
-          coerce: proc { |p| Array(p).flatten },
-          description: 'reqrep ignoring case'
-
 property :default_backend, String,
           description: 'Specify the backend to use when no "use_backend" rule has been matched'
 
@@ -75,8 +67,6 @@ action :create do
   haproxy_config_resource.variables['listen'][new_resource.name]['stats'] = new_resource.stats if property_is_set?(:stats)
   haproxy_config_resource.variables['listen'][new_resource.name]['http_request'] = new_resource.http_request if property_is_set?(:http_request)
   haproxy_config_resource.variables['listen'][new_resource.name]['http_response'] = new_resource.http_response if property_is_set?(:http_response)
-  haproxy_config_resource.variables['listen'][new_resource.name]['reqrep'] = new_resource.reqrep if property_is_set?(:reqrep)
-  haproxy_config_resource.variables['listen'][new_resource.name]['reqirep'] = new_resource.reqirep if property_is_set?(:reqirep)
 
   if property_is_set?(:use_backend)
     haproxy_config_resource.variables['listen'][new_resource.name]['use_backend'] ||= []
