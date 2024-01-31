@@ -17,6 +17,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Fix source lua tests on CentOS & Fedora
 - Remove OpenSSL tests, as this is out of scope of the core cookbook currently
 
+## 12.2.24 - *2024-01-31*
+
 ## 12.2.23 - *2023-10-26*
 
 ## 12.2.22 - *2023-09-28*
