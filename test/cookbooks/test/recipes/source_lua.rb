@@ -1,6 +1,15 @@
 build_essential 'compilation tools'
 
-package %w(readline-devel)
+package 'readline-devel' if platform_family?('rhel')
+package 'libreadline-dev' if platform_family?('debian')
+
+# install lua dependencies
+package 'libreadline-dev'
+package 'libncurses5-dev'
+package 'libpcre3-dev'
+package 'libssl-dev'
+package 'zlib1g-dev'
+package 'liblua5.3-dev'
 
 # download lua
 remote_file "#{Chef::Config[:file_cache_path]}/lua-5.3.1.tar.gz" do
