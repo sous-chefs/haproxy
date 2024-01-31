@@ -38,6 +38,9 @@ property :hash_type, String,
           equal_to: %w(consistent map-based),
           description: 'Specify a method to use for mapping hashes to servers'
 
+property :option, Array,
+          description: 'Array of HAProxy option directives'
+
 unified_mode true
 
 action_class do
@@ -87,6 +90,11 @@ action :create do
 
   haproxy_config_resource.variables['listen'][new_resource.name]['hash_type'] = new_resource.hash_type if property_is_set?(:hash_type)
   haproxy_config_resource.variables['listen'][new_resource.name]['extra_options'] = new_resource.extra_options if property_is_set?(:extra_options)
+
+  if property_is_set?(:option)
+    haproxy_config_resource.variables['listen'][new_resource.name]['option'] ||= []
+    haproxy_config_resource.variables['listen'][new_resource.name]['option'].concat(new_resource.option)
+  end
 end
 
 action :delete do

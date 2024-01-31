@@ -221,9 +221,7 @@ fcgi-app <%= fastcgi %>
 <% end -%>
 <% unless nil_or_empty?(f['option']) %>
 <% f['option'].each do | option |%>
-<% option.each do | option | %>
   option <%= option %>
-<% end -%>
 <% end -%>
 <% end -%>
 <% unless nil_or_empty?(f['extra_options']) %>
@@ -286,9 +284,7 @@ frontend <%= frontend %>
 <% end -%>
 <% unless nil_or_empty?(f['option']) %>
 <% f['option'].each do | option |%>
-<% option.each do | option | %>
   option <%= option %>
-<% end -%>
 <% end -%>
 <% end -%>
 <% unless nil_or_empty?(f['extra_options']) %>
@@ -328,9 +324,7 @@ backend <%= key %>
 <% end -%>
 <% unless nil_or_empty?(backend['option']) %>
 <% backend['option'].each do | option |%>
-<% option.each do | option | %>
   option <%= option %>
-<% end -%>
 <% end -%>
 <% end -%>
 <% unless nil_or_empty?(backend['tcp_request']) %>
@@ -389,6 +383,11 @@ listen <%= key %>
 <% if listen['default_backend'] -%>
   default_backend <%= listen['default_backend'] %>
 <% end %>
+<% unless nil_or_empty?(listen['option']) %>
+<% listen['option'].each do | option |%>
+  option <%= option %>
+<% end -%>
+<% end -%>
 <% unless nil_or_empty?(listen['extra_options']) %>
 <% listen['extra_options'].each do | key, value | %>
 <% if key == 'http-request' %>

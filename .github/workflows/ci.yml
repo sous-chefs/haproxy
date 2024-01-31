@@ -33,6 +33,7 @@ jobs:
         suite:
           - config-2
           - config-3
+          - config-4
           - config-acl
           - config-array
           - config-backend-search
