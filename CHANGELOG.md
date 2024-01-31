@@ -9,6 +9,13 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Remove config-1 & config-4 examples from integration tests
 - Remove `reqirep` and `reqrep` params to `haproxy_backend`, `haproxy_frontend`, and `haproxy_listen` resources.
   - These params are no longer supported since HAProxy 2.1
+- Fix HTTP 403 error page in tests
+  - HAProxy now requires headers on error files
+- Format tests to use InSpec profiles so that we can inherit profiles
+- Fix lua test
+- Remove deprecated block option from ACL test
+- Fix source lua tests on CentOS & Fedora
+- Remove OpenSSL tests, as this is out of scope of the core cookbook currently
 
 ## 12.2.23 - *2023-10-26*
 
