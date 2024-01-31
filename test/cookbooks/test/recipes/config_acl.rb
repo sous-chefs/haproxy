@@ -1,4 +1,4 @@
-include_recipe 'config_2'
+include_recipe 'test::config_2'
 
 haproxy_listen 'admin' do
   bind '0.0.0.0:1337'
