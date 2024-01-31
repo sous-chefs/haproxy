@@ -100,7 +100,6 @@ The `haproxy.cfg` file has a few specific rule orderings that will generate vali
   tcp-request session
   tcp-request content
   monitor fail
-  block (deprecated)
   http-request
   reqxxx (any req excluding reqadd, e.g. reqdeny, reqallow)
   reqadd

@@ -71,7 +71,7 @@ describe file('/etc/haproxy/haproxy.cfg') do
     '  stats auth user:pwd',
     '  acl network_allowed src 127.0.0.1',
     '  acl restricted_page path_beg /',
-    '  block if restricted_page !network_allowed',
+    '  http-request deny if restricted_page !network_allowed',
   ]
   its('content') { should match(/#{listen_admin.join('\n')}/) }
 end

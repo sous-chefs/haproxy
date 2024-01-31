@@ -6,7 +6,7 @@ haproxy_listen 'admin' do
   stats uri: '/',
         realm: 'Haproxy-Statistics',
         auth: 'user:pwd'
-  extra_options('block if restricted_page' => '!network_allowed')
+  extra_options('http-request deny if restricted_page' => '!network_allowed')
 end
 
 haproxy_acl 'acls for listen' do
