@@ -32,7 +32,7 @@ PRs are welcome to add support for additional platforms.
 
 ### Examples
 
-Please check for working examples in [TEST](./test/fixtures/cookbooks/test/)
+Please check for working examples in [the test cookbook](test/cookbooks/test).
 
 ## Common Resource Features
 
