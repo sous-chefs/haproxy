@@ -1,7 +1,4 @@
-execute 'dev tools' do
-  command 'yum group install -y "Development Tools"'
-  action :run
-end
+build_essential 'compilation tools'
 
 package %w(readline-devel)
 
@@ -35,10 +32,12 @@ execute 'lua install' do
   not_if { ::File.exist?('/opt/lua-5.3.1/bin/lua') }
 end
 
+version = '2.4.25'
+
 haproxy_install 'source' do
-  source_url 'http://www.haproxy.org/download/2.0/src/haproxy-2.0.5.tar.gz'
-  source_checksum '3f2e0d40af66dd6df1dc2f6055d3de106ba62836d77b4c2e497a82a4bdbc5422'
-  source_version '2.0.5'
+  source_url "https://www.haproxy.org/download/#{version.to_f}/src/haproxy-#{version}.tar.gz"
+  source_checksum '44b035bdc9ffd4935f5292c2dfd4a1596c048dc59c5b25a0c6d7689d64f50b99'
+  source_version version
   use_pcre true
   use_openssl true
   use_zlib true
@@ -47,4 +46,13 @@ haproxy_install 'source' do
   use_lua true
   lua_lib '/opt/lua-5.3.1/lib'
   lua_inc '/opt/lua-5.3.1/include'
+end
+
+haproxy_config_global ''
+
+haproxy_config_defaults ''
+
+haproxy_service 'haproxy' do
+  action :create
+  delayed_action %i(enable start)
 end
