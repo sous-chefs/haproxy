@@ -29,14 +29,13 @@ end
 
 haproxy_config_global 'global' do
   daemon false
-  maxconn 4097
+  maxconn 4096
   chroot '/var/lib/haproxy'
   stats socket: '/var/lib/haproxy/haproxy.stat mode 600 level admin',
         timeout: '2m'
 end
 
 haproxy_config_defaults 'defaults' do
-  # mode 'http' # Default mode
   timeout connect: '5s',
           client: '50s',
           server: '50s'
@@ -72,7 +71,7 @@ haproxy_backend 'tiles_public' do
           'tile1 10.0.0.10:80 check weight 1 maxconn 100']
   tcp_request ['content track-sc2 src',
                'content reject if conn_rate_abuse mark_as_abuser']
-  option %w(httplog dontlognull forwardfor)
+  option %w(dontlognull forwardfor)
   acl ['conn_rate_abuse sc2_conn_rate gt 3000',
        'data_rate_abuse sc2_bytes_out_rate gt 20000000',
        'mark_as_abuser sc1_inc_gpc0 gt 0',
