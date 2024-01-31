@@ -46,8 +46,10 @@ jobs:
           - "source-28"
           - "source-29"
           - "source-lua"
-          - "source-openssl"
           - "source-default"
+          # - "source-openssl"
+          # OpenSSSL libraries are not currently compiling correctly
+          # see https://github.com/sous-chefs/haproxy/issues/503
       fail-fast: false
 
     steps:

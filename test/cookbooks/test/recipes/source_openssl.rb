@@ -1,11 +1,8 @@
-# Remove old OpenSSL so we don't conflict
-package 'openssl' do
-  action :remove
-end
+build_essential 'compilation tools'
 
-package %w(build-essential zlib1g-dev) if platform_family?('debian')
+# package %w(build-essential zlib1g-dev) if platform_family?('debian')
 
-package %w(make gcc perl pcre-devel zlib-devel) if platform_family?('rhel')
+# package %w(make gcc perl pcre-devel zlib-devel perl-core) if platform_family?('rhel')
 
 # override environment variable
 ruby_block 'Pre-load OpenSSL path' do
@@ -39,8 +36,8 @@ execute "package_openssl-#{openssl_version}" do
   not_if { ::File.exist?('/usr/local/openssl/') }
 end
 
-# Legacy OpenSSL replacement
-if rhel? && (platform_version < 8)
+# create symlinks
+if rhel?
   # Shared libraries
   file "/etc/ld.so.conf.d/openssl-#{openssl_version}.conf" do
     content '/usr/local/openssl/lib'
@@ -50,17 +47,6 @@ if rhel? && (platform_version < 8)
   execute 'reload ldconfig' do
     command 'ldconfig -v'
     action :nothing
-  end
-
-  # Remove old binary, link to new
-  file '/usr/bin/openssl' do
-    action :nothing
-  end
-
-  link '/usr/bin/openssl' do
-    to '/usr/local/openssl/bin/openssl'
-    link_type :symbolic
-    notifies :delete, 'file[/usr/bin/openssl]', :before
   end
 end
 
