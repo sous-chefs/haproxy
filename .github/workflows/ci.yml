@@ -86,7 +86,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4 # v4
       - name: Install Chef
-        uses: actionshub/chef-install@2.0.4
+        uses: actionshub/chef-install@3.0.0
       - name: Dokken
         uses: actionshub/test-kitchen@2.1.0
         env:
@@ -111,7 +111,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4 # v4
       - name: Install Chef
-        uses: actionshub/chef-install@2.0.4
+        uses: actionshub/chef-install@3.0.0
       - name: Dokken
         uses: actionshub/test-kitchen@2.1.0
         env:
@@ -146,7 +146,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4 # v4
       - name: Install Chef
-        uses: actionshub/chef-install@2.0.4
+        uses: actionshub/chef-install@3.0.0
       - name: Dokken
         uses: actionshub/test-kitchen@2.1.0
         env:
