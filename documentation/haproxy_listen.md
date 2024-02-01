@@ -20,20 +20,20 @@ This resource also uses the following partial resources:
 * [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
 * [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
 
-| Name              | Type          | Default      | Description                                                              | Allowed Values             |
-|-------------------|---------------|--------------|--------------------------------------------------------------------------|----------------------------|
-| `bind`            | String, Hash  | `0.0.0.0:80` | String - sets as given. Hash - joins with a space                        |                            |
-| `mode`            | String        | None         | Set the running mode or protocol of the instance                         | `http`, `tcp`              |
-| `maxconn`         | Integer       | None         | Sets the maximum per-process number of concurrent connections            |                            |
-| `default_backend` | String        | None         | Specify the backend to use when no "use_backend" rule has been matched   |                            |
-| `use_backend`     | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |                            |
-| `http_request`    | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |                            |
-| `http_response`   | Array         | None         | Switch to a specific backend if/unless an ACL-based condition is matched |                            |
-| `acl`             | Array         | None         | Access control list items                                                | Allowed HAProxy acl values |
-| `server`          | Array         | None         | Servers the listen section routes to                                     |                            |
-| `stats`           | Hash          | None         | Enable stats with various options                                        |                            |
-| `hash_type`       | String        | None         | Specify a method to use for mapping hashes to servers                    | `consistent`, `map-based`  |
-| `option`          | Array         | None         | Array of HAProxy `option` directives                                     |
+| Name              | Type         | Default      | Description                                                              | Allowed Values             |
+| ----------------- | ------------ | ------------ | ------------------------------------------------------------------------ | -------------------------- |
+| `bind`            | String, Hash | `0.0.0.0:80` | String - sets as given. Hash - joins with a space                        |                            |
+| `mode`            | String       | None         | Set the running mode or protocol of the instance                         | `http`, `tcp`              |
+| `maxconn`         | Integer      | None         | Sets the maximum per-process number of concurrent connections            |                            |
+| `default_backend` | String       | None         | Specify the backend to use when no "use_backend" rule has been matched   |                            |
+| `use_backend`     | Array        | None         | Switch to a specific backend if/unless an ACL-based condition is matched |                            |
+| `http_request`    | Array        | None         | Switch to a specific backend if/unless an ACL-based condition is matched |                            |
+| `http_response`   | Array        | None         | Switch to a specific backend if/unless an ACL-based condition is matched |                            |
+| `acl`             | Array        | None         | Access control list items                                                | Allowed HAProxy acl values |
+| `server`          | Array        | None         | Servers the listen section routes to                                     |                            |
+| `stats`           | Hash         | None         | Enable stats with various options                                        |                            |
+| `hash_type`       | String       | None         | Specify a method to use for mapping hashes to servers                    | `consistent`, `map-based`  |
+| `option`          | Array        | None         | Array of HAProxy `option` directives                                     |                            |
 
 ## Examples
 
