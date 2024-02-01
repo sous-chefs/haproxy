@@ -21,7 +21,7 @@ This resource also uses the following partial resources:
 * [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
 
 | Name         | Type   | Default | Description                                                                      | Allowed Values |
-|--------------|--------|---------|----------------------------------------------------------------------------------|----------------|
+| ------------ | ------ | ------- | -------------------------------------------------------------------------------- | -------------- |
 | `fastcgi`    | String | None    | Name property - sets the fcgi-app name                                           |                |
 | `docroot`    | String | None    | Define the document root on the remote host                                      |                |
 | `index`      | String | None    | Define the script name that will be appended after an URI that ends with a slash |                |

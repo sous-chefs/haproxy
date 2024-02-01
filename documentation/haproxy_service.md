@@ -24,7 +24,7 @@ This resource also uses the following partial resources:
 * [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
 
 | Name                      | Type         | Default                  | Description                                                      | Allowed Values |
-|---------------------------|--------------|--------------------------|------------------------------------------------------------------|----------------|
+| ------------------------- | ------------ | ------------------------ | ---------------------------------------------------------------- | -------------- |
 | `bin_prefix`              | String       | `/usr`                   | Bin location of the haproxy binary, defaults to /usr             |                |
 | `service_name`            | String       | `haproxy`                |                                                                  |                |
 | `systemd_unit_content`    | String, Hash | See the service resource | A string or hash that contains a systemd unit file definition    |                |

@@ -18,7 +18,7 @@ This resource also uses the following partial resources:
 * [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
 
 | Name                 | Type    | Default                                                          | Description                                                                    | Allowed Values      |
-|----------------------|---------|------------------------------------------------------------------|--------------------------------------------------------------------------------|---------------------|
+| -------------------- | ------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------- |
 | `install_type`       | String  | None                                                             | Set the installation type                                                      | `package`, `source` |
 | `bin_prefix`         | String  | `/usr`                                                           | Set the source compile prefix                                                  |                     |
 | `sensitive`          | Boolean | `true`                                                           | Ensure that sensitive resource data is not logged by the chef-client           |                     |
