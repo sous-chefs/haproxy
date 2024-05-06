@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+- Add `option` property to `haproxy_listen`
+- Refactor `option`s internally to not create an unnecessary nested array
+
 ## 12.3.4 - *2024-05-03*
 
 ## 12.3.3 - *2024-05-03*

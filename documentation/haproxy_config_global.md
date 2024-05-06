@@ -20,7 +20,7 @@ This resource also uses the following partial resources:
 * [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
 
 | Name            | Type                  | Default                                                                                       | Description                                                                                        | Allowed Values   |
-|-----------------|-----------------------|-----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|------------------|
+| --------------- | --------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ---------------- |
 | `pidfile`       | String                | `/var/run/haproxy.pid`                                                                        | Writes PIDs of all daemons into file `<pidfile>`                                                   |                  |
 | `log`           | String, Array         | `/dev/log syslog info`                                                                        | Adds a global syslog server                                                                        |                  |
 | `daemon`        | TrueClass, FalseClass | `true`                                                                                        | Makes the process fork into background                                                             |                  |
