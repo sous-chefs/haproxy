@@ -6,6 +6,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 12.3.4 - *2024-05-03*
 
 ## 12.3.3 - *2024-05-03*
