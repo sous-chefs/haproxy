@@ -49,6 +49,12 @@ suites:
   - name: source_openssl
     run_list:
       - recipe[test::source_openssl]
+  - name: security
+    run_list:
+      - recipe[test::package]
+    verifier:
+      inspec_tests:
+        - test/integration/security
   - name: config_2
     run_list:
       - recipe[test::config_2]
