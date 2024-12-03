@@ -7,6 +7,16 @@ This file is used to list changes made in each version of the haproxy cookbook.
 - Add `option` property to `haproxy_listen`
 - Refactor `option`s internally to not create an unnecessary nested array
 
+## 12.3.7 - *2024-11-18*
+
+Standardise files with files in sous-chefs/repo-management
+
+## 12.3.6 - *2024-11-05*
+
+## 12.3.5 - *2024-07-15*
+
+Standardise files with files in sous-chefs/repo-management
+
 ## 12.3.4 - *2024-05-03*
 
 ## 12.3.3 - *2024-05-03*
