@@ -21,7 +21,7 @@ This resource also uses the following partial resources:
 * [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
 
 | Name         | Type  | Default | Description            | Allowed Values |
-|--------------|-------|---------|------------------------|----------------|
+| ------------ | ----- | ------- | ---------------------- | -------------- |
 | `nameserver` | Array | None    | DNS server description |                |
 
 ## Examples

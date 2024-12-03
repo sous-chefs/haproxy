@@ -9,7 +9,7 @@ Introduced: v11.0.0
 ## Properties
 
 | Name               | Type   | Default                    | Description                                                 | Allowed Values  |
-|--------------------|--------|----------------------------|-------------------------------------------------------------|-----------------|
+| ------------------ | ------ | -------------------------- | ----------------------------------------------------------- | --------------- |
 | `user`             | String | `haproxy`                  | Set to override haproxy user, defaults to haproxy           |                 |
 | `group`            | String | `haproxy`                  | Set to override haproxy group, defaults to haproxy          |                 |
 | `config_dir`       | String | `/etc/haproxy`             | The directory where the HAProxy configuration resides       | Valid directory |

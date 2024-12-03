@@ -18,15 +18,15 @@ This resource also uses the following partial resources:
 * [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
 * [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
 
-| Name            | Type          | Default | Description                                                        | Allowed Values             |
-|-----------------|---------------|---------|--------------------------------------------------------------------|----------------------------|
-| `mode`          | String        | None    | Set the running mode or protocol of the instance                   | `http`, `tcp`              |
-| `server`        | String, Array | None    | Servers the backend routes to                                      |                            |
-| `tcp_request`   | String, Array | None    | HAProxy `tcp-request` settings                                     |                            |
-| `acl`           | Array         | None    | Access control list items                                          | Allowed HAProxy acl values |
-| `option`        | Array         | None    | Array of HAProxy `option` directives                               |                            |
-| `extra_options` | Hash          | None    | Used for setting any HAProxy directives                            |                            |
-| `hash_type`     | String        | None    | Specify a method to use for mapping hashes to servers              | `consistent`, `map-based`  |
+| Name            | Type          | Default | Description                                           | Allowed Values             |
+| --------------- | ------------- | ------- | ----------------------------------------------------- | -------------------------- |
+| `mode`          | String        | None    | Set the running mode or protocol of the instance      | `http`, `tcp`              |
+| `server`        | String, Array | None    | Servers the backend routes to                         |                            |
+| `tcp_request`   | String, Array | None    | HAProxy `tcp-request` settings                        |                            |
+| `acl`           | Array         | None    | Access control list items                             | Allowed HAProxy acl values |
+| `option`        | Array         | None    | Array of HAProxy `option` directives                  |                            |
+| `extra_options` | Hash          | None    | Used for setting any HAProxy directives               |                            |
+| `hash_type`     | String        | None    | Specify a method to use for mapping hashes to servers | `consistent`, `map-based`  |
 
 ## Examples
 

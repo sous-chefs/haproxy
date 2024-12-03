@@ -21,7 +21,7 @@ This resource also uses the following partial resources:
 * [_extra_options](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_extra_options.md)
 
 | Name             | Type         | Default | Description                                                             | Allowed Values             |
-|------------------|--------------|---------|-------------------------------------------------------------------------|----------------------------|
+| ---------------- | ------------ | ------- | ----------------------------------------------------------------------- | -------------------------- |
 | `bind`           | String, Hash | None    | String - sets as given. Hash joins with a space. HAProxy version >= 2.0 |                            |
 | `state`          | String, nil  | nil     | Set the state of the peers                                              | `enabled`, `disabled`, nil |
 | `server`         | Array        | None    | Servers in the peer                                                     |                            |

@@ -59,6 +59,21 @@ cfg_content = [
   'backend tcp-servers',
   '  mode tcp',
   '  server server2 127\.0\.0\.1:3306 maxconn 32',
+  '',
+  '',
+  'listen admin',
+    '  mode http',
+    '  bind 0.0.0.0:1337',
+    '  stats uri /',
+    '  stats realm Haproxy-Statistics',
+    '  stats auth user:pwd',
+    '  http-request add-header X-Forwarded-Proto https if { ssl_fc }',
+    '  http-request add-header X-Proto http',
+    '  http-response set-header Expires %\[date\(3600\),http_date\]',
+    '  default_backend servers',
+    '  option dontlog-normal',
+    '  bind-process odd',
+    '  hash-type consistent',
 ]
 
 describe file('/etc/haproxy/haproxy.cfg') do
