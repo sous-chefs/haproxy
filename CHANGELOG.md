@@ -6,6 +6,11 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 - Added security test suite
 
+## 12.4.0 - *2024-12-09*
+
+- Add `option` property to `haproxy_listen`
+- Refactor `option`s internally to not create an unnecessary nested array
+
 ## 12.3.7 - *2024-11-18*
 
 Standardise files with files in sous-chefs/repo-management
