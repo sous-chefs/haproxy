@@ -54,7 +54,7 @@ action :create do
 
   if property_is_set?(:option)
     haproxy_config_resource.variables['backend'][new_resource.name]['option'] ||= []
-    haproxy_config_resource.variables['backend'][new_resource.name]['option'].push(new_resource.option)
+    haproxy_config_resource.variables['backend'][new_resource.name]['option'].concat(new_resource.option)
   end
 
   haproxy_config_resource.variables['backend'][new_resource.name]['hash_type'] = new_resource.hash_type if property_is_set?(:hash_type)

@@ -65,7 +65,7 @@ action :create do
 
   if property_is_set?(:option)
     haproxy_config_resource.variables['frontend'][new_resource.name]['option'] ||= []
-    haproxy_config_resource.variables['frontend'][new_resource.name]['option'].push(new_resource.option)
+    haproxy_config_resource.variables['frontend'][new_resource.name]['option'].concat(new_resource.option)
   end
 
   haproxy_config_resource.variables['frontend'][new_resource.name]['extra_options'] = new_resource.extra_options if property_is_set?(:extra_options)

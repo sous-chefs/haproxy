@@ -9,5 +9,5 @@ Introduced: v11.0.0
 ## Properties
 
 | Name            | Type | Default | Description                             | Allowed Values |
-|-----------------|------|---------|-----------------------------------------|----------------|
+| --------------- | ---- | ------- | --------------------------------------- | -------------- |
 | `extra_options` | Hash | None    | Used for setting any HAProxy directives |                |

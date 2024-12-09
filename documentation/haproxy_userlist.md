@@ -18,7 +18,7 @@ This resource also uses the following partial resources:
 * [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
 
 | Name    | Type | Default | Description                                      | Allowed Values |
-|---------|------|---------|--------------------------------------------------|----------------|
+| ------- | ---- | ------- | ------------------------------------------------ | -------------- |
 | `group` | Hash | None    | Adds group `<groupname>` to the current userlist |                |
 | `user`  | Hash | None    | Adds user `<username>` to the current userlist   |                |
 
