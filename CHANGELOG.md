@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+- Added security test suite
+
 ## 12.4.0 - *2024-12-09*
 
 - Add `option` property to `haproxy_listen`
@@ -85,8 +87,6 @@ Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
 ## 12.2.9 - *2023-02-20*
-
-Standardise files with files in sous-chefs/repo-management
 
 Standardise files with files in sous-chefs/repo-management
 
@@ -311,6 +311,14 @@ Standardise files with files in sous-chefs/repo-management
 - Documentation - clarify extra_options hash string => array option.
 - Clarify the supported platforms - add AmazonLinux 2, remove fedora & freebsd.
 
+### Fixed
+
+- Init script for Amazon Linux.
+
+### BREAKING CHANGES
+
+- This version removes `stats_socket`, `stats_uri` and `stats_timeout` properties from the `haproxy_global` and `haproxy_listen` resources in favour of using a hash to pass configuration options.
+
 ## [v6.2.7] (2019-01-10)
 
 ### Added
@@ -497,7 +505,13 @@ Standardise files with files in sous-chefs/repo-management
 
 ### Removed
 
-- `default_backend` as a required property on the `frontend` resource.
+- Attributes from the metadata file as these are redundant
+- Broken tarball validation in the source recipe to prevented installs from completing
+
+### Fixed
+
+- Source installs not running if an older version was present on the node
+- Resolved all cookstyle and foodcritic warnings
 
 ## [v4.2.0] (2017-05-04)
 
@@ -702,7 +716,7 @@ Standardise files with files in sous-chefs/repo-management
 
 ### Fixed
 
-- CPU Tuning, corrects cpu_affinity resource triggers
+- Init script for Amazon Linux.
 
 ## v1.6.4
 

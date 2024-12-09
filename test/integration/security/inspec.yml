@@ -1,0 +1,9 @@
+---
+name: security
+title: HAProxy Security Profile
+version: 0.1.0
+supports:
+  - os-family: linux
+depends:
+  - name: common
+    path: test/integration/common
