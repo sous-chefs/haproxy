@@ -27,9 +27,9 @@ jobs:
           - "debian-12"
           - "ubuntu-2004"
           - "ubuntu-2204"
-          - "centos-stream-8"
           - "centos-stream-9"
-          - "fedora-latest"
+          - "centos-stream-10"
+          # - "fedora-latest"
         suite:
           - config-2
           - config-3
@@ -102,7 +102,7 @@ jobs:
     strategy:
       matrix:
         os:
-          - "centos-7"
+          - "centos-stream-9"
         suite:
           - "source-lua"
       fail-fast: false
@@ -127,8 +127,8 @@ jobs:
     strategy:
       matrix:
         os:
-          - "centos-7"
-          - "centos-stream-8"
+          - "centos-stream-9"
+          - "centos-stream-10"
         suite:
           - "config-2"
           - "config-3"
