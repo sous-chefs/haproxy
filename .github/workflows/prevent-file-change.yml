@@ -1,24 +1,10 @@
-name: Pull Request Labels
+---
+name: Prevent file change
 on:
-  pull_request:
-    types: [opened, labeled, unlabeled, synchronize]
-jobs:
-  label:
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
-    steps:
-      - uses: mheap/github-action-required-labels@v5
-        with:
-          mode: exactly
-          count: 1
-          labels: |
-            Release: Major
-            Release: Minor
-            Release: Patch
-            Release: Skip
+  pull_request_target:
+    branches: [main]
 
+jobs:
   prevent-metadata-change:
     runs-on: ubuntu-latest
     permissions:
