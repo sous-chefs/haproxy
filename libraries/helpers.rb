@@ -11,7 +11,12 @@ module Haproxy
         when 'debian'
           %w(libpcre3-dev libssl-dev zlib1g-dev libsystemd-dev)
         when 'rhel', 'amazon', 'fedora'
-          %w(pcre-devel openssl-devel zlib-devel systemd-devel tar)
+          pcre_package = if node['platform_family'] == 'rhel' && platform_version.to_i >= 10
+                           'pcre2-devel'
+                         else
+                           'pcre-devel'
+                         end
+          [pcre_package, 'openssl-devel', 'zlib-devel', 'systemd-devel', 'tar']
         when 'suse'
           %w(pcre-devel libopenssl-devel zlib-devel systemd-devel)
         end
