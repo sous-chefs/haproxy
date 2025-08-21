@@ -51,7 +51,10 @@ property :use_libcrypt, [true, false],
           default: true
 
 property :use_pcre, [true, false],
-          default: true
+          default: lazy { !(node['platform_family'] == 'rhel' && platform_version.to_i >= 10) }
+
+property :use_pcre2, [true, false],
+          default: lazy { node['platform_family'] == 'rhel' && platform_version.to_i >= 10 }
 
 property :use_promex, [true, false],
           default: false
@@ -146,7 +149,8 @@ action :install do
     make_cmd << " CPU=#{new_resource.source_target_cpu}" if property_is_set?(:source_target_cpu)
     make_cmd << " ARCH=#{new_resource.source_target_arch}" if property_is_set?(:source_target_arch)
     make_cmd << " USE_LIBCRYPT=#{compile_make_boolean(new_resource.use_libcrypt)}"
-    make_cmd << " USE_PCRE=#{compile_make_boolean(new_resource.use_pcre)}"
+    make_cmd << " USE_PCRE=#{compile_make_boolean(new_resource.use_pcre)}" if new_resource.use_pcre
+    make_cmd << " USE_PCRE2=#{compile_make_boolean(new_resource.use_pcre2)}" if new_resource.use_pcre2
     make_cmd << " USE_OPENSSL=#{compile_make_boolean(new_resource.use_openssl)}"
     make_cmd << " USE_ZLIB=#{compile_make_boolean(new_resource.use_zlib)}"
     make_cmd << " USE_LINUX_TPROXY=#{compile_make_boolean(new_resource.use_linux_tproxy)}"
