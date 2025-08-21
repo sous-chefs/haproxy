@@ -1,0 +1,43 @@
+name: Check CHANGELOG Unreleased Section
+
+on:
+  pull_request:
+    paths:
+      - 'CHANGELOG.md'
+  push:
+    branches:
+      - main
+
+jobs:
+  check-changelog:
+    runs-on: ubuntu-latest
+    name: Verify CHANGELOG.md has unreleased entries
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Extract and validate Unreleased section
+        shell: bash
+        run: |
+          # Extract content between "## Unreleased" and the next "## " section
+          unreleased_content=$(cat CHANGELOG.md | \
+            sed -n '/^## Unreleased$/,/^## /p' | \
+            sed '$d' | \
+            tail -n +2 | \
+            sed '/^$/d' | \
+            sed '/^[[:space:]]*$/d')
+
+          echo "Extracted unreleased content:"
+          echo "$unreleased_content"
+          echo "---"
+
+          # Check if the content is empty or only contains whitespace
+          if [ -z "$unreleased_content" ]; then
+            echo "❌ ERROR: CHANGELOG.md '## Unreleased' section is empty or contains only blank lines"
+            echo "Please add at least one entry describing the changes in this release."
+            exit 1
+          else
+            echo "✅ SUCCESS: CHANGELOG.md '## Unreleased' section contains entries"
+            echo "Found $(echo "$unreleased_content" | wc -l) non-blank lines"
+          fi
