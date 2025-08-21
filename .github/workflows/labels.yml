@@ -4,6 +4,7 @@ on:
     types: [opened, labeled, unlabeled, synchronize]
 jobs:
   label:
+    name: Require Release Label
     runs-on: ubuntu-latest
     permissions:
       issues: write

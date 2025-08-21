@@ -1,5 +1,5 @@
 ---
-name: ci
+name: Dokken Integration Tests
 
 "on":
   pull_request:
@@ -28,7 +28,7 @@ jobs:
           - "ubuntu-2004"
           - "ubuntu-2204"
           - "centos-stream-9"
-          - "centos-stream-10"
+          # - "centos-stream-10" No candidate version available for pcre-devel
           # - "fedora-latest"
         suite:
           - config-2
@@ -128,7 +128,6 @@ jobs:
       matrix:
         os:
           - "centos-stream-9"
-          - "centos-stream-10"
         suite:
           - "config-2"
           - "config-3"
