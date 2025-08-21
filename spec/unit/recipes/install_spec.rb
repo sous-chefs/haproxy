@@ -74,4 +74,17 @@ describe 'haproxy_install' do
 
     it { is_expected.to install_package(%w(pcre-devel openssl-devel zlib-devel systemd-devel tar)) }
   end
+
+  context 'should raise error when both PCRE and PCRE2 are enabled' do
+    platform 'centos', '8'
+    
+    recipe do
+      haproxy_install 'source' do
+        use_pcre true
+        use_pcre2 true
+      end
+    end
+
+    it { expect { chef_run }.to raise_error("Cannot enable both use_pcre and use_pcre2 simultaneously. Please choose one.") }
+  end
 end

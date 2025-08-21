@@ -102,6 +102,11 @@ action_class do
 end
 
 action :install do
+  # Validate that PCRE and PCRE2 are not both enabled
+  if new_resource.use_pcre && new_resource.use_pcre2
+    raise "Cannot enable both use_pcre and use_pcre2 simultaneously. Please choose one."
+  end
+
   case new_resource.install_type
   when 'package'
     case node['platform_family']

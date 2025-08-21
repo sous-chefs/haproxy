@@ -50,6 +50,8 @@ This resource also uses the following partial resources:
 | `ssl_lib`            | String  |                                                                  | Path for openssl library files ex: `/usr/local/openssl/lib`                    |                     |
 | `ssl_inc`            | String  |                                                                  | Path for openssl includes files ex: `/usr/local/openssl/inc`                   |                     |
 
+**Note:** The `use_pcre` and `use_pcre2` properties cannot both be set to `true` simultaneously. The resource will automatically choose the appropriate PCRE library based on the platform (PCRE2 for EL10+, PCRE1 for older versions), but you can override this behavior by explicitly setting these properties.
+
 ## Examples
 
 ```ruby
@@ -62,6 +64,19 @@ haproxy_install 'source' do
   source_checksum node['haproxy']['source_checksum']
   source_version node['haproxy']['source_version']
   use_pcre true
+  use_openssl true
+  use_zlib true
+  use_linux_tproxy true
+  use_linux_splice true
+end
+```
+
+```ruby
+# Explicitly use PCRE2 (useful for testing PCRE2 on older platforms)
+haproxy_install 'source' do
+  source_version '2.8.5'
+  use_pcre false
+  use_pcre2 true
   use_openssl true
   use_zlib true
   use_linux_tproxy true
