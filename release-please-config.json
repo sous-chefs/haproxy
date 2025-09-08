@@ -1,0 +1,6 @@
+{
+  "releaseType": "ruby",
+  "changelogPath": "CHANGELOG.md",
+  "versionFile": "version.rb",
+  "includeComponentInTag": false
+}

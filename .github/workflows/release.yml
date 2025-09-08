@@ -1,0 +1,103 @@
+---
+name: release-please
+
+"on":
+  push:
+    tags: ["v*.*.*"]
+    branches: [main]
+
+permissions:
+  contents: write
+  packages: write
+  attestations: write
+  id-token: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      upload_url: ${{ steps.release.outputs.upload_url }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.PORTER_GITHUB_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@v5
+        if: ${{ steps.release.outputs.release_created }}
+
+      - name: Create package archives
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          # Create temporary directory for packaging
+          mkdir -p /tmp/package
+
+          # Copy all files except documentation directory
+          rsync -av --exclude='documentation/' --exclude='.git/' . /tmp/package/
+
+          # Create tar.gz archive
+          cd /tmp
+          tar -czf haproxy-cookbook-${{ steps.release.outputs.tag_name }}.tar.gz package/
+
+          # Create zip archive
+          zip -r haproxy-cookbook-${{ steps.release.outputs.tag_name }}.zip package/
+
+          # Move archives to workspace
+          mv haproxy-cookbook-${{ steps.release.outputs.tag_name }}.tar.gz ${{ github.workspace }}/
+          mv haproxy-cookbook-${{ steps.release.outputs.tag_name }}.zip ${{ github.workspace }}/
+
+      - name: Generate artifact attestation
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: |
+            haproxy-cookbook-${{ steps.release.outputs.tag_name }}.tar.gz
+            haproxy-cookbook-${{ steps.release.outputs.tag_name }}.zip
+
+      - name: Upload archives to release
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./haproxy-cookbook-${{ steps.release.outputs.tag_name }}.tar.gz
+          asset_name: haproxy-cookbook-${{ steps.release.outputs.tag_name }}.tar.gz
+          asset_content_type: application/gzip
+
+      - name: Upload zip to release
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./haproxy-cookbook-${{ steps.release.outputs.tag_name }}.zip
+          asset_name: haproxy-cookbook-${{ steps.release.outputs.tag_name }}.zip
+          asset_content_type: application/zip
+
+  publish-to-supermarket:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
+    runs-on: ubuntu-latest
+    container:
+      image: chef/chefworkstation:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Configure Chef credentials
+        run: |
+          mkdir -p ~/.chef
+          echo "${{ secrets.CHEF_SUPERMARKET_KEY }}" > ~/.chef/supermarket.pem
+          chmod 600 ~/.chef/supermarket.pem
+
+      - name: Publish to Chef Supermarket
+        run: |
+          knife supermarket share haproxy \
+            --supermarket-site https://supermarket.chef.io \
+            --key ~/.chef/supermarket.pem \
+            --user-name ${{ secrets.CHEF_SUPERMARKET_USER }}
