@@ -29,55 +29,29 @@ jobs:
         uses: actions/checkout@v5
         if: ${{ steps.release.outputs.release_created }}
 
-      - name: Create package archives
+      - name: Upload cookbook as artifact
         if: ${{ steps.release.outputs.release_created }}
-        run: |
-          # Create temporary directory for packaging
-          mkdir -p /tmp/package
-
-          # Copy all files except documentation directory
-          rsync -av --exclude='documentation/' --exclude='.git/' . /tmp/package/
-
-          # Create tar.gz archive
-          cd /tmp
-          tar -czf haproxy-cookbook-${{ steps.release.outputs.tag_name }}.tar.gz package/
-
-          # Create zip archive
-          zip -r haproxy-cookbook-${{ steps.release.outputs.tag_name }}.zip package/
-
-          # Move archives to workspace
-          mv haproxy-cookbook-${{ steps.release.outputs.tag_name }}.tar.gz ${{ github.workspace }}/
-          mv haproxy-cookbook-${{ steps.release.outputs.tag_name }}.zip ${{ github.workspace }}/
+        uses: actions/upload-artifact@v4
+        with:
+          name: haproxy-cookbook-${{ steps.release.outputs.tag_name }}
+          path: |
+            .
+            !.git/
+            !.github/
+            !.kitchen/
+            !.vscode/
+            !documentation/
+            !.gitignore
+            !test/
+            !spec/
+          retention-days: 90
+          compression-level: 6
 
       - name: Generate artifact attestation
         if: ${{ steps.release.outputs.release_created }}
         uses: actions/attest-build-provenance@v1
         with:
-          subject-path: |
-            haproxy-cookbook-${{ steps.release.outputs.tag_name }}.tar.gz
-            haproxy-cookbook-${{ steps.release.outputs.tag_name }}.zip
-
-      - name: Upload archives to release
-        if: ${{ steps.release.outputs.release_created }}
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: ./haproxy-cookbook-${{ steps.release.outputs.tag_name }}.tar.gz
-          asset_name: haproxy-cookbook-${{ steps.release.outputs.tag_name }}.tar.gz
-          asset_content_type: application/gzip
-
-      - name: Upload zip to release
-        if: ${{ steps.release.outputs.release_created }}
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: ./haproxy-cookbook-${{ steps.release.outputs.tag_name }}.zip
-          asset_name: haproxy-cookbook-${{ steps.release.outputs.tag_name }}.zip
-          asset_content_type: application/zip
+          subject-name: haproxy-cookbook-${{ steps.release.outputs.tag_name }}
 
   publish-to-supermarket:
     needs: release-please
