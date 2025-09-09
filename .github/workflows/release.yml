@@ -7,6 +7,8 @@ name: release-please
 
 permissions:
   contents: write
+  issues: write
+  pull-requests: write
   packages: write
   attestations: write
   id-token: write
@@ -23,6 +25,8 @@ jobs:
         id: release
         with:
           token: ${{ secrets.PORTER_GITHUB_TOKEN }}
+          release-type: ruby
+          include-component-in-tag: false
 
       - name: Checkout
         uses: actions/checkout@v5
