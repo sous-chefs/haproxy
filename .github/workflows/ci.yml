@@ -1,5 +1,5 @@
 ---
-name: ci
+name: Dokken Integration Tests
 
 "on":
   pull_request:
@@ -27,9 +27,9 @@ jobs:
           - "debian-12"
           - "ubuntu-2004"
           - "ubuntu-2204"
-          - "centos-stream-8"
           - "centos-stream-9"
-          - "fedora-latest"
+          # - "centos-stream-10" No candidate version available for pcre-devel
+          # - "fedora-latest"
         suite:
           - config-2
           - config-3
@@ -54,7 +54,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v4 # v4
+        uses: actions/checkout@v5
       - name: Install Chef
         uses: actionshub/chef-install@main
       - name: Dokken
@@ -84,9 +84,9 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v4 # v4
+        uses: actions/checkout@v5
       - name: Install Chef
-        uses: actionshub/chef-install@3.0.0
+        uses: actionshub/chef-install@3.0.1
       - name: Dokken
         uses: actionshub/test-kitchen@3.0.0
         env:
@@ -102,16 +102,16 @@ jobs:
     strategy:
       matrix:
         os:
-          - "centos-7"
+          - "centos-stream-9"
         suite:
           - "source-lua"
       fail-fast: false
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v4 # v4
+        uses: actions/checkout@v5
       - name: Install Chef
-        uses: actionshub/chef-install@3.0.0
+        uses: actionshub/chef-install@3.0.1
       - name: Dokken
         uses: actionshub/test-kitchen@3.0.0
         env:
@@ -127,8 +127,7 @@ jobs:
     strategy:
       matrix:
         os:
-          - "centos-7"
-          - "centos-stream-8"
+          - "centos-stream-9"
         suite:
           - "config-2"
           - "config-3"
@@ -144,9 +143,9 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v4 # v4
+        uses: actions/checkout@v5
       - name: Install Chef
-        uses: actionshub/chef-install@3.0.0
+        uses: actionshub/chef-install@3.0.1
       - name: Dokken
         uses: actionshub/test-kitchen@3.0.0
         env:
