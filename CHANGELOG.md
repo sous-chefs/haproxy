@@ -38,9 +38,9 @@ Standardise files with files in sous-chefs/repo-management
 * Update source install tests to include versions 2.4, 2.6, 2.8, 2.9
 * Remove config-1 & config-4 examples from integration tests
 * Remove `reqirep` and `reqrep` params to `haproxy_backend`, `haproxy_frontend`, and `haproxy_listen` resources.
-  - These params are no longer supported since HAProxy 2.1
+  * These params are no longer supported since HAProxy 2.1
 * Fix HTTP 403 error page in tests
-  - HAProxy now requires headers on error files
+  * HAProxy now requires headers on error files
 * Format tests to use InSpec profiles so that we can inherit profiles
 * Fix lua test
 * Remove deprecated block option from ACL test
