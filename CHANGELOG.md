@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+- Remove testing for CentOS 7 & Fedora
+- Add testing for CentOS Stream 9 & 10
+
 ## 12.4.1 - *2025-09-04*
 
 ## 12.4.0 - *2024-12-09*
