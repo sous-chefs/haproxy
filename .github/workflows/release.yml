@@ -3,7 +3,6 @@ name: release-please
 
 "on":
   push:
-    tags: ["v*.*.*"]
     branches: [main]
 
 permissions:
