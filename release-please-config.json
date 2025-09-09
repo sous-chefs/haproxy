@@ -1,10 +1,6 @@
 {
-  "packages": {
-    ".": {
-      "releaseType": "ruby",
-      "changelogPath": "CHANGELOG.md",
-      "versionFile": "version.rb",
-      "includeComponentInTag": false
-    }
-  }
+  "releaseType": "ruby",
+  "changelogPath": "CHANGELOG.md",
+  "versionFile": "version.rb",
+  "includeComponentInTag": false
 }
