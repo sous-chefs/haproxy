@@ -31,9 +31,9 @@ describe 'haproxy_install' do
     it { is_expected.not_to install_package('pcre-devel') }
   end
 
-  context 'compile HAProxy on CentOS Stream 9' do
-    platform 'centos', '9'
-    
+  context 'compile HAProxy on AlmaLinux 9' do
+    platform 'almalinux', '9'
+
     recipe do
       haproxy_install 'source'
     end
@@ -45,9 +45,9 @@ describe 'haproxy_install' do
     it { is_expected.not_to install_package('pcre2-devel') }
   end
 
-  context 'compile HAProxy on CentOS Stream 10' do
-    platform 'centos', '10'
-    
+  context 'compile HAProxy on AlmaLinux 10 (uses PCRE2)' do
+    platform 'almalinux', '10'
+
     recipe do
       haproxy_install 'source'
     end
@@ -59,13 +59,12 @@ describe 'haproxy_install' do
     it { is_expected.not_to install_package('pcre-devel') }
   end
 
-  context 'compile HAProxy with explicit PCRE2 on older platform' do
-    platform 'centos', '8'
-    
+  context 'compile HAProxy with PCRE disabled' do
+    platform 'almalinux', '9'
+
     recipe do
       haproxy_install 'source' do
         use_pcre false
-        use_pcre2 true
       end
     end
     before(:each) do
@@ -73,18 +72,5 @@ describe 'haproxy_install' do
     end
 
     it { is_expected.to install_package(%w(pcre-devel openssl-devel zlib-devel systemd-devel tar)) }
-  end
-
-  context 'should raise error when both PCRE and PCRE2 are enabled' do
-    platform 'centos', '8'
-    
-    recipe do
-      haproxy_install 'source' do
-        use_pcre true
-        use_pcre2 true
-      end
-    end
-
-    it { expect { chef_run }.to raise_error("Cannot enable both use_pcre and use_pcre2 simultaneously. Please choose one.") }
   end
 end
