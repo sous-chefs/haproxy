@@ -1,3 +1,4 @@
+# renovate: datasource=endoflife-date depName=haproxy versioning=semver
 version = '2.6.16'
 
 haproxy_install 'source' do

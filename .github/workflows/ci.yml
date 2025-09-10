@@ -9,7 +9,7 @@ name: Dokken Integration Tests
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@3.1.1
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@4.0.0
     permissions:
       actions: write
       checks: write
@@ -44,7 +44,6 @@ jobs:
           - "source-24"
           - "source-26"
           - "source-28"
-          - "source-29"
           - "source-lua"
           - "source-default"
           # - "source-openssl"
