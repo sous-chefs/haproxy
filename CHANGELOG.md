@@ -7,6 +7,18 @@ This file is used to list changes made in each version of the haproxy cookbook.
 * Remove testing for CentOS 7 & Fedora
 * Add testing for CentOS Stream 9 & 10
 
+## [12.4.2](https://github.com/sous-chefs/haproxy/compare/12.4.1...v12.4.2) (2025-09-10)
+
+
+### Bug Fixes
+
+* .release-please-manifest.json ([#523](https://github.com/sous-chefs/haproxy/issues/523)) ([bf9797d](https://github.com/sous-chefs/haproxy/commit/bf9797db291e794c150a9e713064c4e8f3062f03))
+* Fix tested platforms & Add publishing support ([#519](https://github.com/sous-chefs/haproxy/issues/519)) ([ff3daaa](https://github.com/sous-chefs/haproxy/commit/ff3daaa37d08f7757fe28d78dcd76c44edeeb083))
+* release please manifest ([#524](https://github.com/sous-chefs/haproxy/issues/524)) ([e4421fd](https://github.com/sous-chefs/haproxy/commit/e4421fd31d1c27ed1134017847c5991839edb2db))
+* Remove EOL HAProxy 2.9 & update workflows ([#531](https://github.com/sous-chefs/haproxy/issues/531)) ([5ffa69f](https://github.com/sous-chefs/haproxy/commit/5ffa69fca2b418bb9cdd6c3482d9f76d78b22f99))
+* Revert to simple release-please config to prevent Node.js auto-detection ([e1f3324](https://github.com/sous-chefs/haproxy/commit/e1f3324ca4534d84377d10492e9466e8c065d477))
+* With conventional commits we do not require labels ([#527](https://github.com/sous-chefs/haproxy/issues/527)) ([a02cf07](https://github.com/sous-chefs/haproxy/commit/a02cf07dff74e6499bed044e11abe6589b017c8a))
+
 ## 12.4.1 - *2025-09-04*
 
 ## 12.4.0 - *2024-12-09*
