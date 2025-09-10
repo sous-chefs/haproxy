@@ -77,7 +77,6 @@ jobs:
           - "source-24"
           - "source-26"
           - "source-28"
-          - "source-29"
           - "source-default"
       fail-fast: false
 
