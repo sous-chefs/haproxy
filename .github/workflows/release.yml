@@ -52,7 +52,7 @@ jobs:
 
       - name: Generate artifact attestation
         if: ${{ steps.release.outputs.release_created }}
-        uses: actions/attest-build-provenance@v1
+        uses: actions/attest-build-provenance@v3
         with:
           subject-name: haproxy-cookbook-${{ steps.release.outputs.tag_name }}
 
