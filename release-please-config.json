@@ -1,3 +1,4 @@
 {
-  "includeComponentInTag": false
+  "includeComponentInTag": false,
+  "versionFile": "version.rb"
 }
