@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 * Remove testing for CentOS 7 & Fedora
 * Add testing for CentOS Stream 9 & 10
 
