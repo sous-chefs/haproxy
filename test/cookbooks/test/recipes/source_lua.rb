@@ -51,6 +51,7 @@ execute 'lua install' do
   not_if { ::File.exist?('/opt/lua-5.3.1/bin/lua') }
 end
 
+# renovate: datasource=endoflife-date depName=haproxy versioning=semver
 version = '2.4.25'
 
 haproxy_install 'source' do

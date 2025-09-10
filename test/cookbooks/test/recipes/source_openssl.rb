@@ -50,7 +50,7 @@ if rhel?
   end
 end
 
-# install haproxy with openssl
+# renovate: datasource=endoflife-date depName=haproxy versioning=semver
 version = '2.9.3'
 
 haproxy_install 'source' do
