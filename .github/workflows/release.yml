@@ -54,6 +54,7 @@ jobs:
         uses: actions/attest-build-provenance@v3
         with:
           subject-name: haproxy-cookbook-${{ steps.release.outputs.tag_name }}
+          subject-digest: sha256:${{ steps.upload.outputs.artifact-digest }}
 
   publish-to-supermarket:
     needs: release-please
