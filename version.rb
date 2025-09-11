@@ -1,1 +1,1 @@
-VERSION = '12.4.5'.freeze
+VERSION = '12.4.6'.freeze

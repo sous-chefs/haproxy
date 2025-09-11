@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## [12.4.6](https://github.com/sous-chefs/haproxy/compare/v12.4.5...v12.4.6) (2025-09-11)
+
+
+### Bug Fixes
+
+* **ci:** Fix supermarket share command typo ([cea808c](https://github.com/sous-chefs/haproxy/commit/cea808c6216d54745fe852aaa49e6b8efe0e6a12))
+
 ## [12.4.5](https://github.com/sous-chefs/haproxy/compare/v12.4.4...v12.4.5) (2025-09-11)
 
 
