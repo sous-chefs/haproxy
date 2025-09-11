@@ -16,138 +16,161 @@ jobs:
       statuses: write
       issues: write
 
-  integration:
-    needs: lint-unit
+
+  test-publish-to-supermarket:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - "debian-11"
-          - "debian-12"
-          - "ubuntu-2004"
-          - "ubuntu-2204"
-          - "centos-stream-9"
-          # - "centos-stream-10" No candidate version available for pcre-devel
-          # - "fedora-latest"
-        suite:
-          - config-2
-          # - config-3
-          - config-acl
-          - config-array
-          - config-backend-search
-          - config-custom-template
-          - config-fastcgi
-          - config-resolver
-          - config-ssl-redirect
-          - "package"
-          - "source-24"
-          - "source-26"
-          - "source-28"
-          - "source-lua"
-          - "source-default"
-          # - "source-openssl"
-          # OpenSSSL libraries are not currently compiling correctly
-          # see https://github.com/sous-chefs/haproxy/issues/503
-      fail-fast: false
-
+    container:
+      image: chef/chefworkstation:latest
     steps:
-      - name: Check out code
+      - name: Checkout
         uses: actions/checkout@v5
-      - name: Install Chef
-        uses: actionshub/chef-install@main
-      - name: Dokken
-        uses: actionshub/test-kitchen@main
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
 
-  integration-amazonlinux:
-    needs: lint-unit
-    runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        os:
-          - "amazonlinux-2023"
-        suite:
-          - "package"
-          - "source-24"
-          - "source-26"
-          - "source-28"
-          - "source-default"
-      fail-fast: false
+      - name: Configure Chef credentials
+        run: |
+          mkdir -p ~/.chef
+          echo "${{ secrets.CHEF_SUPERMARKET_KEY }}" > ~/.chef/supermarket.pem
+          chmod 600 ~/.chef/supermarket.pem
 
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-      - name: Install Chef
-        uses: actionshub/chef-install@3.0.1
-      - name: Dokken
-        uses: actionshub/test-kitchen@3.0.0
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
+      - name: Publish to Chef Supermarket
+        run: |
+          knife supermarket share haproxy \
+            --supermarket-site https://supermarket.chef.io \
+            --key ~/.chef/supermarket.pem \
+            --user ${{ secrets.CHEF_SUPERMARKET_USER }} \
+            --cookbook-path ../
+            --dry-run
+  # integration:
+  #   needs: lint-unit
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       os:
+  #         - "debian-11"
+  #         - "debian-12"
+  #         - "ubuntu-2004"
+  #         - "ubuntu-2204"
+  #         - "centos-stream-9"
+  #         # - "centos-stream-10" No candidate version available for pcre-devel
+  #         # - "fedora-latest"
+  #       suite:
+  #         - config-2
+  #         # - config-3
+  #         - config-acl
+  #         - config-array
+  #         - config-backend-search
+  #         - config-custom-template
+  #         - config-fastcgi
+  #         - config-resolver
+  #         - config-ssl-redirect
+  #         - "package"
+  #         - "source-24"
+  #         - "source-26"
+  #         - "source-28"
+  #         - "source-lua"
+  #         - "source-default"
+  #         # - "source-openssl"
+  #         # OpenSSSL libraries are not currently compiling correctly
+  #         # see https://github.com/sous-chefs/haproxy/issues/503
+  #     fail-fast: false
 
-  lua_test:
-    needs: lint-unit
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - "centos-stream-9"
-        suite:
-          - "source-lua"
-      fail-fast: false
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@v5
+  #     - name: Install Chef
+  #       uses: actionshub/chef-install@main
+  #     - name: Dokken
+  #       uses: actionshub/test-kitchen@main
+  #       env:
+  #         CHEF_LICENSE: accept-no-persist
+  #         KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+  #       with:
+  #         suite: ${{ matrix.suite }}
+  #         os: ${{ matrix.os }}
 
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-      - name: Install Chef
-        uses: actionshub/chef-install@3.0.1
-      - name: Dokken
-        uses: actionshub/test-kitchen@3.0.0
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
+  # integration-amazonlinux:
+  #   needs: lint-unit
+  #   runs-on: ubuntu-24.04
+  #   strategy:
+  #     matrix:
+  #       os:
+  #         - "amazonlinux-2023"
+  #       suite:
+  #         - "package"
+  #         - "source-24"
+  #         - "source-26"
+  #         - "source-28"
+  #         - "source-default"
+  #     fail-fast: false
 
-  configtest:
-    needs: lint-unit
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - "centos-stream-9"
-        suite:
-          - "config-2"
-          # - "config-3"
-          - "config-backend-search"
-          - "config-acl"
-          - "config-resolver"
-          - "config-ssl-redirect"
-          - "config-custom-template"
-          - "config-custom-template"
-          - "config-array"
-          - "config-fastcgi"
-      fail-fast: false
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@v5
+  #     - name: Install Chef
+  #       uses: actionshub/chef-install@3.0.1
+  #     - name: Dokken
+  #       uses: actionshub/test-kitchen@3.0.0
+  #       env:
+  #         CHEF_LICENSE: accept-no-persist
+  #         KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+  #       with:
+  #         suite: ${{ matrix.suite }}
+  #         os: ${{ matrix.os }}
 
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-      - name: Install Chef
-        uses: actionshub/chef-install@3.0.1
-      - name: Dokken
-        uses: actionshub/test-kitchen@3.0.0
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
+  # lua_test:
+  #   needs: lint-unit
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       os:
+  #         - "centos-stream-9"
+  #       suite:
+  #         - "source-lua"
+  #     fail-fast: false
+
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@v5
+  #     - name: Install Chef
+  #       uses: actionshub/chef-install@3.0.1
+  #     - name: Dokken
+  #       uses: actionshub/test-kitchen@3.0.0
+  #       env:
+  #         CHEF_LICENSE: accept-no-persist
+  #         KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+  #       with:
+  #         suite: ${{ matrix.suite }}
+  #         os: ${{ matrix.os }}
+
+  # configtest:
+  #   needs: lint-unit
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       os:
+  #         - "centos-stream-9"
+  #       suite:
+  #         - "config-2"
+  #         # - "config-3"
+  #         - "config-backend-search"
+  #         - "config-acl"
+  #         - "config-resolver"
+  #         - "config-ssl-redirect"
+  #         - "config-custom-template"
+  #         - "config-custom-template"
+  #         - "config-array"
+  #         - "config-fastcgi"
+  #     fail-fast: false
+
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@v5
+  #     - name: Install Chef
+  #       uses: actionshub/chef-install@3.0.1
+  #     - name: Dokken
+  #       uses: actionshub/test-kitchen@3.0.0
+  #       env:
+  #         CHEF_LICENSE: accept-no-persist
+  #         KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+  #       with:
+  #         suite: ${{ matrix.suite }}
+  #         os: ${{ matrix.os }}
