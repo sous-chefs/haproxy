@@ -33,6 +33,7 @@ jobs:
 
       - name: Upload cookbook as artifact
         if: ${{ steps.release.outputs.release_created }}
+        id: upload
         uses: actions/upload-artifact@v4
         with:
           name: haproxy-cookbook-${{ steps.release.outputs.tag_name }}
