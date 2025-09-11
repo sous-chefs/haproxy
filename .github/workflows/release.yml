@@ -79,3 +79,4 @@ jobs:
             --supermarket-site https://supermarket.chef.io \
             --key ~/.chef/supermarket.pem \
             --user ${{ secrets.CHEF_SUPERMARKET_USER }}
+            --cookbook-path ../
