@@ -26,7 +26,6 @@ jobs:
         with:
           token: ${{ secrets.PORTER_GITHUB_TOKEN }}
 
-
       - name: Checkout
         uses: actions/checkout@v5
         if: ${{ steps.release.outputs.release_created }}
@@ -75,8 +74,8 @@ jobs:
 
       - name: Publish to Chef Supermarket
         run: |
-          knife supermarket share haproxy \
+          knife supermarket share haproxy ${{ steps.release.outputs.tag_name }} \
             --supermarket-site https://supermarket.chef.io \
             --key ~/.chef/supermarket.pem \
-            --user ${{ secrets.CHEF_SUPERMARKET_USER }}
+            --user ${{ secrets.CHEF_SUPERMARKET_USER }} \
             --cookbook-path ../
