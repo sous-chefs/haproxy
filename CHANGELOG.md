@@ -2,11 +2,6 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
-## Unreleased
-
-* Remove testing for CentOS 7 & Fedora
-* Add testing for CentOS Stream 9 & 10
-
 ## [12.4.3](https://github.com/sous-chefs/haproxy/compare/v12.4.2...v12.4.3) (2025-09-11)
 
 
