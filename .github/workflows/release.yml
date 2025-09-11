@@ -78,4 +78,4 @@ jobs:
           knife supermarket share haproxy \
             --supermarket-site https://supermarket.chef.io \
             --key ~/.chef/supermarket.pem \
-            --user-name ${{ secrets.CHEF_SUPERMARKET_USER }}
+            --user ${{ secrets.CHEF_SUPERMARKET_USER }}
