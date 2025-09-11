@@ -158,6 +158,8 @@ action :install do
     make_cmd << " LUA_INC=#{new_resource.lua_inc}" if property_is_set?(:lua_inc)
     make_cmd << " SSL_LIB=#{new_resource.ssl_lib}" if property_is_set?(:ssl_lib)
     make_cmd << " SSL_INC=#{new_resource.ssl_inc}" if property_is_set?(:ssl_inc)
+    # Add RPATH for custom SSL library to ensure runtime linking works correctly
+    make_cmd << " LDFLAGS=-Wl,-rpath,#{new_resource.ssl_lib}" if property_is_set?(:ssl_lib)
     extra_cmd = ' EXTRA=haproxy-systemd-wrapper' if new_resource.source_version.to_f < 1.8
 
     bash 'compile_haproxy' do
