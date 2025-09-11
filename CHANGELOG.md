@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## [12.4.8](https://github.com/sous-chefs/haproxy/compare/v12.4.7...v12.4.8) (2025-09-11)
+
+
+### Bug Fixes
+
+* Missing slash in release.yml ([#548](https://github.com/sous-chefs/haproxy/issues/548)) ([b212876](https://github.com/sous-chefs/haproxy/commit/b212876afe9d633ac826895daba950f029246c16))
+
 ## [12.4.7](https://github.com/sous-chefs/haproxy/compare/v12.4.6...v12.4.7) (2025-09-11)
 
 
