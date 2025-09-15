@@ -20,6 +20,7 @@ jobs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
       upload_url: ${{ steps.release.outputs.upload_url }}
+      body: ${{ steps.release.outputs.body }}
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
@@ -79,3 +80,37 @@ jobs:
             --key ~/.chef/supermarket.pem \
             --user ${{ secrets.CHEF_SUPERMARKET_USER }} \
             --cookbook-path ../
+
+  notify-slack:
+    needs: [release-please, publish-to-supermarket]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post text to a Slack channel
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            text: "New release of haproxy cookbook: ${{ needs.release-please.outputs.tag_name }}"
+            attachments:
+              - color: "28a745"
+                fields:
+                  - title: "Status"
+                    short: true
+                    value: "Completed"
+
+  notify-slack-details:
+    needs: notify-slack
+    name: Reply to release message with release details
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reply to release message with release details
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            thread_ts: "${{ steps.notify-slack.outputs.ts }}"
+            text: "${{ needs.release-please.outputs.body }}"
