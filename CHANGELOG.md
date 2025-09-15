@@ -392,11 +392,11 @@ Standardise files with files in sous-chefs/repo-management
 
 ### Fixed
 
-- Init script for Amazon Linux.
+* Init script for Amazon Linux.
 
 ### BREAKING CHANGES
 
-- This version removes `stats_socket`, `stats_uri` and `stats_timeout` properties from the `haproxy_global` and `haproxy_listen` resources in favour of using a hash to pass configuration options.
+* This version removes `stats_socket`, `stats_uri` and `stats_timeout` properties from the `haproxy_global` and `haproxy_listen` resources in favour of using a hash to pass configuration options.
 
 ## [v6.2.7] (2019-01-10)
 
