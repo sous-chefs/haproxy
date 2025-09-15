@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## [12.4.11](https://github.com/sous-chefs/haproxy/compare/v12.4.10...v12.4.11) (2025-09-15)
+
+
+### Bug Fixes
+
+* **ci:** Fix share command ([#556](https://github.com/sous-chefs/haproxy/issues/556)) ([f63a220](https://github.com/sous-chefs/haproxy/commit/f63a220b586cd8d6c54f9401f4b42769d2a0239c))
+
 ## [12.4.10](https://github.com/sous-chefs/haproxy/compare/v12.4.9...v12.4.10) (2025-09-15)
 
 
