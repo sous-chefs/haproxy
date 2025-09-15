@@ -4,7 +4,6 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [12.4.11](https://github.com/sous-chefs/haproxy/compare/v12.4.10...v12.4.11) (2025-09-15)
 
-
 ### Bug Fixes
 
 * **ci:** Fix share command ([#556](https://github.com/sous-chefs/haproxy/issues/556)) ([f63a220](https://github.com/sous-chefs/haproxy/commit/f63a220b586cd8d6c54f9401f4b42769d2a0239c))
@@ -84,6 +83,7 @@ This file is used to list changes made in each version of the haproxy cookbook.
 * With conventional commits we do not require labels ([#527](https://github.com/sous-chefs/haproxy/issues/527)) ([a02cf07](https://github.com/sous-chefs/haproxy/commit/a02cf07dff74e6499bed044e11abe6589b017c8a))
 
 ## 12.4.1 - *2025-09-04*
+
 
 ## 12.4.0 - *2024-12-09*
 
@@ -166,8 +166,6 @@ Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
 ## 12.2.9 - *2023-02-20*
-
-Standardise files with files in sous-chefs/repo-management
 
 Standardise files with files in sous-chefs/repo-management
 
@@ -392,6 +390,14 @@ Standardise files with files in sous-chefs/repo-management
 * Documentation - clarify extra_options hash string => array option.
 * Clarify the supported platforms - add AmazonLinux 2, remove fedora & freebsd.
 
+### Fixed
+
+* Init script for Amazon Linux.
+
+### BREAKING CHANGES
+
+* This version removes `stats_socket`, `stats_uri` and `stats_timeout` properties from the `haproxy_global` and `haproxy_listen` resources in favour of using a hash to pass configuration options.
+
 ## [v6.2.7] (2019-01-10)
 
 ### Added
@@ -578,7 +584,15 @@ Standardise files with files in sous-chefs/repo-management
 
 ### Removed
 
+* Attributes from the metadata file as these are redundant
+* Broken tarball validation in the source recipe to prevented installs from completing
+
+### Fixed
+
+* Source installs not running if an older version was present on the node
+* Resolved all cookstyle and foodcritic warnings
 * `default_backend` as a required property on the `frontend` resource.
+
 
 ## [v4.2.0] (2017-05-04)
 
@@ -783,6 +797,7 @@ Standardise files with files in sous-chefs/repo-management
 
 ### Fixed
 
+* Init script for Amazon Linux.
 * CPU Tuning, corrects cpu_affinity resource triggers
 
 ## v1.6.4

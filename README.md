@@ -15,18 +15,18 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 ## Requirements
 
 * HAProxy `stable` or `LTS`
-* Chef 13.9+
+* Chef 16+
 
 ### Platforms
 
 This cookbook officially supports and is tested against the following platforms:
 
-* debian: 9 & 10
-* ubuntu: 20.04 & 21.04
-* centos: 7 & 8
-* centos-stream: 8
+* debian: 11 & 12
+* ubuntu: 20.04 & 22.04
+* centos-stream: 8 & 9
+* amazonlinux: 2023
 * fedora: latest
-* amazonlinux: 2
+* opensuseleap
 
 PRs are welcome to add support for additional platforms.
 
