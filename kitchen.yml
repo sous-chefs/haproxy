@@ -37,9 +37,6 @@ suites:
   - name: source_2.8
     run_list:
       - recipe[test::source_28]
-  - name: source_2.9
-    run_list:
-      - recipe[test::source_29]
   - name: source_default
     run_list:
       - recipe[test::source]

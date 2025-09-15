@@ -39,6 +39,28 @@ describe 'haproxy_listen' do
     it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/#{cfg_content.join('\n')}/) }
   end
 
+  context 'option parameter with array of options' do
+    recipe do
+      haproxy_install 'package'
+
+      haproxy_listen 'test_options' do
+        bind '0.0.0.0:1337'
+        mode 'http'
+        option %w(dontlog-normal forwardfor)
+      end
+    end
+
+    cfg_content = [
+      'listen test_options',
+      '  mode http',
+      '  bind 0.0.0.0:1337',
+      '  option dontlog-normal',
+      '  option forwardfor',
+    ]
+
+    it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/#{cfg_content.join('\n')}/) }
+  end
+
   context 'extra options hash with disabled option' do
     recipe do
       haproxy_install 'package'

@@ -1,7 +1,7 @@
 ---
 name: Prevent file change
 
-on:
+"on":
   pull_request_target:
     branches: [main]
 
@@ -9,25 +9,25 @@ jobs:
   prevent-metadata-change:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: read
+      pull-requests: write
     steps:
       - name: Prevent metadata.rb file change
         uses: xalvarez/prevent-file-change-action@v2
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           pattern: metadata.rb
-          trustedAuthors: sous-chefs
+          trustedAuthors: &maintainers bmhughes,damacus,kitchen-porter,MarkGibbons,ramereth,Stromweld,xorima
 
   prevent-workflow-change:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: read
+      pull-requests: write
     steps:
       - name: Prevent workflow file change
         uses: xalvarez/prevent-file-change-action@v2
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           pattern: .github/workflows
-          trustedAuthors: sous-chefs
+          trustedAuthors: *maintainers
           closePR: true
           allowNewFiles: false

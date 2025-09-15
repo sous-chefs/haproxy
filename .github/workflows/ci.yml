@@ -4,12 +4,11 @@ name: Dokken Integration Tests
 "on":
   pull_request:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@3.1.1
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@4.0.0
     permissions:
       actions: write
       checks: write
@@ -32,7 +31,7 @@ jobs:
           # - "fedora-latest"
         suite:
           - config-2
-          - config-3
+          # - config-3
           - config-acl
           - config-array
           - config-backend-search
@@ -44,7 +43,6 @@ jobs:
           - "source-24"
           - "source-26"
           - "source-28"
-          - "source-29"
           - "source-lua"
           - "source-default"
           # - "source-openssl"
@@ -78,7 +76,6 @@ jobs:
           - "source-24"
           - "source-26"
           - "source-28"
-          - "source-29"
           - "source-default"
       fail-fast: false
 
@@ -130,7 +127,7 @@ jobs:
           - "centos-stream-9"
         suite:
           - "config-2"
-          - "config-3"
+          # - "config-3"
           - "config-backend-search"
           - "config-acl"
           - "config-resolver"

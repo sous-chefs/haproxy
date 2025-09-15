@@ -1,11 +1,9 @@
-name: 'Lint PR'
+---
+name: 'Validate PR'
 
-on:
+"on":
   pull_request_target:
-    types:
-      - opened
-      - edited
-      - reopened
+    types: [opened, edited, reopened]
 
 jobs:
   main:
