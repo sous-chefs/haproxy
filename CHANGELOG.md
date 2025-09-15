@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## [12.4.10](https://github.com/sous-chefs/haproxy/compare/v12.4.9...v12.4.10) (2025-09-15)
+
+
+### Bug Fixes
+
+* **tests:** Add unit test coverage for haproxy_listen option parameter (already implemented) ([#550](https://github.com/sous-chefs/haproxy/issues/550)) ([2be5b18](https://github.com/sous-chefs/haproxy/commit/2be5b18e52fc64949b5ea3824dfd79528b44af70))
+
 ## [12.4.9](https://github.com/sous-chefs/haproxy/compare/v12.4.8...v12.4.9) (2025-09-12)
 
 
