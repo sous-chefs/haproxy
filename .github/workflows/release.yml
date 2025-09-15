@@ -74,7 +74,7 @@ jobs:
 
       - name: Publish to Chef Supermarket
         run: |
-          knife supermarket share haproxy ${{ steps.release-please.outputs.tag_name }} \
+          knife supermarket share haproxy ${{ needs.release-please.outputs.tag_name }} \
             --supermarket-site https://supermarket.chef.io \
             --key ~/.chef/supermarket.pem \
             --user ${{ secrets.CHEF_SUPERMARKET_USER }} \
