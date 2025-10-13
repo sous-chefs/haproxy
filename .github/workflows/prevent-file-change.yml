@@ -12,7 +12,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Prevent metadata.rb file change
-        uses: xalvarez/prevent-file-change-action@v2
+        uses: xalvarez/prevent-file-change-action@v3
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           pattern: metadata.rb
@@ -24,7 +24,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Prevent workflow file change
-        uses: xalvarez/prevent-file-change-action@v2
+        uses: xalvarez/prevent-file-change-action@v3
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           pattern: .github/workflows
