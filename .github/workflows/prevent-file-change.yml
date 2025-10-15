@@ -1,33 +1,16 @@
 ---
-name: Prevent file change
+name: prevent-file-change
 
 "on":
-  pull_request_target:
-    branches: [main]
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
 
 jobs:
-  prevent-metadata-change:
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    steps:
-      - name: Prevent metadata.rb file change
-        uses: xalvarez/prevent-file-change-action@v2
-        with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          pattern: metadata.rb
-          trustedAuthors: &maintainers bmhughes,damacus,kitchen-porter,MarkGibbons,ramereth,Stromweld,xorima
-
-  prevent-workflow-change:
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    steps:
-      - name: Prevent workflow file change
-        uses: xalvarez/prevent-file-change-action@v2
-        with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          pattern: .github/workflows
-          trustedAuthors: *maintainers
-          closePR: true
-          allowNewFiles: false
+  prevent-file-change:
+    uses: sous-chefs/.github/.github/workflows/prevent-file-change.yml@5.0.3
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
