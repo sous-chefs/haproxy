@@ -4,20 +4,17 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [12.4.11](https://github.com/sous-chefs/haproxy/compare/v12.4.10...v12.4.11) (2025-09-15)
 
-
 ### Bug Fixes
 
-* **ci:** Fix share command ([#556](https://github.com/sous-chefs/haproxy/issues/556)) ([f63a220](https://github.com/sous-chefs/haproxy/commit/f63a220b586cd8d6c54f9401f4b42769d2a0239c))
+**ci:** Fix share command ([#556](https://github.com/sous-chefs/haproxy/issues/556)) ([f63a220](https://github.com/sous-chefs/haproxy/commit/f63a220b586cd8d6c54f9401f4b42769d2a0239c))
 
 ## [12.4.10](https://github.com/sous-chefs/haproxy/compare/v12.4.9...v12.4.10) (2025-09-15)
 
-
 ### Bug Fixes
 
-* **tests:** Add unit test coverage for haproxy_listen option parameter (already implemented) ([#550](https://github.com/sous-chefs/haproxy/issues/550)) ([2be5b18](https://github.com/sous-chefs/haproxy/commit/2be5b18e52fc64949b5ea3824dfd79528b44af70))
+**tests:** Add unit test coverage for haproxy_listen option parameter (already implemented) ([#550](https://github.com/sous-chefs/haproxy/issues/550)) ([2be5b18](https://github.com/sous-chefs/haproxy/commit/2be5b18e52fc64949b5ea3824dfd79528b44af70))
 
 ## [12.4.9](https://github.com/sous-chefs/haproxy/compare/v12.4.8...v12.4.9) (2025-09-12)
-
 
 ### Bug Fixes
 
@@ -25,13 +22,11 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [12.4.8](https://github.com/sous-chefs/haproxy/compare/v12.4.7...v12.4.8) (2025-09-11)
 
-
 ### Bug Fixes
 
 * Missing slash in release.yml ([#548](https://github.com/sous-chefs/haproxy/issues/548)) ([b212876](https://github.com/sous-chefs/haproxy/commit/b212876afe9d633ac826895daba950f029246c16))
 
 ## [12.4.7](https://github.com/sous-chefs/haproxy/compare/v12.4.6...v12.4.7) (2025-09-11)
-
 
 ### Bug Fixes
 
@@ -39,32 +34,28 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [12.4.6](https://github.com/sous-chefs/haproxy/compare/v12.4.5...v12.4.6) (2025-09-11)
 
-
 ### Bug Fixes
 
-* **ci:** Fix supermarket share command typo ([cea808c](https://github.com/sous-chefs/haproxy/commit/cea808c6216d54745fe852aaa49e6b8efe0e6a12))
+**ci:** Fix supermarket share command typo ([cea808c](https://github.com/sous-chefs/haproxy/commit/cea808c6216d54745fe852aaa49e6b8efe0e6a12))
 
 ## [12.4.5](https://github.com/sous-chefs/haproxy/compare/v12.4.4...v12.4.5) (2025-09-11)
 
-
 ### Bug Fixes
 
-* **ci:** More CI fixes ([#544](https://github.com/sous-chefs/haproxy/issues/544)) ([88a9ca0](https://github.com/sous-chefs/haproxy/commit/88a9ca00a24318ecbd2426fc3cc4e0ac0268762f))
+**ci:** More CI fixes ([#544](https://github.com/sous-chefs/haproxy/issues/544)) ([88a9ca0](https://github.com/sous-chefs/haproxy/commit/88a9ca00a24318ecbd2426fc3cc4e0ac0268762f))
 
 ## [12.4.4](https://github.com/sous-chefs/haproxy/compare/v12.4.3...v12.4.4) (2025-09-11)
 
-
 ### Bug Fixes
 
-* **ci:** Fix attestation ([#541](https://github.com/sous-chefs/haproxy/issues/541)) ([5c92cbd](https://github.com/sous-chefs/haproxy/commit/5c92cbdfd984f300957dc4aa0014408505ef1915))
+**ci:** Fix attestation ([#541](https://github.com/sous-chefs/haproxy/issues/541)) ([5c92cbd](https://github.com/sous-chefs/haproxy/commit/5c92cbdfd984f300957dc4aa0014408505ef1915))
 
 ## [12.4.3](https://github.com/sous-chefs/haproxy/compare/v12.4.2...v12.4.3) (2025-09-11)
-
 
 ### Bug Fixes
 
 * .release-please-manifest.json ([#523](https://github.com/sous-chefs/haproxy/issues/523)) ([bf9797d](https://github.com/sous-chefs/haproxy/commit/bf9797db291e794c150a9e713064c4e8f3062f03))
-* **ai:** Add GitHub Copilot instructions ([#536](https://github.com/sous-chefs/haproxy/issues/536)) ([4836686](https://github.com/sous-chefs/haproxy/commit/4836686016b10f1be5423661d65191977b6d77ed))
+**ai:** Add GitHub Copilot instructions ([#536](https://github.com/sous-chefs/haproxy/issues/536)) ([4836686](https://github.com/sous-chefs/haproxy/commit/4836686016b10f1be5423661d65191977b6d77ed))
 * Fix tested platforms & Add publishing support ([#519](https://github.com/sous-chefs/haproxy/issues/519)) ([ff3daaa](https://github.com/sous-chefs/haproxy/commit/ff3daaa37d08f7757fe28d78dcd76c44edeeb083))
 * release please manifest ([#524](https://github.com/sous-chefs/haproxy/issues/524)) ([e4421fd](https://github.com/sous-chefs/haproxy/commit/e4421fd31d1c27ed1134017847c5991839edb2db))
 * Remove EOL HAProxy 2.9 & update workflows ([#531](https://github.com/sous-chefs/haproxy/issues/531)) ([5ffa69f](https://github.com/sous-chefs/haproxy/commit/5ffa69fca2b418bb9cdd6c3482d9f76d78b22f99))
@@ -73,7 +64,6 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 ## [12.4.2](https://github.com/sous-chefs/haproxy/compare/12.4.1...v12.4.2) (2025-09-10)
 
-
 ### Bug Fixes
 
 * .release-please-manifest.json ([#523](https://github.com/sous-chefs/haproxy/issues/523)) ([bf9797d](https://github.com/sous-chefs/haproxy/commit/bf9797db291e794c150a9e713064c4e8f3062f03))
@@ -82,8 +72,6 @@ This file is used to list changes made in each version of the haproxy cookbook.
 * Remove EOL HAProxy 2.9 & update workflows ([#531](https://github.com/sous-chefs/haproxy/issues/531)) ([5ffa69f](https://github.com/sous-chefs/haproxy/commit/5ffa69fca2b418bb9cdd6c3482d9f76d78b22f99))
 * Revert to simple release-please config to prevent Node.js auto-detection ([e1f3324](https://github.com/sous-chefs/haproxy/commit/e1f3324ca4534d84377d10492e9466e8c065d477))
 * With conventional commits we do not require labels ([#527](https://github.com/sous-chefs/haproxy/issues/527)) ([a02cf07](https://github.com/sous-chefs/haproxy/commit/a02cf07dff74e6499bed044e11abe6589b017c8a))
-
-## 12.4.1 - *2025-09-04*
 
 ## 12.4.0 - *2024-12-09*
 
@@ -94,19 +82,9 @@ This file is used to list changes made in each version of the haproxy cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
-## 12.3.6 - *2024-11-05*
-
 ## 12.3.5 - *2024-07-15*
 
 Standardise files with files in sous-chefs/repo-management
-
-## 12.3.4 - *2024-05-03*
-
-## 12.3.3 - *2024-05-03*
-
-## 12.3.2 - *2024-02-01*
-
-## 12.3.1 - *2024-02-01*
 
 ## 12.3.0 - *2024-01-31*
 
@@ -123,27 +101,9 @@ Standardise files with files in sous-chefs/repo-management
 * Fix source lua tests on CentOS & Fedora
 * Remove OpenSSL tests, as this is out of scope of the core cookbook currently
 
-## 12.2.24 - *2024-01-31*
-
-## 12.2.23 - *2023-10-26*
-
-## 12.2.22 - *2023-09-28*
-
-## 12.2.21 - *2023-09-04*
-
-## 12.2.20 - *2023-08-30*
-
-## 12.2.19 - *2023-05-17*
-
-## 12.2.18 - *2023-04-17*
-
 ## 12.2.17 - *2023-04-07*
 
 Standardise files with files in sous-chefs/repo-management
-
-## 12.2.16 - *2023-04-01*
-
-## 12.2.15 - *2023-04-01*
 
 ## 12.2.14 - *2023-04-01*
 

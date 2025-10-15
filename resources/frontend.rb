@@ -10,7 +10,7 @@ property :mode, String,
           description: 'Set the running mode or protocol of the instance'
 
 property :maxconn, [Integer, String],
-          coerce: proc { |p| p.to_s },
+          coerce: proc(&:to_s),
           description: 'Sets the maximum per-process number of concurrent connections'
 
 property :default_backend, String,
