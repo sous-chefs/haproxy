@@ -11,7 +11,7 @@ module Haproxy
         when 'debian'
           %w(libpcre3-dev libssl-dev zlib1g-dev libsystemd-dev)
         when 'rhel', 'amazon', 'fedora'
-          pcre_package = if node['platform_family'] == 'rhel' && platform_version.to_i >= 10
+          pcre_package = if node['platform_family'] == 'rhel' && platform_version.to_i < 10
                            'pcre2-devel'
                          else
                            'pcre-devel'

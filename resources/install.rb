@@ -99,8 +99,8 @@ action_class do
   end
 
   def pcre_version
-    # Use PCRE2 for RHEL/CentOS Stream 10+ where PCRE is deprecated
-    if platform_family?('rhel') && platform_version.to_i >= 10
+    # Use PCRE2 for RHEL/CentOS Stream versions below 10
+    if platform_family?('rhel') && platform_version.to_i < 10
       'pcre2'
     else
       'pcre'

@@ -36,8 +36,7 @@ This resource also uses the following partial resources:
 | `source_target_arch` | String  |                                                                  |                                                                                |                     |
 | `source_target_os`   | String  | See resource                                                     |                                                                                |                     |
 | `use_libcrypt`       | Boolean | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_pcre`           | Boolean | Auto-detect (false for EL10+)                                   | Include PCRE support (PCRE1)                                                  | `true`, `false`     |
-| `use_pcre2`          | Boolean | Auto-detect (true for EL10+)                                    | Include PCRE2 support (PCRE2)                                                 | `true`, `false`     |
+| `use_pcre`           | Boolean | `true`                                                           | Include PCRE support (automatically uses PCRE2 for RHEL <10, PCRE for RHEL >=10) | `true`, `false`     |
 | `use_openssl`        | Boolean | `true`                                                           | Include openssl support (<https://openssl.org>)                                | `true`, `false`     |
 | `use_zlib`           | Boolean | `true`                                                           | Include ZLIB support                                                           | `true`, `false`     |
 | `use_linux_tproxy`   | Boolean | `true`                                                           |                                                                                | `true`, `false`     |
@@ -49,8 +48,6 @@ This resource also uses the following partial resources:
 | `lua_inc`            | String  |                                                                  | Path for lua library files ex: `/opt/lib-5.3.5/include`                        |                     |
 | `ssl_lib`            | String  |                                                                  | Path for openssl library files ex: `/usr/local/openssl/lib`                    |                     |
 | `ssl_inc`            | String  |                                                                  | Path for openssl includes files ex: `/usr/local/openssl/inc`                   |                     |
-
-**Note:** The `use_pcre` and `use_pcre2` properties cannot both be set to `true` simultaneously. The resource will automatically choose the appropriate PCRE library based on the platform (PCRE2 for EL10+, PCRE1 for older versions), but you can override this behavior by explicitly setting these properties.
 
 ## Examples
 
@@ -64,19 +61,6 @@ haproxy_install 'source' do
   source_checksum node['haproxy']['source_checksum']
   source_version node['haproxy']['source_version']
   use_pcre true
-  use_openssl true
-  use_zlib true
-  use_linux_tproxy true
-  use_linux_splice true
-end
-```
-
-```ruby
-# Explicitly use PCRE2 (useful for testing PCRE2 on older platforms)
-haproxy_install 'source' do
-  source_version '2.8.5'
-  use_pcre false
-  use_pcre2 true
   use_openssl true
   use_zlib true
   use_linux_tproxy true
