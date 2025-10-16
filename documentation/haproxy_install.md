@@ -36,7 +36,7 @@ This resource also uses the following partial resources:
 | `source_target_arch` | String  |                                                                  |                                                                                |                     |
 | `source_target_os`   | String  | See resource                                                     |                                                                                |                     |
 | `use_libcrypt`       | Boolean | `true`                                                           |                                                                                | `true`, `false`     |
-| `use_pcre`           | Boolean | `true`                                                           |                                                                                | `true`, `false`     |
+| `use_pcre`           | Boolean | `true`                                                           | Include PCRE support (automatically uses PCRE2 for RHEL <10, PCRE for RHEL >=10) | `true`, `false`     |
 | `use_openssl`        | Boolean | `true`                                                           | Include openssl support (<https://openssl.org>)                                | `true`, `false`     |
 | `use_zlib`           | Boolean | `true`                                                           | Include ZLIB support                                                           | `true`, `false`     |
 | `use_linux_tproxy`   | Boolean | `true`                                                           |                                                                                | `true`, `false`     |
