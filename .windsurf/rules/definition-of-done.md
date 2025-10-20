@@ -3,7 +3,7 @@ trigger: model_decision
 description: When completing a task check the following are true
 ---
 
-- `cookstyle` does not return any syntax or stlye errors
+- `cookstyle` does not return any syntax or style errors
 - markdownlint-cli2 "**/*.md" "!vendor" "!.venv" --fix
 - yamllint
 - `kitchen test` does not return any errors
