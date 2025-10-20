@@ -1,9 +1,10 @@
 ---
-name: release-please
+name: release
 
 "on":
   push:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -14,67 +15,9 @@ permissions:
   id-token: write
 
 jobs:
-  release-please:
-    runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
-      upload_url: ${{ steps.release.outputs.upload_url }}
-    steps:
-      - uses: googleapis/release-please-action@v4
-        id: release
-        with:
-          token: ${{ secrets.PORTER_GITHUB_TOKEN }}
-          release-type: ruby
-          include-component-in-tag: false
-
-      - name: Checkout
-        uses: actions/checkout@v5
-        if: ${{ steps.release.outputs.release_created }}
-
-      - name: Upload cookbook as artifact
-        if: ${{ steps.release.outputs.release_created }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: haproxy-cookbook-${{ steps.release.outputs.tag_name }}
-          path: |
-            .
-            !.git/
-            !.github/
-            !.kitchen/
-            !.vscode/
-            !documentation/
-            !.gitignore
-            !test/
-            !spec/
-          retention-days: 90
-          compression-level: 6
-
-      - name: Generate artifact attestation
-        if: ${{ steps.release.outputs.release_created }}
-        uses: actions/attest-build-provenance@v3
-        with:
-          subject-name: haproxy-cookbook-${{ steps.release.outputs.tag_name }}
-
-  publish-to-supermarket:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.release_created }}
-    runs-on: ubuntu-latest
-    container:
-      image: chef/chefworkstation:latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Configure Chef credentials
-        run: |
-          mkdir -p ~/.chef
-          echo "${{ secrets.CHEF_SUPERMARKET_KEY }}" > ~/.chef/supermarket.pem
-          chmod 600 ~/.chef/supermarket.pem
-
-      - name: Publish to Chef Supermarket
-        run: |
-          knife supermarket share haproxy \
-            --supermarket-site https://supermarket.chef.io \
-            --key ~/.chef/supermarket.pem \
-            --user-name ${{ secrets.CHEF_SUPERMARKET_USER }}
+  release:
+    uses: sous-chefs/.github/.github/workflows/release-cookbook.yml@5.0.5
+    secrets:
+      token: ${{ secrets.PORTER_GITHUB_TOKEN }}
+      supermarket_user: ${{ secrets.CHEF_SUPERMARKET_USER }}
+      supermarket_key: ${{ secrets.CHEF_SUPERMARKET_KEY }}
