@@ -34,7 +34,7 @@ end
 # extract lua
 execute 'lua extract' do
   command 'tar xf lua-5.3.1.tar.gz'
-  cwd "#{Chef::Config[:file_cache_path]}"
+  cwd Chef::Config[:file_cache_path].to_s
   not_if { ::File.exist?('/opt/lua-5.3.1/bin/lua') }
 end
 
