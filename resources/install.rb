@@ -98,13 +98,9 @@ action_class do
     bool ? '1' : '0'
   end
 
-  def pcre_version
-    # Use PCRE2 for RHEL/CentOS Stream versions below 10
-    if platform_family?('rhel') && platform_version.to_i < 10
-      'pcre2'
-    else
-      'pcre'
-    end
+  def pcre_make_flag
+    # Use PCRE2 for RHEL/CentOS/AlmaLinux/Rocky < 10, PCRE for >= 10 and other platforms
+    pcre_package_name.include?('pcre2') ? 'USE_PCRE2' : 'USE_PCRE'
   end
 end
 
@@ -156,13 +152,7 @@ action :install do
     make_cmd << " CPU=#{new_resource.source_target_cpu}" if property_is_set?(:source_target_cpu)
     make_cmd << " ARCH=#{new_resource.source_target_arch}" if property_is_set?(:source_target_arch)
     make_cmd << " USE_LIBCRYPT=#{compile_make_boolean(new_resource.use_libcrypt)}"
-    if new_resource.use_pcre
-      make_cmd << if pcre_version == 'pcre2'
-                    " USE_PCRE2=#{compile_make_boolean(new_resource.use_pcre)}"
-                  else
-                    " USE_PCRE=#{compile_make_boolean(new_resource.use_pcre)}"
-                  end
-    end
+    make_cmd << " #{pcre_make_flag}=1" if new_resource.use_pcre
     make_cmd << " USE_OPENSSL=#{compile_make_boolean(new_resource.use_openssl)}"
     make_cmd << " USE_ZLIB=#{compile_make_boolean(new_resource.use_zlib)}"
     make_cmd << " USE_LINUX_TPROXY=#{compile_make_boolean(new_resource.use_linux_tproxy)}"
@@ -194,7 +184,6 @@ action :install do
       home "/home/#{new_resource.user}"
       group new_resource.group
       expire_date '2050-12-31' if Chef::VERSION.to_f >= 18.0
-      # rubocop:disable Lint/AmbiguousOperator
       inactive(-1) if Chef::VERSION.to_f >= 18.0
     end
   end

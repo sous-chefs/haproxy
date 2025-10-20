@@ -59,6 +59,34 @@ describe 'haproxy_install' do
     it { is_expected.not_to install_package('pcre2-devel') }
   end
 
+  context 'compile HAProxy on Amazon Linux (uses PCRE)' do
+    platform 'amazon', '2023'
+
+    recipe do
+      haproxy_install 'source'
+    end
+    before(:each) do
+      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return('2.8.5')
+    end
+
+    it { is_expected.to install_package(%w(pcre-devel openssl-devel zlib-devel systemd-devel tar)) }
+    it { is_expected.not_to install_package('pcre2-devel') }
+  end
+
+  context 'compile HAProxy on Fedora (uses PCRE)' do
+    platform 'fedora', '32'
+
+    recipe do
+      haproxy_install 'source'
+    end
+    before(:each) do
+      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return('2.8.5')
+    end
+
+    it { is_expected.to install_package(%w(pcre-devel openssl-devel zlib-devel systemd-devel tar)) }
+    it { is_expected.not_to install_package('pcre2-devel') }
+  end
+
   context 'compile HAProxy with PCRE disabled' do
     platform 'almalinux', '9'
 
@@ -71,6 +99,12 @@ describe 'haproxy_install' do
       stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return('2.8.5')
     end
 
+    # When PCRE is disabled, we still install the package (for dependencies)
+    # but the make command should not include USE_PCRE or USE_PCRE2 flags
     it { is_expected.to install_package(%w(pcre2-devel openssl-devel zlib-devel systemd-devel tar)) }
+    it { is_expected.to run_bash('compile_haproxy').with(code: /make TARGET=linux-glibc/) }
+    it { is_expected.to run_bash('compile_haproxy').with(code: /USE_OPENSSL=1/) }
+    it { is_expected.not_to run_bash('compile_haproxy').with(code: /USE_PCRE/) }
+    it { is_expected.not_to run_bash('compile_haproxy').with(code: /USE_PCRE2/) }
   end
 end

@@ -6,17 +6,22 @@ module Haproxy
         v.run_command.stdout.to_f
       end
 
+      def pcre_package_name
+        # Use PCRE2 for RHEL/CentOS/AlmaLinux/Rocky < 10
+        # Use PCRE for RHEL >= 10, Amazon Linux, Fedora, and other platforms
+        if platform_family?('rhel') && platform_version.to_i < 10
+          'pcre2-devel'
+        else
+          'pcre-devel'
+        end
+      end
+
       def source_package_list
         case node['platform_family']
         when 'debian'
           %w(libpcre3-dev libssl-dev zlib1g-dev libsystemd-dev)
         when 'rhel', 'amazon', 'fedora'
-          pcre_package = if node['platform_family'] == 'rhel' && platform_version.to_i < 10
-                           'pcre2-devel'
-                         else
-                           'pcre-devel'
-                         end
-          [pcre_package, 'openssl-devel', 'zlib-devel', 'systemd-devel', 'tar']
+          [pcre_package_name, 'openssl-devel', 'zlib-devel', 'systemd-devel', 'tar']
         when 'suse'
           %w(pcre-devel libopenssl-devel zlib-devel systemd-devel)
         end
