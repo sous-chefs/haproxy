@@ -103,7 +103,7 @@ describe 'haproxy_install' do
     # but the make command should not include USE_PCRE or USE_PCRE2 flags
     it { is_expected.to install_package(%w(pcre2-devel openssl-devel zlib-devel systemd-devel tar)) }
     it { is_expected.to run_bash('compile_haproxy') }
-    
+
     it 'does not include PCRE flags in make command' do
       bash_resource = chef_run.bash('compile_haproxy')
       expect(bash_resource.code).to match(/make TARGET=linux-glibc/)
