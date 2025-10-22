@@ -96,15 +96,20 @@ describe 'haproxy_install' do
       end
     end
     before(:each) do
-      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return('2.8.5')
+      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return(false)
     end
 
     # When PCRE is disabled, we still install the package (for dependencies)
     # but the make command should not include USE_PCRE or USE_PCRE2 flags
     it { is_expected.to install_package(%w(pcre2-devel openssl-devel zlib-devel systemd-devel tar)) }
-    it { is_expected.to run_bash('compile_haproxy').with(code: /make TARGET=linux-glibc/) }
-    it { is_expected.to run_bash('compile_haproxy').with(code: /USE_OPENSSL=1/) }
-    it { is_expected.not_to run_bash('compile_haproxy').with(code: /USE_PCRE/) }
-    it { is_expected.not_to run_bash('compile_haproxy').with(code: /USE_PCRE2/) }
+    it { is_expected.to run_bash('compile_haproxy') }
+    
+    it 'does not include PCRE flags in make command' do
+      bash_resource = chef_run.bash('compile_haproxy')
+      expect(bash_resource.code).to match(/make TARGET=linux-glibc/)
+      expect(bash_resource.code).to match(/USE_OPENSSL=1/)
+      expect(bash_resource.code).not_to match(/USE_PCRE2/)
+      expect(bash_resource.code).not_to match(/USE_PCRE=/)
+    end
   end
 end
