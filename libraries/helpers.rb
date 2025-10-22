@@ -7,9 +7,9 @@ module Haproxy
       end
 
       def pcre_package_name
-        # Use PCRE2 for RHEL/CentOS/AlmaLinux/Rocky < 10
-        # Use PCRE for RHEL >= 10, Amazon Linux, Fedora, and other platforms
-        if platform_family?('rhel') && platform_version.to_i < 10
+        # Use PCRE2 for RHEL/CentOS/AlmaLinux/Rocky >= 10 where PCRE1 is deprecated
+        # Use PCRE for RHEL < 10, Amazon Linux, Fedora, and other platforms
+        if platform_family?('rhel') && platform_version.to_i >= 10
           'pcre2-devel'
         else
           'pcre-devel'
