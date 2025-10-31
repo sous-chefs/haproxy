@@ -27,8 +27,8 @@ jobs:
           - "ubuntu-2004"
           - "ubuntu-2204"
           - "centos-stream-9"
-          # - "centos-stream-10" No candidate version available for pcre-devel
-          # - "fedora-latest"
+          - "centos-stream-10"
+          - "fedora-latest"
         suite:
           - config-2
           # - config-3
