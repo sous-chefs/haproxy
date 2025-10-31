@@ -43,6 +43,7 @@ jobs:
           - "source-24"
           - "source-26"
           - "source-28"
+          - "source-32"
           - "source-lua"
           - "source-default"
           # - "source-openssl"
@@ -76,6 +77,7 @@ jobs:
           - "source-24"
           - "source-26"
           - "source-28"
+          - "source-32"
           - "source-default"
       fail-fast: false
 
