@@ -24,7 +24,7 @@ describe 'haproxy_install' do
       end
     end
     before(:each) do
-      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return('2.8.5')
+      stub_command('/usr/sbin/haproxy -v | grep 2.8.13').and_return('2.8.13')
     end
 
     it { is_expected.to install_package(%w(libpcre3-dev libssl-dev zlib1g-dev libsystemd-dev)) }
