@@ -112,4 +112,29 @@ describe 'haproxy_install' do
       expect(bash_resource.code).not_to match(/USE_PCRE=/)
     end
   end
+
+  context 'compile HAProxy with custom OpenSSL' do
+    recipe do
+      haproxy_install 'source' do
+        use_openssl true
+        ssl_lib '/usr/local/openssl/lib'
+        ssl_inc '/usr/local/openssl/include'
+      end
+    end
+    before(:each) do
+      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return(false)
+    end
+
+    it 'includes RPATH in the compilation command' do
+      expect(chef_run).to run_bash('compile_haproxy').with(
+        code: %r{LDFLAGS=-Wl,-rpath,/usr/local/openssl/lib}
+      )
+    end
+
+    it 'includes SSL_LIB and SSL_INC in the compilation command' do
+      expect(chef_run).to run_bash('compile_haproxy').with(
+        code: %r{SSL_LIB=/usr/local/openssl/lib SSL_INC=/usr/local/openssl/include}
+      )
+    end
+  end
 end
