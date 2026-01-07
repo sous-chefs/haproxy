@@ -3,10 +3,12 @@ build_essential 'compilation tools'
 # install lua dependencies
 case node['platform_family']
 when 'rhel', 'fedora'
-  package %w(
+  # Use pcre2-devel on RHEL/CentOS >= 10, pcre-devel on older versions
+  pcre_pkg = node['platform_version'].to_i >= 10 ? 'pcre2-devel' : 'pcre-devel'
+  package %W(
     readline-devel
     ncurses-devel
-    pcre-devel
+    #{pcre_pkg}
     openssl-devel
     zlib-devel
   )

@@ -72,9 +72,13 @@ cfg_content = [
   '  http-response set-header Expires %\[date\(3600\),http_date\]',
   '  default_backend servers',
   '  option dontlog-normal',
-  '  bind-process odd',
-  '  hash-type consistent',
 ]
+
+platform_version = os.release.to_i
+if platform_version < 10
+  cfg_content << '  bind-process odd'
+end
+cfg_content << '  hash-type consistent'
 
 describe file('/etc/haproxy/haproxy.cfg') do
   its('content') { should match(/#{cfg_content.join('\n')}/) }
