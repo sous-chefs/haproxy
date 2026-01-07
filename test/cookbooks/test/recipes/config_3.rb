@@ -34,7 +34,8 @@ haproxy_listen 'admin' do
   http_response 'set-header Expires %[date(3600),http_date]'
   default_backend 'servers'
   option %w(dontlog-normal)
-  extra_options('bind-process' => 'odd')
+  # bind-process is deprecated in HAProxy 2.5+ and removed in 3.x
+  extra_options('bind-process' => 'odd') unless node['platform_version'].to_i >= 10
   hash_type 'consistent'
 end
 
