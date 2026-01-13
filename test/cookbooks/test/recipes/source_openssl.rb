@@ -2,6 +2,9 @@ build_essential 'compilation tools'
 
 # package %w(build-essential zlib1g-dev) if platform_family?('debian')
 
+# Install perl modules for OpenSSL configure script on RHEL/CentOS >= 10
+package %w(perl-FindBin perl-lib perl-File-Compare perl-File-Copy perl-IPC-Cmd perl-Pod-Html) if platform_family?('rhel', 'fedora') && node['platform_version'].to_i >= 10
+
 # package %w(make gcc perl pcre-devel zlib-devel perl-core) if platform_family?('rhel')
 
 # override environment variable

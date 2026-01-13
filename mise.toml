@@ -1,5 +1,2 @@
-# .mise.toml
-
 [env]
-PATH = "/opt/chef-workstation/bin:/opt/chef-workstation/embedded/bin:{{env.PATH}}"
-KITCHEN_LOCAL_YAML = "kitchen.dokken.yml"
+_.path = "/opt/chef-workstation/bin"
