@@ -26,6 +26,9 @@ platforms:
   - name: fedora-latest
 
 suites:
+  - name: default
+    provisioner:
+      named_run_list: default
   - name: package
     provisioner:
       named_run_list: package

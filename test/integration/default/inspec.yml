@@ -1,0 +1,9 @@
+---
+name: haproxy-default
+title: HAProxy Default Suite
+summary: HAProxy default tests using package installation
+supports:
+  - os-family: linux
+depends:
+  - name: haproxy-common
+    path: test/integration/common

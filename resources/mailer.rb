@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+provides :haproxy_mailer
+
 use 'partial/_config_file'
 
 property :mailer, [String, Array],

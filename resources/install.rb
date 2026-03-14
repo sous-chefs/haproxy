@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+provides :haproxy_install
+
 include Haproxy::Cookbook::Helpers
 
 use 'partial/_config_file'
@@ -85,10 +89,6 @@ property :use_systemd, [true, false],
           description: 'Evalues whether to use systemd based on the nodes init package'
 
 unified_mode true
-
-action_class do
-  include Haproxy::Cookbook::ResourceHelpers
-end
 
 action_class do
   include Haproxy::Cookbook::Helpers

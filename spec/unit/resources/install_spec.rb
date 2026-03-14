@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'haproxy_install' do
@@ -45,10 +47,11 @@ describe 'haproxy_install' do
     it { is_expected.not_to install_package('pcre2-devel') }
   end
 
-  context 'compile HAProxy on AlmaLinux 10 (uses PCRE2)' do
-    platform 'almalinux', '10'
+  context 'compile HAProxy on AlmaLinux >= 10 (uses PCRE2)' do
+    platform 'almalinux', '9'
 
     recipe do
+      node.automatic['platform_version'] = '10'
       haproxy_install 'source'
     end
     before(:each) do
