@@ -52,7 +52,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Install Chef
         uses: actionshub/chef-install@main
       - name: Dokken
@@ -82,7 +82,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Install Chef
         uses: actionshub/chef-install@main
       - name: Dokken
@@ -107,7 +107,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Install Chef
         uses: actionshub/chef-install@main
       - name: Dokken
@@ -140,7 +140,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Install Chef
         uses: actionshub/chef-install@main
       - name: Dokken

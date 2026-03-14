@@ -2,6 +2,14 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## [12.4.13](https://github.com/sous-chefs/haproxy/compare/v12.4.12...v12.4.13) (2026-01-27)
+
+
+### Bug Fixes
+
+* **Install:** OpenSSL compilation on RHEL derivatives by adding RPATH support ([#551](https://github.com/sous-chefs/haproxy/issues/551)) ([c84c8e3](https://github.com/sous-chefs/haproxy/commit/c84c8e32508e68907cded0b041c5f9f183ed4307))
+* **RHEL:** Add PCRE version detection based on platform version ([#521](https://github.com/sous-chefs/haproxy/issues/521)) ([9b32cfd](https://github.com/sous-chefs/haproxy/commit/9b32cfde7e435fab8e1a28c4684e738f2b2b48e4))
+
 ## [12.4.12](https://github.com/sous-chefs/haproxy/compare/v12.4.11...v12.4.12) (2025-10-15)
 
 
