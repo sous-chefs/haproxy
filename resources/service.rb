@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+provides :haproxy_service
+
 include Haproxy::Cookbook::Helpers
 
 use 'partial/_config_file'

@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+provides :haproxy_cache
+
 use 'partial/_config_file'
 
 property :cache_name, String,

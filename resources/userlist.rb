@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+provides :haproxy_userlist
+
 use 'partial/_config_file'
 
 property :group, Hash,

@@ -1,2 +1,4 @@
 [env]
 _.path = "/opt/chef-workstation/bin"
+KITCHEN_LOCAL_YAML = "kitchen.dokken.yml"
+CHEF_VERSION = "18.8.72"

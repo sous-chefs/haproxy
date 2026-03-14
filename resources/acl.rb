@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+provides :haproxy_acl
+
 use 'partial/_config_file'
 
 property :acl, [String, Array],
