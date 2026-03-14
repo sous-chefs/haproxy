@@ -35,13 +35,13 @@ property :enable_epel_repo, [true, false],
 
 # Source
 property :source_version, String,
-          default: '2.8.5'
+          default: '3.2.14'
 
 property :source_url, String,
           default: lazy { "https://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version}.tar.gz" }
 
 property :source_checksum, String,
-          default: '3f5459c5a58e0b343a32eaef7ed5bed9d3fc29d8aa9e14b36c92c969fc2a60d9'
+          default: 'b21f50a790aa8cb0cf8dc505f1f8d849799eafe4d31c14b86a34409ccf4ae5e4'
 
 property :source_target_cpu, String,
           default: lazy { node['kernel']['machine'] }
