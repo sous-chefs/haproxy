@@ -32,12 +32,6 @@ suites:
   - name: package
     provisioner:
       named_run_list: package
-  - name: source-2.4
-    provisioner:
-      named_run_list: source_24
-  - name: source_2.6
-    provisioner:
-      named_run_list: source_26
   - name: source_2.8
     provisioner:
       named_run_list: source_28

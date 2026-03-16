@@ -1,3 +1,5 @@
+apt_update 'update' if platform_family?('debian')
+
 build_essential 'compilation tools'
 
 # package %w(build-essential zlib1g-dev) if platform_family?('debian')
