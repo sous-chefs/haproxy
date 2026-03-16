@@ -1,3 +1,5 @@
+apt_update 'update' if platform_family?('debian')
+
 build_essential 'compilation tools'
 
 # install lua dependencies

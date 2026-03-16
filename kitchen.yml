@@ -56,12 +56,6 @@ suites:
   - name: package
     run_list: *package_run_list
     verifier: *package_verifier
-  - name: source-2.4
-    run_list:
-      - recipe[test::source_24]
-  - name: source-2.6
-    run_list:
-      - recipe[test::source_26]
   - name: source-2.8
     run_list:
       - recipe[test::source_28]

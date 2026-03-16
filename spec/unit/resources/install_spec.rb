@@ -48,10 +48,9 @@ describe 'haproxy_install' do
   end
 
   context 'compile HAProxy on AlmaLinux >= 10 (uses PCRE2)' do
-    platform 'almalinux', '9'
+    platform 'almalinux', '10'
 
     recipe do
-      node.automatic['platform_version'] = '10.0'
       haproxy_install 'source'
     end
     before(:each) do
