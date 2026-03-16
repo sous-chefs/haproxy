@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 name              'haproxy'
 maintainer        'Sous Chefs'
 maintainer_email  'help@sous-chefs.org'
@@ -10,15 +8,9 @@ source_url        'https://github.com/sous-chefs/haproxy'
 issues_url        'https://github.com/sous-chefs/haproxy/issues'
 chef_version      '>= 16'
 
-supports 'almalinux'
-supports 'amazon'
-supports 'centos'
 supports 'debian'
-supports 'fedora'
-supports 'opensuseleap'
-supports 'oracle'
-supports 'redhat'
-supports 'rocky'
 supports 'ubuntu'
-
+supports 'centos'
+supports 'amazon'
+supports 'opensuseleap'
 depends 'yum-epel'

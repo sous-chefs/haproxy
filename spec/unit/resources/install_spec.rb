@@ -51,7 +51,7 @@ describe 'haproxy_install' do
     platform 'almalinux', '9'
 
     recipe do
-      node.automatic['platform_version'] = '10'
+      node.automatic['platform_version'] = '10.0'
       haproxy_install 'source'
     end
     before(:each) do
