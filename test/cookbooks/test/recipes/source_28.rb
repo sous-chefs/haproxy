@@ -1,4 +1,4 @@
-apt_update 'update' if platform_family?('debian')
+apt_update
 
 # renovate: datasource=endoflife-date depName=haproxy versioning=semver
 version = '3.2.14'
