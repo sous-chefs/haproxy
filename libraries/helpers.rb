@@ -18,10 +18,16 @@ module Haproxy
         end
       end
 
+      def debian_pcre_package_name
+        # Debian 13+ (trixie) dropped libpcre3-dev, use libpcre2-dev
+        # Ubuntu still ships libpcre3-dev, so only check actual Debian
+        platform?('debian') && platform_version.to_i >= 13 ? 'libpcre2-dev' : 'libpcre3-dev'
+      end
+
       def source_package_list
         case node['platform_family']
         when 'debian'
-          %w(libpcre3-dev libssl-dev zlib1g-dev libsystemd-dev)
+          [debian_pcre_package_name, 'libssl-dev', 'zlib1g-dev', 'libsystemd-dev']
         when 'rhel', 'amazon', 'fedora'
           [pcre_package_name, 'openssl-devel', 'zlib-devel', 'systemd-devel', 'tar']
         when 'suse'

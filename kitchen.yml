@@ -44,6 +44,9 @@ suites:
   - name: source_openssl
     provisioner:
       named_run_list: source_openssl
+    verifier:
+      inspec_tests:
+        - path: test/integration/source_openssl
   - name: config_2
     provisioner:
       named_run_list: config_2

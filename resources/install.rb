@@ -99,8 +99,12 @@ action_class do
   end
 
   def pcre_make_flag
-    # Use PCRE2 for RHEL/CentOS/AlmaLinux/Rocky >= 10, PCRE for < 10 and other platforms
-    pcre_package_name.include?('pcre2') ? 'USE_PCRE2' : 'USE_PCRE'
+    # Use PCRE2 for RHEL >= 10 and Debian >= 13, PCRE for older and other platforms
+    if platform_family?('debian')
+      debian_pcre_package_name.include?('pcre2') ? 'USE_PCRE2' : 'USE_PCRE'
+    else
+      pcre_package_name.include?('pcre2') ? 'USE_PCRE2' : 'USE_PCRE'
+    end
   end
 end
 
