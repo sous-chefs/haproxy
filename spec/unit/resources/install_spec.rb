@@ -33,6 +33,20 @@ describe 'haproxy_install' do
     it { is_expected.not_to install_package('pcre-devel') }
   end
 
+  context 'compile HAProxy on Debian 13 (uses PCRE2)' do
+    platform 'debian', '13'
+
+    recipe do
+      haproxy_install 'source'
+    end
+    before(:each) do
+      stub_command('/usr/sbin/haproxy -v | grep 3.2.14').and_return('3.2.14')
+    end
+
+    it { is_expected.to install_package(%w(libpcre2-dev libssl-dev zlib1g-dev libsystemd-dev)) }
+    it { is_expected.not_to install_package('libpcre3-dev') }
+  end
+
   context 'compile HAProxy on AlmaLinux 9' do
     platform 'almalinux', '9'
 

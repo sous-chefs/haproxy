@@ -2,8 +2,20 @@ apt_update
 
 build_essential 'compilation tools'
 
-# Install perl modules needed by OpenSSL Configure script
-package %w(perl-FindBin perl-lib perl-File-Compare perl-File-Copy perl-IPC-Cmd perl-Pod-Html perl-Time-Piece) if platform_family?('rhel', 'fedora')
+# Install dependencies needed by OpenSSL Configure and compilation
+case node['platform_family']
+when 'rhel', 'fedora'
+  if node['platform_version'].to_i >= 9
+    package %w(perl-FindBin perl-lib perl-File-Compare perl-File-Copy perl-IPC-Cmd perl-Pod-Html perl-Time-Piece)
+  else
+    # EL8 bundles perl modules in perl-core, individual packages don't exist
+    package %w(perl-core perl-IPC-Cmd)
+  end
+when 'debian'
+  package %w(perl zlib1g-dev)
+when 'suse'
+  package %w(perl zlib-devel)
+end
 
 # override environment variable
 ruby_block 'Pre-load OpenSSL path' do

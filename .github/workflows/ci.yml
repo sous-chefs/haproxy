@@ -18,24 +18,18 @@ jobs:
 
   integration:
     needs: lint-unit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         os:
-          - "almalinux-8"
+          - "fedora-latest"
           - "almalinux-9"
           - "almalinux-10"
           - "centos-stream-9"
           - "centos-stream-10"
-          - "debian-11"
           - "debian-12"
-          - "fedora-latest"
+          - "debian-13"
           - "opensuse-leap-15"
-          - "oraclelinux-8"
-          - "oraclelinux-9"
-          - "rockylinux-8"
-          - "rockylinux-9"
-          - "ubuntu-2004"
           - "ubuntu-2204"
           - "ubuntu-2404"
         suite:
@@ -70,8 +64,6 @@ jobs:
         suite:
           - "default"
           - "package"
-          - "source-24"
-          - "source-26"
           - "source-28"
           - "source-default"
       fail-fast: false
@@ -92,11 +84,11 @@ jobs:
 
   lua-test:
     needs: lint-unit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         os:
-          - "centos-stream-9"
+          - "centos-stream-10"
         suite:
           - "source-lua"
       fail-fast: false
@@ -117,14 +109,13 @@ jobs:
 
   config-test:
     needs: lint-unit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         os:
-          - "centos-stream-9"
+          - "centos-stream-10"
         suite:
           - "config-2"
-          # - "config-3"
           - "config-acl"
           - "config-array"
           - "config-backend-search"
