@@ -1,4 +1,4 @@
-apt_update 'update' if platform_family?('debian')
+apt_update
 
 build_essential 'compilation tools'
 
