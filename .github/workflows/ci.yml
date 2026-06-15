@@ -133,7 +133,6 @@ jobs:
           - "config-resolver"
           - "config-ssl-redirect"
           - "config-custom-template"
-          - "config-custom-template"
           - "config-array"
           - "config-fastcgi"
       fail-fast: false
