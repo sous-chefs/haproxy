@@ -18,36 +18,26 @@ jobs:
 
   integration:
     needs: lint-unit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         os:
-          - "debian-11"
-          - "debian-12"
-          - "ubuntu-2004"
-          - "ubuntu-2204"
+          - "fedora-latest"
+          - "almalinux-9"
+          - "almalinux-10"
           - "centos-stream-9"
           - "centos-stream-10"
-          - "fedora-latest"
+          - "debian-12"
+          - "debian-13"
+          - "opensuse-leap-15"
+          - "ubuntu-2204"
+          - "ubuntu-2404"
         suite:
-          - config-2
-          # - config-3
-          - config-acl
-          - config-array
-          - config-backend-search
-          - config-custom-template
-          - config-fastcgi
-          - config-resolver
-          - config-ssl-redirect
+          - "default"
           - "package"
-          - "source-24"
-          - "source-26"
           - "source-28"
-          - "source-lua"
           - "source-default"
-          # - "source-openssl"
-          # OpenSSSL libraries are not currently compiling correctly
-          # see https://github.com/sous-chefs/haproxy/issues/503
+          - "source-openssl"
       fail-fast: false
 
     steps:
@@ -72,9 +62,8 @@ jobs:
         os:
           - "amazonlinux-2023"
         suite:
+          - "default"
           - "package"
-          - "source-24"
-          - "source-26"
           - "source-28"
           - "source-default"
       fail-fast: false
@@ -83,9 +72,9 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v7
       - name: Install Chef
-        uses: actionshub/chef-install@6.0.0
+        uses: actionshub/chef-install@main
       - name: Dokken
-        uses: actionshub/test-kitchen@3.0.0
+        uses: actionshub/test-kitchen@main
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
@@ -93,13 +82,13 @@ jobs:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
 
-  lua_test:
+  lua-test:
     needs: lint-unit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         os:
-          - "centos-stream-9"
+          - "centos-stream-10"
         suite:
           - "source-lua"
       fail-fast: false
@@ -108,9 +97,9 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v7
       - name: Install Chef
-        uses: actionshub/chef-install@6.0.0
+        uses: actionshub/chef-install@main
       - name: Dokken
-        uses: actionshub/test-kitchen@3.0.0
+        uses: actionshub/test-kitchen@main
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
@@ -118,33 +107,31 @@ jobs:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
 
-  configtest:
+  config-test:
     needs: lint-unit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         os:
-          - "centos-stream-9"
+          - "centos-stream-10"
         suite:
           - "config-2"
-          # - "config-3"
-          - "config-backend-search"
           - "config-acl"
+          - "config-array"
+          - "config-backend-search"
+          - "config-custom-template"
+          - "config-fastcgi"
           - "config-resolver"
           - "config-ssl-redirect"
-          - "config-custom-template"
-          - "config-custom-template"
-          - "config-array"
-          - "config-fastcgi"
       fail-fast: false
 
     steps:
       - name: Check out code
         uses: actions/checkout@v7
       - name: Install Chef
-        uses: actionshub/chef-install@6.0.0
+        uses: actionshub/chef-install@main
       - name: Dokken
-        uses: actionshub/test-kitchen@3.0.0
+        uses: actionshub/test-kitchen@main
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml

@@ -5,6 +5,4 @@ summary: HAProxy tests using example configuration
 supports:
   - os-family: linux
   - os-family: bsd
-depends:
-  - name: haproxy-common
-    path: test/integration/common
+depends: []

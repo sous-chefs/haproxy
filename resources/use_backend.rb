@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+provides :haproxy_use_backend
+
 use 'partial/_config_file'
 
 property :use_backend, [String, Array],

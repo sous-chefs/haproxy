@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+provides :haproxy_config_global
+
 use 'partial/_config_file'
 use 'partial/_extra_options'
 

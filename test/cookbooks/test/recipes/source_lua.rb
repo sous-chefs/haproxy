@@ -1,3 +1,5 @@
+apt_update
+
 build_essential 'compilation tools'
 
 # install lua dependencies

@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+provides :haproxy_install
+
 include Haproxy::Cookbook::Helpers
 
 use 'partial/_config_file'
@@ -31,13 +35,13 @@ property :enable_epel_repo, [true, false],
 
 # Source
 property :source_version, String,
-          default: '2.8.5'
+          default: '3.2.14'
 
 property :source_url, String,
           default: lazy { "https://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version}.tar.gz" }
 
 property :source_checksum, String,
-          default: '3f5459c5a58e0b343a32eaef7ed5bed9d3fc29d8aa9e14b36c92c969fc2a60d9'
+          default: 'b21f50a790aa8cb0cf8dc505f1f8d849799eafe4d31c14b86a34409ccf4ae5e4'
 
 property :source_target_cpu, String,
           default: lazy { node['kernel']['machine'] }
@@ -87,10 +91,6 @@ property :use_systemd, [true, false],
 unified_mode true
 
 action_class do
-  include Haproxy::Cookbook::ResourceHelpers
-end
-
-action_class do
   include Haproxy::Cookbook::Helpers
   include Haproxy::Cookbook::ResourceHelpers
 
@@ -99,8 +99,12 @@ action_class do
   end
 
   def pcre_make_flag
-    # Use PCRE2 for RHEL/CentOS/AlmaLinux/Rocky >= 10, PCRE for < 10 and other platforms
-    pcre_package_name.include?('pcre2') ? 'USE_PCRE2' : 'USE_PCRE'
+    # Use PCRE2 for RHEL >= 10 and Debian >= 13, PCRE for older and other platforms
+    if platform_family?('debian')
+      debian_pcre_package_name.include?('pcre2') ? 'USE_PCRE2' : 'USE_PCRE'
+    else
+      pcre_package_name.include?('pcre2') ? 'USE_PCRE2' : 'USE_PCRE'
+    end
   end
 end
 
