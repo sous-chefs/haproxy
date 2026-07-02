@@ -1,0 +1,158 @@
+{
+  "revision_id": "e9e7da3f03ec90f888d9e62ac571754b83c5ccceffd25f750617577be5d8ded9",
+  "name": "haproxy",
+  "run_list": [
+    "recipe[test::package]"
+  ],
+  "named_run_lists": {
+    "config_2": [
+      "recipe[test::config_2]"
+    ],
+    "config_3": [
+      "recipe[test::config_3]"
+    ],
+    "config_acl": [
+      "recipe[test::config_acl]"
+    ],
+    "config_array": [
+      "recipe[test::config_array]"
+    ],
+    "config_backend_search": [
+      "recipe[test::config_backend_search]"
+    ],
+    "config_custom_template": [
+      "recipe[test::config_custom_template]"
+    ],
+    "config_fastcgi": [
+      "recipe[test::config_fastcgi]"
+    ],
+    "config_resolver": [
+      "recipe[test::config_resolver]"
+    ],
+    "config_ssl_redirect": [
+      "recipe[test::config_ssl_redirect]"
+    ],
+    "package": [
+      "recipe[test::package]"
+    ],
+    "source": [
+      "recipe[test::source]"
+    ],
+    "source_24": [
+      "recipe[test::source_24]"
+    ],
+    "source_26": [
+      "recipe[test::source_26]"
+    ],
+    "source_28": [
+      "recipe[test::source_28]"
+    ],
+    "source_28_pcre2": [
+      "recipe[test::source_28_pcre2]"
+    ],
+    "source_lua": [
+      "recipe[test::source_lua]"
+    ],
+    "source_openssl": [
+      "recipe[test::source_openssl]"
+    ]
+  },
+  "included_policy_locks": [
+
+  ],
+  "cookbook_locks": {
+    "haproxy": {
+      "version": "12.4.13",
+      "identifier": "7faf8d17a08c269bb537eb92f213d5fb79293d74",
+      "dotted_decimal_identifier": "35940342563900454.43827873170256403.235276046253428",
+      "source": ".",
+      "cache_key": null,
+      "scm_info": {
+        "scm": "git",
+        "remote": null,
+        "revision": "565a79f31987f53786e61784ee1928c711b4bcce",
+        "working_tree_clean": false,
+        "published": true,
+        "synchronized_remote_branches": [
+          "origin/HEAD -> origin/main",
+          "origin/main"
+        ]
+      },
+      "source_options": {
+        "path": "."
+      }
+    },
+    "test": {
+      "version": "0.0.1",
+      "identifier": "5e2218f2c1e05c80013463ac8232f64a91929a19",
+      "dotted_decimal_identifier": "26496138358153308.36030121541141042.270800130316825",
+      "source": "test/cookbooks/test",
+      "cache_key": null,
+      "scm_info": {
+        "scm": "git",
+        "remote": null,
+        "revision": "565a79f31987f53786e61784ee1928c711b4bcce",
+        "working_tree_clean": false,
+        "published": true,
+        "synchronized_remote_branches": [
+          "origin/HEAD -> origin/main",
+          "origin/main"
+        ]
+      },
+      "source_options": {
+        "path": "test/cookbooks/test"
+      }
+    },
+    "yum-epel": {
+      "version": "5.0.10",
+      "identifier": "3ffd59317825177023566a99bf5940e29163cfd4",
+      "dotted_decimal_identifier": "18011483056645399.31564051454213977.71341846024148",
+      "cache_key": "yum-epel-0ae39de8b609c2904012f4da4cf261b6e3361f74",
+      "origin": "https://github.com/sous-chefs/yum-epel.git",
+      "source_options": {
+        "git": "https://github.com/sous-chefs/yum-epel.git",
+        "revision": "0ae39de8b609c2904012f4da4cf261b6e3361f74",
+        "branch": "main"
+      }
+    }
+  },
+  "default_attributes": {
+
+  },
+  "override_attributes": {
+
+  },
+  "solution_dependencies": {
+    "Policyfile": [
+      [
+        "haproxy",
+        ">= 0.0.0"
+      ],
+      [
+        "test",
+        ">= 0.0.0"
+      ],
+      [
+        "yum-epel",
+        ">= 0.0.0"
+      ]
+    ],
+    "dependencies": {
+      "haproxy (12.4.13)": [
+        [
+          "yum-epel",
+          ">= 0.0.0"
+        ]
+      ],
+      "test (0.0.1)": [
+        [
+          "haproxy",
+          ">= 0.0.0"
+        ]
+      ],
+      "yum-epel (5.0.10)": [
+
+      ]
+    }
+  }
+}

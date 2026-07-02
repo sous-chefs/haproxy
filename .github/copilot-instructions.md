@@ -14,14 +14,13 @@ wget https://packages.chef.io/files/stable/chef-workstation/24.12.1031/ubuntu/24
 sudo dpkg -i chef-workstation_24.12.1031-1_amd64.deb
 
 # Method 2: Install individual gems if Chef Workstation fails
-sudo gem install cookstyle chefspec rspec berkshelf test-kitchen kitchen-dokken --no-document
+sudo gem install cookstyle chefspec rspec test-kitchen kitchen-dokken --no-document
 ```
 
 ### Core Development Commands
 ```bash
-# Install cookbook dependencies (if berkshelf is available)
-berks install
-# NOTE: If berkshelf is not installed, cookbook will still work for basic linting/testing
+# Install cookbook dependencies
+chef install Policyfile.rb
 
 # Lint Ruby code - takes 2-3 seconds - NEVER CANCEL
 cookstyle .
@@ -135,7 +134,7 @@ kitchen destroy config-2-ubuntu-2204
 
 ### Important Files
 - `metadata.rb` - Cookbook metadata and dependencies
-- `Berksfile` - Cookbook dependency management
+- `Policyfile.rb` - Cookbook dependency management
 - `kitchen.yml` - Vagrant-based integration testing (local development)
 - `kitchen.dokken.yml` - Docker-based integration testing (CI)
 - `.rubocop.yml` - Ruby linting configuration
