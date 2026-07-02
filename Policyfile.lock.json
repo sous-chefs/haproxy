@@ -1,5 +1,5 @@
 {
-  "revision_id": "e9e7da3f03ec90f888d9e62ac571754b83c5ccceffd25f750617577be5d8ded9",
+  "revision_id": "b9d24e60ac21ab3c0ecba3453df8e0b255b2f00ae504f58b6828da5de4f5f4b4",
   "name": "haproxy",
   "run_list": [
     "recipe[test::package]"
@@ -63,19 +63,18 @@
   "cookbook_locks": {
     "haproxy": {
       "version": "12.4.13",
-      "identifier": "7faf8d17a08c269bb537eb92f213d5fb79293d74",
-      "dotted_decimal_identifier": "35940342563900454.43827873170256403.235276046253428",
+      "identifier": "2d7dc66eb12cece395df07e798f1d3f94e757140",
+      "dotted_decimal_identifier": "12804665166081260.64059604856183025.233067716636992",
       "source": ".",
       "cache_key": null,
       "scm_info": {
         "scm": "git",
-        "remote": null,
-        "revision": "565a79f31987f53786e61784ee1928c711b4bcce",
+        "remote": "https://github.com/sous-chefs/haproxy.git",
+        "revision": "396d9112cf5d04b38206b178f4b92f220ba943a8",
         "working_tree_clean": false,
         "published": true,
         "synchronized_remote_branches": [
-          "origin/HEAD -> origin/main",
-          "origin/main"
+          "origin/chore/policyfile-migration"
         ]
       },
       "source_options": {
@@ -90,13 +89,12 @@
       "cache_key": null,
       "scm_info": {
         "scm": "git",
-        "remote": null,
-        "revision": "565a79f31987f53786e61784ee1928c711b4bcce",
+        "remote": "https://github.com/sous-chefs/haproxy.git",
+        "revision": "396d9112cf5d04b38206b178f4b92f220ba943a8",
         "working_tree_clean": false,
         "published": true,
         "synchronized_remote_branches": [
-          "origin/HEAD -> origin/main",
-          "origin/main"
+          "origin/chore/policyfile-migration"
         ]
       },
       "source_options": {

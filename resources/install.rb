@@ -109,9 +109,9 @@ action :install do
   when 'package'
     case node['platform_family']
     when 'amazon'
-      include_recipe 'yum-epel' if new_resource.enable_epel_repo
+      yum_epel 'default' if new_resource.enable_epel_repo
     when 'rhel'
-      include_recipe 'yum-epel' if new_resource.enable_epel_repo
+      yum_epel 'default' if new_resource.enable_epel_repo
 
       if new_resource.enable_ius_repo
         if ius_platform_valid?
