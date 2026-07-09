@@ -36,13 +36,11 @@ doc/
 rdoc
 
 # chef infra stuff
-Berksfile.lock
 .kitchen
 kitchen.local.yml
 vendor/
 .coverage/
 .zero-knife.rb
-Policyfile.lock.json
 
 # vagrant stuff
 .vagrant/

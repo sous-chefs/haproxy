@@ -3,13 +3,14 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_zero
+  name: policyfile_zero
   deprecations_as_errors: true
   chef_license: accept
   product_name: chef
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
   install_strategy: always
   log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
+  policyfile: Policyfile.rb
 
 verifier:
   name: inspec
@@ -26,53 +27,53 @@ platforms:
 
 suites:
   - name: package
-    run_list:
-      - recipe[test::package]
+    provisioner:
+      named_run_list: package
   - name: source-2.4
-    run_list:
-      - recipe[test::source_24]
+    provisioner:
+      named_run_list: source_24
   - name: source_2.6
-    run_list:
-      - recipe[test::source_26]
+    provisioner:
+      named_run_list: source_26
   - name: source_2.8
-    run_list:
-      - recipe[test::source_28]
+    provisioner:
+      named_run_list: source_28
   - name: source_default
-    run_list:
-      - recipe[test::source]
+    provisioner:
+      named_run_list: source
   - name: source_lua
-    run_list:
-      - recipe[test::source_lua]
+    provisioner:
+      named_run_list: source_lua
   - name: source_openssl
-    run_list:
-      - recipe[test::source_openssl]
+    provisioner:
+      named_run_list: source_openssl
   - name: config_2
-    run_list:
-      - recipe[test::config_2]
+    provisioner:
+      named_run_list: config_2
   - name: config_3
-    run_list:
-      - recipe[test::config_3]
+    provisioner:
+      named_run_list: config_3
   - name: config_4
-    run_list:
-      - recipe[test::config_4]
+    provisioner:
+      named_run_list: config_4
   - name: config_backend_search
-    run_list:
-      - recipe[test::config_backend_search]
+    provisioner:
+      named_run_list: config_backend_search
   - name: config_acl
-    run_list:
-      - recipe[test::config_acl]
+    provisioner:
+      named_run_list: config_acl
   - name: config_resolver
-    run_list:
-      - recipe[test::config_resolver]
+    provisioner:
+      named_run_list: config_resolver
   - name: config_ssl_redirect
-    run_list:
-      - recipe[test::config_ssl_redirect]
+    provisioner:
+      named_run_list: config_ssl_redirect
   - name: config_custom_template
-    run_list:
-      - recipe[test::config_custom_template]
+    provisioner:
+      named_run_list: config_custom_template
   - name: config_array
-    run_list:
-      - recipe[test::config_array]
+    provisioner:
+      named_run_list: config_array
   - name: config_fastcgi
-    run_list:
-      - recipe[test::config_fastcgi]
+    provisioner:
+      named_run_list: config_fastcgi
