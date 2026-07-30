@@ -9,19 +9,15 @@ when 'rhel', 'fedora'
     package %w(perl-FindBin perl-lib perl-File-Compare perl-File-Copy perl-IPC-Cmd perl-Pod-Html perl-Time-Piece)
   else
     # EL8 bundles perl modules in perl-core, individual packages don't exist
-    package %w(perl-core perl-IPC-Cmd)
+    package 'perl-core' do
+      not_if { ::File.exist?('/usr/bin/perl') }
+    end
+    package 'perl-IPC-Cmd'
   end
 when 'debian'
   package %w(perl zlib1g-dev)
 when 'suse'
   package %w(perl zlib-devel)
-end
-
-# override environment variable
-ruby_block 'Pre-load OpenSSL path' do
-  block do
-    ENV['PATH'] = "/usr/local/openssl/bin:#{ENV['PATH']}"
-  end
 end
 
 openssl_version = '3.5.5'
@@ -41,7 +37,7 @@ end
 # compile openssl
 execute "package_openssl-#{openssl_version}" do
   command <<-COMPILE
-    ./config --prefix=/usr/local/openssl/ --openssldir=/usr/local/openssl/ shared zlib
+    ./config --prefix=/usr/local/openssl/ --openssldir=/usr/local/openssl/ --libdir=lib shared zlib
     make
     make install
   COMPILE
