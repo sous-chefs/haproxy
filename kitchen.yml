@@ -32,16 +32,16 @@ suites:
   - name: package
     provisioner:
       named_run_list: package
-  - name: source_2.8
+  - name: source-3.2
     provisioner:
-      named_run_list: source_28
-  - name: source_default
+      named_run_list: source_32
+  - name: source-default
     provisioner:
       named_run_list: source
-  - name: source_lua
+  - name: source-lua
     provisioner:
       named_run_list: source_lua
-  - name: source_openssl
+  - name: source-openssl
     provisioner:
       named_run_list: source_openssl
     verifier:

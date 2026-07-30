@@ -1,5 +1,5 @@
 ---
-name: haproxy-source-2.8
+name: haproxy-source-3.2
 title: HAProxy Source Suite
 summary: HAProxy tests using example configuration
 supports:
