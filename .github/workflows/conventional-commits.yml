@@ -9,6 +9,9 @@ name: conventional-commits
       - edited
       - synchronize
 
+permissions:
+  pull-requests: read
+
 jobs:
   conventional-commits:
     uses: sous-chefs/.github/.github/workflows/conventional-commits.yml@9.0.0
