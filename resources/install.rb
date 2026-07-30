@@ -4,7 +4,7 @@ provides :haproxy_install
 
 include Haproxy::Cookbook::Helpers
 
-use 'partial/_config_file'
+use '_partial/_config_file'
 
 property :install_type, String,
           name_property: true,
@@ -191,6 +191,37 @@ action :install do
       group new_resource.group
       expire_date '2050-12-31' if Chef::VERSION.to_f >= 18.0
       inactive(-1) if Chef::VERSION.to_f >= 18.0
+    end
+  end
+end
+
+action :remove do
+  case new_resource.install_type
+  when 'package'
+    package new_resource.package_name do
+      action :remove
+    end
+  when 'source'
+    file ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy') do
+      action :delete
+    end
+
+    file ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy-systemd-wrapper') do
+      action :delete
+      only_if { new_resource.source_version.to_f < 1.8 }
+    end
+
+    file ::File.join(new_resource.bin_prefix, 'share', 'man', 'man1', 'haproxy.1') do
+      action :delete
+    end
+
+    file ::File.join(Chef::Config[:file_cache_path], "haproxy-#{new_resource.source_version}.tar.gz") do
+      action :delete
+    end
+
+    directory ::File.join(Chef::Config[:file_cache_path], "haproxy-#{new_resource.source_version}") do
+      recursive true
+      action :delete
     end
   end
 end

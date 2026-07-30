@@ -2,7 +2,7 @@
 
 provides :haproxy_fastcgi
 
-use 'partial/_config_file'
+use '_partial/_config_file'
 
 property :fastcgi, String,
           name_property: true,

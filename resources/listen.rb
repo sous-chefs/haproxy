@@ -2,8 +2,8 @@
 
 provides :haproxy_listen
 
-use 'partial/_config_file'
-use 'partial/_extra_options'
+use '_partial/_config_file'
+use '_partial/_extra_options'
 
 property :bind, [String, Hash],
           default: '0.0.0.0:80',

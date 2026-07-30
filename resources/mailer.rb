@@ -2,7 +2,7 @@
 
 provides :haproxy_mailer
 
-use 'partial/_config_file'
+use '_partial/_config_file'
 
 property :mailer, [String, Array],
           coerce: proc { |p| Array(p).flatten },

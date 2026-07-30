@@ -1,5 +1,5 @@
 ---
-name: Dokken Integration Tests
+name: ci
 
 "on":
   pull_request:
@@ -15,23 +15,86 @@ jobs:
       pull-requests: write
       statuses: write
       issues: write
+    secrets: inherit
 
   integration:
     needs: lint-unit
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
+      max-parallel: 4
       matrix:
         os:
-          - "debian-11"
-          - "debian-12"
-          - "ubuntu-2004"
-          - "ubuntu-2204"
-          - "centos-stream-9"
-          - "centos-stream-10"
-          - "fedora-latest"
+          - almalinux-8
+          - almalinux-9
+          - almalinux-10
+          - amazonlinux-2023
+          - centos-stream-9
+          - centos-stream-10
+          - debian-11
+          - debian-12
+          - debian-13
+          - fedora-latest
+          - opensuse-leap-15
+          - oraclelinux-8
+          - oraclelinux-9
+          - rockylinux-8
+          - rockylinux-9
+          - rockylinux-10
+          - ubuntu-2204
+          - ubuntu-2404
+        suite:
+          - default
+          - package
+          - source-3.2
+          - source-default
+          - source-lua
+          - source-openssl
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+      - name: Install Cinc Workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.0
+      - name: Dokken
+        uses: actionshub/test-kitchen@main
+        env:
+          CHEF_LICENSE: accept-no-persist
+          CHEF_VERSION: latest
+          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+          KITCHEN_PRODUCT_NAME: cinc
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
+
+  config-test:
+    needs: lint-unit
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        os:
+          - almalinux-8
+          - almalinux-9
+          - almalinux-10
+          - amazonlinux-2023
+          - centos-stream-9
+          - centos-stream-10
+          - debian-11
+          - debian-12
+          - debian-13
+          - fedora-latest
+          - opensuse-leap-15
+          - oraclelinux-8
+          - oraclelinux-9
+          - rockylinux-8
+          - rockylinux-9
+          - rockylinux-10
+          - ubuntu-2204
+          - ubuntu-2404
         suite:
           - config-2
-          # - config-3
+          - config-3
           - config-acl
           - config-array
           - config-backend-search
@@ -39,108 +102,31 @@ jobs:
           - config-fastcgi
           - config-resolver
           - config-ssl-redirect
-          - "package"
-          - "source-3.2"
-          - "source-lua"
-          - "source-default"
-          - "source-openssl"
-      fail-fast: false
-
     steps:
       - name: Check out code
         uses: actions/checkout@v7
-      - name: Install Chef
-        uses: actionshub/chef-install@main
+      - name: Install Cinc Workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.0
       - name: Dokken
         uses: actionshub/test-kitchen@main
         env:
           CHEF_LICENSE: accept-no-persist
+          CHEF_VERSION: latest
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+          KITCHEN_PRODUCT_NAME: cinc
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
 
-  integration-amazonlinux:
-    needs: lint-unit
-    runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        os:
-          - "amazonlinux-2023"
-        suite:
-          - "package"
-          - "source-3.2"
-          - "source-default"
-      fail-fast: false
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v7
-      - name: Install Chef
-        uses: actionshub/chef-install@6.0.0
-      - name: Dokken
-        uses: actionshub/test-kitchen@3.0.0
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
-
-  lua_test:
-    needs: lint-unit
+  final:
+    if: always()
+    needs: [integration, config-test]
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - "centos-stream-9"
-        suite:
-          - "source-lua"
-      fail-fast: false
-
     steps:
-      - name: Check out code
-        uses: actions/checkout@v7
-      - name: Install Chef
-        uses: actionshub/chef-install@6.0.0
-      - name: Dokken
-        uses: actionshub/test-kitchen@3.0.0
+      - name: Check integration results
         env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
-
-  configtest:
-    needs: lint-unit
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - "centos-stream-9"
-        suite:
-          - "config-2"
-          # - "config-3"
-          - "config-backend-search"
-          - "config-acl"
-          - "config-resolver"
-          - "config-ssl-redirect"
-          - "config-custom-template"
-          - "config-array"
-          - "config-fastcgi"
-      fail-fast: false
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v7
-      - name: Install Chef
-        uses: actionshub/chef-install@6.0.0
-      - name: Dokken
-        uses: actionshub/test-kitchen@3.0.0
-        env:
-          CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
+          CONFIG_RESULT: ${{ needs.config-test.result }}
+          INTEGRATION_RESULT: ${{ needs.integration.result }}
+        run: |
+          test "$CONFIG_RESULT" = success
+          test "$INTEGRATION_RESULT" = success

@@ -27,4 +27,14 @@ CFG
 
     it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(cfg_content) }
   end
+
+  context 'delete haproxy config global' do
+    recipe do
+      haproxy_config_global 'global' do
+        action :delete
+      end
+    end
+
+    it { is_expected.not_to render_file('/etc/haproxy/haproxy.cfg').with_content(/^global$/) }
+  end
 end

@@ -2,7 +2,7 @@
 
 provides :haproxy_acl
 
-use 'partial/_config_file'
+use '_partial/_config_file'
 
 property :acl, [String, Array],
           name_property: true,

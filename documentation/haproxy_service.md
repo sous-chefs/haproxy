@@ -2,8 +2,8 @@
 
 [Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
-Configures HAProxy as a systemd service.
-To reload HAProxy service add a subscribes option to the resource block. See example below. To reload the HAProxy service add a subscribes option to the resource block. See example below.
+Configures HAProxy as a systemd service. To reload HAProxy after its
+configuration changes, add a subscription to the resource block.
 
 Introduced: v4.0.0
 
@@ -16,6 +16,7 @@ Introduced: v4.0.0
 * `:restart`
 * `:reload`
 * `:enable`
+* `:disable`
 
 ## Properties
 

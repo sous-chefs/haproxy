@@ -2,8 +2,8 @@
 
 provides :haproxy_peer
 
-use 'partial/_config_file'
-use 'partial/_extra_options'
+use '_partial/_config_file'
+use '_partial/_extra_options'
 
 property :bind, [String, Hash],
           description: 'String - sets as given. Hash - joins with a space. HAProxy version >= 2.0'

@@ -2,11 +2,14 @@
 driver:
   name: dokken
   privileged: true
-  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  chef_image: "<%= ENV.fetch('KITCHEN_PRODUCT_NAME', 'cinc') == 'cinc' ? 'cincproject/cinc' : 'chef/chef' %>"
+  chef_version: "<%= ENV['CHEF_VERSION'] || (ENV.fetch('KITCHEN_PRODUCT_NAME', 'cinc') == 'cinc' ? 'latest' : 'current') %>"
 
 transport: { name: dokken }
 provisioner:
   name: dokken
+  chef_binary: "<%= ENV.fetch('KITCHEN_PRODUCT_NAME', 'cinc') == 'cinc' ? '/opt/cinc/bin/cinc-client' : '/opt/chef/bin/chef-client' %>"
+  product_name: "<%= ENV['KITCHEN_PRODUCT_NAME'] || 'cinc' %>"
   policyfile: Policyfile.rb
 
 platforms:
@@ -85,10 +88,10 @@ platforms:
       image: dokken/rockylinux-9
       pid_one_command: /usr/lib/systemd/systemd
 
-  - name: ubuntu-20.04
+  - name: rockylinux-10
     driver:
-      image: dokken/ubuntu-20.04
-      pid_one_command: /bin/systemd
+      image: dokken/rockylinux-10
+      pid_one_command: /usr/lib/systemd/systemd
 
   - name: ubuntu-22.04
     driver:

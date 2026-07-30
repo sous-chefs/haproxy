@@ -2,8 +2,8 @@
 
 provides :haproxy_backend
 
-use 'partial/_config_file'
-use 'partial/_extra_options'
+use '_partial/_config_file'
+use '_partial/_extra_options'
 
 property :mode, String,
           equal_to: %w(http tcp health),

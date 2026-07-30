@@ -14,6 +14,38 @@ describe 'haproxy_install' do
     it { is_expected.to install_package('haproxy') }
   end
 
+  context 'remove haproxy installed using the package method' do
+    recipe do
+      haproxy_install 'package' do
+        action :remove
+      end
+    end
+
+    it { is_expected.to remove_package('haproxy') }
+  end
+
+  context 'remove haproxy installed from source' do
+    recipe do
+      haproxy_install 'source' do
+        action :remove
+      end
+    end
+
+    it { is_expected.to delete_file('/usr/sbin/haproxy') }
+    it { is_expected.to delete_file('/usr/share/man/man1/haproxy.1') }
+    it do
+      is_expected.to delete_file(
+        ::File.join(Chef::Config[:file_cache_path], 'haproxy-3.2.14.tar.gz')
+      )
+    end
+
+    it do
+      is_expected.to delete_directory(
+        ::File.join(Chef::Config[:file_cache_path], 'haproxy-3.2.14')
+      )
+    end
+  end
+
   context 'compile HAProxy on Ubuntu' do
     recipe do
       haproxy_install 'source' do

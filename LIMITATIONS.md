@@ -1,72 +1,86 @@
 # Limitations
 
-## Package Availability
+This cookbook manages HAProxy from distribution packages or from an upstream
+source archive. It does not configure the HAProxy Technologies Enterprise
+repositories.
 
-HAProxy is available as a package on all major Linux distributions. The version
-available depends on the distribution release.
+## Upstream lifecycle
 
-### APT (Debian/Ubuntu)
+HAProxy publishes both stable and long-term-support branches. The source
+installer defaults to the 3.2 LTS branch; exact patch releases are tracked in
+`resources/install.rb` and the integration test recipes.
 
-- **Debian 11 (Bullseye)**: HAProxy 2.2 (default), 2.4–2.8 via haproxy.debian.net
-- **Debian 12 (Bookworm)**: HAProxy 2.6 (default), 2.8–3.0 via haproxy.debian.net
-- **Ubuntu 20.04 (Focal)**: HAProxy 2.0 (default), newer via PPA `ppa:vbernat/haproxy-X.Y`
-- **Ubuntu 22.04 (Jammy)**: HAProxy 2.4 (default), newer via PPA
-- **Ubuntu 24.04 (Noble)**: HAProxy 2.8 (default), newer via PPA
+See the [HAProxy release table](https://www.haproxy.org/) for current branch
+support dates and patch releases.
 
-Architectures: amd64, arm64, i386 (varies by release).
+## Package availability
 
-### DNF/YUM (RHEL family)
+The `package` installation path uses the package named `haproxy` from the
+configured operating-system repositories. The version and architecture
+therefore depend on the distribution release and enabled repositories.
 
-- **RHEL 8 / AlmaLinux 8 / Rocky 8 / Oracle 8**: HAProxy 1.8 (base), newer via EPEL or AppStream
-- **RHEL 9 / AlmaLinux 9 / Rocky 9 / Oracle 9**: HAProxy 2.4 (AppStream)
-- **AlmaLinux 10 / CentOS Stream 10**: HAProxy 3.0+ (AppStream)
-- **CentOS Stream 9**: HAProxy 2.4 (AppStream)
-- **Amazon Linux 2023**: HAProxy 2.8 (default repos)
-- **Fedora**: Latest stable (default repos)
+### APT (Debian and Ubuntu)
 
-Architectures: x86_64, aarch64.
+* Debian and Ubuntu publish HAProxy in their normal archives.
+* The Debian HAProxy packaging team publishes newer supported branches through
+  [haproxy.debian.net](https://haproxy.debian.net/).
+* Vincent Bernat's Ubuntu PPAs publish branch-specific builds where available.
+  The cookbook does not add these APT repositories automatically.
+* Debian 12 and 13 and Ubuntu 22.04 and 24.04 provide HAProxy packages for
+  multiple architectures through their distribution archives.
 
-EPEL is required for RHEL-family platforms when the base/AppStream version is insufficient.
-The `yum-epel` cookbook dependency handles this.
+### DNF and YUM (RHEL family, Fedora, and Amazon Linux)
 
-### Zypper (SUSE)
+* RHEL-family, Fedora, and Amazon Linux installations use the package available
+  from their configured distribution repositories.
+* `enable_epel_repo true` enables EPEL through the `yum-epel` cookbook before
+  package installation on RHEL-family and Amazon platforms.
+* The legacy IUS path only applies to RHEL 6 and 7. Those releases are
+  unsupported, so `enable_ius_repo` is retained only for compatibility and
+  should not be used for current deployments.
+* Package versions and architectures vary by distribution and repository; use
+  source installation when a specific HAProxy release is required.
 
-- **openSUSE Leap 15**: HAProxy 2.x (default repos)
+### Zypper (openSUSE Leap)
 
-Architectures: x86_64.
+* openSUSE Leap installations use the package from configured distribution
+  repositories.
+* The cookbook does not add an HAProxy-specific Zypper repository.
 
-## Source/Compiled Installation
+## Architecture limitations
 
-HAProxy can be compiled from source on all supported platforms. The cookbook supports
-source installation with configurable version, build flags, and optional features
-(Lua, OpenSSL, PCRE, Prometheus exporter).
+* Source installation uses `node['kernel']['machine']` as HAProxy's `CPU` value
+  unless `source_target_cpu` is overridden.
+* Distribution package architecture coverage is controlled by each
+  distribution repository.
+* The cookbook's integration matrix primarily exercises x86_64 containers;
+  other architectures require separate validation.
 
-### Build Dependencies
+## Source installation
 
-| Platform Family | Packages                                                              |
-|-----------------|-----------------------------------------------------------------------|
-| Debian          | build-essential, libpcre3-dev, libssl-dev, zlib1g-dev, libsystemd-dev |
-| RHEL (< 10)     | pcre-devel, openssl-devel, zlib-devel, systemd-devel, tar             |
-| RHEL (>= 10)    | pcre2-devel, openssl-devel, zlib-devel, systemd-devel, tar            |
-| SUSE            | pcre-devel, libopenssl-devel, zlib-devel, systemd-devel               |
+HAProxy source archives are downloaded from
+`https://www.haproxy.org/download/<branch>/src/`.
 
-### Optional Build Dependencies
+### Build dependencies
 
-| Feature   | Debian              | RHEL           |
-|-----------|---------------------|----------------|
-| Lua       | liblua5.3-dev       | lua-devel      |
-| OpenSSL 3 | libssl-dev (>= 3.0) | openssl3-devel |
+| Platform family | Required packages |
+| --- | --- |
+| Debian | `build-essential`, OpenSSL, zlib, systemd, and PCRE development packages |
+| RHEL, Fedora, Amazon | compiler/build tools, OpenSSL, zlib, systemd, and PCRE development packages |
+| SUSE | compiler/build tools, OpenSSL, zlib, systemd, and PCRE development packages |
 
-## Architecture Limitations
+Optional Lua and custom OpenSSL builds require the matching development headers
+and libraries. HAProxy build flags such as `USE_OPENSSL`, `USE_LUA`,
+`USE_SYSTEMD`, `USE_PCRE` or `USE_PCRE2`, and `USE_PROMEX` are exposed through
+resource properties.
 
-- All platforms provide amd64/x86_64 packages
-- arm64/aarch64 packages available on Debian 11+, Ubuntu 20.04+, RHEL 9+
-- Source compilation works on all architectures with appropriate cross-compiler
+## Known constraints
 
-## Known Issues
-
-- PCRE1 (`pcre-devel`) is deprecated on RHEL/CentOS/AlmaLinux/Rocky >= 10; the cookbook
-  automatically selects PCRE2 (`pcre2-devel`) on those platforms
-- IUS repository support is limited to RHEL 6/7 (both EOL) and should be considered deprecated
-- OpenSSL source compilation has known issues (see [#503](https://github.com/sous-chefs/haproxy/issues/503))
-- The `haproxy-systemd-wrapper` binary is only used for HAProxy versions < 1.8
+* PCRE1 packages are unavailable on newer platform releases. The cookbook
+  selects PCRE2 for Debian 13 and RHEL-family version 10 or newer.
+* The default source checksum is coupled to the default source version; custom
+  versions must supply their matching checksum.
+* Source installation compiles in Chef's file cache and installs under
+  `bin_prefix`. Removal must account for those installed artifacts.
+* The source installer supports systemd only; SysV and Upstart service
+  management are outside the supported migration scope.

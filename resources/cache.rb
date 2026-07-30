@@ -2,7 +2,7 @@
 
 provides :haproxy_cache
 
-use 'partial/_config_file'
+use '_partial/_config_file'
 
 property :cache_name, String,
           name_property: true,

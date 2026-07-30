@@ -2,8 +2,8 @@
 
 provides :haproxy_config_global
 
-use 'partial/_config_file'
-use 'partial/_extra_options'
+use '_partial/_config_file'
+use '_partial/_extra_options'
 
 property :pidfile, String,
           default: '/var/run/haproxy.pid',
@@ -71,4 +71,9 @@ action :create do
   haproxy_config_resource.variables['global']['stats'] = new_resource.stats
   haproxy_config_resource.variables['global']['tuning'] = new_resource.tuning if property_is_set?(:tuning)
   haproxy_config_resource.variables['global']['extra_options'] = new_resource.extra_options if property_is_set?(:extra_options)
+end
+
+action :delete do
+  haproxy_config_resource_init
+  haproxy_config_resource.variables.delete('global')
 end

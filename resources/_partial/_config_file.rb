@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 property :user, String,
           default: 'haproxy',
           description: 'Set to override default haproxy user, defaults to haproxy'

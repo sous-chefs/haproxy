@@ -31,14 +31,18 @@ describe 'haproxy_listen' do
       '  stats realm Haproxy-Statistics',
       '  stats auth user:pwd',
       '  http-request add-header X-Proto http',
-      '  http-response set-header Expires %\[date\(3600\),http_date]',
+      '  http-response set-header Expires %[date(3600),http_date]',
       '  default_backend servers',
       '  bind-process odd',
       '  server admin0 10.0.0.10:80 check weight 1 maxconn 100',
       '  server admin1 10.0.0.10:80 check weight 1 maxconn 100',
     ]
 
-    it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(/#{cfg_content.join('\n')}/) }
+    it do
+      is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(
+        Regexp.new(Regexp.escape(cfg_content.join("\n")))
+      )
+    end
   end
 
   context 'option parameter with array of options' do
