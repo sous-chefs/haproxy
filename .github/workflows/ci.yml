@@ -46,7 +46,7 @@ jobs:
         suite:
           - default
           - package
-          - source-3.2
+          - source-32
           - source-default
           - source-lua
           - source-openssl
