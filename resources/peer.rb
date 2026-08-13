@@ -1,5 +1,9 @@
-use 'partial/_config_file'
-use 'partial/_extra_options'
+# frozen_string_literal: true
+
+provides :haproxy_peer
+
+use '_partial/_config_file'
+use '_partial/_extra_options'
 
 property :bind, [String, Hash],
           description: 'String - sets as given. Hash - joins with a space. HAProxy version >= 2.0'

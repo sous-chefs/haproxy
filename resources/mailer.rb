@@ -1,4 +1,8 @@
-use 'partial/_config_file'
+# frozen_string_literal: true
+
+provides :haproxy_mailer
+
+use '_partial/_config_file'
 
 property :mailer, [String, Array],
           coerce: proc { |p| Array(p).flatten },

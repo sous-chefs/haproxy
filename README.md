@@ -6,7 +6,10 @@
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Installs and configures HAProxy.
+Installs and configures HAProxy through custom resources.
+
+Upgrading an older wrapper cookbook or attribute-driven implementation? See the
+[resource-only migration guide](migration.md).
 
 ## Maintainers
 
@@ -15,18 +18,22 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 ## Requirements
 
 * HAProxy `stable` or `LTS`
-* Chef 13.9+
+* Chef Infra Client 16+
 
 ### Platforms
 
 This cookbook officially supports and is tested against the following platforms:
 
-* debian: 9 & 10
-* ubuntu: 20.04 & 21.04
-* centos: 7 & 8
-* centos-stream: 8
-* fedora: latest
-* amazonlinux: 2
+* AlmaLinux 8+
+* Amazon Linux 2023+
+* CentOS Stream 9+
+* Debian 11+
+* Fedora
+* openSUSE Leap 15+
+* Oracle Linux 8+
+* Red Hat Enterprise Linux 8+
+* Rocky Linux 8+
+* Ubuntu 22.04+
 
 PRs are welcome to add support for additional platforms.
 
@@ -40,7 +47,13 @@ HAProxy has many configurable options available, this cookbook makes the most po
 
 If you wish to use a HAProxy property that is not listed the `extra_options` hash is available to take in any number of additional values.
 
-For example, the ability to disable listeners is not provided out of the box. Further examples can be found in either `test/fixtures/recipes` or `spec/test/recipes`. If you have questions on how this works or would like to add more examples so it is easier to understand, please come talk to us on the [Chef Community Slack](http://community-slack.chef.io/) on the #sous-chefs channel.
+For example, the ability to disable listeners is not provided out of the box.
+Further examples can be found in
+[`test/cookbooks/test/recipes`](test/cookbooks/test/recipes). If you have
+questions on how this works or would like to add more examples so it is easier
+to understand, please come talk to us on the
+[Chef Community Slack](https://community-slack.chef.io/) in the
+`#sous-chefs` channel.
 
 ```ruby
 haproxy_listen 'disabled' do

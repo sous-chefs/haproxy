@@ -1,5 +1,5 @@
 {
-  "revision_id": "b9d24e60ac21ab3c0ecba3453df8e0b255b2f00ae504f58b6828da5de4f5f4b4",
+  "revision_id": "ca265896fa8ba734bd897d6c2f87c7cd54aef7ac88a53abc1c3b6fdd386f308b",
   "name": "haproxy",
   "run_list": [
     "recipe[test::package]"
@@ -32,29 +32,26 @@
     "config_ssl_redirect": [
       "recipe[test::config_ssl_redirect]"
     ],
+    "default": [
+      "recipe[test::default]"
+    ],
     "package": [
       "recipe[test::package]"
     ],
     "source": [
       "recipe[test::source]"
     ],
-    "source_24": [
-      "recipe[test::source_24]"
-    ],
-    "source_26": [
-      "recipe[test::source_26]"
-    ],
-    "source_28": [
-      "recipe[test::source_28]"
-    ],
-    "source_28_pcre2": [
-      "recipe[test::source_28_pcre2]"
+    "source_32": [
+      "recipe[test::source_32]"
     ],
     "source_lua": [
       "recipe[test::source_lua]"
     ],
     "source_openssl": [
       "recipe[test::source_openssl]"
+    ],
+    "source_pcre2": [
+      "recipe[test::source_pcre2]"
     ]
   },
   "included_policy_locks": [
@@ -62,19 +59,19 @@
   ],
   "cookbook_locks": {
     "haproxy": {
-      "version": "12.4.13",
-      "identifier": "2d7dc66eb12cece395df07e798f1d3f94e757140",
-      "dotted_decimal_identifier": "12804665166081260.64059604856183025.233067716636992",
+      "version": "12.4.14",
+      "identifier": "80ee4e28b140d6214321d738c20944d0e77c3c83",
+      "dotted_decimal_identifier": "36290816476528854.9362486855254537.75664027565187",
       "source": ".",
       "cache_key": null,
       "scm_info": {
         "scm": "git",
-        "remote": "https://github.com/sous-chefs/haproxy.git",
-        "revision": "396d9112cf5d04b38206b178f4b92f220ba943a8",
+        "remote": "git@github.com:sous-chefs/haproxy.git",
+        "revision": "1342ab71d759819ddc6838f2bc81617933062afb",
         "working_tree_clean": false,
         "published": true,
         "synchronized_remote_branches": [
-          "origin/chore/policyfile-migration"
+          "origin/modernise-cookbook"
         ]
       },
       "source_options": {
@@ -83,18 +80,18 @@
     },
     "test": {
       "version": "0.0.1",
-      "identifier": "5e2218f2c1e05c80013463ac8232f64a91929a19",
-      "dotted_decimal_identifier": "26496138358153308.36030121541141042.270800130316825",
+      "identifier": "c34acaa0a6b844179ef341da11274687c8014d49",
+      "dotted_decimal_identifier": "54969854597707844.6648692083396903.77548990057801",
       "source": "test/cookbooks/test",
       "cache_key": null,
       "scm_info": {
         "scm": "git",
-        "remote": "https://github.com/sous-chefs/haproxy.git",
-        "revision": "396d9112cf5d04b38206b178f4b92f220ba943a8",
+        "remote": "git@github.com:sous-chefs/haproxy.git",
+        "revision": "1342ab71d759819ddc6838f2bc81617933062afb",
         "working_tree_clean": false,
         "published": true,
         "synchronized_remote_branches": [
-          "origin/chore/policyfile-migration"
+          "origin/modernise-cookbook"
         ]
       },
       "source_options": {
@@ -102,14 +99,14 @@
       }
     },
     "yum-epel": {
-      "version": "5.0.10",
-      "identifier": "3ffd59317825177023566a99bf5940e29163cfd4",
-      "dotted_decimal_identifier": "18011483056645399.31564051454213977.71341846024148",
-      "cache_key": "yum-epel-0ae39de8b609c2904012f4da4cf261b6e3361f74",
+      "version": "6.0.0",
+      "identifier": "421eb240b33bad3abac0488905905d860bacb1d5",
+      "dotted_decimal_identifier": "18611099401403309.16530883662644624.102830302867925",
+      "cache_key": "yum-epel-aaf20ab51d90d53183885fc013c545fdf57d73a4",
       "origin": "https://github.com/sous-chefs/yum-epel.git",
       "source_options": {
         "git": "https://github.com/sous-chefs/yum-epel.git",
-        "revision": "0ae39de8b609c2904012f4da4cf261b6e3361f74",
+        "revision": "aaf20ab51d90d53183885fc013c545fdf57d73a4",
         "branch": "main"
       }
     }
@@ -136,7 +133,7 @@
       ]
     ],
     "dependencies": {
-      "haproxy (12.4.13)": [
+      "haproxy (12.4.14)": [
         [
           "yum-epel",
           ">= 0.0.0"
@@ -148,7 +145,7 @@
           ">= 0.0.0"
         ]
       ],
-      "yum-epel (5.0.10)": [
+      "yum-epel (6.0.0)": [
 
       ]
     }

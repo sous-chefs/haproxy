@@ -1,9 +1,11 @@
+apt_update
+
 # renovate: datasource=endoflife-date depName=haproxy versioning=semver
-version = '2.8.5'
+version = '3.2.14'
 
 haproxy_install 'source' do
   source_url "https://www.haproxy.org/download/#{version.to_f}/src/haproxy-#{version}.tar.gz"
-  source_checksum '3f5459c5a58e0b343a32eaef7ed5bed9d3fc29d8aa9e14b36c92c969fc2a60d9'
+  source_checksum 'b21f50a790aa8cb0cf8dc505f1f8d849799eafe4d31c14b86a34409ccf4ae5e4'
   source_version version
   use_libcrypt true
   use_pcre true

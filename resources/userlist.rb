@@ -1,4 +1,8 @@
-use 'partial/_config_file'
+# frozen_string_literal: true
+
+provides :haproxy_userlist
+
+use '_partial/_config_file'
 
 property :group, Hash,
           description: 'Adds group <groupname> to the current userlist'

@@ -1,4 +1,8 @@
-use 'partial/_config_file'
+# frozen_string_literal: true
+
+provides :haproxy_fastcgi
+
+use '_partial/_config_file'
 
 property :fastcgi, String,
           name_property: true,

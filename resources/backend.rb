@@ -1,5 +1,9 @@
-use 'partial/_config_file'
-use 'partial/_extra_options'
+# frozen_string_literal: true
+
+provides :haproxy_backend
+
+use '_partial/_config_file'
+use '_partial/_extra_options'
 
 property :mode, String,
           equal_to: %w(http tcp health),

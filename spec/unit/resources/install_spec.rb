@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'haproxy_install' do
@@ -12,6 +14,38 @@ describe 'haproxy_install' do
     it { is_expected.to install_package('haproxy') }
   end
 
+  context 'remove haproxy installed using the package method' do
+    recipe do
+      haproxy_install 'package' do
+        action :remove
+      end
+    end
+
+    it { is_expected.to remove_package('haproxy') }
+  end
+
+  context 'remove haproxy installed from source' do
+    recipe do
+      haproxy_install 'source' do
+        action :remove
+      end
+    end
+
+    it { is_expected.to delete_file('/usr/sbin/haproxy') }
+    it { is_expected.to delete_file('/usr/share/man/man1/haproxy.1') }
+    it do
+      is_expected.to delete_file(
+        ::File.join(Chef::Config[:file_cache_path], 'haproxy-3.2.14.tar.gz')
+      )
+    end
+
+    it do
+      is_expected.to delete_directory(
+        ::File.join(Chef::Config[:file_cache_path], 'haproxy-3.2.14')
+      )
+    end
+  end
+
   context 'compile HAProxy on Ubuntu' do
     recipe do
       haproxy_install 'source' do
@@ -24,11 +58,25 @@ describe 'haproxy_install' do
       end
     end
     before(:each) do
-      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return('2.8.5')
+      stub_command('/usr/sbin/haproxy -v | grep 3.2.14').and_return('3.2.14')
     end
 
     it { is_expected.to install_package(%w(libpcre3-dev libssl-dev zlib1g-dev libsystemd-dev)) }
     it { is_expected.not_to install_package('pcre-devel') }
+  end
+
+  context 'compile HAProxy on Debian 13 (uses PCRE2)' do
+    platform 'debian', '13'
+
+    recipe do
+      haproxy_install 'source'
+    end
+    before(:each) do
+      stub_command('/usr/sbin/haproxy -v | grep 3.2.14').and_return('3.2.14')
+    end
+
+    it { is_expected.to install_package(%w(libpcre2-dev libssl-dev zlib1g-dev libsystemd-dev)) }
+    it { is_expected.not_to install_package('libpcre3-dev') }
   end
 
   context 'compile HAProxy on AlmaLinux 9' do
@@ -38,21 +86,21 @@ describe 'haproxy_install' do
       haproxy_install 'source'
     end
     before(:each) do
-      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return('2.8.5')
+      stub_command('/usr/sbin/haproxy -v | grep 3.2.14').and_return('3.2.14')
     end
 
     it { is_expected.to install_package(%w(pcre-devel openssl-devel zlib-devel systemd-devel tar)) }
     it { is_expected.not_to install_package('pcre2-devel') }
   end
 
-  context 'compile HAProxy on AlmaLinux 10 (uses PCRE2)' do
+  context 'compile HAProxy on AlmaLinux >= 10 (uses PCRE2)' do
     platform 'almalinux', '10'
 
     recipe do
       haproxy_install 'source'
     end
     before(:each) do
-      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return('2.8.5')
+      stub_command('/usr/sbin/haproxy -v | grep 3.2.14').and_return('3.2.14')
     end
 
     it { is_expected.to install_package(%w(pcre2-devel openssl-devel zlib-devel systemd-devel tar)) }
@@ -66,7 +114,7 @@ describe 'haproxy_install' do
       haproxy_install 'source'
     end
     before(:each) do
-      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return('2.8.5')
+      stub_command('/usr/sbin/haproxy -v | grep 3.2.14').and_return('3.2.14')
     end
 
     it { is_expected.to install_package(%w(pcre-devel openssl-devel zlib-devel systemd-devel tar)) }
@@ -80,7 +128,7 @@ describe 'haproxy_install' do
       haproxy_install 'source'
     end
     before(:each) do
-      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return('2.8.5')
+      stub_command('/usr/sbin/haproxy -v | grep 3.2.14').and_return('3.2.14')
     end
 
     it { is_expected.to install_package(%w(pcre-devel openssl-devel zlib-devel systemd-devel tar)) }
@@ -96,7 +144,7 @@ describe 'haproxy_install' do
       end
     end
     before(:each) do
-      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return(false)
+      stub_command('/usr/sbin/haproxy -v | grep 3.2.14').and_return(false)
     end
 
     # When PCRE is disabled, we still install the package (for dependencies)
@@ -122,7 +170,7 @@ describe 'haproxy_install' do
       end
     end
     before(:each) do
-      stub_command('/usr/sbin/haproxy -v | grep 2.8.5').and_return(false)
+      stub_command('/usr/sbin/haproxy -v | grep 3.2.14').and_return(false)
     end
 
     it 'includes RPATH in the compilation command' do

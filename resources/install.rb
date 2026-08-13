@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
+provides :haproxy_install
+
 include Haproxy::Cookbook::Helpers
 
-use 'partial/_config_file'
+use '_partial/_config_file'
 
 property :install_type, String,
           name_property: true,
@@ -31,13 +35,13 @@ property :enable_epel_repo, [true, false],
 
 # Source
 property :source_version, String,
-          default: '2.8.5'
+          default: '3.2.14'
 
 property :source_url, String,
           default: lazy { "https://www.haproxy.org/download/#{source_version.to_f}/src/haproxy-#{source_version}.tar.gz" }
 
 property :source_checksum, String,
-          default: '3f5459c5a58e0b343a32eaef7ed5bed9d3fc29d8aa9e14b36c92c969fc2a60d9'
+          default: 'b21f50a790aa8cb0cf8dc505f1f8d849799eafe4d31c14b86a34409ccf4ae5e4'
 
 property :source_target_cpu, String,
           default: lazy { node['kernel']['machine'] }
@@ -87,10 +91,6 @@ property :use_systemd, [true, false],
 unified_mode true
 
 action_class do
-  include Haproxy::Cookbook::ResourceHelpers
-end
-
-action_class do
   include Haproxy::Cookbook::Helpers
   include Haproxy::Cookbook::ResourceHelpers
 
@@ -99,8 +99,12 @@ action_class do
   end
 
   def pcre_make_flag
-    # Use PCRE2 for RHEL/CentOS/AlmaLinux/Rocky >= 10, PCRE for < 10 and other platforms
-    pcre_package_name.include?('pcre2') ? 'USE_PCRE2' : 'USE_PCRE'
+    # Use PCRE2 for RHEL >= 10 and Debian >= 13, PCRE for older and other platforms
+    if platform_family?('debian')
+      debian_pcre_package_name.include?('pcre2') ? 'USE_PCRE2' : 'USE_PCRE'
+    else
+      pcre_package_name.include?('pcre2') ? 'USE_PCRE2' : 'USE_PCRE'
+    end
   end
 end
 
@@ -187,6 +191,37 @@ action :install do
       group new_resource.group
       expire_date '2050-12-31' if Chef::VERSION.to_f >= 18.0
       inactive(-1) if Chef::VERSION.to_f >= 18.0
+    end
+  end
+end
+
+action :remove do
+  case new_resource.install_type
+  when 'package'
+    package new_resource.package_name do
+      action :remove
+    end
+  when 'source'
+    file ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy') do
+      action :delete
+    end
+
+    file ::File.join(new_resource.bin_prefix, 'sbin', 'haproxy-systemd-wrapper') do
+      action :delete
+      only_if { new_resource.source_version.to_f < 1.8 }
+    end
+
+    file ::File.join(new_resource.bin_prefix, 'share', 'man', 'man1', 'haproxy.1') do
+      action :delete
+    end
+
+    file ::File.join(Chef::Config[:file_cache_path], "haproxy-#{new_resource.source_version}.tar.gz") do
+      action :delete
+    end
+
+    directory ::File.join(Chef::Config[:file_cache_path], "haproxy-#{new_resource.source_version}") do
+      recursive true
+      action :delete
     end
   end
 end

@@ -1,5 +1,9 @@
-use 'partial/_config_file'
-use 'partial/_extra_options'
+# frozen_string_literal: true
+
+provides :haproxy_config_defaults
+
+use '_partial/_config_file'
+use '_partial/_extra_options'
 
 property :timeout, Hash,
           default: { client: '10s', server: '10s', connect: '10s' },
@@ -61,4 +65,9 @@ action :create do
   haproxy_config_resource.variables['defaults']['retries'] = new_resource.haproxy_retries.to_s if property_is_set?(:haproxy_retries)
   haproxy_config_resource.variables['defaults']['hash_type'] = new_resource.hash_type if property_is_set?(:hash_type)
   haproxy_config_resource.variables['defaults']['extra_options'] = new_resource.extra_options if property_is_set?(:extra_options)
+end
+
+action :delete do
+  haproxy_config_resource_init
+  haproxy_config_resource.variables.delete('defaults')
 end

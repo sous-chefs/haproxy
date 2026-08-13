@@ -1,25 +1,31 @@
+apt_update
+
 build_essential 'compilation tools'
 
-# package %w(build-essential zlib1g-dev) if platform_family?('debian')
-
-# Install perl modules for OpenSSL configure script on RHEL/CentOS >= 10
-package %w(perl-FindBin perl-lib perl-File-Compare perl-File-Copy perl-IPC-Cmd perl-Pod-Html) if platform_family?('rhel', 'fedora') && node['platform_version'].to_i >= 10
-
-# package %w(make gcc perl pcre-devel zlib-devel perl-core) if platform_family?('rhel')
-
-# override environment variable
-ruby_block 'Pre-load OpenSSL path' do
-  block do
-    ENV['PATH'] = "/usr/local/openssl/bin:#{ENV['PATH']}"
+# Install dependencies needed by OpenSSL Configure and compilation
+case node['platform_family']
+when 'rhel', 'fedora'
+  if node['platform_version'].to_i >= 9
+    package %w(perl-FindBin perl-lib perl-File-Compare perl-File-Copy perl-IPC-Cmd perl-Pod-Html perl-Time-Piece)
+  else
+    # EL8 bundles perl modules in perl-core, individual packages don't exist
+    package 'perl-core' do
+      not_if { ::File.exist?('/usr/bin/perl') }
+    end
+    package 'perl-IPC-Cmd'
   end
+when 'debian'
+  package %w(perl zlib1g-dev)
+when 'suse'
+  package %w(perl zlib-devel)
 end
 
-openssl_version = '3.2.1'
+openssl_version = '3.5.5'
 
 # download openssl
 remote_file "#{Chef::Config[:file_cache_path]}/openssl-#{openssl_version}.tar.gz" do
-  source "https://www.openssl.org/source/openssl-#{openssl_version}.tar.gz"
-  checksum '83c7329fe52c850677d75e5d0b0ca245309b97e8ecbcfdc1dfdc4ab9fac35b39'
+  source "https://github.com/openssl/openssl/releases/download/openssl-#{openssl_version}/openssl-#{openssl_version}.tar.gz"
+  checksum 'b28c91532a8b65a1f983b4c28b7488174e4a01008e29ce8e69bd789f28bc2a89'
 end
 
 # extract openssl
@@ -31,7 +37,7 @@ end
 # compile openssl
 execute "package_openssl-#{openssl_version}" do
   command <<-COMPILE
-    ./config --prefix=/usr/local/openssl/ --openssldir=/usr/local/openssl/ shared zlib
+    ./config --prefix=/usr/local/openssl/ --openssldir=/usr/local/openssl/ --libdir=lib shared zlib
     make
     make install
   COMPILE

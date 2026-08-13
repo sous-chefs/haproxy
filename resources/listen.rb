@@ -1,5 +1,9 @@
-use 'partial/_config_file'
-use 'partial/_extra_options'
+# frozen_string_literal: true
+
+provides :haproxy_listen
+
+use '_partial/_config_file'
+use '_partial/_extra_options'
 
 property :bind, [String, Hash],
           default: '0.0.0.0:80',

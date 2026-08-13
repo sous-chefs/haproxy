@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'haproxy_config_defaults' do
@@ -24,5 +26,15 @@ defaults
 CFG
 
     it { is_expected.to render_file('/etc/haproxy/haproxy.cfg').with_content(cfg_content) }
+  end
+
+  context 'delete haproxy config defaults' do
+    recipe do
+      haproxy_config_defaults 'default' do
+        action :delete
+      end
+    end
+
+    it { is_expected.not_to render_file('/etc/haproxy/haproxy.cfg').with_content(/^defaults$/) }
   end
 end
