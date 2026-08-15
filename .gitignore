@@ -38,6 +38,7 @@ rdoc
 # chef infra stuff
 .kitchen
 kitchen.local.yml
+Policyfile.lock.json
 vendor/
 .coverage/
 .zero-knife.rb
