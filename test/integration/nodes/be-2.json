@@ -1,5 +1,6 @@
 {
   "id": "be-2",
+  "chef_environment": "local",
   "run_list": ["role[app]"],
   "automatic": {
     "hostname": "be-2",
