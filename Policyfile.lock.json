@@ -1,5 +1,5 @@
 {
-  "revision_id": "b9d24e60ac21ab3c0ecba3453df8e0b255b2f00ae504f58b6828da5de4f5f4b4",
+  "revision_id": "b8b2fcad062c5efa4cab13b118d5c9f04ff964128873a277a309a0d7f08db647",
   "name": "haproxy",
   "run_list": [
     "recipe[test::package]"
@@ -62,19 +62,20 @@
   ],
   "cookbook_locks": {
     "haproxy": {
-      "version": "12.4.13",
-      "identifier": "2d7dc66eb12cece395df07e798f1d3f94e757140",
-      "dotted_decimal_identifier": "12804665166081260.64059604856183025.233067716636992",
+      "version": "12.4.14",
+      "identifier": "9a14b9faa6c704783fe9b3680325bd6d411a4f8b",
+      "dotted_decimal_identifier": "43369935420180228.33847270175146789.208276941328267",
       "source": ".",
       "cache_key": null,
       "scm_info": {
         "scm": "git",
-        "remote": "https://github.com/sous-chefs/haproxy.git",
-        "revision": "396d9112cf5d04b38206b178f4b92f220ba943a8",
+        "remote": "git@github.com:sous-chefs/haproxy.git",
+        "revision": "bf997a56a59b53df316c188f15566b6132871b30",
         "working_tree_clean": false,
         "published": true,
         "synchronized_remote_branches": [
-          "origin/chore/policyfile-migration"
+          "origin/HEAD -> origin/main",
+          "origin/main"
         ]
       },
       "source_options": {
@@ -89,12 +90,13 @@
       "cache_key": null,
       "scm_info": {
         "scm": "git",
-        "remote": "https://github.com/sous-chefs/haproxy.git",
-        "revision": "396d9112cf5d04b38206b178f4b92f220ba943a8",
+        "remote": "git@github.com:sous-chefs/haproxy.git",
+        "revision": "bf997a56a59b53df316c188f15566b6132871b30",
         "working_tree_clean": false,
         "published": true,
         "synchronized_remote_branches": [
-          "origin/chore/policyfile-migration"
+          "origin/HEAD -> origin/main",
+          "origin/main"
         ]
       },
       "source_options": {
@@ -102,14 +104,14 @@
       }
     },
     "yum-epel": {
-      "version": "5.0.10",
-      "identifier": "3ffd59317825177023566a99bf5940e29163cfd4",
-      "dotted_decimal_identifier": "18011483056645399.31564051454213977.71341846024148",
-      "cache_key": "yum-epel-0ae39de8b609c2904012f4da4cf261b6e3361f74",
+      "version": "6.0.0",
+      "identifier": "421eb240b33bad3abac0488905905d860bacb1d5",
+      "dotted_decimal_identifier": "18611099401403309.16530883662644624.102830302867925",
+      "cache_key": "yum-epel-aa85a4fb684ae6a17c13a925beff50e9de4a65dc",
       "origin": "https://github.com/sous-chefs/yum-epel.git",
       "source_options": {
         "git": "https://github.com/sous-chefs/yum-epel.git",
-        "revision": "0ae39de8b609c2904012f4da4cf261b6e3361f74",
+        "revision": "aa85a4fb684ae6a17c13a925beff50e9de4a65dc",
         "branch": "main"
       }
     }
@@ -136,7 +138,7 @@
       ]
     ],
     "dependencies": {
-      "haproxy (12.4.13)": [
+      "haproxy (12.4.14)": [
         [
           "yum-epel",
           ">= 0.0.0"
@@ -148,7 +150,7 @@
           ">= 0.0.0"
         ]
       ],
-      "yum-epel (5.0.10)": [
+      "yum-epel (6.0.0)": [
 
       ]
     }
