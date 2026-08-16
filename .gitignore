@@ -45,3 +45,4 @@ vendor/
 # vagrant stuff
 .vagrant/
 .vagrant.d/
+Policyfile.lock.json
