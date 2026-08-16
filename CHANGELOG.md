@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## [12.4.15](https://github.com/sous-chefs/haproxy/compare/v12.4.14...v12.4.15) (2026-08-16)
+
+
+### Bug Fixes
+
+* repair workflow actionlint failures ([#606](https://github.com/sous-chefs/haproxy/issues/606)) ([bf997a5](https://github.com/sous-chefs/haproxy/commit/bf997a56a59b53df316c188f15566b6132871b30))
+
 ## [12.4.14](https://github.com/sous-chefs/haproxy/compare/v12.4.13...v12.4.14) (2026-07-09)
 
 
