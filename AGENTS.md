@@ -106,3 +106,5 @@ resource properties.
 * Service unit construction must not execute HAProxy from PATH: use the configured binary prefix.
 * Ubuntu package evidence: <https://packages.ubuntu.com/resolute/haproxy> and <https://packages.ubuntu.com/libpcre3-dev>.
 * Oracle Linux 10 package evidence: <https://yum.oracle.com/repo/OracleLinux/OL10/appstream/x86_64/index.html>.
+
+* EL8 `perl-core` can report a false package update on every converge. Guard its installation by loading all OpenSSL-required Perl modules, not by checking whether `/usr/bin/perl` exists.

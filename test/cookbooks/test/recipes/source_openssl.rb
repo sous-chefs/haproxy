@@ -11,7 +11,9 @@ when 'rhel', 'fedora', 'amazon'
     package %w(perl-FindBin perl-lib perl-File-Compare perl-File-Copy perl-IPC-Cmd perl-Pod-Html perl-Time-Piece)
   else
     # EL8 bundles perl modules in perl-core, individual packages don't exist
-    package 'perl-core'
+    package 'perl-core' do
+      not_if 'perl -MFindBin -Mlib -MFile::Compare -MFile::Copy -MIPC::Cmd -MPod::Html -MTime::Piece -e 1'
+    end
     package 'perl-IPC-Cmd'
   end
   package 'zlib-devel'
