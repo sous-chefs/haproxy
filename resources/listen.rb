@@ -1,5 +1,9 @@
-use 'partial/_config_file'
-use 'partial/_extra_options'
+# frozen_string_literal: true
+
+provides :haproxy_listen
+
+use '_partial/_config_file'
+use '_partial/_extra_options'
 
 property :bind, [String, Hash],
           default: '0.0.0.0:80',
@@ -98,10 +102,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables['listen'] ||= {}
-
-  haproxy_config_resource.variables['listen'][new_resource.name] ||= {}
-  haproxy_config_resource.variables['listen'].delete(new_resource.name) if haproxy_config_resource.variables['listen'].key?(new_resource.name)
+  haproxy_config_resource&.variables&.fetch('listen', nil)&.delete(new_resource.name)
 end

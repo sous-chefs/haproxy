@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 apt_update
 
 haproxy_install 'package'

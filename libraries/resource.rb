@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Haproxy
   module Cookbook
     module ResourceHelpers
@@ -22,8 +24,8 @@ module Haproxy
       def haproxy_config_resource_create
         with_run_context(:root) do
           declare_resource(:directory, ::File.dirname(new_resource.config_file)) do
-            owner new_resource.user
-            group new_resource.group
+            owner new_resource.config_owner
+            group new_resource.config_group
             mode new_resource.config_dir_mode
 
             recursive true
@@ -35,8 +37,8 @@ module Haproxy
             cookbook new_resource.cookbook
             source new_resource.template
 
-            owner new_resource.user
-            group new_resource.group
+            owner new_resource.config_owner
+            group new_resource.config_group
             mode new_resource.config_file_mode
             sensitive new_resource.sensitive
 

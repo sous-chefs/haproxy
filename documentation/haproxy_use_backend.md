@@ -15,13 +15,20 @@ Introduced: v4.2.0
 
 This resource also uses the following partial resources:
 
-* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+* [_config_file](partial_config_file.md)
 
-| Name           | Type          | Default | Description                                                              | Allowed Values                  |
-| -------------- | ------------- | ------- | ------------------------------------------------------------------------ | ------------------------------- |
-| `use_backend`  | String, Array | None    | Switch to a specific backend if/unless an ACL-based condition is matched |                                 |
-| `section`      | String        | None    | The section where the acl(s) should be applied                           | `frontend`, `listen`, `backend` |
-| `section_name` | String        | None    | The name of the specific frontend, listen or backend section             |                                 |
+| Name           | Type          | Default | Description                                                              | Allowed Values       |
+| -------------- | ------------- | ------- | ------------------------------------------------------------------------ | -------------------- |
+| `use_backend`  | String, Array | None    | Switch to a specific backend if/unless an ACL-based condition is matched |                      |
+| `section`      | String        | None    | The section where the routing rule should be applied                     | `frontend`, `listen` |
+| `section_name` | String        | None    | The name of the specific frontend or listen section                      |                      |
+
+HAProxy permits `use_backend` in frontend and listen sections only. A backend
+section is rejected during resource validation. See the
+[HAProxy directive reference](https://docs.haproxy.org/3.2/configuration.html#4.2-use_backend).
+
+Deleting an absent routing rule does nothing and does not create a section or
+configuration file. Deleting an existing rule preserves the section's other rules.
 
 ## Examples
 

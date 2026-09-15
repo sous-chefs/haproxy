@@ -1,0 +1,7 @@
+---
+name: haproxy-default
+title: HAProxy Default Suite
+summary: HAProxy default tests using package installation
+depends:
+  - name: haproxy-common
+    path: test/integration/common

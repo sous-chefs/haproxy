@@ -1,11 +1,8 @@
+# frozen_string_literal: true
+
 module Haproxy
   module Cookbook
     module Helpers
-      def haproxy_version
-        v = Mixlib::ShellOut.new("haproxy -v | grep version | awk '{ print $3 }'")
-        v.run_command.stdout.to_f
-      end
-
       def pcre_package_name
         # Use PCRE2 for RHEL/CentOS/AlmaLinux/Rocky >= 10 where PCRE1 is deprecated
         # Use PCRE for RHEL < 10, Amazon Linux, Fedora, and other platforms
@@ -16,10 +13,19 @@ module Haproxy
         end
       end
 
+      def debian_pcre_package_name
+        if (platform?('debian') && platform_version.to_i >= 13) ||
+           (platform?('ubuntu') && platform_version.to_f >= 26.04)
+          'libpcre2-dev'
+        else
+          'libpcre3-dev'
+        end
+      end
+
       def source_package_list
         case node['platform_family']
         when 'debian'
-          %w(libpcre3-dev libssl-dev zlib1g-dev libsystemd-dev)
+          [debian_pcre_package_name, 'libssl-dev', 'zlib1g-dev', 'libsystemd-dev']
         when 'rhel', 'amazon', 'fedora'
           [pcre_package_name, 'openssl-devel', 'zlib-devel', 'systemd-devel', 'tar']
         when 'suse'
@@ -56,11 +62,7 @@ module Haproxy
       end
 
       def systemd_command(bin_prefix)
-        if haproxy_version < 1.8
-          ::File.join(bin_prefix, 'sbin', 'haproxy-systemd-wrapper')
-        else
-          ::File.join(bin_prefix, 'sbin', 'haproxy') + ' -Ws'
-        end
+        ::File.join(bin_prefix, 'sbin', 'haproxy') + ' -Ws'
       end
 
       def default_systemd_unit_content

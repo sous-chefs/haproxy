@@ -1,0 +1,110 @@
+# HAProxy cookbook agent guidance
+
+This cookbook manages HAProxy from distribution packages or from an upstream
+source archive. It does not configure the HAProxy Technologies Enterprise
+repositories.
+
+## Upstream lifecycle
+
+HAProxy publishes both stable and long-term-support branches. The source
+installer defaults to the 3.2 LTS branch; exact patch releases are tracked in
+`resources/install.rb` and the integration test recipes.
+
+See the [HAProxy release table](https://www.haproxy.org/) for current branch
+support dates and patch releases.
+
+## Package availability
+
+The `package` installation path uses the package named `haproxy` from the
+configured operating-system repositories. The version and architecture
+therefore depend on the distribution release and enabled repositories.
+
+### APT (Debian and Ubuntu)
+
+* Debian and Ubuntu publish HAProxy in their normal archives.
+* The Debian HAProxy packaging team publishes newer supported branches through
+  [haproxy.debian.net](https://haproxy.debian.net/).
+* Vincent Bernat's Ubuntu PPAs publish branch-specific builds where available.
+  The cookbook does not add these APT repositories automatically.
+* Debian 12 and 13 and Ubuntu 22.04 and 24.04 provide HAProxy packages for
+  multiple architectures through their distribution archives.
+
+### DNF and YUM (RHEL family, Fedora, and Amazon Linux)
+
+* RHEL-family, Fedora, and Amazon Linux installations use the package available
+  from their configured distribution repositories.
+* `enable_epel_repo true` enables EPEL through the `yum-epel` cookbook before
+  package installation on RHEL-family and Amazon platforms.
+* The legacy IUS path only applies to RHEL 6 and 7. Those releases are
+  unsupported, so `enable_ius_repo` is retained only for compatibility and
+  should not be used for current deployments.
+* Package versions and architectures vary by distribution and repository; use
+  source installation when a specific HAProxy release is required.
+
+### Zypper (openSUSE Leap)
+
+* openSUSE Leap installations use the package from configured distribution
+  repositories.
+* The cookbook does not add an HAProxy-specific Zypper repository.
+
+## Architecture limitations
+
+* Source installation uses `node['kernel']['machine']` as HAProxy's `CPU` value
+  unless `source_target_cpu` is overridden.
+* Distribution package architecture coverage is controlled by each
+  distribution repository.
+* The cookbook's integration matrix primarily exercises x86_64 containers;
+  other architectures require separate validation.
+
+## Source installation
+
+HAProxy source archives are downloaded from
+`https://www.haproxy.org/download/<branch>/src/`.
+
+### Build dependencies
+
+| Platform family | Required packages |
+| --- | --- |
+| Debian | `build-essential`, OpenSSL, zlib, systemd, and PCRE development packages |
+| RHEL, Fedora, Amazon | compiler/build tools, OpenSSL, zlib, systemd, and PCRE development packages |
+| SUSE | compiler/build tools, OpenSSL, zlib, systemd, and PCRE development packages |
+
+Optional Lua and custom OpenSSL builds require the matching development headers
+and libraries. HAProxy build flags such as `USE_OPENSSL`, `USE_LUA`,
+`USE_SYSTEMD`, `USE_PCRE` or `USE_PCRE2`, and `USE_PROMEX` are exposed through
+resource properties.
+
+## Known constraints
+
+* PCRE1 packages are unavailable on newer platform releases. The cookbook
+  selects PCRE2 for Debian 13 and RHEL-family version 10 or newer.
+* The default source checksum is coupled to the default source version; custom
+  versions must supply their matching checksum.
+* Source installation compiles in Chef's file cache and installs under
+  `bin_prefix`. Removal must account for those installed artifacts.
+* The source installer supports systemd only; SysV and Upstart service
+  management are outside the supported migration scope.
+
+## Migration decisions and verification
+
+* Scope: full custom resource migration; no root recipes or attributes.
+* Use Policyfile dependencies and Dokken with two converges for local and CI testing.
+* Keep resource configuration ownership separate from HAProxy userlist entries.
+* Deleting absent configuration must be a no-op; remove named sections completely.
+* Local Cinc Workstation is installed under `/opt/cinc-workstation/bin`.
+* Debian 11 LTS ended on 31 August 2026; use Debian 12 or newer.
+* openSUSE Leap 15.6 ended on 30 April 2026; use Leap 16.0, whose Dokken image is available.
+* Lifecycle evidence: <https://endoflife.date/debian> and <https://endoflife.date/opensuse>.
+* Upstream build requirements: <https://github.com/haproxy/haproxy/blob/master/INSTALL>.
+* Architecture support follows distribution packages; the CI matrix validates x86_64.
+
+* Ubuntu 26.04 uses PCRE2; its archive no longer supplies `libpcre3-dev`.
+* Leap 16 stock repositories were verified in its Dokken container: HAProxy, PCRE, OpenSSL, systemd and zlib development packages are available.
+* Source removal owns `bin_prefix/doc/haproxy`; upstream `make install` installs documentation there. Shared compiler packages and repository setup are retained for other resources, as are service users and groups.
+* Configuration sections share one template and directory; section deletion must preserve sibling sections. Removing an absent ACL, rule or userlist must not create a template.
+* Do not set an arbitrary service-user expiry: the old 2050 date caused repeated updates on CentOS Stream 10.
+* Service unit construction must not execute HAProxy from PATH: use the configured binary prefix.
+* Ubuntu package evidence: <https://packages.ubuntu.com/resolute/haproxy> and <https://packages.ubuntu.com/libpcre3-dev>.
+* Oracle Linux 10 package evidence: <https://yum.oracle.com/repo/OracleLinux/OL10/appstream/x86_64/index.html>.
+
+* EL8 `perl-core` can report a false package update on every converge. Guard its installation by loading all OpenSSL-required Perl modules, not by checking whether `/usr/bin/perl` exists.
