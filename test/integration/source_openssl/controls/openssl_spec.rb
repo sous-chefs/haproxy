@@ -9,5 +9,7 @@ describe directory '/usr/local/openssl/bin/' do
 end
 
 describe command('haproxy -vv') do
-  its('stdout') { should match(/OpenSSL version : OpenSSL 3.5.5/) }
+  its('exit_status') { should eq 0 }
+  its('stdout') { should match(/^Built with SSL library version : OpenSSL 3\.5\.5\b/) }
+  its('stdout') { should match(/^Running on SSL library version : OpenSSL 3\.5\.5\b/) }
 end
