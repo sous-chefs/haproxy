@@ -38,6 +38,17 @@ describe Haproxy::Cookbook::Helpers do
       expect(helper.source_package_list).not_to include('libpcre3-dev')
     end
 
+    it 'uses PCRE2 development headers on Ubuntu 26.04' do
+      helper.node = {
+        'platform' => 'ubuntu',
+        'platform_family' => 'debian',
+        'platform_version' => '26.04',
+      }
+
+      expect(helper.source_package_list).to include('libpcre2-dev')
+      expect(helper.source_package_list).not_to include('libpcre3-dev')
+    end
+
     it 'uses PCRE2 development headers on RHEL-family version 10' do
       helper.node = {
         'platform' => 'almalinux',
@@ -47,6 +58,13 @@ describe Haproxy::Cookbook::Helpers do
 
       expect(helper.source_package_list).to include('pcre2-devel')
       expect(helper.source_package_list).not_to include('pcre-devel')
+    end
+  end
+
+  describe '#systemd_command' do
+    it 'uses the requested binary prefix without probing PATH' do
+      expect(Mixlib::ShellOut).not_to receive(:new)
+      expect(helper.systemd_command('/opt/haproxy')).to eq('/opt/haproxy/sbin/haproxy -Ws')
     end
   end
 

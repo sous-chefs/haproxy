@@ -30,10 +30,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables['resolvers'] ||= {}
-
-  haproxy_config_resource.variables['resolvers'][new_resource.name] ||= {}
-  haproxy_config_resource.variables['resolvers'].delete(new_resource.name) if haproxy_config_resource.variables['resolvers'].key?(new_resource.name)
+  haproxy_config_resource&.variables&.fetch('resolvers', nil)&.delete(new_resource.name)
 end

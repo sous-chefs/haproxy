@@ -28,10 +28,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables['mailer'] ||= {}
-
-  haproxy_config_resource.variables['mailer'][new_resource.name] ||= {}
-  haproxy_config_resource.variables['mailer'].delete(new_resource.name) if haproxy_config_resource.variables['mailer'].key?(new_resource.name)
+  haproxy_config_resource&.variables&.fetch('mailer', nil)&.delete(new_resource.name)
 end

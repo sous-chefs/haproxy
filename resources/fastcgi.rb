@@ -48,10 +48,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables['fastcgi'] ||= {}
-
-  haproxy_config_resource.variables['fastcgi'][new_resource.name] ||= {}
-  haproxy_config_resource.variables['fastcgi'].delete(new_resource.name) if haproxy_config_resource.variables['fastcgi'].key?(new_resource.name)
+  haproxy_config_resource&.variables&.fetch('fastcgi', nil)&.delete(new_resource.name)
 end

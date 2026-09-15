@@ -27,9 +27,9 @@ This cookbook officially supports and is tested against the following platforms:
 * AlmaLinux 8+
 * Amazon Linux 2023+
 * CentOS Stream 9+
-* Debian 11+
-* Fedora
-* openSUSE Leap 15+
+* Debian 12+
+* Fedora 43+
+* openSUSE Leap 16+
 * Oracle Linux 8+
 * Red Hat Enterprise Linux 8+
 * Rocky Linux 8+
@@ -86,21 +86,21 @@ listen default
 
 ## Resources
 
-* [haproxy_acl](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_acl.md)
-* [haproxy_backend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_backend.md)
-* [haproxy_cache](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_cache.md)
-* [haproxy_config_defaults](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_config_defaults.md)
-* [haproxy_config_global](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_config_global.md)
-* [haproxy_fastcgi](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_fastcgi.md)
-* [haproxy_frontend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_frontend.md)
-* [haproxy_install](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_install.md)
-* [haproxy_listen](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_listen.md)
-* [haproxy_mailer](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_mailer.md)
-* [haproxy_peer](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_peer.md)
-* [haproxy_resolver](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_resolver.md)
-* [haproxy_service](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_service.md)
-* [haproxy_use_backend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_use_backend.md)
-* [haproxy_userlist](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_userlist.md)
+* [haproxy_acl](documentation/haproxy_acl.md)
+* [haproxy_backend](documentation/haproxy_backend.md)
+* [haproxy_cache](documentation/haproxy_cache.md)
+* [haproxy_config_defaults](documentation/haproxy_config_defaults.md)
+* [haproxy_config_global](documentation/haproxy_config_global.md)
+* [haproxy_fastcgi](documentation/haproxy_fastcgi.md)
+* [haproxy_frontend](documentation/haproxy_frontend.md)
+* [haproxy_install](documentation/haproxy_install.md)
+* [haproxy_listen](documentation/haproxy_listen.md)
+* [haproxy_mailer](documentation/haproxy_mailer.md)
+* [haproxy_peer](documentation/haproxy_peer.md)
+* [haproxy_resolver](documentation/haproxy_resolver.md)
+* [haproxy_service](documentation/haproxy_service.md)
+* [haproxy_use_backend](documentation/haproxy_use_backend.md)
+* [haproxy_userlist](documentation/haproxy_userlist.md)
 
 ## Configuration Validation
 

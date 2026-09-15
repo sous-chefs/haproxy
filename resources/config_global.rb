@@ -74,6 +74,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-  haproxy_config_resource.variables.delete('global')
+  haproxy_config_resource&.variables&.delete('global')
 end

@@ -189,8 +189,6 @@ action :install do
     user new_resource.user do
       home "/home/#{new_resource.user}"
       group new_resource.group
-      expire_date '2050-12-31' if Chef::VERSION.to_f >= 18.0
-      inactive(-1) if Chef::VERSION.to_f >= 18.0
     end
   end
 end
@@ -212,6 +210,11 @@ action :remove do
     end
 
     file ::File.join(new_resource.bin_prefix, 'share', 'man', 'man1', 'haproxy.1') do
+      action :delete
+    end
+
+    directory ::File.join(new_resource.bin_prefix, 'doc', 'haproxy') do
+      recursive true
       action :delete
     end
 

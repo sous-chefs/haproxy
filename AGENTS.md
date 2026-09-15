@@ -1,4 +1,4 @@
-# Limitations
+# HAProxy cookbook agent guidance
 
 This cookbook manages HAProxy from distribution packages or from an upstream
 source archive. It does not configure the HAProxy Technologies Enterprise
@@ -84,3 +84,25 @@ resource properties.
   `bin_prefix`. Removal must account for those installed artifacts.
 * The source installer supports systemd only; SysV and Upstart service
   management are outside the supported migration scope.
+
+## Migration decisions and verification
+
+* Scope: full custom resource migration; no root recipes or attributes.
+* Use Policyfile dependencies and Dokken with two converges for local and CI testing.
+* Keep resource configuration ownership separate from HAProxy userlist entries.
+* Deleting absent configuration must be a no-op; remove named sections completely.
+* Local Cinc Workstation is installed under `/opt/cinc-workstation/bin`.
+* Debian 11 LTS ended on 31 August 2026; use Debian 12 or newer.
+* openSUSE Leap 15.6 ended on 30 April 2026; use Leap 16.0, whose Dokken image is available.
+* Lifecycle evidence: <https://endoflife.date/debian> and <https://endoflife.date/opensuse>.
+* Upstream build requirements: <https://github.com/haproxy/haproxy/blob/master/INSTALL>.
+* Architecture support follows distribution packages; the CI matrix validates x86_64.
+
+* Ubuntu 26.04 uses PCRE2; its archive no longer supplies `libpcre3-dev`.
+* Leap 16 stock repositories were verified in its Dokken container: HAProxy, PCRE, OpenSSL, systemd and zlib development packages are available.
+* Source removal owns `bin_prefix/doc/haproxy`; upstream `make install` installs documentation there. Shared compiler packages and repository setup are retained for other resources, as are service users and groups.
+* Configuration sections share one template and directory; section deletion must preserve sibling sections. Removing an absent ACL, rule or userlist must not create a template.
+* Do not set an arbitrary service-user expiry: the old 2050 date caused repeated updates on CentOS Stream 10.
+* Service unit construction must not execute HAProxy from PATH: use the configured binary prefix.
+* Ubuntu package evidence: <https://packages.ubuntu.com/resolute/haproxy> and <https://packages.ubuntu.com/libpcre3-dev>.
+* Oracle Linux 10 package evidence: <https://yum.oracle.com/repo/OracleLinux/OL10/appstream/x86_64/index.html>.

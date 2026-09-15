@@ -10,6 +10,14 @@ property :group, Hash,
 property :user, Hash,
           description: 'Adds user <username> to the current userlist'
 
+property :config_owner, String,
+          default: 'haproxy',
+          description: 'Owner of the configuration directory and file'
+
+property :config_group, String,
+          default: 'haproxy',
+          description: 'Group of the configuration directory and file'
+
 unified_mode true
 
 action_class do
@@ -28,12 +36,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables['userlist'] ||= {}
-  haproxy_config_resource.variables['userlist'][new_resource.name] ||= {}
-  haproxy_config_resource.variables['userlist'][new_resource.name]['group'] ||= []
-  haproxy_config_resource.variables['userlist'][new_resource.name]['group'].delete(new_resource.group)
-  haproxy_config_resource.variables['userlist'][new_resource.name]['user'] ||= []
-  haproxy_config_resource.variables['userlist'][new_resource.name]['user'].delete(new_resource.user)
+  haproxy_config_resource&.variables&.fetch('userlist', nil)&.delete(new_resource.name)
 end

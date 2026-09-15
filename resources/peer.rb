@@ -56,10 +56,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables['peer'] ||= {}
-
-  haproxy_config_resource.variables['peer'][new_resource.name] ||= {}
-  haproxy_config_resource.variables['peer'].delete(new_resource.name) if haproxy_config_resource.variables['peer'].key?(new_resource.name)
+  haproxy_config_resource&.variables&.fetch('peer', nil)&.delete(new_resource.name)
 end

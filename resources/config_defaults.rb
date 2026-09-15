@@ -68,6 +68,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-  haproxy_config_resource.variables.delete('defaults')
+  haproxy_config_resource&.variables&.delete('defaults')
 end

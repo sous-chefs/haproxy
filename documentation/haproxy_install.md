@@ -15,7 +15,7 @@ Introduced: v4.0.0
 
 This resource also uses the following partial resources:
 
-* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+* [_config_file](partial_config_file.md)
 
 <!-- markdownlint-disable MD060 -->
 
@@ -82,3 +82,8 @@ haproxy_install 'package' do
   action :remove
 end
 ```
+
+Source removal deletes the installed binary, manual page, documentation under
+`bin_prefix/doc/haproxy`, downloaded archive and extracted source tree. Shared
+build tools, repository configuration and service users remain available to
+other resources. Delete the service with `haproxy_service` before removing HAProxy.

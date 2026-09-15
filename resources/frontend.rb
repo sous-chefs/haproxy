@@ -76,10 +76,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables['frontend'] ||= {}
-
-  haproxy_config_resource.variables['frontend'][new_resource.name] ||= {}
-  haproxy_config_resource.variables['frontend'].delete(new_resource.name) if haproxy_config_resource.variables['frontend'].key?(new_resource.name)
+  haproxy_config_resource&.variables&.fetch('frontend', nil)&.delete(new_resource.name)
 end

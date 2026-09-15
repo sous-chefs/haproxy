@@ -1,19 +1,20 @@
+# frozen_string_literal: true
+
 apt_update
 
 build_essential 'compilation tools'
 
 # Install dependencies needed by OpenSSL Configure and compilation
 case node['platform_family']
-when 'rhel', 'fedora'
+when 'rhel', 'fedora', 'amazon'
   if node['platform_version'].to_i >= 9
     package %w(perl-FindBin perl-lib perl-File-Compare perl-File-Copy perl-IPC-Cmd perl-Pod-Html perl-Time-Piece)
   else
     # EL8 bundles perl modules in perl-core, individual packages don't exist
-    package 'perl-core' do
-      not_if { ::File.exist?('/usr/bin/perl') }
-    end
+    package 'perl-core'
     package 'perl-IPC-Cmd'
   end
+  package 'zlib-devel'
 when 'debian'
   package %w(perl zlib1g-dev)
 when 'suse'
@@ -29,24 +30,25 @@ remote_file "#{Chef::Config[:file_cache_path]}/openssl-#{openssl_version}.tar.gz
 end
 
 # extract openssl
-execute "extract_openssl-#{openssl_version}.tar.gz" do
-  command "tar -zxf #{Chef::Config[:file_cache_path]}/openssl-#{openssl_version}.tar.gz -C /tmp"
-  not_if { ::File.exist?("/tmp/openssl-#{openssl_version}/") }
+archive_file 'openssl source' do
+  path "#{Chef::Config[:file_cache_path]}/openssl-#{openssl_version}.tar.gz"
+  destination "/tmp/openssl-#{openssl_version}"
+  strip_components 1
+  not_if { ::File.exist?('/usr/local/openssl/bin/openssl') }
 end
 
 # compile openssl
 execute "package_openssl-#{openssl_version}" do
   command <<-COMPILE
-    ./config --prefix=/usr/local/openssl/ --openssldir=/usr/local/openssl/ --libdir=lib shared zlib
-    make
-    make install
+    ./config --prefix=/usr/local/openssl/ --openssldir=/usr/local/openssl/ --libdir=lib shared zlib &&
+    make && make install
   COMPILE
   cwd "/tmp/openssl-#{openssl_version}"
-  not_if { ::File.exist?('/usr/local/openssl/') }
+  not_if { ::File.exist?('/usr/local/openssl/bin/openssl') }
 end
 
 # create symlinks
-if rhel?
+if platform_family?('rhel', 'fedora', 'amazon', 'suse')
   # Shared libraries
   file "/etc/ld.so.conf.d/openssl-#{openssl_version}.conf" do
     content '/usr/local/openssl/lib'
@@ -60,11 +62,11 @@ if rhel?
 end
 
 # renovate: datasource=endoflife-date depName=haproxy versioning=semver
-version = '2.9.3'
+version = '3.2.14'
 
 haproxy_install 'source' do
   source_url "https://www.haproxy.org/download/#{version.to_f}/src/haproxy-#{version}.tar.gz"
-  source_checksum 'ed517c65abd86945411f6bcb18c7ec657a706931cb781ea283063ba0a75858c0'
+  source_checksum 'b21f50a790aa8cb0cf8dc505f1f8d849799eafe4d31c14b86a34409ccf4ae5e4'
   source_version version
   use_openssl true
   use_zlib true

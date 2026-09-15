@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 apt_update
 
 # renovate: datasource=endoflife-date depName=haproxy versioning=semver

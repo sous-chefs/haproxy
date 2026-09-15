@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include_recipe 'test::config_2'
 
 haproxy_listen 'admin' do

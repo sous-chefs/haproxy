@@ -74,11 +74,23 @@ end
 
 The service delete action stops and disables the unit before removing it. The
 source install remove action deletes the compiled HAProxy binary, legacy
-wrapper when applicable, man page, downloaded archive, and extracted source
+wrapper when applicable, man page, installed documentation, downloaded archive, and extracted source
 directory.
 
 ## Platform Constraints
 
-Review [LIMITATIONS.md](LIMITATIONS.md) before changing HAProxy release tracks
+Review [AGENTS.md](AGENTS.md) before changing HAProxy release tracks
 or relying on distribution packages. The test cookbook under
 `test/cookbooks/test` is development-only and is not a production entrypoint.
+
+## Configuration ownership and deletion
+
+Use `config_owner` and `config_group` to set ownership of the configuration
+file and directory. For `haproxy_userlist`, `user` and `group` remain hashes
+of HAProxy authentication entries; configuration ownership defaults to `haproxy`.
+Deleting a userlist removes its entire named section. Deleting an absent ACL,
+backend rule or userlist leaves the configuration untouched.
+
+Service units use the binary under `bin_prefix` in master-worker mode (`-Ws`).
+HAProxy versions older than 1.8 require an explicit custom unit and are outside
+the supported platform matrix.

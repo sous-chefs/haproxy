@@ -102,10 +102,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables['listen'] ||= {}
-
-  haproxy_config_resource.variables['listen'][new_resource.name] ||= {}
-  haproxy_config_resource.variables['listen'].delete(new_resource.name) if haproxy_config_resource.variables['listen'].key?(new_resource.name)
+  haproxy_config_resource&.variables&.fetch('listen', nil)&.delete(new_resource.name)
 end

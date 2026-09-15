@@ -8,10 +8,18 @@ property :group, String,
           default: 'haproxy',
           description: 'Set to override default haproxy group, defaults to haproxy'
 
+property :config_owner, String,
+          default: lazy { user },
+          description: 'Owner of the configuration directory and file'
+
+property :config_group, String,
+          default: lazy { group },
+          description: 'Group of the configuration directory and file'
+
 property :config_dir, String,
           default: '/etc/haproxy',
           desired_state: false,
-          description: 'Set to override vault configuration directory'
+          description: 'Set to override haproxy configuration directory'
 
 property :config_dir_mode, String,
           default: '0750',
@@ -20,7 +28,7 @@ property :config_dir_mode, String,
 property :config_file, String,
           default: lazy { ::File.join(config_dir, 'haproxy.cfg') },
           desired_state: false,
-          description: 'Set to override vault configuration file, defaults to /etc/{CONFIG_DIR}/haproxy.cfg'
+          description: 'Set to override haproxy configuration file, defaults to <config_dir>/haproxy.cfg'
 
 property :config_file_mode, String,
           default: '0640',

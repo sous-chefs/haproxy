@@ -12,6 +12,11 @@ describe 'haproxy_install' do
     end
 
     it { is_expected.to install_package('haproxy') }
+
+    it 'does not impose an expiry date on the service account' do
+      expect(chef_run.user('haproxy').expire_date).to be_nil
+      expect(chef_run.user('haproxy').inactive).to be_nil
+    end
   end
 
   context 'remove haproxy installed using the package method' do
@@ -33,6 +38,7 @@ describe 'haproxy_install' do
 
     it { is_expected.to delete_file('/usr/sbin/haproxy') }
     it { is_expected.to delete_file('/usr/share/man/man1/haproxy.1') }
+    it { is_expected.to delete_directory('/usr/doc/haproxy').with(recursive: true) }
     it do
       is_expected.to delete_file(
         ::File.join(Chef::Config[:file_cache_path], 'haproxy-3.2.14.tar.gz')

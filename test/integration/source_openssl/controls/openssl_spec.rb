@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe file '/usr/bin/openssl' do
   it { should exist }
 end
