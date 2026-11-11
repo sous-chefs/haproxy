@@ -4,6 +4,12 @@ apt_update
 
 haproxy_install 'package'
 
+directory '/var/lib/haproxy' do
+  user 'haproxy'
+  group 'haproxy'
+  mode '0755'
+end
+
 directory '/etc/haproxy/errors' do
   user 'haproxy'
   group 'haproxy'
@@ -73,7 +79,7 @@ haproxy_backend 'tiles_public' do
           'tile1 10.0.0.10:80 check weight 1 maxconn 100']
   tcp_request ['content track-sc2 src',
                'content reject if conn_rate_abuse mark_as_abuser']
-  option 'forwardfor'
+  option %w(forwardfor)
   acl ['conn_rate_abuse sc2_conn_rate gt 3000',
        'data_rate_abuse sc2_bytes_out_rate gt 20000000',
        'mark_as_abuser sc1_inc_gpc0 gt 0',

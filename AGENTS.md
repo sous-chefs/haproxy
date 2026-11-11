@@ -111,3 +111,4 @@ resource properties.
 
 * Leap 16 build-essential installs zlib-ng compatibility headers. Source builds and OpenSSL fixtures use `zlib-ng-compat-devel` to avoid conflicts with `zlib-devel`.
 * HAProxy 3.4 rejects frontend-only `dontlognull` in backend sections; keep the configuration fixtures valid for newer distribution packages.
+* The config-2 fixture creates its explicitly configured `/var/lib/haproxy` chroot/socket directory; Leap 16 packages do not create it.
