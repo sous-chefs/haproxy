@@ -108,3 +108,6 @@ resource properties.
 * Oracle Linux 10 package evidence: <https://yum.oracle.com/repo/OracleLinux/OL10/appstream/x86_64/index.html>.
 
 * EL8 `perl-core` can report a false package update on every converge. Guard its installation by loading all OpenSSL-required Perl modules, not by checking whether `/usr/bin/perl` exists.
+
+* Leap 16 build-essential installs zlib-ng compatibility headers. Source builds and OpenSSL fixtures use `zlib-ng-compat-devel` to avoid conflicts with `zlib-devel`.
+* HAProxy 3.4 rejects frontend-only `dontlognull` in backend sections; keep the configuration fixtures valid for newer distribution packages.

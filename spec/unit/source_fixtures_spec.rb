@@ -32,4 +32,11 @@ describe 'source integration fixtures' do
     run = fixture('source_openssl', 'almalinux', '8')
     expect(run).not_to install_package('perl-core')
   end
+
+  it 'uses zlib-ng headers for the OpenSSL build on Leap 16' do
+    run = fixture('source_openssl', 'opensuse', '16.0')
+
+    expect(run).to install_package(%w(perl zlib-ng-compat-devel))
+    expect(run).not_to install_package('zlib-devel')
+  end
 end

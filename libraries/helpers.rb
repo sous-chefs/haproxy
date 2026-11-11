@@ -29,8 +29,12 @@ module Haproxy
         when 'rhel', 'amazon', 'fedora'
           [pcre_package_name, 'openssl-devel', 'zlib-devel', 'systemd-devel', 'tar']
         when 'suse'
-          %w(pcre-devel libopenssl-devel zlib-devel systemd-devel)
+          ['pcre-devel', 'libopenssl-devel', suse_zlib_package_name, 'systemd-devel']
         end
+      end
+
+      def suse_zlib_package_name
+        platform_version.to_i >= 16 ? 'zlib-ng-compat-devel' : 'zlib-devel'
       end
 
       def ius_package

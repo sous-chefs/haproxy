@@ -61,6 +61,19 @@ describe Haproxy::Cookbook::Helpers do
     end
   end
 
+  describe '#source_package_list on SUSE' do
+    it 'uses zlib-ng compatibility headers on Leap 16' do
+      helper.node = {
+        'platform' => 'opensuseleap',
+        'platform_family' => 'suse',
+        'platform_version' => '16.0',
+      }
+
+      expect(helper.source_package_list).to include('zlib-ng-compat-devel')
+      expect(helper.source_package_list).not_to include('zlib-devel')
+    end
+  end
+
   describe '#systemd_command' do
     it 'uses the requested binary prefix without probing PATH' do
       expect(Mixlib::ShellOut).not_to receive(:new)

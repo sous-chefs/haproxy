@@ -20,7 +20,7 @@ when 'rhel', 'fedora', 'amazon'
 when 'debian'
   package %w(perl zlib1g-dev)
 when 'suse'
-  package %w(perl zlib-devel)
+  package ['perl', node['platform_version'].to_i >= 16 ? 'zlib-ng-compat-devel' : 'zlib-devel']
 end
 
 openssl_version = '3.5.5'
