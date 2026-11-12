@@ -2,6 +2,17 @@
 
 This file is used to list changes made in each version of the haproxy cookbook.
 
+## [13.0.0](https://github.com/sous-chefs/haproxy/compare/v12.4.15...v13.0.0) (2026-11-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* complete HAProxy resource migration ([#602](https://github.com/sous-chefs/haproxy/issues/602))
+
+### Features
+
+* complete HAProxy resource migration ([#602](https://github.com/sous-chefs/haproxy/issues/602)) ([5248774](https://github.com/sous-chefs/haproxy/commit/52487745ad6769f34672fdfbe245eff1d2b3164d))
+
 ## [12.4.15](https://github.com/sous-chefs/haproxy/compare/v12.4.14...v12.4.15) (2026-08-16)
 
 
