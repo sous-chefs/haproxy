@@ -116,6 +116,5 @@ resource properties.
 * Fedora 45 removes PCRE1 development packages; select PCRE2 for Fedora 45 and newer.
 * Every fixture with an explicit chroot/stats socket creates its runtime directory instead of relying on distribution package side effects.
 * Custom OpenSSL test builds use the HAProxy binary RPATH only. Adding their libraries to the global loader path breaks Leap 16 system tools that require distribution OpenSSL symbols.
-* Disable automatic Git maintenance in CI before Policyfile resolution to avoid transient maintenance.lock races in Omnifetch cache copies.
 * Fedora 45 defaults to OpenSSL 4, which HAProxy 3.2.14 and latest 3.2.26 cannot compile against (opaque ASN1_INTEGER fields). Use the distribution `openssl3-devel` package for source builds. It conflicts with OpenSSL 4 development headers; the cookbook does not remove existing OpenSSL 4 headers automatically. Runtime libraries can coexist. Upstream archive verified: <https://www.haproxy.org/download/3.2/src/>.
 * On Fedora 45, `build_essential` installs `kernel-devel`, which requires OpenSSL 4 headers and conflicts with OpenSSL 3. HAProxy archive builds need only `gcc` and `make`; install those native packages directly on Fedora 45 and newer.
