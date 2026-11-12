@@ -1,5 +1,9 @@
-use 'partial/_config_file'
-use 'partial/_extra_options'
+# frozen_string_literal: true
+
+provides :haproxy_resolver
+
+use '_partial/_config_file'
+use '_partial/_extra_options'
 
 property :nameserver, Array,
           description: 'DNS server description'
@@ -26,10 +30,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables['resolvers'] ||= {}
-
-  haproxy_config_resource.variables['resolvers'][new_resource.name] ||= {}
-  haproxy_config_resource.variables['resolvers'].delete(new_resource.name) if haproxy_config_resource.variables['resolvers'].key?(new_resource.name)
+  haproxy_config_resource&.variables&.fetch('resolvers', nil)&.delete(new_resource.name)
 end

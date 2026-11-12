@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include_controls 'haproxy-common'
 
 describe directory '/opt/lua-5.3.1' do

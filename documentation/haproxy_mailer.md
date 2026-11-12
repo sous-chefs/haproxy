@@ -15,7 +15,7 @@ Introduced: v8.0.0
 
 This resource also uses the following partial resources:
 
-* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+* [_config_file](partial_config_file.md)
 
 | Name      | Type          | Default | Description                                                                             | Allowed Values |
 | --------- | ------------- | ------- | --------------------------------------------------------------------------------------- | -------------- |

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 title 'FastCGI should be configurable'
 
 include_controls 'haproxy-common'

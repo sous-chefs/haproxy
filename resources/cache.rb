@@ -1,4 +1,8 @@
-use 'partial/_config_file'
+# frozen_string_literal: true
+
+provides :haproxy_cache
+
+use '_partial/_config_file'
 
 property :cache_name, String,
           name_property: true,
@@ -31,10 +35,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables['cache'] ||= {}
-
-  haproxy_config_resource.variables['cache'][new_resource.cache_name] ||= {}
-  haproxy_config_resource.variables['cache'].delete(new_resource.cache_name) if haproxy_config_resource.variables['cache'].key?(new_resource.cache_name)
+  haproxy_config_resource&.variables&.fetch('cache', nil)&.delete(new_resource.cache_name)
 end

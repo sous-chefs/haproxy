@@ -1,4 +1,8 @@
-use 'partial/_config_file'
+# frozen_string_literal: true
+
+provides :haproxy_acl
+
+use '_partial/_config_file'
 
 property :acl, [String, Array],
           name_property: true,
@@ -32,9 +36,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables[new_resource.section] ||= {}
-  haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['acl'] ||= []
-  haproxy_config_resource.variables[new_resource.section][new_resource.section_name]['acl'].delete(new_resource.acl)
+  haproxy_config_resource&.variables&.dig(new_resource.section, new_resource.section_name, 'acl')&.delete(new_resource.acl)
 end

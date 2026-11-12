@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 apt_update
 
 pkg_name = (platform_family?('rhel') && platform_version.to_i == 7) ? 'haproxy22' : 'haproxy'

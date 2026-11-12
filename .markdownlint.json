@@ -2,6 +2,6 @@
   "MD024": {
     "siblings_only": true
   },
-  "MD012": false,
+  "MD012": { "maximum": 2 },
   "MD013": false
 }

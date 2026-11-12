@@ -2,7 +2,7 @@
 
 name 'haproxy'
 
-run_list 'test::package'
+run_list 'test::default'
 
 cookbook 'haproxy', path: '.'
 cookbook 'test', path: './test/cookbooks/test'

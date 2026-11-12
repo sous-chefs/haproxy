@@ -64,6 +64,7 @@ resolvers <%= resolver %>
 <% end -%>
 <% end -%>
 <% end -%>
+<% unless nil_or_empty?(r['extra_options']) %>
 <% r['extra_options'].each do | option, value | -%>
 <% if value.is_a?(Array) %>
 <% value.each do | array_element | %>
@@ -71,6 +72,7 @@ resolvers <%= resolver %>
 <% end -%>
 <% else %>
   <%= option %> <%= value %>
+<% end -%>
 <% end -%>
 <% end -%>
 <% end -%>

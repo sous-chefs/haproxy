@@ -1,5 +1,9 @@
-use 'partial/_config_file'
-use 'partial/_extra_options'
+# frozen_string_literal: true
+
+provides :haproxy_peer
+
+use '_partial/_config_file'
+use '_partial/_extra_options'
 
 property :bind, [String, Hash],
           description: 'String - sets as given. Hash - joins with a space. HAProxy version >= 2.0'
@@ -52,10 +56,5 @@ action :create do
 end
 
 action :delete do
-  haproxy_config_resource_init
-
-  haproxy_config_resource.variables['peer'] ||= {}
-
-  haproxy_config_resource.variables['peer'][new_resource.name] ||= {}
-  haproxy_config_resource.variables['peer'].delete(new_resource.name) if haproxy_config_resource.variables['peer'].key?(new_resource.name)
+  haproxy_config_resource&.variables&.fetch('peer', nil)&.delete(new_resource.name)
 end

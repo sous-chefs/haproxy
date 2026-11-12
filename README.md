@@ -6,7 +6,10 @@
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Installs and configures HAProxy.
+Installs and configures HAProxy through custom resources.
+
+Upgrading an older wrapper cookbook or attribute-driven implementation? See the
+[resource-only migration guide](migration.md).
 
 ## Maintainers
 
@@ -15,18 +18,22 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 ## Requirements
 
 * HAProxy `stable` or `LTS`
-* Chef 13.9+
+* Chef Infra Client 16+
 
 ### Platforms
 
 This cookbook officially supports and is tested against the following platforms:
 
-* debian: 9 & 10
-* ubuntu: 20.04 & 21.04
-* centos: 7 & 8
-* centos-stream: 8
-* fedora: latest
-* amazonlinux: 2
+* AlmaLinux 8+
+* Amazon Linux 2023+
+* CentOS Stream 9+
+* Debian 12+
+* Fedora 43+
+* openSUSE Leap 16+
+* Oracle Linux 8+
+* Red Hat Enterprise Linux 8+
+* Rocky Linux 8+
+* Ubuntu 22.04+
 
 PRs are welcome to add support for additional platforms.
 
@@ -40,7 +47,13 @@ HAProxy has many configurable options available, this cookbook makes the most po
 
 If you wish to use a HAProxy property that is not listed the `extra_options` hash is available to take in any number of additional values.
 
-For example, the ability to disable listeners is not provided out of the box. Further examples can be found in either `test/fixtures/recipes` or `spec/test/recipes`. If you have questions on how this works or would like to add more examples so it is easier to understand, please come talk to us on the [Chef Community Slack](http://community-slack.chef.io/) on the #sous-chefs channel.
+For example, the ability to disable listeners is not provided out of the box.
+Further examples can be found in
+[`test/cookbooks/test/recipes`](test/cookbooks/test/recipes). If you have
+questions on how this works or would like to add more examples so it is easier
+to understand, please come talk to us on the
+[Chef Community Slack](https://community-slack.chef.io/) in the
+`#sous-chefs` channel.
 
 ```ruby
 haproxy_listen 'disabled' do
@@ -73,21 +86,21 @@ listen default
 
 ## Resources
 
-* [haproxy_acl](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_acl.md)
-* [haproxy_backend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_backend.md)
-* [haproxy_cache](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_cache.md)
-* [haproxy_config_defaults](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_config_defaults.md)
-* [haproxy_config_global](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_config_global.md)
-* [haproxy_fastcgi](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_fastcgi.md)
-* [haproxy_frontend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_frontend.md)
-* [haproxy_install](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_install.md)
-* [haproxy_listen](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_listen.md)
-* [haproxy_mailer](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_mailer.md)
-* [haproxy_peer](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_peer.md)
-* [haproxy_resolver](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_resolver.md)
-* [haproxy_service](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_service.md)
-* [haproxy_use_backend](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_use_backend.md)
-* [haproxy_userlist](https://github.com/sous-chefs/haproxy/tree/master/documentation/haproxy_userlist.md)
+* [haproxy_acl](documentation/haproxy_acl.md)
+* [haproxy_backend](documentation/haproxy_backend.md)
+* [haproxy_cache](documentation/haproxy_cache.md)
+* [haproxy_config_defaults](documentation/haproxy_config_defaults.md)
+* [haproxy_config_global](documentation/haproxy_config_global.md)
+* [haproxy_fastcgi](documentation/haproxy_fastcgi.md)
+* [haproxy_frontend](documentation/haproxy_frontend.md)
+* [haproxy_install](documentation/haproxy_install.md)
+* [haproxy_listen](documentation/haproxy_listen.md)
+* [haproxy_mailer](documentation/haproxy_mailer.md)
+* [haproxy_peer](documentation/haproxy_peer.md)
+* [haproxy_resolver](documentation/haproxy_resolver.md)
+* [haproxy_service](documentation/haproxy_service.md)
+* [haproxy_use_backend](documentation/haproxy_use_backend.md)
+* [haproxy_userlist](documentation/haproxy_userlist.md)
 
 ## Configuration Validation
 

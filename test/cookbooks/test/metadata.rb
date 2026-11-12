@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 name              'test'
 maintainer        'Heavy Water Software Inc.'
 maintainer_email  'ops@hw-ops.com'

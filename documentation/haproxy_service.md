@@ -2,8 +2,12 @@
 
 [Back To Resource List](https://github.com/sous-chefs/haproxy#resources)
 
-Configures HAProxy as a systemd service.
-To reload HAProxy service add a subscribes option to the resource block. See example below. To reload the HAProxy service add a subscribes option to the resource block. See example below.
+Configures HAProxy as a systemd service. To reload HAProxy after its
+configuration changes, add a subscription to the resource block.
+
+The default unit uses `bin_prefix/sbin/haproxy -Ws` and requires HAProxy 1.8
+or newer. `:delete` stops and disables the unit before deleting it and its
+environment file.
 
 Introduced: v4.0.0
 
@@ -16,12 +20,13 @@ Introduced: v4.0.0
 * `:restart`
 * `:reload`
 * `:enable`
+* `:disable`
 
 ## Properties
 
 This resource also uses the following partial resources:
 
-* [_config_file](https://github.com/sous-chefs/haproxy/tree/master/documentation/partial_config_file.md)
+* [_config_file](partial_config_file.md)
 
 | Name                      | Type         | Default                  | Description                                                      | Allowed Values |
 | ------------------------- | ------------ | ------------------------ | ---------------------------------------------------------------- | -------------- |
