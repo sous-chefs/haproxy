@@ -2,7 +2,11 @@
 
 apt_update
 
-build_essential 'compilation tools'
+if platform_family?('fedora') && node['platform_version'].to_i >= 45
+  package %w(gcc make)
+else
+  build_essential 'compilation tools'
+end
 
 # HAProxy installs its own build dependencies; these are needed by Lua itself.
 case node['platform_family']

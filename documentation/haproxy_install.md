@@ -52,6 +52,14 @@ This resource also uses the following partial resources:
 
 <!-- markdownlint-enable MD060 -->
 
+## Source builds on Fedora 45 and newer
+
+The default HAProxy 3.2 source release requires OpenSSL 3 development headers.
+The resource installs Fedora's `openssl3-devel` and `pcre2-devel` packages.
+OpenSSL 4 development headers conflict with `openssl3-devel`; resolve that
+package conflict before converging. The resource does not remove existing
+development headers automatically.
+
 ## Examples
 
 Install the platform package:

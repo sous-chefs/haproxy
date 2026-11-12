@@ -4,6 +4,12 @@ apt_update
 
 haproxy_install 'package'
 
+directory '/var/lib/haproxy' do
+  user 'haproxy'
+  group 'haproxy'
+  mode '0755'
+end
+
 haproxy_config_global '' do
   chroot '/var/lib/haproxy'
   daemon true

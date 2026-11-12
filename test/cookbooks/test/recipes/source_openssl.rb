@@ -2,7 +2,11 @@
 
 apt_update
 
-build_essential 'compilation tools'
+if platform_family?('fedora') && node['platform_version'].to_i >= 45
+  package %w(gcc make)
+else
+  build_essential 'compilation tools'
+end
 
 # Install dependencies needed by OpenSSL Configure and compilation
 case node['platform_family']
@@ -49,19 +53,8 @@ execute "package_openssl-#{openssl_version}" do
   not_if { ::File.exist?('/usr/local/openssl/bin/openssl') }
 end
 
-# create symlinks
-if platform_family?('rhel', 'fedora', 'amazon', 'suse')
-  # Shared libraries
-  file "/etc/ld.so.conf.d/openssl-#{openssl_version}.conf" do
-    content '/usr/local/openssl/lib'
-    notifies :run, 'execute[reload ldconfig]'
-  end
-
-  execute 'reload ldconfig' do
-    command 'ldconfig -v'
-    action :nothing
-  end
-end
+# The HAProxy resource embeds an RPATH for ssl_lib. Keep the custom OpenSSL
+# out of the system linker path so distribution tools retain their own ABI.
 
 # renovate: datasource=endoflife-date depName=haproxy versioning=semver
 version = '3.2.14'

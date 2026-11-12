@@ -5,8 +5,9 @@ module Haproxy
     module Helpers
       def pcre_package_name
         # Use PCRE2 for RHEL/CentOS/AlmaLinux/Rocky >= 10 where PCRE1 is deprecated
-        # Use PCRE for RHEL < 10, Amazon Linux, Fedora, and other platforms
-        if platform_family?('rhel') && platform_version.to_i >= 10
+        # Fedora 45 also removes PCRE1 from its package repositories.
+        if (platform_family?('rhel') && platform_version.to_i >= 10) ||
+           (platform_family?('fedora') && platform_version.to_i >= 45)
           'pcre2-devel'
         else
           'pcre-devel'
@@ -27,10 +28,14 @@ module Haproxy
         when 'debian'
           [debian_pcre_package_name, 'libssl-dev', 'zlib1g-dev', 'libsystemd-dev']
         when 'rhel', 'amazon', 'fedora'
-          [pcre_package_name, 'openssl-devel', 'zlib-devel', 'systemd-devel', 'tar']
+          [pcre_package_name, openssl_package_name, 'zlib-devel', 'systemd-devel', 'tar']
         when 'suse'
           ['pcre-devel', 'libopenssl-devel', suse_zlib_package_name, 'systemd-devel']
         end
+      end
+
+      def openssl_package_name
+        platform_family?('fedora') && platform_version.to_i >= 45 ? 'openssl3-devel' : 'openssl-devel'
       end
 
       def suse_zlib_package_name

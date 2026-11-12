@@ -59,6 +59,10 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v7
+      - name: Disable automatic Git cache maintenance
+        run: |
+          git config --global maintenance.auto false
+          git config --global gc.auto 0
       - name: Install Cinc Workstation
         uses: sous-chefs/.github/.github/actions/install-workstation@9.0.1
       - name: Dokken
@@ -112,6 +116,10 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v7
+      - name: Disable automatic Git cache maintenance
+        run: |
+          git config --global maintenance.auto false
+          git config --global gc.auto 0
       - name: Install Cinc Workstation
         uses: sous-chefs/.github/.github/actions/install-workstation@9.0.1
       - name: Dokken

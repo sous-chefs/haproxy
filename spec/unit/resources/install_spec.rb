@@ -141,6 +141,27 @@ describe 'haproxy_install' do
     it { is_expected.not_to install_package('pcre2-devel') }
   end
 
+  context 'compile HAProxy on Fedora 45' do
+    platform 'fedora', '32'
+
+    automatic_attributes['platform_version'] = '45'
+
+    recipe do
+      haproxy_install 'source'
+    end
+
+    before do
+      stub_command('/usr/sbin/haproxy -v | grep 3.2.14').and_return(false)
+    end
+
+    it { is_expected.to install_package(%w(gcc make)) }
+    it { is_expected.to install_package(%w(pcre2-devel openssl3-devel zlib-devel systemd-devel tar)) }
+
+    it 'builds with PCRE2 support' do
+      expect(chef_run.bash('compile_haproxy').code).to include('USE_PCRE2=1')
+    end
+  end
+
   context 'compile HAProxy with PCRE disabled' do
     platform 'almalinux', '9'
 

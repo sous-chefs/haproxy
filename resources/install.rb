@@ -142,7 +142,12 @@ action :install do
       version new_resource.package_version if new_resource.package_version
     end
   when 'source'
-    build_essential 'compilation tools'
+    if platform_family?('fedora') && node['platform_version'].to_i >= 45
+      # kernel-devel pulls incompatible OpenSSL 4 headers on Fedora 45.
+      package %w(gcc make)
+    else
+      build_essential 'compilation tools'
+    end
     package source_package_list
 
     remote_file 'haproxy source file' do

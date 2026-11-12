@@ -39,4 +39,21 @@ describe 'source integration fixtures' do
     expect(run).to install_package(%w(perl zlib-ng-compat-devel))
     expect(run).not_to install_package('zlib-devel')
   end
+
+  it 'keeps custom OpenSSL libraries out of the system linker configuration' do
+    run = fixture('source_openssl', 'opensuse', '16.0')
+
+    expect(run).not_to create_file('/etc/ld.so.conf.d/openssl-3.5.5.conf')
+  end
+
+  %w(source_lua source_openssl).each do |fixture_name|
+    it "avoids kernel development headers for #{fixture_name} on Fedora 45" do
+      runner = ChefSpec::SoloRunner.new(platform: 'fedora', version: '32') do |node|
+        node.automatic['platform_version'] = '45'
+      end
+      run = runner.converge("test::#{fixture_name}")
+
+      expect(run).to install_package(%w(gcc make))
+    end
+  end
 end

@@ -61,6 +61,19 @@ describe Haproxy::Cookbook::Helpers do
     end
   end
 
+  describe '#source_package_list on Fedora' do
+    it 'uses PCRE2 headers on Fedora 45' do
+      helper.node = {
+        'platform' => 'fedora',
+        'platform_family' => 'fedora',
+        'platform_version' => '45',
+      }
+
+      expect(helper.source_package_list).to include('pcre2-devel', 'openssl3-devel')
+      expect(helper.source_package_list).not_to include('pcre-devel', 'openssl-devel')
+    end
+  end
+
   describe '#source_package_list on SUSE' do
     it 'uses zlib-ng compatibility headers on Leap 16' do
       helper.node = {
